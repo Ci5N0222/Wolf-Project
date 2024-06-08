@@ -54,4 +54,29 @@ private static BoardDAO instance;
 		
 		return list;
 	}
+	
+	public void delete(int seq) {
+		String sql="delete from board where seq=?";
+		try (Connection con=this.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)){
+			pstat.setInt(1, seq);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
+	public void update(BoardDTO dto) {
+		String sql="update board set title=?,contents=? , write_date=sysdate where seq=?";
+		
+		try (Connection con=this.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)){
+			pstat.setString(1, dto.getTitle());
+			pstat.setString(2, dto.getContents());
+			pstat.setInt(3, dto.getSeq());
+			pstat.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
 }
