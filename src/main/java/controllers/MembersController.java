@@ -25,7 +25,7 @@ public class MembersController extends HttpServlet {
 		// request에서 값을 꺼내기 전에 처리해야만 함 
 		String cmd = request.getRequestURI();
 
-		MemberDAO dao = MemberDAO.getinstance();
+		MembersDAO dao = MembersDAO.getinstance();
 		HttpSession session = request.getSession();
 		try {
 			if(cmd.equals("/signup.members")) {
