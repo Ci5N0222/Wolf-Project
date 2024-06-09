@@ -3,10 +3,15 @@ package admin.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+
+import game.dto.GameDTO;
+import members.dto.MembersDTO;
 
 public class AdminDAO {
 	private static AdminDAO instance;
@@ -31,18 +36,13 @@ public class AdminDAO {
 	 * @throws Exception
 	 */
 	public int[] membersTotalCount() throws Exception {
-		String sql = "select count(*), (select count(*) from members where gender = 'M') from members";
+		String sql = "select count(*), (select count(*) from members where gender = 'M') from members where grade != 99";
 		try(Connection con = getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql);
 			ResultSet rs = pstat.executeQuery()){
-			
 			rs.next();
 			
-			System.out.println("총 회원 수 ======= " + rs.getInt(1));
-			System.out.println("총 남자회원 수 ======= " + rs.getInt(2));
-			
 			return new int[]{rs.getInt(1), rs.getInt(2)};
-			
 		}
 	}
 	
@@ -76,6 +76,56 @@ public class AdminDAO {
 			}
 		
 		return 0;
+	}
+	
+	
+	/**
+	 * 멤버 목록을 반환하는 메서드
+	 * @return
+	 * @throws Exception
+	 */
+	public List<MembersDTO> getMemberList() throws Exception {
+		String sql ="select * from members where grade != 99";
+		try(Connection con = getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql);
+			ResultSet rs = pstat.executeQuery()){
+			
+			List<MembersDTO> list = new ArrayList<>();
+			while(rs.next()) {
+				String id = rs.getString("id");
+				// 그외 정보
+				
+				list.add(new MembersDTO());
+			}
+			
+			return list;
+		}
+	}
+	
+	
+	
+	
+	/**
+	 * 서비스 중인 게임 목록을 반환하는 메서드
+	 * @return
+	 * @throws Exception
+	 */
+	public List<GameDTO> getGameList() throws Exception {
+		String sql = "select * from game";
+		try(Connection con = getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql);
+			ResultSet rs = pstat.executeQuery()){
+			
+			List<GameDTO> list = new ArrayList<>();
+			while(rs.next()) {
+				int seq = rs.getInt("seq");
+				// 그외 정보
+				
+				list.add(new GameDTO());
+			}
+			
+			return list;
+		}
 	}
 	
 }

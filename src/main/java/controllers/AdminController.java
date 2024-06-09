@@ -1,17 +1,17 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.swing.plaf.synth.SynthOptionPaneUI;
 
 import admin.dao.AdminDAO;
-import commons.EncryptionUitls;
+import game.dto.GameDTO;
+import members.dto.MembersDTO;
 
 
 @WebServlet("*.admin")
@@ -53,6 +53,7 @@ public class AdminController extends HttpServlet {
 				}
 			}
 			
+			
 			/** 로그인 **/
 			else if(cmd.equals("/login.admin")) {
 				System.out.println("Admin login start");
@@ -69,30 +70,41 @@ public class AdminController extends HttpServlet {
 				} else {
 					// 로그인 실패
 				}
-				
 			}
+			
 			
 			/** 로그아웃 **/
 			else if(cmd.equals("/logout.admin")) {
-				
 				// 세션 종료
 				request.getSession().invalidate();
 				response.sendRedirect("/views/admin/admin_login.jsp");
-				 
 			}
+			
 			
 			/** 멤버 목록 조회 **/
-			else if(cmd.equals("test1")) {
-				
+			else if(cmd.equals("/memberslist.admin")) {
+				List<MembersDTO> membersList = dao.getMemberList();
+				request.setAttribute("membersList", membersList);
+				request.getRequestDispatcher("admin_management.jsp").forward(request, response);
 			}
+			
 			
 			/** 멤버 정보 수정 **/
-			else if(cmd.equals("test1")) {
+			else if(cmd.equals("membersupdate.admin")) {
 				
 			}
 			
+			
+			/** 서비스중인 게임 목록 **/
+			else if(cmd.equals("gamelist.admin")) {
+				List<GameDTO> gameList = dao.getGameList();
+				request.setAttribute("gameList", gameList);
+				request.getRequestDispatcher("admin_game_list.jsp").forward(request, response);
+			}
+			
+			
 			/** 게임 데이터 추가 **/
-			else if(cmd.equals("test1")) {
+			else if(cmd.equals("addgame.admin")) {
 				
 			}
 			

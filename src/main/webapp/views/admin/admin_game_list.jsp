@@ -22,12 +22,7 @@
 
 </head>
 <body>
-	<h2>관리자 로그인</h2>
-	<form action="/login.admin" method="post">
-		<input type="text" name="admin_id" placeholder="ID를 입력하세요" />
-		<input type="password" name="admin_pw" placeholder="Password를 입력하세요" />
-		<button type="submit">로그인</button>
-	</form>
+	${gameList.size()}
 	
 </body>
 </html>
