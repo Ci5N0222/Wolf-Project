@@ -8,14 +8,14 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import members.dto.*;
+import members.dto.MembersDTO;
 
-public class MemberDAO {
-	public static MemberDAO instance;
+public class MembersDAO {
+	public static MembersDAO instance;
 
-	public synchronized static MemberDAO getinstance() {
+	public synchronized static MembersDAO getinstance() {
 		if (instance == null) {
-			instance = new MemberDAO();
+			instance = new MembersDAO();
 		}
 		return instance;
 	}
@@ -27,9 +27,9 @@ public class MemberDAO {
 
 	}
 
-	private MemberDAO() {
+	private MembersDAO() {
 	}
-	public int insert(MemberDTO dto ) throws Exception{
+	public int insert(MembersDTO dto ) throws Exception{
 		String sql = "insert into members values(?,?,?,?,?,?,?,?,?,?,sysdate)";
 		try(Connection con = this.getConnection(); 
 				PreparedStatement pstat = con.prepareStatement(sql)){
