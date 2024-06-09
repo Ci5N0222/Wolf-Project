@@ -25,7 +25,7 @@ public class MembersController extends HttpServlet {
 		// request에서 값을 꺼내기 전에 처리해야만 함 
 		String cmd = request.getRequestURI();
 
-		MemberDAO dao = MemberDAO.getinstance();
+		MembersDAO dao = MembersDAO.getinstance();
 		HttpSession session = request.getSession();
 		try {
 			if(cmd.equals("/signup.members")) {
@@ -38,7 +38,7 @@ public class MembersController extends HttpServlet {
 				String gender = request.getParameter("gender");
 				String birth = request.getParameter("birth");
 				
-				int result = dao.insert(new MemberDTO(id,pw,name,nickname,phone,email,gender,birth,1,null,null));
+				int result = dao.insert(new MembersDTO(id,pw,name,nickname,phone,email,gender,birth,1,null,null));
 				response.sendRedirect("/index.jsp");
 			}else if(cmd.equals("/idcheck.members")) {
 				String id = request.getParameter("id");

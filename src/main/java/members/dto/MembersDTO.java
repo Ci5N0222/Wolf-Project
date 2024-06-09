@@ -2,7 +2,7 @@ package members.dto;
 
 import java.sql.Timestamp;
 
-public class MemberDTO {
+public class MembersDTO {
 	private String id;
 	private String pw;
 	private String name;
@@ -14,9 +14,10 @@ public class MemberDTO {
 	private int grade;
 	private String avatar;
 	private Timestamp join_date;
-	public MemberDTO() {
+
+	public MembersDTO() {
 	}
-	public MemberDTO(String id, String pw, String name, String nickname, String phone, String email, String gender,
+	public MembersDTO(String id, String pw, String name, String nickname, String phone, String email, String gender,
 		String birth, int grade, String avatar, Timestamp join_date) {
 		super();
 		this.id = id;
@@ -97,5 +98,5 @@ public class MemberDTO {
 	public void setJoin_date(Timestamp join_date) {
 		this.join_date = join_date;
 	}
-	
+
 }
