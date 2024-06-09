@@ -2,25 +2,31 @@
 
 ## 주제
 #### 게임 플랫폼 개발
-- 어쩌고 저쩌고한 게임들을 플레이 할 수 있는 플랫폼 개발
+- 게임을 플레이 및 커뮤니티 플랫 폼 개발
 
 ## Member & work
 - 게시판 담당 개발
     - 양하람 (leader)
+    
+- 관리자 콘솔 담당 개발
+    - 노시온
+
+- 게임 관련 개발
     - 전은미
 
-- 마이페이지 및 관리자 콘솔 담당 개발
-    - 노시온
+- 마이페이지 담당 개발
     - 송유나
 
 - 회원 기능 담당 개발
     - 서상혁
     
 ## 개발 환경
-- Java : 11
-- jsp
-- Tomcat 9.0
-- DB : oracle
+- Java: 11
+- JavaScript: 1.0
+- Dynamic Web Module: 4.0
+- View: jsp
+- Server runtime: Tomcat 9.0
+- Database : oracle
 
 
 ## Library
@@ -64,9 +70,9 @@ context.xml
     	name="jdbc/oracle"
     	auth="Container"
     	type="javax.sql.DataSource"
-    	username="user_id"
-    	password="user_pw"
-    	url="jdbc:oracle:thin:@localhost:1521:xe"
+    	username="<user_id>"
+    	password="<user_pw>"
+    	url="jdbc:oracle:thin:@<db_ip>:1521:xe"
     	driverClassName="oracle.jdbc.driver.OracleDriver"
     />
     - user_id, user_pw → dev private account 문서 확인
