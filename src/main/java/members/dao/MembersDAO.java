@@ -132,4 +132,63 @@ public class MembersDAO {
 			return result;
 		}
 	}
+	
+	
+	/**
+	 * 사용자의 현재 pw가 DB에 등록되어있는 pw와 일치하는지
+	 * @param id
+	 * @param currentPW
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean isPWExist(String id, String currentPW) throws Exception {
+		
+		String sql = "select * from members where id = ? and pw = ?";
+		
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql)){
+			
+			pstat.setString(1, id);
+			pstat.setString(2, currentPW);
+			
+			try(ResultSet rs = pstat.executeQuery()){
+				return rs.next();
+			}
+			
+		}
+		
+	}
+	
+	
+	/**
+	 * pw 변경
+	 * @param id
+	 * @param newPW
+	 * @return
+	 * @throws Exception
+	 */
+	public int updatePW(String id, String newPW) throws Exception {
+		
+		String sql = "update members set pw =? where id = ?";
+		
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql)){
+			
+			pstat.setString(1, newPW);
+			pstat.setString(2, id);
+			
+			return pstat.executeUpdate();
+			
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
