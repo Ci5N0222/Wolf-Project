@@ -56,11 +56,14 @@ public class MembersController extends HttpServlet {
 
 				String id = request.getParameter("id");
 				String pw = EncryptionUitls.getSHA512(request.getParameter("pw"));
-
-				boolean result = dao.login(id, pw);
-				if (result) {
+				
+				String[] result = dao.login(id, pw);
+				if (result != null) {
 					
-					session.setAttribute("WolfID", id);
+					session.setAttribute("WolfID", result[0]);
+					session.setAttribute("WolfNickname",result[1] );
+					session.setAttribute("WolfAvatar", result[2]);
+					
 					
 				}
 				response.sendRedirect("/index.jsp");
