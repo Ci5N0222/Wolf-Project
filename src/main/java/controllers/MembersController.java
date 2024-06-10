@@ -85,6 +85,9 @@ public class MembersController extends HttpServlet {
 //				System.out.println("loginID : " + loginID);
 //				
 				String loginID = (String)session.getAttribute("WolfID");
+
+				System.out.println("loginID : " + loginID);
+
 				MembersDTO dto = dao.selectMember(loginID);
 				System.out.println("MembersDTO: " + dto);
 				
@@ -168,7 +171,7 @@ public class MembersController extends HttpServlet {
 					System.out.println("현재 비밀번호 오류");
 				}				
 				
-			}
+			} 
 			
 			
 			

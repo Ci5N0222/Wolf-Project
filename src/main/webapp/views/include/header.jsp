@@ -13,7 +13,7 @@
     <div class="col-4 d-flex justify-content-end">
         <div class="d-flex flex-row">
             <div class="me-3"><i class="fa-solid fa-magnifying-glass menus"></i></div>
-            <div id="login" onclick="location.href ='/views/members/login.jsp'"><i class="fa-solid fa-user menus"></i></div>
+            <div onclick="location.href ='/views/members/login.jsp'"><i class="fa-solid fa-user menus"></i></div>
         </div>
     </div>
 </div>
