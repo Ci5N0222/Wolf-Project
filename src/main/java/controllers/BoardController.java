@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 import board.dao.BoardDAO;
 import board.dto.BoardDTO;
+import commons.BoardConfig;
 
 @WebServlet("*.board")
 public class BoardController extends HttpServlet {
@@ -27,10 +32,17 @@ public class BoardController extends HttpServlet {
 		
 		try {
 			if(cmd.equals("/list.board")) {
-				Object boardList[] = boardDAO.selectAll();
+				String pcpage=request.getParameter("cpage");
+				if(pcpage==null) pcpage="1";
+				int cpage=Integer.parseInt(pcpage);
+				Object boardList[] = boardDAO.select( BoardConfig.recordCountPerPage, cpage);
 				
 				request.setAttribute("list", boardList[0]);
 				request.setAttribute("nickname", boardList[1]);
+				request.setAttribute("cpage", cpage);
+				request.setAttribute("record_count_per_page", BoardConfig.recordCountPerPage);
+				request.setAttribute("navi_count_per_page", BoardConfig.naviCountPerPage);
+				request.setAttribute("record_total_count", boardDAO.getRecordCount());
 				
 				request.getRequestDispatcher("/views/board/board_view.jsp").forward(request, response);
 				
@@ -44,12 +56,29 @@ public class BoardController extends HttpServlet {
 				request.getRequestDispatcher("/views/board/board_detail.jsp").forward(request, response);
 				
 			} else if(cmd.equals("/insert.board")) {
+				int maxSize = 1024 * 1024 * 10; // 10mb
+				String realPath = request.getServletContext().getRealPath("files");
+				File uploadPath = new File(realPath);
+				if (!uploadPath.exists()) {
+					uploadPath.mkdir();// 메이크 디렉토리
+				}
+				MultipartRequest multi = new MultipartRequest(request, realPath, maxSize, "UTF8",
+						new DefaultFileRenamePolicy());
+				String oriName = multi.getOriginalFileName("file");// 원본이름
+				String sysName = multi.getFilesystemName("file");// 서버에 저장되었을떄 이름
+				String title=multi.getParameter("title");
+				String contents=multi.getParameter("contents");
+				String member_id= (String)session.getAttribute("WolfID");
+				BoardDTO dto=new BoardDTO(0,title,contents,0,member_id,null);
+				int board_seq= boardDAO.insert(dto);
+				//dao_files.insert(new FilesDTO(0, oriName, sysName, parent_seq));
+				response.sendRedirect("/list.board");
 				
 			} else if(cmd.equals("/delete.board")) {
 				
-			} else if(cmd.equals("/detail.board")) {
+			} else if(cmd.equals("/1.board")) {
 				
-			} else if(cmd.equals("/detail.board")) {
+			} else if(cmd.equals("/2.board")) {
 				
 			}
 			

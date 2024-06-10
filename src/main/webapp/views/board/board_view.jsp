@@ -32,6 +32,7 @@
 
     .footer{
         flex: 1;
+        justify-content: flex-end;
     }
     .center{
         display: flex;
@@ -64,15 +65,57 @@
                 </div>
             </c:forEach>
         </div>
-        <div style="flex: 1;" class="center">1 2 3 4 5 6 7 8 9 10</div>
+        <div style="flex: 1;" class="center" id="navi"></div>
         <div class="footer">
+            <button id="new">작성하기</button>
+			<button id="index">뒤로가기</button>
         </div>
     </div>
 
 
     <script>
-         let seq=$(".seq");
-         let title=$(".title");
+        //
+        let seq=$(".seq");
+        let title=$(".title");
+		let cpage=${cpage};
+		let navi=$("#navi");
+		let record_total_count=${record_total_count};
+		let record_count_per_page=${record_count_per_page};
+		let navi_count_per_page=${navi_count_per_page};
+		let page_total_count;
+		if(record_total_count%record_count_per_page==0){
+			page_total_count=(Math.floor(record_total_count/record_count_per_page));
+		}
+		else{
+			page_total_count=Math.floor(record_total_count/record_count_per_page)+1;
+		}
+		let startNavi=Math.floor((cpage-1)/navi_count_per_page)*navi_count_per_page+1;
+		let endNavi;
+		if((startNavi+ navi_count_per_page-1)<page_total_count){
+			endNavi=(startNavi+ navi_count_per_page-1)
+		}
+		else{
+			endNavi=page_total_count
+		}
+		
+		let needNext=true;
+		let needPrev=true;
+		if(startNavi==1)needPrev=false;
+		if(endNavi==page_total_count)needNext =false;
+
+		if(needPrev) {
+			navi.append("<a href='/list.board?cpage="+(startNavi-1)+"'><</a>");
+			}
+		
+		
+		for (let i = startNavi; i <= endNavi; i++) {
+			navi.append("<a href='/list.board?cpage="+i+"'>"+ i +"</a>&nbsp");
+		}
+		if(needNext) {
+			navi.append("<a href='/list.board?cpage="+(endNavi+1)+"'>></a>");
+		}
+
+        //
 
          title.each(function(index,e){
             //console.log($(e).text());
@@ -82,6 +125,13 @@
             })
 
          })
+
+         $("#index").on("click",function(){
+            location.href="/test/index.jsp";
+        })
+        $("#new").on("click",function(){ //작성하기
+            location.href="/views/board/board_contents.jsp";
+        })
 
     </script>
 </body>
