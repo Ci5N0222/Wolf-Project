@@ -10,6 +10,7 @@
     <title>Insert title here</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.tiny.cloud/1/9bewfouem96jjnfvuu236yinb3kp53xruh2gkkz3pkfnkw6c/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <style>
         * {
             box-sizing: border-box;
@@ -120,8 +121,7 @@
             <div style="flex: 1;">
                 <c:forEach var="files_dto" items="${files_list}">
                     <div>
-                        ${files_dto.seq }. <a
-                            href="/download.files?sysname=${files_dto.sysname }&oriname=${files_dto.oriname}">${files_dto.oriname}</a>
+                        ${files_dto.seq }. <a href="/download.files?sysname=${files_dto.sysname }&oriname=${files_dto.oriname}">${files_dto.oriname}</a>
                     </div>
                 </c:forEach>
             </div>
@@ -138,8 +138,8 @@
                     </div>
                     <div style="border: 0; display: none;" id="div2">
                         <form action="/update.board" method="post" id="joinform">
-                            <input type="hidden" name="title" class="update_input"> 
-                            <input type="hidden" name="contents" class="update_input"> 
+                            <input type="hidden" name="title" class="update_input" id="board_title_input"> 
+                            <input type="hidden" name="contents" class="update_input" id="board_contents_input"> 
                             <input type="hidden" name="count" value="${board_dto.count}"> 
                             <input type="hidden" name="seq" value="${board_dto.seq}" class="notuse">
                             <button type="submit" id="confirm">확인</button>
@@ -219,6 +219,8 @@
 
         let board_title=$("#board_title");
         let board_contents=$("#board_contents");
+        let board_title_input=$("#board_title_input");
+        let board_contents_input=$("#board_contents_input");
 
         let input = $(".update_input");
 
@@ -294,10 +296,13 @@
 
         $("#joinform").on("submit", function () {
 
-            input.each(function (index, e) {
+           /* input.each(function (index, e) {
                 $(e).val(dto.eq(index).html().trim());
 
-            })
+            })*/
+            board_title_input.val(board_title.html().trim());
+            board_contents_input.val(tinymce.get("board_contents").getContent());
+
         })
 
         btn1.on("click", function () { //delete
@@ -316,12 +321,57 @@
                 display: "flex"
             })
             board_title.attr("contenteditable", "true");
-            board_contents.attr("contenteditable", "true");
+           // board_contents.attr("contenteditable", "true");
+
+            tinymce.init({
+                selector: 'div#board_contents',
+                plugins:'wordcount anchor image inlinecss ',
+                //toolbar:'image',
+                images_file_types:'jpg,svg,webp',
+                 file_picker_types: 'file image media',
+                 //plugins: 'inlinecss  autolink charmap codesample emoticons image link lists media searchreplace table visualblocks  checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate mentions tableofcontents footnotes mergetags typography',
+                toolbar: ' fileupload | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags  | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat ',
+                max_width: 600,
+                 resize: false,
+                 //height:auto,
+                language: 'ko_KR',
+                forced_root_block : false,
+                 //force_br_newlines : true,
+                 //force_p_newlines : false,
+                //content_css: false,
+                setup: function (editor) {
+                    editor.ui.registry.addButton('fileupload', {
+                    text: '파일 업로드: 선택된 파일없음',
+                    onSetup: function(e) {
+                      myButton=e;
+                    },
+                    onAction: function() {
+                        $("#upload").click();
+                        //myButton.setText("aa");
+                            
+                    },         
+                });   
+                $('#upload').on('change', function() {
+                     var fileName = $(this).val().split('\\').pop();
+                     console.log(fileName);
+                     if(fileName===""){
+                        myButton.setText('파일 업로드: 선택된 파일없음');
+                        
+                     }
+                     else{
+                        myButton.setText('파일 업로드: ' + fileName);
+                     }
+                     
+                });   
+                editor.on('change', function () {
+                    localStorage.setItem('editorContent', editor.getContent());
+                });
+            }
+        });
         })
 
         btn5.on("click", function () {//cancel
-            dto.eq(0).html(title);
-            dto.eq(1).html(contents);
+            
 
             $("#div1").css({
                 display: "flex"
@@ -331,7 +381,10 @@
                 display: "none"
             })
             board_title.attr("contenteditable", "false");
-            board_contents.attr("contenteditable", "false");
+            //board_contents.attr("contenteditable", "false");
+            tinymce.remove();
+            board_title.html(title);
+            board_contents.html(contents);
         })
 
 
