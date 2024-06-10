@@ -221,11 +221,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         value="${member.avatar}"
       />
     </form>
-    <img
-      src="C:\workspace\04_workspace_backend\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\First_Project\files/92.jpg"
-      alt=""
-      id="img"
-    />
 
     <script>
       // 사용변수
@@ -315,6 +310,17 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         $("#hidden_phone").val($("#phone").text().trim());
         $("#hidden_email").val($("#email").text().trim());
         $("#hidden_avatar").val($("#avatar").text().trim());
+
+        if (!regexName.test(name.html())) {
+          alert("이름을 올바르게 입력해주세요.");
+          return false;
+        } else if (!regexPhone.test(phone.html())) {
+          alert("전화번호를 올바르게 입력해주세요.");
+          return false;
+        } else if (!regexEmail.test(email.html())) {
+          alert("이메일을 올바르게 입력해주세요.");
+          return false;
+        }
       });
 
       // 취소 버튼 눌렀을 시
