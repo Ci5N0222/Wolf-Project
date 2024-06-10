@@ -57,7 +57,8 @@ private static BoardDAO instance;
 		List<BoardDTO> list = new ArrayList<>();
 		String sql="select b.*, m.nickname from board b join members m on m.id =b.member_id";
 		Object [] boardList=new Object[2];
-		String nickname="";
+		ArrayList<String> nickname=new ArrayList<>();
+		
 		try (Connection con=this.getConnection();
 				PreparedStatement pstat= con.prepareStatement(sql);
 				ResultSet rs=pstat.executeQuery()){
@@ -69,7 +70,7 @@ private static BoardDAO instance;
 				int count =rs.getInt(4);
 				String member_id=rs.getString(5);
 				Timestamp write_date=rs.getTimestamp(6);
-				nickname=rs.getString(7);
+				nickname.add(rs.getString(8));
 				list.add(new BoardDTO(seq,title,contents,count,member_id,write_date));			
 			}		
 		} catch (Exception e) {
@@ -86,7 +87,7 @@ private static BoardDAO instance;
 		String sql="SELECT a.*,m.nickname FROM (SELECT  board.*, ROW_NUMBER() OVER (ORDER BY seq DESC) AS rown FROM board)a join members m on m.id=a.member_id WHERE rown between ? and ?";
 		List<BoardDTO> list=new ArrayList<>();
 		Object [] boardList=new Object[2];
-		String nickname="";
+		ArrayList<String> nickname=new ArrayList<>();
 		try (Connection con=this.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql);){
 			
@@ -101,7 +102,7 @@ private static BoardDAO instance;
 					int count =rs.getInt(4);
 					String member_id=rs.getString(5);
 					Timestamp write_date=rs.getTimestamp(6);
-					nickname=rs.getString(8);
+					nickname.add(rs.getString(8));
 					BoardDTO dto=new BoardDTO(seq,title,contents,count,member_id,write_date);
 					list.add(dto);
 				}

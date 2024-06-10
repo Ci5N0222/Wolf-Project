@@ -130,7 +130,7 @@
         <div style="flex: 5;" class="dto" id="board_contents">${board_dto.contents}</div>
         <div style="flex: 1; justify-content: flex-end;">
             <c:choose>
-                <c:when test="${WolfID eq dto.member_id}">
+                <c:when test="${WolfID eq board_dto.member_id}">
                     <div style="border: 0; display: flex;" id="div1">
                         <button type="button" id="update">수정하기</button>
                         <button type="button" id="delete">삭제하기</button>
@@ -166,10 +166,10 @@
     </div>
     </form>
     <div id="reply_contents">
-        <c:forEach var="reply_dto" items="${reply_list}">
+        <c:forEach var="reply_dto" items="${reply_list}" varStatus="status">
             <div class="reply_contents">
                 <div style="flex: 6; word-break: break-all; white-space: pre-wrap; flex-direction: column;">
-                    <div>${reply_nickname}</div>
+                    <div>${reply_nickname_list[status.index]}</div>
                     <div class="reply_div">${reply_dto.contents}</div>
                     <div><p style="color: gray;"><fmt:formatDate value="${reply_dto.write_date}" pattern="yyyy.MM.dd HH:mm" /></p></div>
                 </div>
@@ -177,14 +177,13 @@
                     <div id="check">
                         <div stylse=" display: flex; width: 110px;" class="reply_div1">
                             <button style="width: 50px; height: 50px;" class="reply_update">수정</button>
-                            <button style="width: 50px
-                            ; height: 50px;" class="reply_delete">삭제</button>
+                            <button style="width: 50px; height: 50px;" class="reply_delete">삭제</button>
                         </div>
                         <div style="display: none; width: 110px;" class="reply_div2">
                             <form action="/update.reply" method="post" class="reply_update_form">
                                 <input type="hidden" name="contents" class="reply_input">
                                 <input type="hidden" name="seq" value="${reply_dto.seq}" class="reply_seq">
-                                 <input type="hidden" name="parent_seq" value="${dto.seq}" class="notuse">
+                                 <input type="hidden" name="board_seq" value="${board_dto.seq}" class="notuse">
                                 <button style="width: 50px; height: 50px;" type="submit" class="reply_confirm">확인</button>
                                 <button style="width: 50px; height: 50px;" type="button" class="reply_cancel">취소</button>
                             </form>
@@ -245,7 +244,7 @@
         reply_delete.each(function (index, e) {
             $(e).on("click", function () {
                 location.href = "/delete.reply?seq=" + reply_seq.eq(index).val() +
-                    "&parent_seq=${dto.seq}";
+                    "&board_seq=${board_dto.seq}";
             })
         })
 
@@ -280,7 +279,7 @@
         $(".reply_update_form").on("submit", function () {
             let form=$(this);
             let reply_input=form.find(".reply_input");
-            let reply_div=form.find(".reply_div");
+            let reply_div=form.parents(".reply_contents").find(".reply_div");
             reply_input.val(reply_div.html().trim());
         })
 

@@ -43,7 +43,7 @@ public class BoardController extends HttpServlet {
 				Object boardList[] = boardDAO.select( BoardConfig.recordCountPerPage, cpage);
 				
 				request.setAttribute("list", boardList[0]);
-				request.setAttribute("nickname", boardList[1]);//boardList[1]
+				request.setAttribute("board_nickname_list", boardList[1]);//boardList[1]
 				request.setAttribute("cpage", cpage);
 				request.setAttribute("record_count_per_page", BoardConfig.recordCountPerPage);
 				request.setAttribute("navi_count_per_page", BoardConfig.naviCountPerPage);
@@ -63,7 +63,7 @@ public class BoardController extends HttpServlet {
 				request.setAttribute("board_nickname", boardList[1]);
 				
 				request.setAttribute("reply_list", replyList[0]);
-				request.setAttribute("reply_nickname", replyList[1]);
+				request.setAttribute("reply_nickname_list", replyList[1]);
 			
 				request.setAttribute("files_list", fileList);
 				
