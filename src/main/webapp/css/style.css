@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Noto+Sans+KR:wght@100..900&display=swap');
     :root {
-        --bg-light: #F2F1EB;
+        --bg-light: #ffd449;
         --bg-dark: #14213D;
         --bg-transparent: transparent;
 
         --color-white: #eeeeee;
-        --color-black: #14213d;
-        --bg-nav: #FCA311;
-        --color-nav-icon: #FCA311;
-        --color-nav-bg: #14213d;
+        --color-black: #14213D;
+        --bg-nav: #f9a620;
+        --color-nav-icon: #14213D;
+        --color-nav-bg: #f9a620;
         font-size: 16px;
     }
     html,
@@ -30,11 +30,28 @@
         position: absolute;
         width: 120%;
         height: 100%;
-        background-color: #FCA311;
+        background-color: var(--color-nav-bg);
+        box-shadow: 5px -5px 10px var(--bg-light);
         border-radius: 50%;
-        top: 30%;
+        top: 40%;
         left: 50%;
         transform: translateX(-50%);
+    }
+    .img_bg{position: absolute;top: -60%;left: 0; width: 100%; object-fit: cover;}
+    .bgs{animation:bg 1s ease-in Infinite Alternate; transition: all ease-in 0.2s; width: 50px;}
+    .bgs:nth-child(1){top: 15%;left: 80%;}
+    .bgs:nth-child(2){top: 20%; left: 80%; width: 40px;}
+    .bgs:nth-child(3){top: 15%; left: 20%;}
+    .bgs:nth-child(4){top: 27%; left: 70%; width: 20px;}
+    .bgs:nth-child(5){top: 12%; left: 50%;}
+    .bgs:nth-child(6){top: 12%; left: 80%; width: 20px;}
+    @keyframes bg {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
     }
     /* div {
         border: 1px solid #ffffff;
@@ -48,6 +65,7 @@
 
     .container {
         /* background-color: var(--bg-nav); */
+    
     }
 
     .main {
@@ -57,8 +75,10 @@
         padding: 0;
         margin: 0;
         /* background-color: red; */
+    
     }
-
+    .menus{cursor: pointer;}
+    .menus:hover{opacity: 0.5;}
     .list {
         flex-grow: 1;
         /* background-color: yellow; */
@@ -70,12 +90,24 @@
         display: flex;
         align-items: center;
         background-color: var(--bg-nav);
+        padding: 0 3%;
 
         font-family: "Luckiest Guy", cursive;
         font-weight: 400;
-        font-size: 20px;
+        font-size: 18px;
         font-style: normal;
+
+        border-radius: 40px 80px / 80px 40px;
     }
+    .navi i {font-size: 20px;}
+    .navi > div {margin-top: 0;}
+    .navi > div:nth-child(2) #wolfLogo{
+        width: 100px;
+        height: 100px;
+
+    }
+    .navi #wolfLogo > img {object-fit: cover; width: 100%;height: 100%;}
+
 
     /* 컨텐츠 */
     #contents {
@@ -86,14 +118,9 @@
     /* 메인 */
     .main {
         height: 60%;
-        /* background-color: yellow; */
     }
-    .menus {
-		cursor: pointer;
-	}
 
     .item {
-        /* background-color: gainsboro; */
         position: relative;
     }
 
@@ -159,7 +186,6 @@
             gap: 5px;
             justify-content: center;
             align-items: center;
-            /* background-color: white; */
         }
         .item {
             width: calc(20% - 10px); /* 아이템의 너비를 20%로 설정 */
@@ -180,7 +206,7 @@
         position: absolute;
         bottom: 5%;
         right: 5%;
-        background-color:var(--color-nav-bg);
+        background-color:var(--bg-dark);
         width: 50px;
         height: 50px;
         display: flex;
@@ -211,18 +237,5 @@
     /* 모드 전환 버튼 아이콘 스타일 */
     #mode i {
         font-size: 30px;
-        color: var(--color-nav-icon);
+        color: var(--color-nav-bg);
     }
-
-
-    /* 이미지 */
-    .img{position: absolute; width: 20%}
-    .img01 {bottom: 0; left: 15%; width: 10%;}
-    .img02 {bottom: 0; right: 0;}
-    .img03 {top: 10%; left: 20%;}
-    .img04 {bottom: 0;left: 3%; width: 10%;}
-    .img05 {right: 30%; bottom: 0; width: 10%;}
-    .img06 {right: 25%; width: 10%; top: 15%;}
-    .img07 {left: 5%; width: 10%; top: 45%; transform: rotate(-15deg);}
-    .img08 {left: 0; transform: rotate(15deg);}
-    .img09 {right: 0;}

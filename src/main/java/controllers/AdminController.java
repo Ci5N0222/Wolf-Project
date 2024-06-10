@@ -9,7 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import admin.dao.AdminDAO;
+import commons.EncryptionUitls;
 import game.dto.GameDTO;
 import members.dto.MembersDTO;
 
@@ -54,16 +57,15 @@ public class AdminController extends HttpServlet {
 				String admin_id = request.getParameter("admin_id");
 				String admin_pw = request.getParameter("admin_pw");
 				
-				request.getSession().setAttribute("WolfAdmin", true);
-				response.sendRedirect("/main.admin");
-//				
-//				int result = dao.adminLogin(admin_id, admin_pw);
-//				if(result == 1) {
-//					request.getSession().setAttribute("WolfAdmin", true);
-//					response.sendRedirect("/main.admin");
-//				} else {
-//					// 로그인 실패
-//				}
+				int result = dao.adminLogin(admin_id, EncryptionUitls.getSHA512(admin_pw));
+				if(result == 1) {
+					request.getSession().setAttribute("WolfAdmin", true);
+					response.getWriter().append("ok");
+				} else {
+					// result == 2 // 로그인 실패 (존재하지 않는 아이디)
+					// result == 3 // 로그인 실패 (비밀번호 틀림)
+					response.getWriter().append("fail");
+				}
 			}
 			
 			
