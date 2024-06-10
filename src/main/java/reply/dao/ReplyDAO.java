@@ -46,7 +46,7 @@ public class ReplyDAO {
 	
 	public Object[] select(int board_seq) {
 		Object [] replyList=new Object[2];
-		String sql="select r.*, m.nickname from reply r join members m on r.member_id = m.id where r.board_seq=?";
+		String sql="select r.*, m.nickname from reply r join members m on r.member_id = m.id where r.board_seq=? order by seq desc";
 		List<ReplyDTO> list =new ArrayList();
 		String nickname="";
 		try (Connection con=this.getConnection();
