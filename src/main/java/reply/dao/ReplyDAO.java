@@ -44,7 +44,7 @@ public class ReplyDAO {
 		
 	}
 	
-	public Object[] selectAll(int board_seq) {
+	public Object[] select(int board_seq) {
 		Object [] replyList=new Object[2];
 		String sql="select r.*, m.nickname from reply r join members m on r.member_id = m.id where r.board_seq=?";
 		List<ReplyDTO> list =new ArrayList();
