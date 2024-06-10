@@ -53,7 +53,7 @@ public class BoardController extends HttpServlet {
 				
 			} else if(cmd.equals("/detail.board")) {
 				int seq= Integer.parseInt(request.getParameter("seq"));
-				
+				boardDAO.countUp(seq);
 				Object boardList[] =boardDAO.selectBoard(seq);
 				Object replyList[] =replyDAO.select(seq);
 				List<FilesDTO> fileList=filesDAO.select(seq);

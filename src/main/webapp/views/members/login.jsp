@@ -17,7 +17,7 @@ input {
 </head>
 <body>
 	<c:choose>
-		<c:when test="${loginID != null }">
+		<c:when test="${WolfID != null }">
 
 			<table border="1" align="center">
 				<tr>

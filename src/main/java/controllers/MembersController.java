@@ -84,7 +84,7 @@ public class MembersController extends HttpServlet {
 //				String loginID = request.getParameter("id");
 //				System.out.println("loginID : " + loginID);
 //				
-				String loginID = "qwerqwer";
+				String loginID = (String)session.getAttribute("WolfID");
 				MembersDTO dto = dao.selectMember(loginID);
 				System.out.println("MembersDTO: " + dto);
 				

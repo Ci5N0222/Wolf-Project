@@ -169,7 +169,7 @@
         <c:forEach var="reply_dto" items="${reply_list}" varStatus="status">
             <div class="reply_contents">
                 <div style="flex: 6; word-break: break-all; white-space: pre-wrap; flex-direction: column;">
-                    <div>${reply_nickname_list[status.index]}</div>
+                    <div>${reply_nickname_list[status.index]}(${reply_dto.member_id.substring(0, 4)}****) </div>
                     <div class="reply_div">${reply_dto.contents}</div>
                     <div><p style="color: gray;"><fmt:formatDate value="${reply_dto.write_date}" pattern="yyyy.MM.dd HH:mm" /></p></div>
                 </div>
