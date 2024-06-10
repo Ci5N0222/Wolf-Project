@@ -21,7 +21,7 @@ input {
 
 			<table border="1" align="center">
 				<tr>
-					<th colspan=4>${loginID }님환영합니다.</th>
+					<th colspan=4>${WolfNickname }님환영합니다.</th>
 				</tr>
 				<tr>
 					<td><button id="toboard">게시판으로</button>
@@ -39,7 +39,7 @@ input {
 					location.href = "/memberout.members";
 				})
 				$("#mypage").on("click", function() {
-					location.href = "/select.members";
+					location.href = "/views/mypage/mypage.jsp";
 				})
 				$("#toboard").on("click",function(){
 					location.href="/list.board";

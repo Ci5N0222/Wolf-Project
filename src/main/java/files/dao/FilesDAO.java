@@ -43,6 +43,18 @@ public class FilesDAO {
 		
 	}
 	
+	public void deleteAll(int board_seq) {
+		String sql="delete from files where board_seq=?";
+		try(Connection con=this.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)) {
+			pstat.setInt(1, board_seq);
+			pstat.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
 	public void delete(int seq) {
 		String sql="delete from files where seq=?";
 		try(Connection con=this.getConnection();
