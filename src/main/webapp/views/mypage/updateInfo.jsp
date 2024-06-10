@@ -233,7 +233,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
       let regexName = /^[가-힣]{2,5}$/;
       let regexPhone = /^01[\d]-?\d{4}-?\d{4}$/;
-      let regexEmail = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+      let regexEmail = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.(com|net|co\.kr)+$/;
 
       // 수정버튼 눌렀을 시
       $("#edit").on("click", function () {
@@ -300,7 +300,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
       // 홈 버튼 눌렀을 시
       $("#home").on("click", function () {
-        location.href = "/test/index.jsp";
+        location.href = "/views/mypage/mypage.jsp";
       });
 
       // 완료 버튼 눌렀을 시

@@ -81,9 +81,6 @@ public class MembersController extends HttpServlet {
 				/* 내 정보 */
 			} else if (cmd.equals("/select.members")) {
 
-//				String loginID = request.getParameter("id");
-//				System.out.println("loginID : " + loginID);
-//				
 				String loginID = (String)session.getAttribute("WolfID");
 
 				System.out.println("loginID : " + loginID);
@@ -125,9 +122,7 @@ public class MembersController extends HttpServlet {
 				response.reset(); // 기존에 response가 가지고 있는 내용을 리셋하는 작업
 				response.setHeader("Content-Disposition", "attachment;filename=\""+oriName+"\"");
 				
-				
-//				String id = (String) request.getSession().getAttribute("loginID");
-				String id = "qwerqwer";
+				String id = (String)session.getAttribute("WolfID");
 				String name = multi.getParameter("name");
 				String nickname = multi.getParameter("nickname");
 				String phone = multi.getParameter("phone");
@@ -142,9 +137,10 @@ public class MembersController extends HttpServlet {
 
 				/* 비밀번호 변경 */
 			} else if(cmd.equals("/pwUpdate.members")){
+
+				String id = (String)session.getAttribute("WolfID");
 				
-				String id = "qwerqwer";
-				String current_password = request.getParameter("current_password");
+				String current_password = EncryptionUitls.getSHA512(request.getParameter("current_password"));
 				
 				boolean result = dao.isPWExist(id, current_password);
 				
@@ -154,8 +150,8 @@ public class MembersController extends HttpServlet {
 				
 				if(result) { // db에 pw있다면 변경
 					id = "qwerqwer";
-					String new_password = request.getParameter("new_password");
-					String confirm_password = request.getParameter("confirm_password");
+					String new_password = EncryptionUitls.getSHA512(request.getParameter("new_password"));
+					String confirm_password = EncryptionUitls.getSHA512(request.getParameter("confirm_password"));
 					
 					if(new_password.equals(confirm_password)) {
 						dao.updatePW(id, new_password);
