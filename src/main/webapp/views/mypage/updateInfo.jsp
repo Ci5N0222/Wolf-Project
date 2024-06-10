@@ -235,6 +235,13 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       let regexPhone = /^01[\d]-?\d{4}-?\d{4}$/;
       let regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+      //로그인 안되있으면 index.jsp로 이동
+      if("${WolfID}"==""){
+    	  location.href="/index.jsp";
+      }
+      
+      
+      
       // 수정버튼 눌렀을 시
       $("#edit").on("click", function () {
         $("#edit, #home").hide();
