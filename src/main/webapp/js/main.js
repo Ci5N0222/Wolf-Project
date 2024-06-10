@@ -1,3 +1,9 @@
+$(function(){
+	
+	// 모드 변경 이벤트 리스너 등록
+	$("#mode").on("click", toggleMode)
+});
+
 // 모드 변경 시 호출되는 함수
 function toggleMode() {
     let body = document.body;
@@ -24,7 +30,3 @@ function toggleMode() {
         document.documentElement.style.setProperty('--color-black', 'white');
     }
 }
-
-// 모드 변경 이벤트 리스너 등록
-let mode = document.getElementById("mode");
-mode.addEventListener("click", toggleMode);

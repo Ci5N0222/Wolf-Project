@@ -74,7 +74,6 @@
         font-family: "Luckiest Guy", cursive;
         font-weight: 400;
         font-size: 20px;
-        letter-spacing: 2px;
         font-style: normal;
     }
 
@@ -87,7 +86,7 @@
     /* 메인 */
     .main {
         height: 60%;
-        background-color: yellow;
+        /* background-color: yellow; */
     }
 
     .item {
