@@ -40,6 +40,11 @@
         justify-content: center;
         align-items: center;
     }
+    .title:hover{
+    cursor: pointer;
+    color: red;
+    
+	}
 
 
 </style>

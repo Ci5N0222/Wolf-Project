@@ -69,6 +69,7 @@
             width: 100%;
             height: auto;
             margin: 20px;
+           
         }
 
         .swal2-container {
@@ -104,13 +105,16 @@
         p {
             width: 100%;
         }
+        .tox-toolbar__primary{ 
+            width:700px !important;     
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <div style="flex: 1;" class="center dto title" id="board_title">${board_dto.title}</div>
-        <div style="flex: 1;" class="center">${board_nickname}</div>
+        <div style="flex: 1;" class="center">${board_nickname}(${board_dto.member_id.substring(0, 4)}****)</div>
         <div style="flex: 1; color: gray;">
             <div style="flex: 1;">
                 <p>
@@ -118,10 +122,11 @@
                     조회 ${board_dto.count}
                 </p>
             </div>
-            <div style="flex: 1;">
+            <div style="flex: 1; flex-direction: column;">
                 <c:forEach var="files_dto" items="${files_list}">
-                    <div>
-                        ${files_dto.seq }. <a href="/download.files?sysname=${files_dto.sysname }&oriname=${files_dto.oriname}">${files_dto.oriname}</a>
+                    <div class="files_div">
+                       <span class="files_seq">${files_dto.seq }</span>.&nbsp<a href="/download.files?sysname=${files_dto.sysname }&oriname=${files_dto.oriname}">${files_dto.oriname}</a>
+                        <button class="files_delete" style="width: 50px; height: 50px; display: none;">삭제</button>
                     </div>
                 </c:forEach>
             </div>
@@ -137,10 +142,11 @@
                         <button type="button" id="list">목록으로</button>
                     </div>
                     <div style="border: 0; display: none;" id="div2">
-                        <form action="/update.board" method="post" id="joinform">
+                        <form action="/update.board" method="post" id="joinform" enctype="multipart/form-data">
                             <input type="hidden" name="title" class="update_input" id="board_title_input"> 
                             <input type="hidden" name="contents" class="update_input" id="board_contents_input"> 
-                            <input type="hidden" name="count" value="${board_dto.count}"> 
+                            <input type="hidden" name="count" value="${board_dto.count}">
+                            <div style="display: none;"><input type="file" name="file" id="upload"></div>
                             <input type="hidden" name="seq" value="${board_dto.seq}" class="notuse">
                             <button type="submit" id="confirm">확인</button>
                             <button type="button" id="cancel">취소</button>
@@ -168,42 +174,43 @@
     <div id="reply_contents">
         <c:forEach var="reply_dto" items="${reply_list}" varStatus="status">
             <div class="reply_contents">
-                <div style="flex: 6; word-break: break-all; white-space: pre-wrap; flex-direction: column;">
-                    <div>${reply_nickname_list[status.index]}(${reply_dto.member_id.substring(0, 4)}****) </div>
-                    <div class="reply_div">${reply_dto.contents}</div>
-                    <div><p style="color: gray;"><fmt:formatDate value="${reply_dto.write_date}" pattern="yyyy.MM.dd HH:mm" /></p></div>
-                </div>
-                <div style="flex: 1; font-size: x-small; justify-content: flex-end; align-items: flex-end;">
-                    <div id="check">
-                        <div stylse=" display: flex; width: 110px;" class="reply_div1">
-                            <button style="width: 50px; height: 50px;" class="reply_update">수정</button>
-                            <button style="width: 50px; height: 50px;" class="reply_delete">삭제</button>
-                        </div>
-                        <div style="display: none; width: 110px;" class="reply_div2">
-                            <form action="/update.reply" method="post" class="reply_update_form">
-                                <input type="hidden" name="contents" class="reply_input">
-                                <input type="hidden" name="seq" value="${reply_dto.seq}" class="reply_seq">
-                                 <input type="hidden" name="board_seq" value="${board_dto.seq}" class="notuse">
-                                <button style="width: 50px; height: 50px;" type="submit" class="reply_confirm">확인</button>
-                                <button style="width: 50px; height: 50px;" type="button" class="reply_cancel">취소</button>
-                            </form>
-                        </div>
+                    <div style="flex: 6; word-break: break-all; white-space: pre-wrap; flex-direction: column;">
+                        <div>${reply_nickname_list[status.index]}(${reply_dto.member_id.substring(0, 4)}****) </div>
+                        <div class="reply_div">${reply_dto.contents}</div>
+                        <div><p style="color: gray;"><fmt:formatDate value="${reply_dto.write_date}" pattern="yyyy.MM.dd HH:mm" /></p></div>
+                        <div> <button style="width: 50px; height: 50px;" class="reply_reply">답글</button></div>
                     </div>
-                    <c:choose>
-                        <c:when test="${WolfID eq reply_dto.member_id}">
-                            <script>
-                                $("#check").attr("class", "block");
-                                $("#check").removeAttr("id");
-                            </script>
-                        </c:when>
-                        <c:otherwise>
-                            <script>
-                                $("#check").attr("class", "none");
-                                $("#check").removeAttr("id");
-                            </script>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
+                    <div style="flex: 1; font-size: x-small; justify-content: flex-end; align-items: flex-end;">
+                        <div id="check">
+                            <div stylse=" display: flex; width: 110px;" class="reply_div1">
+                                <button style="width: 50px; height: 50px;" class="reply_update">수정</button>
+                                <button style="width: 50px; height: 50px;" class="reply_delete">삭제</button>
+                            </div>
+                            <div style="display: none; width: 110px;" class="reply_div2">
+                                <form action="/update.reply" method="post" class="reply_update_form">
+                                    <input type="hidden" name="contents" class="reply_input">
+                                    <input type="hidden" name="seq" value="${reply_dto.seq}" class="reply_seq">
+                                     <input type="hidden" name="board_seq" value="${board_dto.seq}" class="notuse">
+                                    <button style="width: 50px; height: 50px;" type="submit" class="reply_confirm">확인</button>
+                                    <button style="width: 50px; height: 50px;" type="button" class="reply_cancel">취소</button>
+                                </form>
+                            </div>
+                        </div>
+                        <c:choose>
+                            <c:when test="${WolfID eq reply_dto.member_id}">
+                                <script>
+                                    $("#check").attr("class", "block");
+                                    $("#check").removeAttr("id");
+                                </script>
+                            </c:when>
+                            <c:otherwise>
+                                <script>
+                                    $("#check").attr("class", "none");
+                                    $("#check").removeAttr("id");
+                                </script>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
             </div>
         </c:forEach>
     </div>
@@ -238,6 +245,7 @@
         let reply_contents = [];
         let reply_confirm=$(".reply_confirm");
 
+        let files_delete=$(".files_delete");
 
         reply_div.each(function (index, e) {
             reply_contents.push($(e).html().trim());
@@ -276,6 +284,21 @@
 
             })
         })
+        
+        files_delete.each(function(index,e){
+            $(e).on("click",function(){       
+                $.ajax({
+                    url:"/delete.files",
+                    type:"post",
+                    data:{
+                        seq:$(".files_seq").eq(index).text()
+                    }
+                }).done(function(resp){
+                    $(".files_div").eq(index).html("");
+                })
+            })    
+        })
+
 
         
         $(".reply_update_form").on("submit", function () {
@@ -314,6 +337,8 @@
 
         })
         btn3.on("click", function () { //update
+            files_delete.css("display","block");
+
             $("#div1").css({
                 display: "none"
             })
@@ -372,7 +397,7 @@
 
         btn5.on("click", function () {//cancel
             
-
+            files_delete.css("display","none");
             $("#div1").css({
                 display: "flex"
             })
