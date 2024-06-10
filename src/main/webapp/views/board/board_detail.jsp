@@ -130,7 +130,7 @@
         <div style="flex: 5;" class="dto" id="board_contents">${board_dto.contents}</div>
         <div style="flex: 1; justify-content: flex-end;">
             <c:choose>
-                <c:when test="${loginID eq dto.writer}">
+                <c:when test="${WolfID eq dto.member_id}">
                     <div style="border: 0; display: flex;" id="div1">
                         <button type="button" id="update">수정하기</button>
                         <button type="button" id="delete">삭제하기</button>
@@ -158,7 +158,7 @@
         <div style="flex: 4; border: 1px solid black; margin: 15px; word-break: break-all;" contenteditable="true"
             class="dto" id="reply_insert_div"></div>
         <input type="hidden" name="contents" id="reply_insert_contents">
-        <input type="hidden" name="member_id" value="${board_dto.member_id}"class="notuse">
+        <input type="hidden" name="member_id" value="${WolfID}"class="notuse">
         <input type="hidden" name="board_seq" value="${board_dto.seq}" class="notuse">
         <div style="flex: 1; justify-content: center; align-items: center;">
             <button id="reply_btn">등록</button>
@@ -286,7 +286,11 @@
 
 
         $("#replyform").on("submit",function(){
+            if("${WolfID}"!="")
             $("#reply_insert_contents").val($("#reply_insert_div").html().trim());
+            else{
+                alert("로그인 해주세요");
+            }
         })
 
         $("#joinform").on("submit", function () {

@@ -53,11 +53,12 @@ public class BoardController extends HttpServlet {
 				
 			} else if(cmd.equals("/detail.board")) {
 				int seq= Integer.parseInt(request.getParameter("seq"));
+				
 				Object boardList[] =boardDAO.selectBoard(seq);
 				Object replyList[] =replyDAO.select(seq);
 				List<FilesDTO> fileList=filesDAO.select(seq);
 				
-				
+			
 				request.setAttribute("board_dto", boardList[0]);
 				request.setAttribute("board_nickname", boardList[1]);
 				
@@ -69,7 +70,7 @@ public class BoardController extends HttpServlet {
 				request.getRequestDispatcher("/views/board/board_detail.jsp").forward(request, response);
 				
 			} else if(cmd.equals("/insert.board")) {
-				session.setAttribute("WolfID", "test1");
+				//session.setAttribute("WolfID", "test1");
 				int maxSize = 1024 * 1024 * 10; // 10mb
 				String realPath = request.getServletContext().getRealPath("files");
 				File uploadPath = new File(realPath);
@@ -98,7 +99,7 @@ public class BoardController extends HttpServlet {
 				response.sendRedirect("/list.board");
 				
 			} else if(cmd.equals("/update.board")) {
-				session.setAttribute("WolfID", "test1");
+				//session.setAttribute("WolfID", "test1");
 				int seq=Integer.parseInt(request.getParameter("seq"));
 				String title =request.getParameter("title");
 				String contents=request.getParameter("contents");

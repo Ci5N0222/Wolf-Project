@@ -128,10 +128,14 @@
          })
 
          $("#index").on("click",function(){
-            location.href="/test/index.jsp";
+            location.href="/index.jsp";
         })
         $("#new").on("click",function(){ //작성하기
+            if("${WolfID}"!="")
             location.href="/views/board/board_contents.jsp";
+            else{
+                alert("로그인을 해주세요");
+            }
         })
 
     </script>
