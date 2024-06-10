@@ -96,15 +96,5 @@
 	            <i class="fa-solid fa-lightbulb"></i>
 	        </div>
     </div>
-
-	<script>
-		$("#Board").on("click",function(){
-			location.href = "/list.board";
-		})
-		$("#login").on("click",function(){
-			location.href = "/signup.members";
-		})
-	</script>
-
 </body>
 </html>

@@ -35,8 +35,6 @@ public class AdminController extends HttpServlet {
 			
 			/** 메인 **/
 			if(cmd.equals("/main.admin")) {
-				System.out.println("Admin page start");
-				
 				// 로그인된 세션이 없다면 로그인 페이지로 강제 이동
 				if(!adminSession) response.sendRedirect("/views/admin/admin_login.jsp");
 				else {
@@ -53,8 +51,6 @@ public class AdminController extends HttpServlet {
 			
 			/** 로그인 **/
 			else if(cmd.equals("/login.admin")) {
-				System.out.println("Admin login start");
-				
 				String admin_id = request.getParameter("admin_id");
 				String admin_pw = request.getParameter("admin_pw");
 				
