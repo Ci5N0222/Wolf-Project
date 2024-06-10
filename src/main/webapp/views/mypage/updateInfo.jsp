@@ -300,7 +300,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
       // 홈 버튼 눌렀을 시
       $("#home").on("click", function () {
-        location.href = "/test/index.jsp";
+        location.href = "/views/mypage/mypage.jsp";
       });
 
       // 완료 버튼 눌렀을 시
