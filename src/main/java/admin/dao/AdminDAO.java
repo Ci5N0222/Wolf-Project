@@ -55,27 +55,35 @@ public class AdminDAO {
 	 * @throws Exception
 	 */
 	public int adminLogin(String id, String pw) throws Exception {
-		String sql = "select member_id, member_pw from members where id = ? and grade = 99";
+		String sql = "select id, pw from members where id = ? and grade = 99";
 		try(Connection con = getConnection();
-				PreparedStatement pstat = con.prepareStatement(sql);
-				ResultSet rs = pstat.executeQuery()){
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, id);
+			
+			try(ResultSet rs = pstat.executeQuery()){
 				
 				rs.next();
 				
-				if(rs.getString("id") != null) {
-					if(pw.equals(rs.getString("pw"))) {
-						// 비밀번호까지 맞는 경우
-						return 1;
+				try {
+					if(rs.getString("id") != null) {
+						if(pw.equals(rs.getString("pw"))) {
+							// 비밀번호까지 맞는 경우
+							return 1;
+						} else {
+							// id는 맞고 비밀번호가 틀린 경우
+							return 3;
+						}
 					} else {
-						// id는 맞고 비밀번호가 틀린 경우
+						// 존재하지 않는 아이디
+						return 2;
 					}
-				} else {
-					// 존재하지 않는 아이디
+				} catch (Exception e) {
+					return 2;
 				}
-				
 			}
-		
-		return 0;
+		}
+				
+				
 	}
 	
 	
