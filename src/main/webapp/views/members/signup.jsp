@@ -240,7 +240,7 @@ button {
 		$("#name").on("keyup", function() {
 			let name = $("#name").val();
 			let msg1 = $("#msg1");
-			let regex = /^[가-힣]{2,5}$/g;
+			let regex = /^[가-힣]{2,5}$/;
 			let result = regex.test(name);
 			if (result) {
 				msg1.text("올바른 이름입니다.").css("color", "dodgerblue");
