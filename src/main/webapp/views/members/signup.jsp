@@ -50,7 +50,7 @@ input[type="text"], input[type="password"] {
 	font-size: 16px;
 }
 
-#idCheck, #postcode, #checkbtn {
+#idCheck, #nicknameCheck {
 	padding: 10px 20px;
 	margin: 10px 0;
 	border: none;
@@ -131,6 +131,10 @@ button {
             </div>
             <div id="msg1"></div>
             <div class="form-group">
+                <input type="text" class="form-control" id="nickname" name="nickname" placeholder="닉네임" >
+            </div>
+            <button type="button" id="nicknameCheck">중복 확인</button>
+            <div class="form-group">
                 <input type="text" class="form-control" id="phone" name="phone" placeholder="전화번호" >
             </div>
             <div id="message1"></div>
@@ -170,7 +174,25 @@ button {
 				if(resp=="true"){
 					alert("이미 사용중인 ID 입니다.");
 				}else{
-					alert("사용가능한 Id");
+					alert("사용가능한 ID 입니다.");
+				}
+			})
+		})
+		$("#nicknameCheck").on("click",function(){
+		    if($("#nickname").val()==""){
+		        alert("닉네임을 먼저 입력해주세요.");
+		        return;
+		    }
+			$.ajax({
+				url:"/nicknamecheck.members",
+				data:{
+					nickname:$("#nickname").val()
+				}
+			}).done(function(resp){
+				if(resp=="true"){
+					alert("이미 사용중인 닉네임 입니다.");
+				}else{
+					alert("사용가능한 닉네임 입니다.");
 				}
 			})
 		})
