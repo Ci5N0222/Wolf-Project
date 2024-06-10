@@ -179,6 +179,7 @@ button {
 			})
 		})
 		$("#nicknameCheck").on("click",function(){
+			
 		    if($("#nickname").val()==""){
 		        alert("닉네임을 먼저 입력해주세요.");
 		        return;
@@ -260,7 +261,7 @@ button {
 			}
 
 		});
-
+		
 		$("#phone").on("keyup ", function() {
 			let phone = $("#phone").val();
 			let message1 = $("#message1");
@@ -335,6 +336,22 @@ button {
 				}
 
 			}
+			if($("#nickname").val() == "").{
+				alert("닉네임을 입력 해주세요.");
+			}
+			if($("#email").val() == ""){
+				alert("이메일을 입력 해주세요.");
+			}else{
+				let email = $("#email").val();
+
+				let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+				let result = regex.test(email);
+				if(!result){
+					alert("올바르지 않은 형식의 이메일입니다.")
+					return false;
+				}
+			}
+				
 
 		});
 
