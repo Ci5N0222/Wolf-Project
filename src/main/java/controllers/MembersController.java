@@ -52,7 +52,12 @@ public class MembersController extends HttpServlet {
 			    boolean result = dao.CheckById(id);
 			    
 			    response.getWriter().append(String.valueOf(result));
-			} else if (cmd.equals("/login.members")) {
+			}else if(cmd.equals("/nicknamecheck.members")) {
+				String nickname = request.getParameter("nickname");
+			    boolean result = dao.CheckByNickname(nickname);
+			    
+			    response.getWriter().append(String.valueOf(result));
+			}else if (cmd.equals("/login.members")) {
 
 				String id = request.getParameter("id");
 				String pw = EncryptionUitls.getSHA512(request.getParameter("pw"));

@@ -153,6 +153,7 @@ private static BoardDAO instance;
 		try (Connection con=this.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
 			pstat.setInt(1, seq);
+			pstat.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
