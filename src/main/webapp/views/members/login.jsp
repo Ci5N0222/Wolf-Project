@@ -39,7 +39,7 @@ input {
 					location.href = "/memberout.members";
 				})
 				$("#mypage").on("click", function() {
-					location.href = "/select.members";
+					location.href = "/views/mypage/mypage.jsp";
 				})
 				$("#toboard").on("click",function(){
 					location.href="/list.board";

@@ -20,124 +20,27 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <!-- Project local -->
-<link rel="stylesheet" href="css/style.css">
-<script src="js/main.js"></script>
-
-<style>
-	* {
-	    box-sizing: border-box;
-	    margin: 0;
-	    padding: 0;
-	}
-	
-	.admin-container {
-	    display: flex;
-	    height: 100vh;
-	    width: 100%;
-	}
-	
-	.admin-side-menu {
-	    flex: 1;
-	    height: 100%;
-	    background-color: antiquewhite;
-	}
-	
-	.admin-side-menu > p:hover {
-		cursor: pointer;
-	}
-	
-	.admin-side-menu > p {
-	    padding: 20px;
-	    font-size: 20px;
-	    font-weight: 800;
-	    text-align: center;
-	}
-	
-	.admin-logo {
-		display: flex;
-		justify-content: center;
-		padding: 10px;
-	}
-	
-	.admin-logo > img {
-		width: 230px;
-	}
-	
-	.admin-main-form {
-	    flex: 4;
-	    background-color: aqua;
-	    display: flex;
-	    flex-direction: column;
-	    justify-content: center;
-	    align-items: center;
-	}
-	
-	.admin-dashboard {
-	    width: 90%;
-	    background-color: white;
-	    display: flex;
-    	justify-content: space-around;
-	    
-	}
-	
-	.admin-dashboard > .dashboard-item {
-		width: 300px;
-		height: 300px;
-	}
-	
-	.admin-logout {
-		padding: 10px;
-		display: flex;
-		justify-content: space-around;
-	}
-	.admin-logout > p {
-		margin: 20px 0;	
-	}
-	.admin-logout > p:hover {
-		cursor: pointer;
-	}
-	
-	.admin-main-title {
-		margin: 30px 0;
-		font-size: 50px;
-	}
-	
-	
-</style>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/admin.css">
+<script src="/js/main.js"></script>
 
 </head>
 <body>
     <main class="admin-container">
-        <aside class="admin-side-menu">
-            <div class="admin-logo">
-                <img src="/images/img09.png" alt="logo">
-            </div>
-            <p onclick="/location.href='/main.admin'"> 대시보드 </p>
-            <p onclick="/location.href='/main.admin'"> 멤버목록 </p>
-            <p onclick="/location.href='/main.admin'"> 공지사항 </p>
-            <p onclick="/location.href='/main.admin'"> FAQ </p>
-            <p onclick="/location.href='/main.admin'"> QNA </p>
-            <div class="admin-logout">
-	            <p onclick="location.href='/'">홈페이지</p>
-	            <p onclick="location.href='/logout.admin'">로그아웃</p>
-            </div>
-        </aside>
+        <%@ include file="/views/include/admin_side.jsp" %>
         
         <section class="admin-main-form">
-            <h1 class="admin-main-title">관리자 페이지</h1>
-            <h2 class="admin-sub-title">대시보드</h2>
+            <h1 class="admin-main-title">Dash Board</h1>
             <div class="admin-dashboard">
             
             	<!-- 성별 대시보드 -->
             	<div class="dashboard-item">
-            		남여 성비 <br />
-	            	총 회원 수: ${ male + female } <br />
-	            	남성 : ${ male } <br />
-	            	여성 : ${ female } <br />
+            		남여 성별 비율 <br />
+ 					총 회원 수: ${ male + female } <br />
 	            	<div>
 						<canvas id="genderChart"></canvas>
 					</div>
-					
+
 					<script>
 					const genderLabels = ["남성", "여성"]
 					const genderChart = document.getElementById('genderChart');
@@ -174,8 +77,6 @@
             	<div class="dashboard-item">
             		연령별 사용자수  <br />
 	            	총 회원 수: ${ male + female } <br />
-	            	남성 : ${ male } <br />
-	            	여성 : ${ female } <br />
 	            	<div>
 						<canvas id="birthChart"></canvas>
 					</div>

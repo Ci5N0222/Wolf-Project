@@ -81,7 +81,7 @@ public class AdminController extends HttpServlet {
 			else if(cmd.equals("/memberslist.admin")) {
 				List<MembersDTO> membersList = dao.getMemberList();
 				request.setAttribute("membersList", membersList);
-				request.getRequestDispatcher("admin_management.jsp").forward(request, response);
+				request.getRequestDispatcher("views/admin/admin_members_list.jsp").forward(request, response);
 			}
 			
 			

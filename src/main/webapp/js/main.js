@@ -1,4 +1,8 @@
+
+
 $(function(){
+	var sun = document.querySelector(".sun");
+	var navi = document.querySelector(".navi");
 	
 	// 모드 변경 이벤트 리스너 등록
 	$("#mode").on("click", toggleMode)
@@ -26,7 +30,11 @@ function toggleMode() {
     // <body>에 'light' 클래스가 있을 때 색상을 화이트로 변경
     if (body.classList.contains("light")) {
         document.documentElement.style.setProperty('--color-black', 'black');
+        sun.style.backgroundColor = "var(--bg-dark)";
+    	navi.style.backgroundColor = "var(--bg-dark)";
     } else {
         document.documentElement.style.setProperty('--color-black', 'white');
+        navi.style.backgroundColor = "var(--bg-nav)";
+    	sun.style.backgroundColor = "var(--bg-nav)";
     }
 }
