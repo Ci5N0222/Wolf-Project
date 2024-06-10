@@ -44,8 +44,8 @@
 	        
 	        <!-- 컨텐츠 -->
             <div id="contents" class="d-flex align-items-center justify-content-center my-3">
-                <div>Wolf</div>
-                <div>설명</div>
+                <div>Developer <br/> who wants to cry</div>
+                <div></div>
             </div>
           
 			<!-- main -->
@@ -95,7 +95,7 @@
             </main>
 	       	</div>
 	        
-			<div class="one"></div>
+			<div class="sun"></div>
 	        <!-- mode -->
 	        <div id="mode">
 	            <i class="fa-regular fa-lightbulb" style="display: none;"></i>
