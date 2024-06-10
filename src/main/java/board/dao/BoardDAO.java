@@ -29,12 +29,15 @@ private static BoardDAO instance;
 		return db.getConnection();
 	}
 	
-	public List<BoardDTO> selectAll(){
+	public Object[] selectAll(){
 		List<BoardDTO> list = new ArrayList<>();
-		String sql="select *from board";
+		String sql="select b.*, m.nickname from board b join members m on m.id =b.member_id";
+		Object [] boardList=new Object[2];
+		String nickname="";
 		try (Connection con=this.getConnection();
 				PreparedStatement pstat= con.prepareStatement(sql);
 				ResultSet rs=pstat.executeQuery()){
+			
 			while(rs.next()) {
 				int seq=rs.getInt(1);
 				String title=rs.getString(2);
@@ -42,17 +45,50 @@ private static BoardDAO instance;
 				int count =rs.getInt(4);
 				String member_id=rs.getString(5);
 				Timestamp write_date=rs.getTimestamp(6);
-				
+				nickname=rs.getString(7);
 				list.add(new BoardDTO(seq,title,contents,count,member_id,write_date));
 				
 				
 			}
+		
 			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		
-		return list;
+		
+		boardList[0]=list;
+		boardList[1]= nickname;
+		return boardList;
+		
+	}
+	public Object[] selectBoard(int seq){
+		BoardDTO dto= new BoardDTO();
+		String sql="select b.*, m.nickname from board b join members m on m.id =b.member_id where b.seq=?";
+		Object [] boardList=new Object[2];
+		String nickname="";
+		try (Connection con=this.getConnection();
+				PreparedStatement pstat= con.prepareStatement(sql);){
+			pstat.setInt(1, seq);
+			try(ResultSet rs=pstat.executeQuery()) {
+				rs.next();
+					String title=rs.getString(2);
+					String contents=rs.getString(3);
+					int count =rs.getInt(4);
+					String member_id=rs.getString(5);
+					Timestamp write_date=rs.getTimestamp(6);
+					nickname=rs.getString(7);
+					dto=(new BoardDTO(seq,title,contents,count,member_id,write_date));
+			} catch (Exception e) {
+				
+			}
+		} catch (Exception e) {
+			
+		}
+		
+		boardList[0]=dto;
+		boardList[1]= nickname;
+		return boardList;
 	}
 	
 	public void delete(int seq) {
@@ -60,6 +96,16 @@ private static BoardDAO instance;
 		try (Connection con=this.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
 			pstat.setInt(1, seq);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
+	public void deleteMember(String member_id) {
+		String sql="delete from board where member_id=?";
+		try (Connection con=this.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)){
+			pstat.setString(1, member_id);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

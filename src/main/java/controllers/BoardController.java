@@ -27,13 +27,21 @@ public class BoardController extends HttpServlet {
 		
 		try {
 			if(cmd.equals("/list.board")) {
-				list = boardDAO.selectAll();
+				Object boardList[] = boardDAO.selectAll();
 				
+				request.setAttribute("list", boardList[0]);
+				request.setAttribute("nickname", boardList[1]);
 				
-				
-				request.getRequestDispatcher("/board/boardview.jsp").forward(request, response);
+				request.getRequestDispatcher("/views/board/board_view.jsp").forward(request, response);
 				
 			} else if(cmd.equals("/detail.board")) {
+				int seq= Integer.parseInt(request.getParameter("seq"));
+				Object boardList[] =boardDAO.selectBoard(seq);
+				request.setAttribute("dto", boardList[0]);
+				request.setAttribute("nickname", boardList[1]);
+				
+				
+				request.getRequestDispatcher("/views/board/board_detail.jsp").forward(request, response);
 				
 			} else if(cmd.equals("/insert.board")) {
 				
