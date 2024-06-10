@@ -17,12 +17,20 @@
 <script src="https://kit.fontawesome.com/1ee4acc8d4.js" crossorigin="anonymous"></script>
 
 <!-- Project local -->
-<link rel="stylesheet" href="css/style.css">
-<script src="js/main.js"></script>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/admin.css">
+<script src="/js/main.js"></script>
 
 </head>
 <body>
-	${membersList.size()}
-	
+	<main class="admin-container">
+        <%@ include file="/views/include/admin_side.jsp" %>
+        
+        <section class="admin-main-form">
+        <h1 class="admin-main-title">Members List</h1>
+            ${membersList.size()}
+        </section>
+
+    </main>
 </body>
 </html>
