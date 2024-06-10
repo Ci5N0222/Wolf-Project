@@ -105,6 +105,9 @@
         p {
             width: 100%;
         }
+        .tox-toolbar__primary{ 
+            width:700px !important;     
+        }
     </style>
 </head>
 
@@ -119,10 +122,11 @@
                     조회 ${board_dto.count}
                 </p>
             </div>
-            <div style="flex: 1;">
+            <div style="flex: 1; flex-direction: column;">
                 <c:forEach var="files_dto" items="${files_list}">
-                    <div>
-                        ${files_dto.seq }. <a href="/download.files?sysname=${files_dto.sysname }&oriname=${files_dto.oriname}">${files_dto.oriname}</a>
+                    <div class="files_div">
+                       <span class="files_seq">${files_dto.seq }</span>.&nbsp<a href="/download.files?sysname=${files_dto.sysname }&oriname=${files_dto.oriname}">${files_dto.oriname}</a>
+                        <button class="files_delete" style="width: 50px; height: 50px; display: none;">삭제</button>
                     </div>
                 </c:forEach>
             </div>
@@ -138,10 +142,11 @@
                         <button type="button" id="list">목록으로</button>
                     </div>
                     <div style="border: 0; display: none;" id="div2">
-                        <form action="/update.board" method="post" id="joinform">
+                        <form action="/update.board" method="post" id="joinform" enctype="multipart/form-data">
                             <input type="hidden" name="title" class="update_input" id="board_title_input"> 
                             <input type="hidden" name="contents" class="update_input" id="board_contents_input"> 
-                            <input type="hidden" name="count" value="${board_dto.count}"> 
+                            <input type="hidden" name="count" value="${board_dto.count}">
+                            <div style="display: none;"><input type="file" name="file" id="upload"></div>
                             <input type="hidden" name="seq" value="${board_dto.seq}" class="notuse">
                             <button type="submit" id="confirm">확인</button>
                             <button type="button" id="cancel">취소</button>
@@ -240,6 +245,7 @@
         let reply_contents = [];
         let reply_confirm=$(".reply_confirm");
 
+        let files_delete=$(".files_delete");
 
         reply_div.each(function (index, e) {
             reply_contents.push($(e).html().trim());
@@ -278,6 +284,21 @@
 
             })
         })
+        
+        files_delete.each(function(index,e){
+            $(e).on("click",function(){       
+                $.ajax({
+                    url:"/delete.files",
+                    type:"post",
+                    data:{
+                        seq:$(".files_seq").eq(index).text()
+                    }
+                }).done(function(resp){
+                    $(".files_div").eq(index).html("");
+                })
+            })    
+        })
+
 
         
         $(".reply_update_form").on("submit", function () {
@@ -316,6 +337,8 @@
 
         })
         btn3.on("click", function () { //update
+            files_delete.css("display","block");
+
             $("#div1").css({
                 display: "none"
             })
@@ -374,7 +397,7 @@
 
         btn5.on("click", function () {//cancel
             
-
+            files_delete.css("display","none");
             $("#div1").css({
                 display: "flex"
             })

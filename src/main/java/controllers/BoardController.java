@@ -94,18 +94,32 @@ public class BoardController extends HttpServlet {
 			} else if(cmd.equals("/delete.board")) {
 				int seq=Integer.parseInt(request.getParameter("seq"));
 				replyDAO.delete(seq);
-				filesDAO.delete(seq);
+				filesDAO.deleteAll(seq);
 				boardDAO.delete(seq);
 				response.sendRedirect("/list.board");
 				
 			} else if(cmd.equals("/update.board")) {
 				//session.setAttribute("WolfID", "test1");
-				int seq=Integer.parseInt(request.getParameter("seq"));
-				String title =request.getParameter("title");
-				String contents=request.getParameter("contents");
+				int maxSize = 1024 * 1024 * 10; // 10mb
+				String realPath = request.getServletContext().getRealPath("files");
+				File uploadPath = new File(realPath);
+				if (!uploadPath.exists()) {
+					uploadPath.mkdir();// 메이크 디렉토리
+				}
+				MultipartRequest multi = new MultipartRequest(request, realPath, maxSize, "UTF8",
+						new DefaultFileRenamePolicy());
+				String oriName = multi.getOriginalFileName("file");// 원본이름
+				String sysName = multi.getFilesystemName("file");// 서버에 저장되었을떄 이름
+				
+				int seq=Integer.parseInt(multi.getParameter("seq"));
+				String title =multi.getParameter("title");
+				String contents=multi.getParameter("contents");
 				String member_id= (String)session.getAttribute("WolfID");
-				int count =Integer.parseInt(request.getParameter("count"));
+				int count =Integer.parseInt(multi.getParameter("count"));
 				boardDAO.update(new BoardDTO(seq,title,contents,count,member_id,null));
+				filesDAO.insert(new FilesDTO(0, oriName, sysName, seq));
+				
+				
 				response.sendRedirect("/detail.board?seq="+seq);
 				
 			} else if(cmd.equals("/2.board")) {
