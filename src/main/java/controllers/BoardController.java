@@ -91,8 +91,21 @@ public class BoardController extends HttpServlet {
 				response.sendRedirect("/list.board");
 				
 			} else if(cmd.equals("/delete.board")) {
+				int seq=Integer.parseInt(request.getParameter("seq"));
+				replyDAO.delete(seq);
+				filesDAO.delete(seq);
+				boardDAO.delete(seq);
+				response.sendRedirect("/list.board");
 				
-			} else if(cmd.equals("/1.board")) {
+			} else if(cmd.equals("/update.board")) {
+				session.setAttribute("WolfID", "test1");
+				int seq=Integer.parseInt(request.getParameter("seq"));
+				String title =request.getParameter("title");
+				String contents=request.getParameter("contents");
+				String member_id= (String)session.getAttribute("WolfID");
+				int count =Integer.parseInt(request.getParameter("count"));
+				boardDAO.update(new BoardDTO(seq,title,contents,count,member_id,null));
+				response.sendRedirect("/detail.board?seq="+seq);
 				
 			} else if(cmd.equals("/2.board")) {
 				

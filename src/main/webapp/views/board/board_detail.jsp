@@ -108,8 +108,8 @@
 
 <body>
     <div class="container">
-        <div style="flex: 1;" class="center dto title">${board_dto.title}</div>
-        <div style="flex: 1;" class="center">${board_dto.member_id}</div>
+        <div style="flex: 1;" class="center dto title" id="board_title">${board_dto.title}</div>
+        <div style="flex: 1;" class="center">${board_nickname}</div>
         <div style="flex: 1; color: gray;">
             <div style="flex: 1;">
                 <p>
@@ -127,7 +127,7 @@
             </div>
         </div>
         <div style="border: 1px solid black; align-items: center; justify-content: center;"></div>
-        <div style="flex: 5;" class="dto">${board_dto.contents}</div>
+        <div style="flex: 5;" class="dto" id="board_contents">${board_dto.contents}</div>
         <div style="flex: 1; justify-content: flex-end;">
             <c:choose>
                 <c:when test="${loginID eq dto.writer}">
@@ -138,8 +138,10 @@
                     </div>
                     <div style="border: 0; display: none;" id="div2">
                         <form action="/update.board" method="post" id="joinform">
-                            <input type="hidden" name="title" class="update_input"> <input type="hidden" name="contents"
-                                class="update_input"> <input type="hidden" name="seq" value="${board_dto.seq}" class="notuse">
+                            <input type="hidden" name="title" class="update_input"> 
+                            <input type="hidden" name="contents" class="update_input"> 
+                            <input type="hidden" name="count" value="${board_dto.count}"> 
+                            <input type="hidden" name="seq" value="${board_dto.seq}" class="notuse">
                             <button type="submit" id="confirm">확인</button>
                             <button type="button" id="cancel">취소</button>
                         </form>
@@ -151,22 +153,23 @@
             </c:choose>
         </div>
     </div>
-    <form action="/insert.reply" method="get" id="replyform"></form>
+    <form action="/insert.reply" method="get" id="replyform">
     <div class="reply">
         <div style="flex: 4; border: 1px solid black; margin: 15px; word-break: break-all;" contenteditable="true"
-            class="dto"></div>
-        <input type="hidden" name="contents" id="contents"> <input type="hidden" name="writer" value="${dto.writer}"
-            class="notuse">
-        <input type="hidden" name="parent_seq" value="${dto.seq}" class="notuse">
+            class="dto" id="reply_insert_div"></div>
+        <input type="hidden" name="contents" id="reply_insert_contents">
+        <input type="hidden" name="member_id" value="${board_dto.member_id}"class="notuse">
+        <input type="hidden" name="board_seq" value="${board_dto.seq}" class="notuse">
         <div style="flex: 1; justify-content: center; align-items: center;">
             <button id="reply_btn">등록</button>
         </div>
     </div>
+    </form>
     <div id="reply_contents">
         <c:forEach var="reply_dto" items="${reply_list}">
             <div class="reply_contents">
                 <div style="flex: 6; word-break: break-all; white-space: pre-wrap; flex-direction: column;">
-                    <div>${reply_dto.writer}</div>
+                    <div>${reply_nickname}</div>
                     <div class="reply_div">${reply_dto.contents}</div>
                     <div><p style="color: gray;"><fmt:formatDate value="${reply_dto.write_date}" pattern="yyyy.MM.dd HH:mm" /></p></div>
                 </div>
@@ -214,9 +217,14 @@
         let btn4 = $("#confirm");
         let btn5 = $("#cancel");
         let dto = $(".dto");
+
+        let board_title=$("#board_title");
+        let board_contents=$("#board_contents");
+
         let input = $(".update_input");
-        let title = dto.eq(0).html().trim();
-        let contents = dto.eq(1).html().trim();
+
+        let title = board_title.html().trim();
+        let contents = board_contents.html().trim();
 
         let reply_input = $(".reply_input");
         let reply_seq = $(".reply_seq");
@@ -277,128 +285,9 @@
         })
 
 
-
-
-
-
-
-
-
-
-        function update_reply() {
-            reply_input = $(".reply_input");
-            reply_seq = $(".reply_seq");
-            reply_delete = $(".reply_delete");
-            reply_cancel = $(".reply_cancel");
-            reply_update = $(".reply_update");
-            reply_div = $(".reply_div");
-            reply_div1 = $(".reply_div1");
-            reply_div2 = $(".reply_div2");
-            reply_contents = [];
-        }
-
-        
-
-
-        /*$("#replyform").on("submit",function(){
-            $("#contents").val(dto.eq(2).html().trim()); //reply input
-        })*/
-        $("#reply_btn").on("click", function () {
-            $.ajax({
-                url: "/insert.reply",
-                dataType: "json",
-                data: {
-                    contents: dto.eq(2).html().trim(),
-                    writer: "${dto.writer}",
-                    parent_seq: "${dto.seq}"
-
-                }
-            }).done(function (resp) {
-                let div = $("#reply_contents");
-                // reply_contents 요소를 동적으로 생성하여 변수에 할당
-                var replyContentsDiv = $("<div>").addClass("reply_contents");
-
-                // 왼쪽 요소 생성 및 추가
-                var leftDiv = $("<div>").css({
-                    "flex": "6",
-                    "word-break": "break-all",
-                    "white-space": "pre-wrap",
-                    "flex-direction": "column"
-                });
-                leftDiv.append($("<div>").text(resp.writer)); // 작성자 추가
-                leftDiv.append($("<div>").addClass("reply_div").text(resp.contents)); // 내용 추가
-                leftDiv.append($("<div>").append(
-                    $("<p>").css("color", "gray").text(new Date(resp.write_date).toLocaleString()) // 작성일 추가
-                ));
-                replyContentsDiv.append(leftDiv);
-
-                // 오른쪽 요소 생성 및 추가
-                var rightDiv = $("<div>").css({
-                    "flex": "1",
-                    "font-size": "x-small",
-                    "justify-content": "flex-end",
-                    "align-items": "flex-end"
-                });
-                var checkDiv;
-                if ("${loginID}" == resp.writer) {
-                    checkDiv = $("<div>").attr("class", "block"); // check 요소 생성
-                } else {
-                    checkDiv = $("<div>").attr("class", "none");
-                }
-
-                var replyDiv1 = $("<div>").css({
-                    "display": "flex",
-                    "width": "110px"
-                }).addClass("reply_div1");
-                replyDiv1.append($("<button>").css({
-                    "width": "50px",
-                    "height": "50px"
-                }).addClass("reply_update").text("수정")); // 수정 버튼 추가
-                replyDiv1.append($("<button>").css({
-                    "width": "50px",
-                    "height": "50px"
-                }).addClass("reply_delete").text("삭제")); // 삭제 버튼 추가
-                var replyDiv2 = $("<div>").css({
-                    "display": "none",
-                    "width": "110px"
-                }).addClass("reply_div2"); // reply_div2 요소 생성
-                var updateForm = $("<form>").attr({
-                    "action": "/update.reply",
-                    "method": "post"
-                }).addClass("reply_update_form"); // form 요소 생성
-                updateForm.append($("<input>").attr({
-                    "type": "hidden",
-                    "name": "contents"
-                }).addClass("reply_input")); // hidden input(contents) 추가
-                updateForm.append($("<input>").attr({
-                    "type": "hidden",
-                    "name": "seq",
-                    "value": resp.seq
-                }).addClass("reply_seq")); // hidden input(seq) 추가
-                updateForm.append($("<input>").attr({
-                    "type": "hidden",
-                    "name": "parent_seq",
-                    "value": dto.seq
-                }).addClass("notuse")); // hidden input(parent_seq) 추가
-                updateForm.append($("<button>").attr("type", "submit").css({
-                    "width": "50px",
-                    "height": "50px"
-                }).addClass("reply_confirm").text("확인")); // 확인 버튼 추가
-                updateForm.append($("<button>").attr("type", "button").css({
-                    "width": "50px",
-                    "height": "50px"
-                }).addClass("reply_cancel").text("취소")); // 취소 버튼 추가
-                replyDiv2.append(updateForm);
-                checkDiv.append(replyDiv1, replyDiv2);
-                rightDiv.append(checkDiv);
-                replyContentsDiv.append(rightDiv);
-
-                // 생성된 요소를 문서에 추가
-                div.prepend(replyContentsDiv);
-
-            })
+        $("#replyform").on("submit",function(){
+            $("#reply_insert_contents").val($("#reply_insert_div").html().trim());
         })
-
 
         $("#joinform").on("submit", function () {
 
@@ -409,24 +298,25 @@
         })
 
         btn1.on("click", function () { //delete
-            swal("/delete.board?seq=${dto.seq}");
+            swal("/delete.board?seq=${board_dto.seq}");
 
         })
-        btn2.on("click", function () {
+        btn2.on("click", function () { //list
             location.href = "/list.board";
 
         })
-        btn3.on("click", function () {
+        btn3.on("click", function () { //update
             $("#div1").css({
                 display: "none"
             })
             $("#div2").css({
                 display: "flex"
             })
-            dto.attr("contenteditable", "true");
+            board_title.attr("contenteditable", "true");
+            board_contents.attr("contenteditable", "true");
         })
 
-        btn5.on("click", function () {
+        btn5.on("click", function () {//cancel
             dto.eq(0).html(title);
             dto.eq(1).html(contents);
 
@@ -437,8 +327,8 @@
 
                 display: "none"
             })
-            dto.eq(0).attr("contenteditable", "false"); //title
-            dto.eq(1).attr("contenteditable", "false"); //contetns
+            board_title.attr("contenteditable", "false");
+            board_contents.attr("contenteditable", "false");
         })
 
 
