@@ -18,6 +18,9 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import board.dao.BoardDAO;
 import board.dto.BoardDTO;
 import commons.BoardConfig;
+import files.dao.FilesDAO;
+import files.dto.FilesDTO;
+import reply.dao.ReplyDAO;
 
 @WebServlet("*.board")
 public class BoardController extends HttpServlet {
@@ -28,6 +31,8 @@ public class BoardController extends HttpServlet {
 		String cmd = request.getRequestURI();
 		
 		BoardDAO boardDAO= BoardDAO.getInstance();
+		FilesDAO filesDAO= FilesDAO.getInstance();
+		ReplyDAO replyDAO= ReplyDAO.getInstance();
 		List<BoardDTO> list = new ArrayList<>();
 		
 		try {
@@ -38,7 +43,7 @@ public class BoardController extends HttpServlet {
 				Object boardList[] = boardDAO.select( BoardConfig.recordCountPerPage, cpage);
 				
 				request.setAttribute("list", boardList[0]);
-				request.setAttribute("nickname", boardList[1]);
+				request.setAttribute("nickname", boardList[1]);//boardList[1]
 				request.setAttribute("cpage", cpage);
 				request.setAttribute("record_count_per_page", BoardConfig.recordCountPerPage);
 				request.setAttribute("navi_count_per_page", BoardConfig.naviCountPerPage);
@@ -49,13 +54,22 @@ public class BoardController extends HttpServlet {
 			} else if(cmd.equals("/detail.board")) {
 				int seq= Integer.parseInt(request.getParameter("seq"));
 				Object boardList[] =boardDAO.selectBoard(seq);
-				request.setAttribute("dto", boardList[0]);
-				request.setAttribute("nickname", boardList[1]);
+				Object replyList[] =replyDAO.select(seq);
+				List<FilesDTO> fileList=filesDAO.select(seq);
 				
+				
+				request.setAttribute("board_dto", boardList[0]);
+				request.setAttribute("board_nickname", boardList[1]);
+				
+				request.setAttribute("reply_list", replyList[0]);
+				request.setAttribute("reply_nickname", replyList[1]);
+			
+				request.setAttribute("files_list", fileList);
 				
 				request.getRequestDispatcher("/views/board/board_detail.jsp").forward(request, response);
 				
 			} else if(cmd.equals("/insert.board")) {
+				session.setAttribute("WolfID", "test1");
 				int maxSize = 1024 * 1024 * 10; // 10mb
 				String realPath = request.getServletContext().getRealPath("files");
 				File uploadPath = new File(realPath);
@@ -72,11 +86,26 @@ public class BoardController extends HttpServlet {
 				BoardDTO dto=new BoardDTO(0,title,contents,0,member_id,null);
 				int board_seq= boardDAO.insert(dto);
 				//dao_files.insert(new FilesDTO(0, oriName, sysName, parent_seq));
+				filesDAO.insert(new FilesDTO(0, oriName, sysName, board_seq));
+				
 				response.sendRedirect("/list.board");
 				
 			} else if(cmd.equals("/delete.board")) {
+				int seq=Integer.parseInt(request.getParameter("seq"));
+				replyDAO.delete(seq);
+				filesDAO.delete(seq);
+				boardDAO.delete(seq);
+				response.sendRedirect("/list.board");
 				
-			} else if(cmd.equals("/1.board")) {
+			} else if(cmd.equals("/update.board")) {
+				session.setAttribute("WolfID", "test1");
+				int seq=Integer.parseInt(request.getParameter("seq"));
+				String title =request.getParameter("title");
+				String contents=request.getParameter("contents");
+				String member_id= (String)session.getAttribute("WolfID");
+				int count =Integer.parseInt(request.getParameter("count"));
+				boardDAO.update(new BoardDTO(seq,title,contents,count,member_id,null));
+				response.sendRedirect("/detail.board?seq="+seq);
 				
 			} else if(cmd.equals("/2.board")) {
 				

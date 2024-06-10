@@ -58,6 +58,15 @@ public class MembersDAO {
 			}
 		}
 	}
+	public boolean CheckByNickname(String nickname) throws Exception {
+		String sql = "SELECT * FROM members WHERE nickname = ?";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+			pstat.setString(1, nickname);
+			try (ResultSet rs = pstat.executeQuery()) {
+				return rs.next();
+			}
+		}
+	}
 	public String[] login(String id, String pw) throws Exception {
 		String sql = "select * from members where id = ? and pw = ?";
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
@@ -68,7 +77,7 @@ public class MembersDAO {
 				 String[]result = new String[3];
 				 result[0] = rs.getString(1);
 				 result[1] = rs.getString(4);
-				 result[3] = rs.getString(10);
+				 result[2] = rs.getString(10);
 				 return result;
 			 }else {
 				 return new String[0];

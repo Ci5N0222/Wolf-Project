@@ -73,7 +73,7 @@ input {
 	</c:choose>
 	<script>
 		$("#signup").on("click", function() {
-			location.href = "/members/signup.jsp";
+			location.href = "/views/members/signup.jsp";
 		})
 	</script>
 </body>

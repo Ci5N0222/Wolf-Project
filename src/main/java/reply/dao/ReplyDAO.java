@@ -44,9 +44,22 @@ public class ReplyDAO {
 		
 	}
 	
-	public Object[] selectAll(int board_seq) {
+	public void delete(int seq) {
+		String sql="delete from reply where seq=?";
+		try (Connection con=this.getConnection();
+				PreparedStatement pstat= con.prepareStatement(sql)){
+			pstat.setInt(1, seq);
+			pstat.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+	
+	public Object[] select(int board_seq) {
 		Object [] replyList=new Object[2];
-		String sql="select r.*, m.nickname from reply r join members m on r.member_id = m.id where r.board_seq=?";
+		String sql="select r.*, m.nickname from reply r join members m on r.member_id = m.id where r.board_seq=? order by seq desc";
 		List<ReplyDTO> list =new ArrayList();
 		String nickname="";
 		try (Connection con=this.getConnection();

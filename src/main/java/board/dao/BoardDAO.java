@@ -77,7 +77,7 @@ private static BoardDAO instance;
 		}
 		
 		
-		boardList[0]=list;
+		boardList[0]= list;
 		boardList[1]= nickname;
 		return boardList;
 		
@@ -101,7 +101,7 @@ private static BoardDAO instance;
 					int count =rs.getInt(4);
 					String member_id=rs.getString(5);
 					Timestamp write_date=rs.getTimestamp(6);
-					nickname=rs.getString(7);
+					nickname=rs.getString(8);
 					BoardDTO dto=new BoardDTO(seq,title,contents,count,member_id,write_date);
 					list.add(dto);
 				}
@@ -153,6 +153,7 @@ private static BoardDAO instance;
 		try (Connection con=this.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
 			pstat.setInt(1, seq);
+			pstat.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

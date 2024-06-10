@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,7 +46,7 @@
 </head>
 <body>
     <div class="container">
-        <div class="title center">
+        <div class="center" style="flex: 1;">
             자유게시판
         </div>
         <div style="flex: 1;">
@@ -59,7 +60,7 @@
                 <div style="display: flex; height: 50px;" >
                     <div style="flex: 1;" class="center"><span class="seq">${dto.seq}</span></div>
 				    <div style="flex: 5;" class="center"><span class="title">${dto.title}</span> </div>
-				    <div style="flex: 1;" class="center">${dto.nickname}</div>
+				    <div style="flex: 1;" class="center">${nickname}</div>
 				    <div style="flex: 1;" class="center"><fmt:formatDate value="${dto.write_date}" pattern="yyyy.MM.dd"/></div>
 				    <div style="flex: 1;" class="center">${dto.count}</div>
                 </div>
