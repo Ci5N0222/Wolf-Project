@@ -164,7 +164,7 @@ prefix="c" %>
       });
 
       $("#cancel").on("click", function () {
-        location.href = "/test/index.jsp";
+        location.href = "/views/mypage/mypage.jsp";
       });
     </script>
   </body>

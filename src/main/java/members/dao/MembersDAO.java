@@ -143,7 +143,7 @@ public class MembersDAO {
 			pstat.setString(3, dto.getPhone());
 			pstat.setString(4, dto.getEmail());
 			pstat.setString(5, dto.getAvatar());
-			pstat.setString(6, "qwerqwer");
+			pstat.setString(6, dto.getId());
 
 			int result = pstat.executeUpdate();
 			return result;
