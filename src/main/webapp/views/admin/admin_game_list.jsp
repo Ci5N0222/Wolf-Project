@@ -22,7 +22,7 @@
 
 </head>
 <body>
-	${WolfAdmin}
+	${gameList.size()}
 	
 </body>
 </html>

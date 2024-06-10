@@ -22,7 +22,7 @@
 
 </head>
 <body>
-	${WolfAdmin}
+	${membersList.size()}
 	
 </body>
 </html>
