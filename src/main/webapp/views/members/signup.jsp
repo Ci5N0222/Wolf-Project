@@ -160,46 +160,48 @@ button {
 	</div>
 	<script>
 		
-		$("#idCheck").on("click",function(){
-		    if($("#id").val()==""){
-		        alert("ID를 먼저 입력해주세요.");
-		        return;
-		    }
+	$(document).ready(function() {
+		$("#idCheck").on("click", function() {
+			if ($("#id").val() == "") {
+				alert("ID를 먼저 입력해주세요.");
+				return;
+			}
 			$.ajax({
-				url:"/idcheck.members",
-				data:{
-					id:$("#id").val()
+				url: "/idcheck.members",
+				data: {
+					id: $("#id").val()
 				}
-			}).done(function(resp){
-				if(resp=="true"){
+			}).done(function(resp) {
+				if (resp == "true") {
 					alert("이미 사용중인 ID 입니다.");
-				}else{
+				} else {
 					alert("사용가능한 ID 입니다.");
 				}
-			})
-		})
-		$("#nicknameCheck").on("click",function(){
-		    if($("#nickname").val()==""){
-		        alert("닉네임을 먼저 입력해주세요.");
-		        return;
-		    }
+			});
+		});
+
+		$("#nicknameCheck").on("click", function() {
+			if ($("#nickname").val() == "") {
+				alert("닉네임을 먼저 입력해주세요.");
+				return;
+			}
 			$.ajax({
-				url:"/nicknamecheck.members",
-				data:{
-					nickname:$("#nickname").val()
+				url: "/nicknamecheck.members",
+				data: {
+					nickname: $("#nickname").val()
 				}
-			}).done(function(resp){
-				if(resp=="true"){
+			}).done(function(resp) {
+				if (resp == "true") {
 					alert("이미 사용중인 닉네임 입니다.");
-				}else{
+				} else {
 					alert("사용가능한 닉네임 입니다.");
 				}
-			})
-		})
-		
+			});
+		});
+
 		$("#back").on("click", function() {
 			location.href = "/index.jsp";
-		})
+		});
 
 		$("#pwc").on("keyup", function() {
 			let pw = $("#pw").val();
@@ -210,44 +212,43 @@ button {
 			} else {
 				message.text("패스워드 불일치").css("color", "red");
 			}
+		});
 
-		})
 		$("#postcode").on("click", function() {
 			new daum.Postcode({
-				oncomplete : function(data) {
-
+				oncomplete: function(data) {
 					let address = data.jibunAddress;
 					let postcode = data.zonecode;
-
 					$("#post").val(postcode);
 					$("#address1").val(address);
-
 				}
 			}).open();
-		})
+		});
+
 		$("#id").on("keyup", function() {
-			let id = $("#id").val()
+			let id = $("#id").val();
 			let msg = $("#msg");
 			let regex = /^[a-z0-9_]{8,}$/;
 			let result = regex.test(id);
 			if (result) {
 				msg.text("사용할 수 있는 형식의 ID입니다.").css("color", "dodgerblue");
-			} else if(!result){
+			} else {
 				msg.text("사용할 수 없는 형식의 ID입니다").css("color", "red");
-			} 
-
+			}
 		});
+
 		$("#name").on("keyup", function() {
 			let name = $("#name").val();
 			let msg1 = $("#msg1");
-			let regex = /^[가-힣]{2,5}$/g;
+			let regex = /^[가-힣]{2,5}$/;
 			let result = regex.test(name);
 			if (result) {
 				msg1.text("올바른 이름입니다.").css("color", "dodgerblue");
-			} else {
-				msg1.text("올바르지 않은 이름입니다.").css("color", "red");
+				} else {
+					msg1.text("올바르지 않은 이름입니다.").css("color", "red");
 			}
-		})
+		});
+
 		$("#pw").on("keyup", function() {
 			let pw = $("#pw").val();
 			let msg2 = $("#msg2");
@@ -258,26 +259,23 @@ button {
 			} else {
 				msg2.text("올바르지 않은 형식입니다.").css("color", "red");
 			}
-
 		});
 
-		$("#phone").on("keyup ", function() {
+		$("#phone").on("keyup", function() {
 			let phone = $("#phone").val();
 			let message1 = $("#message1");
 			let regex = /^01[0,1,7]-?[\d]{4}-?[\d]{4}$/;
-
 			let result = regex.test(phone);
 			if (result) {
 				message1.text("올바른 입력").css("color", "dodgerblue");
 			} else {
 				message1.text("전화번호 다시 입력").css("color", "red");
 			}
+		});
 
-		})
 		$("#email").on("keyup", function() {
 			let email = $("#email").val();
 			let msg3 = $("#msg3");
-
 			let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 			let result = regex.test(email);
 			if (result) {
@@ -285,29 +283,25 @@ button {
 			} else {
 				msg3.text("이메일 다시 입력").css("color", "red");
 			}
+		});
 
-		})
 		$("#joinform").on("submit", function() {
-			// return false; // e.preventDefault();
 			if ($("#id").val() == "") {
 				alert("ID를 먼저 입력해주세요.");
 				return false;
-
-			}
-			else {
-				let id = $("#id").val()
+			} else {
+				let id = $("#id").val();
 				let msg = $("#msg");
 				let regex = /^[a-z0-9_]{8,}$/;
 				let result = regex.test(id);
 				if (!result) {
-					alert("사용할 수 없는 형식의 ID입니다")
+					alert("사용할 수 없는 형식의 ID입니다");
 					return false;
 				}
-
 			}
 
 			if ($("#name").val() == "") {
-				alert("이름을 입력해주세요.")
+				alert("이름을 입력해주세요.");
 				return false;
 			} else {
 				let name = $("#name").val();
@@ -315,29 +309,44 @@ button {
 				let regex = /^[가-힣]{2,5}$/g;
 				let result = regex.test(name);
 				if (!result) {
-					alert("올바르지 않은 형식의 이름입니다.")
+					alert("올바르지 않은 형식의 이름입니다.");
 					return false;
 				}
-
 			}
-			if ($("#pw,pwc").val() == "") {
+
+			if ($("#pw").val() == "" || $("#pwc").val() == "") {
 				alert("PW를 입력 해주세요");
 				return false;
-
 			} else {
 				let pw = $("#pw").val();
 				let msg2 = $("#msg2");
 				let regex = /(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/;
 				let result = regex.test(pw);
 				if (!result) {
-					alert("올바르지않은 형식의 PW 입니다.")
+					alert("올바르지 않은 형식의 PW 입니다.");
 					return false;
 				}
-
 			}
 
-		});
+			if ($("#nickname").val() == "") {
+				alert("닉네임을 입력 해주세요.");
+				return false;
+			}
 
+			if ($("#email").val() == "") {
+				alert("이메일을 입력 해주세요.");
+				return false;
+			} else {
+				let email = $("#email").val();
+				let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+				let result = regex.test(email);
+				if (!result) {
+					alert("올바르지 않은 형식의 이메일입니다.");
+					return false;
+				}
+			}
+		});
+	});
 
 </script>
 
