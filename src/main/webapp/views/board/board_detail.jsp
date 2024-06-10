@@ -10,6 +10,7 @@
     <title>Insert title here</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.tiny.cloud/1/9bewfouem96jjnfvuu236yinb3kp53xruh2gkkz3pkfnkw6c/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <style>
         * {
             box-sizing: border-box;
@@ -120,8 +121,7 @@
             <div style="flex: 1;">
                 <c:forEach var="files_dto" items="${files_list}">
                     <div>
-                        ${files_dto.seq }. <a
-                            href="/download.files?sysname=${files_dto.sysname }&oriname=${files_dto.oriname}">${files_dto.oriname}</a>
+                        ${files_dto.seq }. <a href="/download.files?sysname=${files_dto.sysname }&oriname=${files_dto.oriname}">${files_dto.oriname}</a>
                     </div>
                 </c:forEach>
             </div>
@@ -130,7 +130,7 @@
         <div style="flex: 5;" class="dto" id="board_contents">${board_dto.contents}</div>
         <div style="flex: 1; justify-content: flex-end;">
             <c:choose>
-                <c:when test="${loginID eq dto.writer}">
+                <c:when test="${WolfID eq board_dto.member_id}">
                     <div style="border: 0; display: flex;" id="div1">
                         <button type="button" id="update">수정하기</button>
                         <button type="button" id="delete">삭제하기</button>
@@ -138,8 +138,8 @@
                     </div>
                     <div style="border: 0; display: none;" id="div2">
                         <form action="/update.board" method="post" id="joinform">
-                            <input type="hidden" name="title" class="update_input"> 
-                            <input type="hidden" name="contents" class="update_input"> 
+                            <input type="hidden" name="title" class="update_input" id="board_title_input"> 
+                            <input type="hidden" name="contents" class="update_input" id="board_contents_input"> 
                             <input type="hidden" name="count" value="${board_dto.count}"> 
                             <input type="hidden" name="seq" value="${board_dto.seq}" class="notuse">
                             <button type="submit" id="confirm">확인</button>
@@ -158,7 +158,7 @@
         <div style="flex: 4; border: 1px solid black; margin: 15px; word-break: break-all;" contenteditable="true"
             class="dto" id="reply_insert_div"></div>
         <input type="hidden" name="contents" id="reply_insert_contents">
-        <input type="hidden" name="member_id" value="${board_dto.member_id}"class="notuse">
+        <input type="hidden" name="member_id" value="${WolfID}"class="notuse">
         <input type="hidden" name="board_seq" value="${board_dto.seq}" class="notuse">
         <div style="flex: 1; justify-content: center; align-items: center;">
             <button id="reply_btn">등록</button>
@@ -166,10 +166,10 @@
     </div>
     </form>
     <div id="reply_contents">
-        <c:forEach var="reply_dto" items="${reply_list}">
+        <c:forEach var="reply_dto" items="${reply_list}" varStatus="status">
             <div class="reply_contents">
                 <div style="flex: 6; word-break: break-all; white-space: pre-wrap; flex-direction: column;">
-                    <div>${reply_nickname}</div>
+                    <div>${reply_nickname_list[status.index]}</div>
                     <div class="reply_div">${reply_dto.contents}</div>
                     <div><p style="color: gray;"><fmt:formatDate value="${reply_dto.write_date}" pattern="yyyy.MM.dd HH:mm" /></p></div>
                 </div>
@@ -177,14 +177,13 @@
                     <div id="check">
                         <div stylse=" display: flex; width: 110px;" class="reply_div1">
                             <button style="width: 50px; height: 50px;" class="reply_update">수정</button>
-                            <button style="width: 50px
-                            ; height: 50px;" class="reply_delete">삭제</button>
+                            <button style="width: 50px; height: 50px;" class="reply_delete">삭제</button>
                         </div>
                         <div style="display: none; width: 110px;" class="reply_div2">
                             <form action="/update.reply" method="post" class="reply_update_form">
                                 <input type="hidden" name="contents" class="reply_input">
                                 <input type="hidden" name="seq" value="${reply_dto.seq}" class="reply_seq">
-                                 <input type="hidden" name="parent_seq" value="${dto.seq}" class="notuse">
+                                 <input type="hidden" name="board_seq" value="${board_dto.seq}" class="notuse">
                                 <button style="width: 50px; height: 50px;" type="submit" class="reply_confirm">확인</button>
                                 <button style="width: 50px; height: 50px;" type="button" class="reply_cancel">취소</button>
                             </form>
@@ -220,6 +219,8 @@
 
         let board_title=$("#board_title");
         let board_contents=$("#board_contents");
+        let board_title_input=$("#board_title_input");
+        let board_contents_input=$("#board_contents_input");
 
         let input = $(".update_input");
 
@@ -245,7 +246,7 @@
         reply_delete.each(function (index, e) {
             $(e).on("click", function () {
                 location.href = "/delete.reply?seq=" + reply_seq.eq(index).val() +
-                    "&parent_seq=${dto.seq}";
+                    "&board_seq=${board_dto.seq}";
             })
         })
 
@@ -280,21 +281,28 @@
         $(".reply_update_form").on("submit", function () {
             let form=$(this);
             let reply_input=form.find(".reply_input");
-            let reply_div=form.find(".reply_div");
+            let reply_div=form.parents(".reply_contents").find(".reply_div");
             reply_input.val(reply_div.html().trim());
         })
 
 
         $("#replyform").on("submit",function(){
+            if("${WolfID}"!="")
             $("#reply_insert_contents").val($("#reply_insert_div").html().trim());
+            else{
+                alert("로그인 해주세요");
+            }
         })
 
         $("#joinform").on("submit", function () {
 
-            input.each(function (index, e) {
+           /* input.each(function (index, e) {
                 $(e).val(dto.eq(index).html().trim());
 
-            })
+            })*/
+            board_title_input.val(board_title.html().trim());
+            board_contents_input.val(tinymce.get("board_contents").getContent());
+
         })
 
         btn1.on("click", function () { //delete
@@ -313,12 +321,57 @@
                 display: "flex"
             })
             board_title.attr("contenteditable", "true");
-            board_contents.attr("contenteditable", "true");
+           // board_contents.attr("contenteditable", "true");
+
+            tinymce.init({
+                selector: 'div#board_contents',
+                plugins:'wordcount anchor image inlinecss ',
+                //toolbar:'image',
+                images_file_types:'jpg,svg,webp',
+                 file_picker_types: 'file image media',
+                 //plugins: 'inlinecss  autolink charmap codesample emoticons image link lists media searchreplace table visualblocks  checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate mentions tableofcontents footnotes mergetags typography',
+                toolbar: ' fileupload | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags  | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat ',
+                max_width: 600,
+                 resize: false,
+                 //height:auto,
+                language: 'ko_KR',
+                forced_root_block : false,
+                 //force_br_newlines : true,
+                 //force_p_newlines : false,
+                //content_css: false,
+                setup: function (editor) {
+                    editor.ui.registry.addButton('fileupload', {
+                    text: '파일 업로드: 선택된 파일없음',
+                    onSetup: function(e) {
+                      myButton=e;
+                    },
+                    onAction: function() {
+                        $("#upload").click();
+                        //myButton.setText("aa");
+                            
+                    },         
+                });   
+                $('#upload').on('change', function() {
+                     var fileName = $(this).val().split('\\').pop();
+                     console.log(fileName);
+                     if(fileName===""){
+                        myButton.setText('파일 업로드: 선택된 파일없음');
+                        
+                     }
+                     else{
+                        myButton.setText('파일 업로드: ' + fileName);
+                     }
+                     
+                });   
+                editor.on('change', function () {
+                    localStorage.setItem('editorContent', editor.getContent());
+                });
+            }
+        });
         })
 
         btn5.on("click", function () {//cancel
-            dto.eq(0).html(title);
-            dto.eq(1).html(contents);
+            
 
             $("#div1").css({
                 display: "flex"
@@ -328,7 +381,10 @@
                 display: "none"
             })
             board_title.attr("contenteditable", "false");
-            board_contents.attr("contenteditable", "false");
+            //board_contents.attr("contenteditable", "false");
+            tinymce.remove();
+            board_title.html(title);
+            board_contents.html(contents);
         })
 
 

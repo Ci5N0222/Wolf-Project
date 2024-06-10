@@ -43,7 +43,7 @@ public class BoardController extends HttpServlet {
 				Object boardList[] = boardDAO.select( BoardConfig.recordCountPerPage, cpage);
 				
 				request.setAttribute("list", boardList[0]);
-				request.setAttribute("nickname", boardList[1]);//boardList[1]
+				request.setAttribute("board_nickname_list", boardList[1]);//boardList[1]
 				request.setAttribute("cpage", cpage);
 				request.setAttribute("record_count_per_page", BoardConfig.recordCountPerPage);
 				request.setAttribute("navi_count_per_page", BoardConfig.naviCountPerPage);
@@ -53,23 +53,24 @@ public class BoardController extends HttpServlet {
 				
 			} else if(cmd.equals("/detail.board")) {
 				int seq= Integer.parseInt(request.getParameter("seq"));
+				
 				Object boardList[] =boardDAO.selectBoard(seq);
 				Object replyList[] =replyDAO.select(seq);
 				List<FilesDTO> fileList=filesDAO.select(seq);
 				
-				
+			
 				request.setAttribute("board_dto", boardList[0]);
 				request.setAttribute("board_nickname", boardList[1]);
 				
 				request.setAttribute("reply_list", replyList[0]);
-				request.setAttribute("reply_nickname", replyList[1]);
+				request.setAttribute("reply_nickname_list", replyList[1]);
 			
 				request.setAttribute("files_list", fileList);
 				
 				request.getRequestDispatcher("/views/board/board_detail.jsp").forward(request, response);
 				
 			} else if(cmd.equals("/insert.board")) {
-				session.setAttribute("WolfID", "test1");
+				//session.setAttribute("WolfID", "test1");
 				int maxSize = 1024 * 1024 * 10; // 10mb
 				String realPath = request.getServletContext().getRealPath("files");
 				File uploadPath = new File(realPath);
@@ -98,7 +99,7 @@ public class BoardController extends HttpServlet {
 				response.sendRedirect("/list.board");
 				
 			} else if(cmd.equals("/update.board")) {
-				session.setAttribute("WolfID", "test1");
+				//session.setAttribute("WolfID", "test1");
 				int seq=Integer.parseInt(request.getParameter("seq"));
 				String title =request.getParameter("title");
 				String contents=request.getParameter("contents");
