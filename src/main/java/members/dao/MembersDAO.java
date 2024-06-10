@@ -58,17 +58,25 @@ public class MembersDAO {
 			}
 		}
 	}
-	public boolean login(String id, String pw) throws Exception {
+	public String[] login(String id, String pw) throws Exception {
 		String sql = "select * from members where id = ? and pw = ?";
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
 			pstat.setString(1, id);
 			pstat.setString(2, pw);
-			ResultSet rs = pstat.executeQuery();
-			return rs.next();
-
+			try(ResultSet rs = pstat.executeQuery()){
+			 if(rs.next()) {
+				 String[]result = new String[3];
+				 result[0] = rs.getString(1);
+				 result[1] = rs.getString(4);
+				 result[3] = rs.getString(10);
+				 return result;
+			 }else {
+				 return new String[0];
+			 }
+			 
 		}
 	}
-	
+	}
 	
 	/**
 	 * "내정보" 출력
