@@ -4,6 +4,7 @@
     </div>
     <p onclick="location.href='/main.admin'"> Dash Board </p>
     <p onclick="location.href='/memberslist.admin'"> Members </p>
+    <p onclick="location.href='/gamelist.admin'"> Games </p>
     <p onclick="location.href='/main.admin'"> Notice </p>
     <p onclick="location.href='/main.admin'"> FAQ </p>
     <p onclick="location.href='/main.admin'"> QNA </p>

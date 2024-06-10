@@ -3,6 +3,7 @@ package admin.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,9 +102,17 @@ public class AdminDAO {
 			List<MembersDTO> list = new ArrayList<>();
 			while(rs.next()) {
 				String id = rs.getString("id");
+				String name = rs.getString("name");
+				String nickname = rs.getString("nickname");
+				String phone = rs.getString("phone");
+				String email = rs.getString("email");
+				String gender = rs.getString("gender");
+				String birth = rs.getString("birth");
+				int grade = rs.getInt("grade");
+				Timestamp join_date = rs.getTimestamp("join_date");
 				// 그외 정보
 				
-				list.add(new MembersDTO());
+				list.add(new MembersDTO(id, null, name, nickname, phone, email,gender, birth, grade, null, join_date));
 			}
 			
 			return list;
