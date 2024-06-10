@@ -57,11 +57,25 @@ public class ReplyDAO {
 		
 	}
 	
+	public void update(ReplyDTO dto) {
+		String sql="update reply set contents=?, write_date=sysdate where seq=?";
+		try (Connection con=this.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)){
+			pstat.setString(1, dto.getContents());
+			pstat.setInt(2, dto.getSeq());
+			pstat.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
 	public Object[] select(int board_seq) {
 		Object [] replyList=new Object[2];
 		String sql="select r.*, m.nickname from reply r join members m on r.member_id = m.id where r.board_seq=? order by seq desc";
-		List<ReplyDTO> list =new ArrayList();
-		String nickname="";
+		List<ReplyDTO> list =new ArrayList<>();
+		ArrayList<String> nickname=new ArrayList<>();
+		
 		try (Connection con=this.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
 			pstat.setInt(1, board_seq);
@@ -71,7 +85,7 @@ public class ReplyDAO {
 					String member_id=rs.getString(2);
 					String contents=rs.getString(3);
 					Timestamp write_date =rs.getTimestamp(5);
-					 nickname=rs.getString(6);
+					 nickname.add(rs.getString(6));
 					list.add(new ReplyDTO(seq,member_id,contents,board_seq,write_date));
 				}
 			} catch (Exception e) {

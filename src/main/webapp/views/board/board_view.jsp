@@ -56,11 +56,11 @@
 				<div style="flex: 1;" class="center" id="a">조회</div>
         </div>    
         <div class="contents">
-            <c:forEach var="dto" items="${list}">
+            <c:forEach var="dto" items="${list}" varStatus="status">
                 <div style="display: flex; height: 50px;" >
                     <div style="flex: 1;" class="center"><span class="seq">${dto.seq}</span></div>
 				    <div style="flex: 5;" class="center"><span class="title">${dto.title}</span> </div>
-				    <div style="flex: 1;" class="center">${nickname}</div>
+				    <div style="flex: 1;" class="center">${board_nickname_list[status.index]}</div>
 				    <div style="flex: 1;" class="center"><fmt:formatDate value="${dto.write_date}" pattern="yyyy.MM.dd"/></div>
 				    <div style="flex: 1;" class="center">${dto.count}</div>
                 </div>
@@ -128,10 +128,14 @@
          })
 
          $("#index").on("click",function(){
-            location.href="/test/index.jsp";
+            location.href="/index.jsp";
         })
         $("#new").on("click",function(){ //작성하기
+            if("${WolfID}"!="")
             location.href="/views/board/board_contents.jsp";
+            else{
+                alert("로그인을 해주세요");
+            }
         })
 
     </script>

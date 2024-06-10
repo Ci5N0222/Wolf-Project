@@ -28,8 +28,7 @@
             <div style="flex: 1;">
                 <input type="text" placeholder="글 제목을 입력하세요" style="width: 100%;" name="title">
             </div>
-            <div style="flex: 8;"  id="contents">
-            </div>
+            <div style="flex: 8;"  id="contents"></div>
             <div style="display: flex; flex: 1; justify-content: flex-end;">
                     <div style="display: none;"><input type="file" name="file" id="upload"></div>
                     <button type="button" id="list">목록으로</button>

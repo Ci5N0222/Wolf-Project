@@ -41,8 +41,18 @@ public class ReplyController extends HttpServlet {
 			response.sendRedirect("/detail.board?seq="+board_seq);
 			
 		} else if(cmd.equals("/delete.reply")) {
+			int seq=Integer.parseInt(request.getParameter("seq"));
+			int board_seq=Integer.parseInt(request.getParameter("board_seq"));
+			
+			replyDAO.delete(seq);
+			response.sendRedirect("/detail.board?seq="+board_seq);
 			
 		} else if(cmd.equals("/update.reply")) {
+			int seq=Integer.parseInt(request.getParameter("seq"));
+			int board_seq=Integer.parseInt(request.getParameter("board_seq"));
+			String contents =request.getParameter("contents");
+			replyDAO.update(new ReplyDTO(seq,null,contents,0,null));
+			response.sendRedirect("/detail.board?seq="+board_seq);
 			
 		} else if(cmd.equals("/3.reply")) {
 			
