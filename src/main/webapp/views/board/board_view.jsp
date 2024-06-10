@@ -46,7 +46,7 @@
 </head>
 <body>
     <div class="container">
-        <div class="title center">
+        <div class="center" style="flex: 1;">
             자유게시판
         </div>
         <div style="flex: 1;">
