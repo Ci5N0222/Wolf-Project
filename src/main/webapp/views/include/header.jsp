@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class="col-4 d-flex justify-content-center align-items-center">
-        <div>로고</div>
+        <div id="logo">wolf</div>
     </div>
     <div class="col-4 d-flex justify-content-end">
         <div class="d-flex flex-row">
