@@ -68,7 +68,7 @@ public class MembersDAO {
 				 String[]result = new String[3];
 				 result[0] = rs.getString(1);
 				 result[1] = rs.getString(4);
-				 result[3] = rs.getString(10);
+				 result[2] = rs.getString(10);
 				 return result;
 			 }else {
 				 return new String[0];
