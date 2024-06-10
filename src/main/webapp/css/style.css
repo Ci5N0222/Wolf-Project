@@ -88,6 +88,9 @@
         height: 60%;
         /* background-color: yellow; */
     }
+    .menus {
+		cursor: pointer;
+	}
 
     .item {
         /* background-color: gainsboro; */

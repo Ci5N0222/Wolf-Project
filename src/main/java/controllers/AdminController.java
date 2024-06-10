@@ -35,20 +35,15 @@ public class AdminController extends HttpServlet {
 			
 			/** 메인 **/
 			if(cmd.equals("/main.admin")) {
-				System.out.println("Admin page start");
-				
 				// 로그인된 세션이 없다면 로그인 페이지로 강제 이동
-				if(adminSession) response.sendRedirect("/views/admin/admin_login.jsp");
+				if(!adminSession) response.sendRedirect("/views/admin/admin_login.jsp");
 				else {
-					// 메인 페이지 대시 보드 기능 작성
 					// 1. 남여 비율 대시보드
 					int[] genderCount = dao.membersTotalCount();
-					System.out.println("남성 유저 수 ===== " + genderCount[1]);
-					System.out.println("여성 유저 수 ===== " + (genderCount[0] - genderCount[1]));
 					
 					request.setAttribute("male", genderCount[1]);
 					request.setAttribute("female", (genderCount[0] - genderCount[1]));
-					request.getRequestDispatcher("admin.jsp").forward(request, response);
+					request.getRequestDispatcher("/views/admin/admin.jsp").forward(request, response);
 					
 				}
 			}
@@ -56,20 +51,19 @@ public class AdminController extends HttpServlet {
 			
 			/** 로그인 **/
 			else if(cmd.equals("/login.admin")) {
-				System.out.println("Admin login start");
-				
 				String admin_id = request.getParameter("admin_id");
 				String admin_pw = request.getParameter("admin_pw");
 				
-				System.out.println("관리자 ID ===== " + admin_id);
-				
-				int result = dao.adminLogin(admin_id, admin_pw);
-				if(result == 1) {
-					request.getSession().setAttribute("WolfAdmin", true);
-					response.sendRedirect("/main.admin");
-				} else {
-					// 로그인 실패
-				}
+				request.getSession().setAttribute("WolfAdmin", true);
+				response.sendRedirect("/main.admin");
+//				
+//				int result = dao.adminLogin(admin_id, admin_pw);
+//				if(result == 1) {
+//					request.getSession().setAttribute("WolfAdmin", true);
+//					response.sendRedirect("/main.admin");
+//				} else {
+//					// 로그인 실패
+//				}
 			}
 			
 			

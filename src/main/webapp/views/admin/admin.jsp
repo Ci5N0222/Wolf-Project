@@ -22,7 +22,6 @@
 
 </head>
 <body>
-	${WolfAdmin}
-	
+
 </body>
 </html>

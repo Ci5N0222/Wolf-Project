@@ -3,7 +3,7 @@
     
 <!-- JSTL Core -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
- 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,6 +19,11 @@
 <!-- icon -->
 <script src="https://kit.fontawesome.com/1ee4acc8d4.js" crossorigin="anonymous"></script>
 
+<!-- bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+        
 <!-- Project local -->
 <link rel="stylesheet" href="css/style.css">
 <script src="js/main.js"></script>
@@ -36,7 +41,7 @@
                 <div>Wolf</div>
                 <div>설명</div>
             </div>
-            s
+          
 			<!-- main -->
             <main class="main container flex-grow-1">
                 <section class="d-flex flex-wrap list">
@@ -91,11 +96,5 @@
 	            <i class="fa-solid fa-lightbulb"></i>
 	        </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-    <script src="js/main.js"></script>
-
-	
 </body>
 </html>
