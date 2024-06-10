@@ -36,13 +36,13 @@ public class AdminDAO {
 	 * @throws Exception
 	 */
 	public int[] membersTotalCount() throws Exception {
-		String sql = "select count(*), (select count(*) from members where gender = 'M') from members where grade != 99";
+		String sql = "select (select count(*) from members) as \"total\", (select count(*) from members where gender = 'M') as \"man\" from dual";
 		try(Connection con = getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql);
 			ResultSet rs = pstat.executeQuery()){
 			rs.next();
 			
-			return new int[]{rs.getInt(1), rs.getInt(2)};
+			return new int[]{rs.getInt("total"), rs.getInt("man")};
 		}
 	}
 	
