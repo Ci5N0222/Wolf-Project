@@ -18,6 +18,7 @@
 
 </style>
 
+
 </head>
 <body>
     <form action="/insert.board" id="fileform" method="post" enctype="multipart/form-data" >

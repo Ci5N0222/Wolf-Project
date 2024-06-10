@@ -183,6 +183,7 @@ private static BoardDAO instance;
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+		
 	}
 	
 	public int getRecordCount() {

@@ -79,28 +79,32 @@ public class AdminController extends HttpServlet {
 			
 			/** 멤버 목록 조회 **/
 			else if(cmd.equals("/memberslist.admin")) {
-				List<MembersDTO> membersList = dao.getMemberList();
-				request.setAttribute("membersList", membersList);
-				request.getRequestDispatcher("views/admin/admin_members_list.jsp").forward(request, response);
+				// 로그인된 세션이 없다면 로그인 페이지로 강제 이동
+				if(!adminSession) response.sendRedirect("/views/admin/admin_login.jsp");
+				else {
+					List<MembersDTO> membersList = dao.getMemberList();
+					request.setAttribute("membersList", membersList);
+					request.getRequestDispatcher("views/admin/admin_members_list.jsp").forward(request, response);
+				}
 			}
 			
 			
 			/** 멤버 정보 수정 **/
-			else if(cmd.equals("membersupdate.admin")) {
+			else if(cmd.equals("/membersupdate.admin")) {
 				
 			}
 			
 			
 			/** 서비스중인 게임 목록 **/
-			else if(cmd.equals("gamelist.admin")) {
+			else if(cmd.equals("/gamelist.admin")) {
 				List<GameDTO> gameList = dao.getGameList();
 				request.setAttribute("gameList", gameList);
-				request.getRequestDispatcher("admin_game_list.jsp").forward(request, response);
+				request.getRequestDispatcher("/views/admin/admin_game_list.jsp").forward(request, response);
 			}
 			
 			
 			/** 게임 데이터 추가 **/
-			else if(cmd.equals("addgame.admin")) {
+			else if(cmd.equals("/addgame.admin")) {
 				
 			}
 			
