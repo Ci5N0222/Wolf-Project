@@ -109,7 +109,7 @@
 <body>
     <div class="container">
         <div style="flex: 1;" class="center dto title" id="board_title">${board_dto.title}</div>
-        <div style="flex: 1;" class="center">${board_dto.member_id}</div>
+        <div style="flex: 1;" class="center">${board_nickname}</div>
         <div style="flex: 1; color: gray;">
             <div style="flex: 1;">
                 <p>
@@ -138,8 +138,10 @@
                     </div>
                     <div style="border: 0; display: none;" id="div2">
                         <form action="/update.board" method="post" id="joinform">
-                            <input type="hidden" name="title" class="update_input"> <input type="hidden" name="contents"
-                                class="update_input"> <input type="hidden" name="seq" value="${board_dto.seq}" class="notuse">
+                            <input type="hidden" name="title" class="update_input"> 
+                            <input type="hidden" name="contents" class="update_input"> 
+                            <input type="hidden" name="count" value="${board_dto.count}"> 
+                            <input type="hidden" name="seq" value="${board_dto.seq}" class="notuse">
                             <button type="submit" id="confirm">확인</button>
                             <button type="button" id="cancel">취소</button>
                         </form>
@@ -296,7 +298,7 @@
         })
 
         btn1.on("click", function () { //delete
-            swal("/delete.board?seq=${dto.seq}");
+            swal("/delete.board?seq=${board_dto.seq}");
 
         })
         btn2.on("click", function () { //list
@@ -310,7 +312,8 @@
             $("#div2").css({
                 display: "flex"
             })
-            dto.attr("contenteditable", "true");
+            board_title.attr("contenteditable", "true");
+            board_contents.attr("contenteditable", "true");
         })
 
         btn5.on("click", function () {//cancel
@@ -324,8 +327,8 @@
 
                 display: "none"
             })
-            dto.eq(0).attr("contenteditable", "false"); //title
-            dto.eq(1).attr("contenteditable", "false"); //contetns
+            board_title.attr("contenteditable", "false");
+            board_contents.attr("contenteditable", "false");
         })
 
 
