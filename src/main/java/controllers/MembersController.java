@@ -81,10 +81,10 @@ public class MembersController extends HttpServlet {
 				/* 내 정보 */
 			} else if (cmd.equals("/select.members")) {
 
-//				String loginID = request.getParameter("id");
-//				System.out.println("loginID : " + loginID);
-//				
-				String loginID = "qwerqwer";
+				String loginID = request.getParameter("id");
+				System.out.println("loginID : " + loginID);
+				
+//				String loginID = "qwerqwer";
 				MembersDTO dto = dao.selectMember(loginID);
 				System.out.println("MembersDTO: " + dto);
 				
@@ -168,7 +168,7 @@ public class MembersController extends HttpServlet {
 					System.out.println("현재 비밀번호 오류");
 				}				
 				
-			}
+			} 
 			
 			
 			
