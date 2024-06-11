@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import game.dao.GameDAO;
 import game.dto.GameDTO;
 
@@ -18,6 +20,7 @@ public class GameController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		GameDAO dao = GameDAO.getInstance();
+		Gson g = new Gson();
 		
 		String cmd= request.getRequestURI();
 		System.out.println("확인중 :" + cmd);
@@ -27,10 +30,15 @@ public class GameController extends HttpServlet {
 				
 				List<GameDTO> list = dao.getList();
 				request.setAttribute("list", list);
-				request.getRequestDispatcher("/game.jsp").forward(request, response);
+				request.getRequestDispatcher("/views/game/gameList.jsp").forward(request, response);
 				
 			}else if(cmd.equals("/detail.game")) {
-				
+			    int seq = Integer.parseInt(request.getParameter("seq"));
+			    System.out.println(request.getParameter("seq"));
+			    GameDTO dto= dao.getDetail(seq);
+			    String result= g.toJson(dto);
+			    response.getWriter().write(result);
+			    
 			}else if(cmd.equals("/score.game")) {
 				
 			}
