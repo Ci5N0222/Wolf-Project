@@ -26,7 +26,7 @@
         
 <!-- Project local -->
 <link rel="stylesheet" href="css/style.css">
-<script src="js/main.js"></script>
+
 </head>
 <body>
 	<!-- container -->
@@ -102,5 +102,6 @@
 	            <i class="fa-solid fa-lightbulb"></i>
 	        </div>
     </div>
+    <script src="js/main.js"></script>
 </body>
 </html>

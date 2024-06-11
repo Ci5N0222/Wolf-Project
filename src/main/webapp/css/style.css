@@ -1,17 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Noto+Sans+KR:wght@100..900&display=swap');
-	:root {
-	    --bg-light: #ffd449;
-	    --bg-dark: #14213D;
-	    --bg-transparent: transparent;
-	
-	    --color-white: #eeeeee;
-	    --color-black: #14213D;
-	    --bg-nav: #f9a620;
-	    --color-nav-icon: #14213D;
-	    --color-nav-bg: #f9a620;
-	    font-size: 16px;
-	}
+:root {
+    --bg-light: #ffd449;
+    --bg-dark: #14213D;
+    --bg-transparent: transparent;
 
+    --color-white: #eeeeee;
+    --color-black: #14213D;
+    --bg-nav: #f9a620;
+    --color-nav-icon: #14213D;
+    --color-nav-bg: #f9a620;
+    font-size: 16px;
+}
     html,
     body {
         height: 100%;
@@ -20,13 +19,15 @@
         color: var(--bg-black);
         color: var(--color-black);
         overflow: hidden;
-
+        /* 폰트 */
         font-family: "Noto Sans KR", sans-serif;
+        font-family: "Luckiest Guy", cursive;
     }
     body.light {
         background-color: var(--bg-light);
         color: var(--bg-black);
     }
+    /* 하단 원 */
     .sun {
         position: absolute;
         width: 120%;
@@ -38,6 +39,12 @@
         left: 50%;
         transform: translateX(-50%);
     }
+    /* 모드 변경시 부드럽게 넘어가는 효과 */
+    .sun,
+    .navi {
+        transition: background-color 0.5s ease, box-shadow 0.5s ease;
+    }
+    /* img */
     .img_bg{position: absolute;top: -60%;left: 0; width: 100%; object-fit: cover;}
     .bgs{animation:bg 1s ease-in Infinite Alternate; transition: all ease-in 0.2s; width: 50px;}
     .bgs:nth-child(1){top: 15%;left: 80%;}
@@ -54,9 +61,6 @@
             opacity: 0;
         }
     }
-    /* div {
-        border: 1px solid #ffffff;
-    } */
 
     .container-fluid,
     .container,
@@ -64,69 +68,50 @@
         height: 100%;
     }
 
-    .container {
-        /* background-color: var(--bg-nav); */
-        color: white;
-        font-family: "Luckiest Guy", cursive;
-        font-weight: 400;
-        font-size: 40px;
-        font-style: normal;
-        letter-spacing: 3px;
-    }
-    .contents > div:nth-child(1){
-        color: white;
-    }
-
-    .main {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 0;
-        margin: 0;
-        /* background-color: red; */
-    
-    }
-    .menus{cursor: pointer;}
-    .menus:hover{opacity: 0.5;}
-    .list {
-        flex-grow: 1;
-        /* background-color: yellow; */
-    }
-
+    /* 메뉴 */
     .navi {
-        z-index: 1;
+        z-index: 5;
         height: 10%;
         display: flex;
         align-items: center;
         background-color: var(--bg-nav);
         padding: 0 3%;
-
-        font-family: "Luckiest Guy", cursive;
-        font-weight: 400;
-        font-size: 18px;
-        font-style: normal;
+        font-size: 20px;
+        color: var(--color-white);
+        text-shadow: 1px 1px 1px gray;
+        letter-spacing: 1px;
 
         border-radius: 40px 80px / 80px 40px;
     }
-    .navi i {font-size: 20px;}
+    .navi i {font-size: 22px;}
     .navi > div {margin-top: 0;}
-    .navi > div:nth-child(2) #wolfLogo{
-        width: 100px;
-        height: 100px;
-
-    }
+    .navi > div:nth-child(2) #wolfLogo{width: 100px;height: 100px;}
+    /* 로고 */
     .navi #wolfLogo > img {object-fit: cover; width: 100%;height: 100%;}
-
-
+    /* 메뉴 버튼 */
+    .naviBtn{cursor: pointer; transition: all 0.3s ease-in-out;}
+    .naviBtn:hover{opacity: 0.5;}
+    
     /* 컨텐츠 */
     #contents {
+        color: var(--color-white);
+        letter-spacing: 3px;
+        font-size: 40px;
         height: 30%;
         z-index: 10;
     }
 
-    /* 메인 */
+    /* main */
     .main {
         height: 60%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 0;
+        margin: 0;
+    }
+    .list {
+        flex-grow: 1;
     }
 
     .item {
@@ -137,10 +122,15 @@
         position: absolute;
         border-radius: 5%;
         background-color: white;
-        border-radius: 40px;
+        border-radius: 20px;
         z-index: 1;
     }
-    .item > .card img{width: 100%;height: 100%;object-fit: cover; border: 1px solid wheat;border-radius: 40px;}
+    .item > .card img{
+        width: 100%;height: 100%;
+        object-fit: cover; 
+        border: 1px solid wheat;
+        border-radius: 20px;
+    }
 
     .item:nth-child(1)>div {
         width: 110%;
@@ -178,18 +168,21 @@
         right: -5%;
         top: -20%;
     }
-
-
-    /* .moon {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 50%;
-        top: -20px;
-    } */
+    .item > .card:hover {
+        animation: vibration .1s infinite;
+    }
+    @keyframes vibration {
+        from {
+          transform: rotate(1deg);
+        }
+        to {
+          transform: rotate(-1deg);
+        }
+      }
 
     @media (max-width: 1000px) {
         .list {
+            position: static;
             display: flex;
             flex-wrap: wrap;
             gap: 5px;
@@ -205,8 +198,11 @@
             width: 100%; 
             height: 100%;
         }
+
+        #wolfLogo {display: none;}
         
     }
+    
 
 
     /* 라이트 다크 mode */
@@ -224,6 +220,7 @@
         border-radius: 50%;
         transition: all ease-in 0.2s;
         animation:ball 1s ease-in Infinite Alternate;
+        border: double 1px rgba(255, 255, 255, 0.46);
     }
     @keyframes ball {
         0% {
