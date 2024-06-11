@@ -126,7 +126,7 @@
                 <c:forEach var="files_dto" items="${files_list}">
                     <div class="files_div">
                        <span class="files_seq">${files_dto.seq }</span>.&nbsp<a href="/download.files?sysname=${files_dto.sysname }&oriname=${files_dto.oriname}">${files_dto.oriname}</a>
-                        <button class="files_delete" style="width: 50px; height: 50px; display: none;">삭제</button>
+                        <button class="files_delete" style="width: 50px; height: 50px; display: none;" >삭제</button> <!--onclick="filesDelete(${files_dto.seq })"-->
                     </div>
                 </c:forEach>
             </div>
@@ -284,14 +284,14 @@
 
             })
         })
-        
+        let files_seq=$(".files_seq");
         files_delete.each(function(index,e){
             $(e).on("click",function(){       
                 $.ajax({
                     url:"/delete.files",
                     type:"post",
                     data:{
-                        seq:$(".files_seq").eq(index).text()
+                        seq:files_seq.eq(index).text()
                     }
                 }).done(function(resp){
                     $(".files_div").eq(index).html("");
