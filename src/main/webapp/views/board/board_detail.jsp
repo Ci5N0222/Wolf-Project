@@ -143,6 +143,7 @@
                     </div>
                     <div style="border: 0; display: none;" id="div2">
                         <form action="/update.board" method="post" id="joinform" enctype="multipart/form-data">
+                            <input type="hidden" id="arrayField" name="array">
                             <input type="hidden" name="title" class="update_input" id="board_title_input"> 
                             <input type="hidden" name="contents" class="update_input" id="board_contents_input"> 
                             <input type="hidden" name="count" value="${board_dto.count}">
@@ -285,17 +286,22 @@
             })
         })
         let files_seq=$(".files_seq");
+        let data=[];
         files_delete.each(function(index,e){
             $(e).on("click",function(){       
-                $.ajax({
+               /* $.ajax({
                     url:"/delete.files",
                     type:"post",
                     data:{
-                        seq:files_seq.eq(index).text()
+                        seq:
                     }
                 }).done(function(resp){
-                    $(".files_div").eq(index).html("");
-                })
+                    
+                })*/
+                data.push(files_seq.eq(index).text());
+                $(".files_div").eq(index).css({
+                    display:"none"
+                });
             })    
         })
 
@@ -325,6 +331,10 @@
             })*/
             board_title_input.val(board_title.html().trim());
             board_contents_input.val(tinymce.get("board_contents").getContent());
+
+            let jsonData = JSON.stringify(data);
+            // 숨겨진 필드에 JSON 데이터 설정
+            document.getElementById('arrayField').value = jsonData;
 
         })
 
@@ -410,6 +420,9 @@
             tinymce.remove();
             board_title.html(title);
             board_contents.html(contents);
+            $(".files_div").css({
+                display:"flex"
+            });
         })
 
 
