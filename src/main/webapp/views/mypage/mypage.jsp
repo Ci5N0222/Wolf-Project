@@ -13,6 +13,7 @@ pageEncoding="UTF-8"%>
     <button id="pw_update">3.비번변경</button>
     <button id="community">4.커뮤니티 소셜 기능</button>
     <button id="support">5.고객지원</button>
+    <button id="logout" onclick="location.href='/logout.members'">6.로그아웃</button>
 
     <script>
       $("#info_update").on("click", function () {
@@ -30,6 +31,7 @@ pageEncoding="UTF-8"%>
       $("#support").on("click", function () {
         location.href = "/views/mypage/support.jsp";
       });
+
     </script>
   </body>
 </html>

@@ -15,7 +15,13 @@
     <div class="col-4 d-flex justify-content-end">
         <div class="d-flex flex-row">
             <div class="me-3 naviBtn"><i class="fa-solid fa-magnifying-glass menus"></i></div>
-            <div class="naviBtn" onclick="location.href ='/views/members/login.jsp'"><i class="fa-solid fa-user menus"></i></div>
+            
+            <c:if test="${WolfID != null}">
+	            <div class="naviBtn" onclick="location.href ='/views/mypage/mypage.jsp'"><i class="fa-solid fa-user menus"></i></div>
+            </c:if>
+            <c:if test="${WolfID == null}">
+	            <div class="naviBtn" onclick="location.href ='/views/members/login.jsp'"><i class="fa-solid fa-user menus"></i></div>
+            </c:if>
         </div>
     </div>
 </div>
