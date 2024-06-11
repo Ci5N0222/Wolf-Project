@@ -17,8 +17,10 @@
 <script src="https://kit.fontawesome.com/1ee4acc8d4.js" crossorigin="anonymous"></script>
 
 <!-- Project local -->
-<link rel="/stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/admin.css">
 <script src="/js/main.js"></script>
+
 
 </head>
 <body>
@@ -26,6 +28,7 @@
 	<input type="text" name="admin_id" id="admin_id" placeholder="ID를 입력하세요" />
 	<input type="password" name="admin_pw" id="admin_pw" placeholder="Password를 입력하세요" />
 	<button onclick="adminLogin()">로그인</button>
+	
 	
 	<script>
 		function adminLogin(){
