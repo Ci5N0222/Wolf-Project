@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
@@ -100,6 +101,7 @@ public class BoardController extends HttpServlet {
 				
 			} else if(cmd.equals("/update.board")) {
 				//session.setAttribute("WolfID", "test1");
+				
 				int maxSize = 1024 * 1024 * 10; // 10mb
 				String realPath = request.getServletContext().getRealPath("files");
 				File uploadPath = new File(realPath);
@@ -111,6 +113,12 @@ public class BoardController extends HttpServlet {
 				String oriName = multi.getOriginalFileName("file");// 원본이름
 				String sysName = multi.getFilesystemName("file");// 서버에 저장되었을떄 이름
 				
+				String array=multi.getParameter("array");
+				Gson gson=new Gson();
+				int[] intArray = gson.fromJson(array, int[].class);
+				for (int i : intArray) {
+					filesDAO.delete(i);
+				}
 				int seq=Integer.parseInt(multi.getParameter("seq"));
 				String title =multi.getParameter("title");
 				String contents=multi.getParameter("contents");
