@@ -162,8 +162,9 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
               <div class="content" id="avatar">
                 <input type="file" name="file" />
                 <img
-                  src="C:\workspace\04_workspace_backend\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\First_Project\files\91.jpg"
-                  alt=""
+                  src="C:\workspace\04_workspace_backend\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Wolf-Project\files/4.jpg"
+                  alt="아바타 이미지"
+                  width="500"
                   id="img"
                 />
               </div>
