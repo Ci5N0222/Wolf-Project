@@ -2,13 +2,13 @@
 <div class="row g-4 my-0 navi">
     <div class="col-4 d-flex justify-content-start">
         <div class="d-flex flex-row">
-            <div class="me-3 naviBtn">Game</div>
+            <div class="me-3 naviBtn" onclick="location.href='/list.game'">Game</div>
             <div class="me-3 naviBtn" onclick="location.href='/list.board'">Board</div>
             <div class="naviBtn">About</div>
         </div>
     </div>
     <div class="col-4 d-flex justify-content-center align-items-center">
-            <div id="wolfLogo">
+            <div id="wolfLogo" onclick="location.href='/index.jsp'">
                 <img src="images/wolf_1.png" alt="">
             </div>
     </div>
