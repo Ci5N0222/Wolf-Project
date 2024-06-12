@@ -288,7 +288,7 @@ pageEncoding="UTF-8"%>
             <div>
               <div class="dashboard-inner_box">
                 <div><p>비밀번호 변경</p></div>
-                  <div><button>바로가기</button></div>
+                  <div><button onclick="location.href='/views/mypage/updatePW.jsp'">바로가기</button></div>
               </div>
             </div>
             <div>
