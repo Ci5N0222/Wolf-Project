@@ -51,7 +51,7 @@ create table reply_child(
 create table game(
     seq number primary key,
     title varchar(50) not null,
-    contennts varchar(4000) not null,
+    contents varchar(4000) not null,
     thumbnail varchar(500) not null
 );
 

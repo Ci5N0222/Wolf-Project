@@ -3,6 +3,7 @@ package controllers;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -58,7 +59,6 @@ public class BoardController extends HttpServlet {
 				Object boardList[] =boardDAO.selectBoard(seq);
 				Object replyList[] =replyDAO.select(seq);
 				List<FilesDTO> fileList=filesDAO.select(seq);
-				
 			
 				request.setAttribute("board_dto", boardList[0]);
 				request.setAttribute("board_nickname", boardList[1]);
@@ -80,16 +80,24 @@ public class BoardController extends HttpServlet {
 				}
 				MultipartRequest multi = new MultipartRequest(request, realPath, maxSize, "UTF8",
 						new DefaultFileRenamePolicy());
-				String oriName = multi.getOriginalFileName("file");// 원본이름
-				String sysName = multi.getFilesystemName("file");// 서버에 저장되었을떄 이름
+
 				String title=multi.getParameter("title");
 				String contents=multi.getParameter("contents");
 				String member_id= (String)session.getAttribute("WolfID");
 				BoardDTO dto=new BoardDTO(0,title,contents,0,member_id,null);
 				int board_seq= boardDAO.insert(dto);
 				//dao_files.insert(new FilesDTO(0, oriName, sysName, parent_seq));
-				filesDAO.insert(new FilesDTO(0, oriName, sysName, board_seq));
-				
+				Enumeration<String> names = multi.getFileNames();
+		        while(names.hasMoreElements()) {
+		               String name = names.nextElement();
+		               String oriname = multi.getOriginalFileName(name);
+		               String sysname = multi.getFilesystemName(name);
+		               System.out.println(name);
+		               
+		               if(oriname != null) {
+		            	   filesDAO.insert(new FilesDTO(0, oriname, sysname, board_seq));
+		               }
+		        }		
 				response.sendRedirect("/list.board");
 				
 			} else if(cmd.equals("/delete.board")) {
@@ -110,8 +118,6 @@ public class BoardController extends HttpServlet {
 				}
 				MultipartRequest multi = new MultipartRequest(request, realPath, maxSize, "UTF8",
 						new DefaultFileRenamePolicy());
-				String oriName = multi.getOriginalFileName("file");// 원본이름
-				String sysName = multi.getFilesystemName("file");// 서버에 저장되었을떄 이름
 				
 				String array=multi.getParameter("array");
 				Gson gson=new Gson();
@@ -125,7 +131,17 @@ public class BoardController extends HttpServlet {
 				String member_id= (String)session.getAttribute("WolfID");
 				int count =Integer.parseInt(multi.getParameter("count"));
 				boardDAO.update(new BoardDTO(seq,title,contents,count,member_id,null));
-				filesDAO.insert(new FilesDTO(0, oriName, sysName, seq));
+				Enumeration<String> names = multi.getFileNames();
+		        while(names.hasMoreElements()) {
+		               String name = names.nextElement();
+		               String oriname = multi.getOriginalFileName(name);
+		               String sysname = multi.getFilesystemName(name);
+		               System.out.println(name);
+		               
+		               if(oriname != null) {
+		            	   filesDAO.insert(new FilesDTO(0, oriname, sysname, seq));
+		               }
+		        }
 				
 				
 				response.sendRedirect("/detail.board?seq="+seq);

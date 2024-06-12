@@ -64,7 +64,6 @@ public class AdminDAO {
 					if(rs.getString("id") != null) {
 						if(pw.equals(rs.getString("pw"))) return 1;
 					}
-					
 					return 2;
 					
 				} catch (Exception e) {
@@ -73,18 +72,68 @@ public class AdminDAO {
 				}
 			}
 		}
-				
-				
 	}
 	
 	
 	/**
-	 * 멤버 목록을 반환하는 메서드
+	 * 총 회원수를 반환하는 메서드
 	 * @return
 	 * @throws Exception
 	 */
-	public List<MembersDTO> getMemberList() throws Exception {
-		String sql ="select * from members where grade != 99";
+	public int getMemberTotalCount() throws Exception {
+		String sql ="select count(*) from members where grade not in (98, 99)";
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql);
+			ResultSet rs = pstat.executeQuery()){
+			
+			rs.next();
+			
+			return rs.getInt(1);
+		}
+	}
+	
+	
+	/**
+	 * 지정된 숫자만큼 멤버 목록을 반환하는 메서드
+	 * @return
+	 * @throws Exception
+	 */
+	public List<MembersDTO> getMemberList(int start, int end) throws Exception {
+		String sql = "select * from (select members.*, row_number() over(order by join_date desc) rown from members) where rown between ? and ?";
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setInt(1, start);
+			pstat.setInt(2, end);
+			try (ResultSet rs = pstat.executeQuery()){
+				List<MembersDTO> list = new ArrayList<>();
+				
+				while(rs.next()) {
+					String id = rs.getString("id");
+					String name = rs.getString("name");
+					String nickname = rs.getString("nickname");
+					String phone = rs.getString("phone");
+					String email = rs.getString("email");
+					String gender = rs.getString("gender");
+					String birth = rs.getString("birth");
+					int grade = rs.getInt("grade");
+					Timestamp join_date = rs.getTimestamp("join_date");
+					
+					list.add(new MembersDTO(id, null, name, nickname, phone, email,gender, birth, grade, null, join_date));
+				}
+				
+				return list;
+			}
+		}
+	}
+	
+	
+	/**
+	 * 모든 멤버 목록을 반환하는 메서드
+	 * @return
+	 * @throws Exception
+	 */
+	public List<MembersDTO> getMemberListAll() throws Exception {
+		String sql ="select * from members where grade not in (98, 99)";
 		try(Connection con = DBConfig.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql);
 			ResultSet rs = pstat.executeQuery()){
@@ -110,14 +159,60 @@ public class AdminDAO {
 	}
 	
 	
-	
-	
 	/**
-	 * 서비스 중인 게임 목록을 반환하는 메서드
+	 * 게임의 총 개수를 반환하는 메서드
 	 * @return
 	 * @throws Exception
 	 */
-	public List<GameDTO> getGameList() throws Exception {
+	public int getGameTotalCount() throws Exception {
+		String sql ="select count(*) from game";
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql);
+			ResultSet rs = pstat.executeQuery()){
+			
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
+	
+
+	/**
+	 * 지정된 숫자만큼 게임 목록을 반환하는 메서드
+	 * @param start
+	 * @param end
+	 * @return
+	 * @throws Exception
+	 */
+	public List<GameDTO> getGameList(int start, int end) throws Exception {
+		String sql = "select * from (select game.*, row_number() over(order by seq) rown from game) where rown between ? and ?";
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+				pstat.setInt(1, start);
+				pstat.setInt(2, end);
+				try(ResultSet rs = pstat.executeQuery()){
+				
+				List<GameDTO> list = new ArrayList<>();
+				while(rs.next()) {
+					int seq = rs.getInt("seq");
+					String title = rs.getString("title");
+					String contents = rs.getString("contents");
+					String thumbnail = rs.getString("thumbnail");
+					
+					list.add(new GameDTO(seq, title, contents, thumbnail));
+				}
+				
+				return list;
+			}
+		}
+	}
+	
+	
+	/**
+	 * 모든 게임 목록을 반환하는 메서드
+	 * @return
+	 * @throws Exception
+	 */
+	public List<GameDTO> getGameListAll() throws Exception {
 		String sql = "select * from game";
 		try(Connection con = DBConfig.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql);
@@ -126,9 +221,11 @@ public class AdminDAO {
 			List<GameDTO> list = new ArrayList<>();
 			while(rs.next()) {
 				int seq = rs.getInt("seq");
-				// 그외 정보
+				String title = rs.getString("title");
+				String contents= rs.getString("contents");
+				String thumbnail = rs.getString("thumbnail");
 				
-				list.add(new GameDTO());
+				list.add(new GameDTO(seq, title, contents, thumbnail));
 			}
 			
 			return list;

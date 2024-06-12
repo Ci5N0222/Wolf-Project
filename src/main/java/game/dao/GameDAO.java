@@ -10,6 +10,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import commons.DBConfig;
 import game.dto.GameDTO;
 
 public class GameDAO {
@@ -20,11 +21,6 @@ public class GameDAO {
 		}
 		return instance;
 	}
-	private Connection getConnection () throws Exception{
-		Context ctx = new InitialContext();
-		DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
-		return ds.getConnection();
-	}
 	private GameDAO() {};
 	
 	
@@ -34,18 +30,18 @@ public class GameDAO {
 	    String sql = "select * from game";
 	    
 	    try (
-	        Connection con = this.getConnection();
+	    	Connection con = DBConfig.getConnection();
 	        PreparedStatement ps = con.prepareStatement(sql);
 	        ResultSet rs = ps.executeQuery();
 	    ) {
-	    	
+	    	System.out.println("test!!!");
 	        List<GameDTO> list = new ArrayList<>();
 	        while (rs.next()) {
 	        	int seq = rs.getInt(1);
 	            String title = rs.getString(2);
 	            String contents = rs.getString(3);
 	            String thumbnail = rs.getString(4);
-	            System.out.println("test");
+	            System.out.println(title+"@");
 	            list.add(new GameDTO(seq,title,contents,thumbnail));
 	        }
 	        System.out.println("getList: " + list);
@@ -58,7 +54,7 @@ public class GameDAO {
 		String sql = "select * from game where seq = ?";
 		
 		try(
-			Connection con= this.getConnection();
+			Connection con=DBConfig.getConnection();
 			PreparedStatement ps=con.prepareStatement(sql);
 		){
 			ps.setInt(1, id);
