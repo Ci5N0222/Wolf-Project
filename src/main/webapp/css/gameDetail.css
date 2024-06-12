@@ -112,6 +112,9 @@ body.light {
         #wolfLogo {display: none;}
         body{overflow-y: scroll;}
         .main {padding-top: 3%;}
+        .main > section {display: flex;flex-direction: column;}
+        .main > section > div:first-child{flex: 1;}
+        .main > section > div:last-child {flex: 1;}
     }
     
 
