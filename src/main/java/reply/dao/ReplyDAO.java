@@ -11,6 +11,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import commons.DBConfig;
 import reply.dto.ReplyDTO;
 
 public class ReplyDAO {
@@ -23,15 +24,9 @@ public class ReplyDAO {
 	
 	private ReplyDAO() {}
 	
-	private Connection getConnection() throws Exception {
-		Context ctx = new InitialContext();
-		DataSource db = (DataSource) ctx.lookup("java:comp/env/jdbc/oracle");
-		return db.getConnection();
-	}
-	
 	public void insert(ReplyDTO dto) {
 		String sql="insert into reply values(reply_seq.nextval,?,?,?,sysdate)";
-		try (Connection con=this.getConnection();
+		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
 			pstat.setString(1, dto.getMember_id());
 			pstat.setString(2, dto.getContents());
@@ -46,7 +41,7 @@ public class ReplyDAO {
 	
 	public void delete(int seq) {
 		String sql="delete from reply where seq=?";
-		try (Connection con=this.getConnection();
+		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat= con.prepareStatement(sql)){
 			pstat.setInt(1, seq);
 			pstat.executeUpdate();
@@ -59,7 +54,7 @@ public class ReplyDAO {
 	
 	public void update(ReplyDTO dto) {
 		String sql="update reply set contents=?, write_date=sysdate where seq=?";
-		try (Connection con=this.getConnection();
+		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
 			pstat.setString(1, dto.getContents());
 			pstat.setInt(2, dto.getSeq());
@@ -76,7 +71,7 @@ public class ReplyDAO {
 		List<ReplyDTO> list =new ArrayList<>();
 		ArrayList<String> nickname=new ArrayList<>();
 		
-		try (Connection con=this.getConnection();
+		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
 			pstat.setInt(1, board_seq);
 			try(ResultSet rs=pstat.executeQuery()) {

@@ -15,6 +15,20 @@
         display: flex;
         flex-direction: column;
     }
+    .btn{
+    	height: 30px;
+    	line-height: 30px;
+    	font-size: 15px ;
+    	color: white ;
+   		background-color: #428bca;
+    	border: none;
+    	border-radius: 5px;
+    	cursor: pointer;
+    }
+    .btn:hover{
+        transform: scale(1.2);
+        text-decoration: underline;
+    }
 
 </style>
 
@@ -32,8 +46,8 @@
             <div style="flex: 8;"  id="contents"></div>
             <div style="display: flex; flex: 1; justify-content: flex-end;">
                     <div style="display: none;"><input type="file" name="file" id="upload"></div>
-                    <button type="button" id="list">목록으로</button>
-                    <button>작성완료</button>
+                    <button type="button"  class="btn" id="list">목록으로</button>&nbsp&nbsp
+                    <button class="btn">작성완료</button>
             </div>
         </div>
 <script>

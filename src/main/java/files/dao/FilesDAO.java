@@ -10,6 +10,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import commons.DBConfig;
 import files.dto.FilesDTO;
 
 public class FilesDAO {
@@ -22,15 +23,9 @@ public class FilesDAO {
 	
 	private FilesDAO() {}
 	
-	private Connection getConnection() throws Exception {
-		Context ctx = new InitialContext();
-		DataSource db = (DataSource) ctx.lookup("java:comp/env/jdbc/oracle");
-		return db.getConnection();
-	}
-	
 	public void insert(FilesDTO dto) {
 		String sql="insert into files values(files_seq.nextval,?,?,?)";
-		try (Connection con=this.getConnection();
+		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
 			pstat.setString(1, dto.getOriname());
 			pstat.setString(2, dto.getSysname());
@@ -45,7 +40,7 @@ public class FilesDAO {
 	
 	public void deleteAll(int board_seq) {
 		String sql="delete from files where board_seq=?";
-		try(Connection con=this.getConnection();
+		try(Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)) {
 			pstat.setInt(1, board_seq);
 			pstat.executeUpdate();
@@ -57,7 +52,7 @@ public class FilesDAO {
 	
 	public void delete(int seq) {
 		String sql="delete from files where seq=?";
-		try(Connection con=this.getConnection();
+		try(Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)) {
 			pstat.setInt(1, seq);
 			pstat.executeUpdate();
@@ -70,7 +65,7 @@ public class FilesDAO {
 	public List<FilesDTO> select(int board_seq){
 		List<FilesDTO> list= new ArrayList<>();
 		String sql="select *from files where board_seq=?";
-		try (Connection con=this.getConnection();
+		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
 			pstat.setInt(1, board_seq);
 			

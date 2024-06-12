@@ -254,8 +254,13 @@
 
         reply_delete.each(function (index, e) {
             $(e).on("click", function () {
-                location.href = "/delete.reply?seq=" + reply_seq.eq(index).val() +
-                    "&board_seq=${board_dto.seq}";
+                //location.href = 
+                $.ajax({
+                    url:"/delete.reply?seq=" + reply_seq.eq(index).val() +
+                    "&board_seq=${board_dto.seq}"
+                }).done(function(){
+                    reply_div.eq(index).parent().parent().remove();
+                })
             })
         })
 
@@ -431,7 +436,7 @@
 
         function swal(comfirm) {
             Swal.fire({
-                title: '댓글을 삭제 하시겠습니까?',
+                title: '게시물을 삭제 하시겠습니까?',
                 // text: "You won't be able to revert this!",
                 showCancelButton: true,
                 confirmButtonText: '삭제하기',
