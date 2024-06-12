@@ -1,5 +1,3 @@
-
-
 // 모드 변경 시 호출되는 함수
 function toggleMode() {
 	console.log("test");
@@ -32,10 +30,7 @@ function toggleMode() {
         sun.style.boxShadow = `5px -5px 10px var(--bg-light)`;
     }
 }
+
 let mode = document.getElementById("mode"); //버튼
 console.log(mode);
 mode.addEventListener("click", toggleMode); // 모드 변경 이벤트 리스너 등록
-
-
-
-

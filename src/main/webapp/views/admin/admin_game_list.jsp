@@ -20,9 +20,8 @@
 <script src="https://kit.fontawesome.com/1ee4acc8d4.js" crossorigin="anonymous"></script>
 
 <!-- Project local -->
-<link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/admin.css">
-<script src="/js/main.js"></script>
+<script src="/js/admin.js"></script>
 
 </head>
 <body>
@@ -54,6 +53,9 @@
 	             		</c:forEach>
              		</table>
              		<!-- 페이징 -->
+             		<script>
+             			pagenation(${cpage}, ${recode_total_count}, ${recode_count_per_page}, ${navi_count_per_page}, "/game_list.admin");
+             		</script>
              	</c:if>
              </div>
              <!-- 멤버 검색 -->
