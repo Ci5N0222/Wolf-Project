@@ -11,25 +11,20 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import commons.DBConfig;
 import game.dto.GameDTO;
 import members.dto.MembersDTO;
 
 public class AdminDAO {
+	
+	private AdminDAO() {}
+	
 	private static AdminDAO instance;
 	
 	public static AdminDAO  getInstance() {
 		if(instance == null) instance = new AdminDAO();
 		return instance;
 	}
-	
-	private AdminDAO() {}
-	
-	private Connection getConnection() throws Exception {
-		Context ctx = new InitialContext();
-		DataSource db = (DataSource) ctx.lookup("java:comp/env/jdbc/oracle");
-		return db.getConnection();
-	}
-	
 	
 	/**
 	 * 총 회원수와 남자 회원의 회원수를 반환하는 메서드
@@ -38,7 +33,7 @@ public class AdminDAO {
 	 */
 	public int[] membersTotalCount() throws Exception {
 		String sql = "select (select count(*) from members) as \"total\", (select count(*) from members where gender = 'M') as \"man\" from dual";
-		try(Connection con = getConnection();
+		try(Connection con = DBConfig.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql);
 			ResultSet rs = pstat.executeQuery()){
 			rs.next();
@@ -57,7 +52,7 @@ public class AdminDAO {
 	 */
 	public int adminLogin(String id, String pw) throws Exception {
 		String sql = "select id, pw from members where id = ? and grade = 99";
-		try(Connection con = getConnection();
+		try(Connection con = DBConfig.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql)){
 			pstat.setString(1, id);
 			
@@ -67,18 +62,13 @@ public class AdminDAO {
 				
 				try {
 					if(rs.getString("id") != null) {
-						if(pw.equals(rs.getString("pw"))) {
-							// 비밀번호까지 맞는 경우
-							return 1;
-						} else {
-							// id는 맞고 비밀번호가 틀린 경우
-							return 3;
-						}
-					} else {
-						// 존재하지 않는 아이디
-						return 2;
+						if(pw.equals(rs.getString("pw"))) return 1;
 					}
+					
+					return 2;
+					
 				} catch (Exception e) {
+					e.printStackTrace();
 					return 2;
 				}
 			}
@@ -95,7 +85,7 @@ public class AdminDAO {
 	 */
 	public List<MembersDTO> getMemberList() throws Exception {
 		String sql ="select * from members where grade != 99";
-		try(Connection con = getConnection();
+		try(Connection con = DBConfig.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql);
 			ResultSet rs = pstat.executeQuery()){
 			
@@ -129,7 +119,7 @@ public class AdminDAO {
 	 */
 	public List<GameDTO> getGameList() throws Exception {
 		String sql = "select * from game";
-		try(Connection con = getConnection();
+		try(Connection con = DBConfig.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql);
 			ResultSet rs = pstat.executeQuery()){
 			

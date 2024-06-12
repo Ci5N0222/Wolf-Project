@@ -3,8 +3,8 @@
         <img src="/images/img09.png" alt="logo">
     </div>
     <p onclick="location.href='/main.admin'"> Dash Board </p>
-    <p onclick="location.href='/memberslist.admin'"> Members </p>
-    <p onclick="location.href='/gamelist.admin'"> Games </p>
+    <p onclick="location.href='/members_list.admin'"> Members </p>
+    <p onclick="location.href='/game_list.admin'"> Games </p>
     <p onclick="location.href='/main.admin'"> Notice </p>
     <p onclick="location.href='/main.admin'"> FAQ </p>
     <p onclick="location.href='/main.admin'"> QNA </p>
