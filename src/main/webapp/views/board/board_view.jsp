@@ -84,6 +84,10 @@
     	border-radius: 5px;
     	cursor: pointer;
     }
+    button:hover{
+        transform: scale(1.2);
+        text-decoration: underline;
+    }
     .page-number {
             width: 40px;
             height: 40px;
