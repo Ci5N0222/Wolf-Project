@@ -38,16 +38,16 @@ public class AdminController extends HttpServlet {
 			
 			/** 메인 **/
 			if(cmd.equals("/main.admin")) {
-				// 로그인된 세션이 없다면 로그인 페이지로 강제 이동
 				if(!adminSession) response.sendRedirect("/page_login.admin");
 				else {
 					// 1. 남여 비율 대시보드
 					int[] genderCount = dao.membersTotalCount();
-					
 					request.setAttribute("male", genderCount[1]);
 					request.setAttribute("female", (genderCount[0] - genderCount[1]));
-					request.getRequestDispatcher("/views/admin/admin.jsp").forward(request, response);
 					
+					// 2. 연령별 비율 대시보드
+					
+					request.getRequestDispatcher("/views/admin/admin.jsp").forward(request, response);
 				}
 			}
 			
@@ -56,7 +56,6 @@ public class AdminController extends HttpServlet {
 			else if(cmd.equals("/page_login.admin")) {
 				request.getRequestDispatcher("/views/admin/admin_login.jsp").forward(request, response);
 			}
-			
 			else if(cmd.equals("/login.admin")) {
 				String admin_id = request.getParameter("admin_id");
 				String admin_pw = request.getParameter("admin_pw");
@@ -66,8 +65,6 @@ public class AdminController extends HttpServlet {
 					request.getSession().setAttribute("WolfAdmin", true);
 					response.getWriter().append("ok");
 				} else {
-					// result == 2 // 로그인 실패 (존재하지 않는 아이디)
-					// result == 3 // 로그인 실패 (비밀번호 틀림)
 					response.getWriter().append("fail");
 				}
 			}
@@ -75,15 +72,13 @@ public class AdminController extends HttpServlet {
 			
 			/** 로그아웃 **/
 			else if(cmd.equals("/logout.admin")) {
-				// 세션 종료
 				request.getSession().invalidate();
 				response.sendRedirect("/page_login.admin");
 			}
 			
 			
 			/** 멤버 목록 조회 **/
-			else if(cmd.equals("/memberslist.admin")) {
-				// 로그인된 세션이 없다면 로그인 페이지로 강제 이동
+			else if(cmd.equals("/members_list.admin")) {
 				if(!adminSession) response.sendRedirect("/views/admin/admin_login.jsp");
 				else {
 					List<MembersDTO> membersList = dao.getMemberList();
@@ -94,21 +89,41 @@ public class AdminController extends HttpServlet {
 			
 			
 			/** 멤버 정보 수정 **/
-			else if(cmd.equals("/membersupdate.admin")) {
-				
+			else if(cmd.equals("/members_update.admin")) {
+				if(!adminSession) response.sendRedirect("/views/admin/admin_login.jsp");
+				else {
+					// 선택된 회원의 DTO 가져와서 수정할 수 있어야 됨
+				}
 			}
 			
 			
 			/** 서비스중인 게임 목록 **/
-			else if(cmd.equals("/gamelist.admin")) {
-				List<GameDTO> gameList = dao.getGameList();
-				request.setAttribute("gameList", gameList);
-				request.getRequestDispatcher("/views/admin/admin_game_list.jsp").forward(request, response);
+			else if(cmd.equals("/game_list.admin")) {
+				if(!adminSession) response.sendRedirect("/views/admin/admin_login.jsp");
+				else {
+					List<GameDTO> gameList = dao.getGameList();
+					request.setAttribute("gameList", gameList);
+					request.getRequestDispatcher("/views/admin/admin_game_list.jsp").forward(request, response);
+				}
 			}
 			
+			/** 게임 디테일 **/
+			else if(cmd.equals("/game_detail.admin")) {
+				
+			}
 			
 			/** 게임 데이터 추가 **/
-			else if(cmd.equals("/addgame.admin")) {
+			else if(cmd.equals("/game_insert.admin")) {
+				
+			}
+			
+			/** 게임 데이터 수정 **/
+			else if(cmd.equals("/game_update.admin")) {
+				
+			}
+			
+			/** 게임 데이터 삭제 **/
+			else if(cmd.equals("/game_delete.admin")) {
 				
 			}
 			

@@ -9,6 +9,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import commons.DBConfig;
 import members.dto.MembersDTO;
 
 public class MembersDAO {
@@ -21,19 +22,12 @@ public class MembersDAO {
 		return instance;
 	}
 
-	private Connection getConnection() throws Exception {
-		Context ctx = new InitialContext();
-		DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/oracle");
-		return ds.getConnection();
-
-	}
-
 	private MembersDAO() {
 	}
-	public int insert(MembersDTO dto ) throws Exception{
+
+	public int insert(MembersDTO dto) throws Exception {
 		String sql = "insert into members values(?,?,?,?,?,?,?,?,?,?,sysdate)";
-		try(Connection con = this.getConnection(); 
-				PreparedStatement pstat = con.prepareStatement(sql)){
+		try (Connection con=DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
 			pstat.setString(1, dto.getId());
 			pstat.setString(2, dto.getPw());
 			pstat.setString(3, dto.getName());
@@ -44,48 +38,52 @@ public class MembersDAO {
 			pstat.setString(8, dto.getBirth());
 			pstat.setInt(9, dto.getGrade());
 			pstat.setString(10, dto.getAvatar());
-			
+
 			return pstat.executeUpdate();
-			
+
 		}
 	}
+
 	public boolean CheckById(String id) throws Exception {
 		String sql = "SELECT * FROM members WHERE id = ?";
-		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+		try (Connection con=DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
 			pstat.setString(1, id);
 			try (ResultSet rs = pstat.executeQuery()) {
 				return rs.next();
 			}
 		}
 	}
+
 	public boolean CheckByNickname(String nickname) throws Exception {
 		String sql = "SELECT * FROM members WHERE nickname = ?";
-		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+		try (Connection con=DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
 			pstat.setString(1, nickname);
 			try (ResultSet rs = pstat.executeQuery()) {
 				return rs.next();
 			}
 		}
 	}
+
 	public String[] login(String id, String pw) throws Exception {
 		String sql = "select * from members where id = ? and pw = ?";
-		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+		try (Connection con=DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
 			pstat.setString(1, id);
 			pstat.setString(2, pw);
-			try(ResultSet rs = pstat.executeQuery()){
-			 if(rs.next()) {
-				 String[]result = new String[3];
-				 result[0] = rs.getString(1);
-				 result[1] = rs.getString(4);
-				 result[2] = rs.getString(10);
-				 return result;
-			 }else {
-				 return new String[0];
-			 }
-			 
+			try (ResultSet rs = pstat.executeQuery()) {
+				if (rs.next()) {
+					String[] result = new String[3];
+					result[0] = rs.getString(1);
+					result[1] = rs.getString(4);
+					result[2] = rs.getString(10);
+					return result;
+				} else {
+					return new String[0];
+				}
+
+			}
 		}
 	}
-	}
+	
 	
 	/**
 	 * "내정보" 출력
@@ -95,13 +93,13 @@ public class MembersDAO {
 	 * @throws Exception
 	 */
 	public MembersDTO selectMember(String loginID) throws Exception {
-		
+
 		String sql = "select * from members where id = ?";
-		
-		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
-			
+
+		try (Connection con=DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+
 			pstat.setString(1, loginID);
-			
+
 			try (ResultSet rs = pstat.executeQuery()) {
 				while (rs.next()) {
 					String id = rs.getString(1);
@@ -115,16 +113,17 @@ public class MembersDAO {
 					int grade = rs.getInt(9);
 					String avatar = rs.getString(10);
 					Timestamp join_date = rs.getTimestamp(11);
-					MembersDTO dto = new MembersDTO(id, null, name, nickname, phone, email, gender, birth, grade, avatar, join_date);
+					MembersDTO dto = new MembersDTO(id, null, name, nickname, phone, email, gender, birth, grade,
+							avatar, join_date);
 					return dto;
 				}
-				
+
 				return null;
 			}
-			
+
 		}
 	}
-	
+
 	/**
 	 * 사용자가 수정한 내용 DB에서도 수정
 	 * 
@@ -136,7 +135,7 @@ public class MembersDAO {
 
 		String sql = "update members set name =?, nickname =?, phone= ?, email= ?, avatar =? where id = ?";
 
-		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+		try (Connection con=DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
 
 			pstat.setString(1, dto.getName());
 			pstat.setString(2, dto.getNickname());
@@ -149,63 +148,53 @@ public class MembersDAO {
 			return result;
 		}
 	}
-	
-	
+
 	/**
 	 * 사용자의 현재 pw가 DB에 등록되어있는 pw와 일치하는지
+	 * 
 	 * @param id
 	 * @param currentPW
 	 * @return
 	 * @throws Exception
 	 */
 	public boolean isPWExist(String id, String currentPW) throws Exception {
-		
+
 		String sql = "select * from members where id = ? and pw = ?";
-		
-		try(Connection con = this.getConnection();
-				PreparedStatement pstat = con.prepareStatement(sql)){
-			
+
+		try (Connection con=DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+
 			pstat.setString(1, id);
 			pstat.setString(2, currentPW);
-			
-			try(ResultSet rs = pstat.executeQuery()){
+
+			try (ResultSet rs = pstat.executeQuery()) {
 				return rs.next();
 			}
-			
+
 		}
-		
+
 	}
-	
-	
+
 	/**
 	 * pw 변경
+	 * 
 	 * @param id
 	 * @param newPW
 	 * @return
 	 * @throws Exception
 	 */
 	public int updatePW(String id, String newPW) throws Exception {
-		
+
 		String sql = "update members set pw =? where id = ?";
-		
-		try(Connection con = this.getConnection();
-				PreparedStatement pstat = con.prepareStatement(sql)){
-			
+
+		try (Connection con=DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+
 			pstat.setString(1, newPW);
 			pstat.setString(2, id);
-			
+
 			return pstat.executeUpdate();
-			
+
 		}
-		
+
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }

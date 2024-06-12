@@ -53,7 +53,8 @@ pageEncoding="UTF-8"%>
       .mypage-side-menu {
         min-width: 200px;
         height: 100%;
-        background-color: rgb(150, 217, 6);
+        /* background-color: rgb(150, 217, 6); */
+        background-color: antiquewhite;
       }
 
       .mypage-side-menu > p:hover {
@@ -78,7 +79,7 @@ pageEncoding="UTF-8"%>
       }
 
       .mypage-main-form {
-        background-color: #0a5479;
+        /* background-color: #0a5479; */
         flex: 13;
         display: flex;
         flex-direction: column;
@@ -91,17 +92,8 @@ pageEncoding="UTF-8"%>
         color: white;
       }
 
-      /* .mypage-dashboard {
-        width: 90%;
-        background-color: white;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        align-items: center;
-        padding: 20px;
-      } */
       .mypage-dashboard {
-        background-color: white;
+        /* background-color: white; */
         display: flex;
         width: 100%;
         max-width: 950px;
@@ -114,16 +106,19 @@ pageEncoding="UTF-8"%>
       }
 
       .mypage-dashboard > div:first-child {
-        flex: 7;
-        background-color: #ecb153;
+        flex: 8;
+        /* background-color: #ecb153; */
         display: flex;
         flex-direction: column;
       }
+
       .mypage-dashboard > div:first-child > div:first-child {
         flex: 1;
         margin-top: 0px;
         margin-bottom: 10px;
-        background-color: rgb(189, 107, 194);
+        /* background-color: rgb(189, 107, 194); */
+        background-color: white;
+        border: 1px solid #ccc;
         display: flex;
         flex-direction: column;
       }
@@ -134,24 +129,37 @@ pageEncoding="UTF-8"%>
         display: flex;
         flex-direction: column;
         padding: 15px;
-        border:1px solid #ff0000;
+        /* border:1px solid #ff0000; */
       }
       
       .dashboard-inner_box > div:first-child {
         flex: 4;
-        background-color: rgb(144, 127, 145);
+        /* background-color: rgb(144, 127, 145); */
+        background-color: white;
         border-radius: 0px;
-        /* margin-bottom: 10px; */
         display: flex;
+        justify-content: center;
       }
+
+      /* 카테고리 박스 안 글씨 */
+      .dashboard-inner_box > div:first-child > p {
+        line-height: 150px;
+        font-size: x-large;
+        margin: 0px;
+      }
+
+      /* 내정보 아바타 출력칸 */
       .dashboard-inner_box > div:first-child > div:first-child {
         flex: 2;
-        background-color: rgb(132, 0, 139);
-        border-radius: 0px;
+        background-color: #d5d5d5;
+        border-radius: 100px;
       }
+
+      /* 내정보 닉네임 출력칸 */
       .dashboard-inner_box > div:first-child > div:last-child {
         flex: 5;
-        background-color: rgb(81, 72, 149);
+        /* background-color: rgb(81, 72, 149); */
+        background-color: white;
         border-radius: 0px;
       }
       .dashboard-inner_box > div:first-child > div:last-child > p {
@@ -160,18 +168,26 @@ pageEncoding="UTF-8"%>
         margin-left: 20px;
       }
 
+      /* 카테고리 박스 안 버튼 */
       .dashboard-inner_box > div:last-child {
         flex: 2;
-        border-top: 3px solid rgb(255, 0, 0);
-        background-color: rgb(255, 214, 90);
+        /* border-top: 3px solid rgb(255, 0, 0); */
+        /* background-color: rgb(255, 214, 90); */
+        background-color: white;
         border-radius: 0px;
         display: flex;
         align-items: center;
-        justify-content: flex-end;
+        justify-content: center;
       }
-      
+      /* 내정보 카테고리 버튼 */
+      .dashboard-inner_box .mypage_btn {
+        margin-left: 380px;
+        width: 110px;
+        height: 45px;
+        border-radius: 25px;
+      }
+      /* 나머지 카테고리 버튼 */
       .dashboard-inner_box > div:last-child > button {
-        margin-right: 25px;
         width: 110px;
         height: 45px;
         border-radius: 25px;
@@ -182,56 +198,38 @@ pageEncoding="UTF-8"%>
         flex: 1;
         display: flex;
       }
+      /* 게임플레이 정보 */
       .mypage-dashboard > div:first-child > div:last-child > div:first-child {
         flex: 1;
-        background-color: rgb(189, 107, 194);
+        background-color: white;
       }
+      /* 문의내역 */
       .mypage-dashboard > div:first-child > div:last-child > div:last-child {
         flex: 1;
         margin-left: 12px;
-        background-color: rgb(189, 107, 194);
+        background-color: white;
       }
 
       .mypage-dashboard > div:last-child {
         flex: 4;
-        background-color: #36825c;
         display: flex;
         flex-direction: column;
       }
+      /* 비밀번호변경 */
       .mypage-dashboard > div:last-child > div:first-child {
         flex: 1;
         margin-top: 0px;
         margin-left: 12px;
-        background-color: rgb(189, 107, 194);
+        background-color: white;
       }
-      .mypage-dashboard > div:last-child > div:first-child p {
-        
-
-      }
+      /* 회원탈퇴 */
       .mypage-dashboard > div:last-child > div:last-child {
         flex: 1;
         margin-top: 10px;
         margin-left: 12px;
-        background-color: rgb(189, 107, 194);
+        background-color: white;
       }
 
-
-
-
-
-      /* .dashboard-item {
-        width: 30%;
-        height: 150px;
-        background-color: white;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      } */
     </style>
   </head>
   <body>
@@ -248,9 +246,9 @@ pageEncoding="UTF-8"%>
         <p onclick="location.href='/views/mypage/mypage.jsp'">내정보 홈</p>
         <p onclick="location.href='/select.members'">개인정보관리</p>
         <p onclick="location.href='/views/mypage/updatePW.jsp'">비밀번호 변경</p>
-        <p onclick="location.href='/main.mypage'">게임플레이 정보</p>
-        <p onclick="location.href='/main.mypage'">문의내역</p>
-        <p onclick="location.href='/main.mypage'">회원탈퇴</p>
+        <p onclick="location.href='/'">게임플레이 정보</p>
+        <p onclick="location.href='/'">문의내역</p>
+        <p onclick="location.href='/'">회원탈퇴</p>
       </aside>
 
       <section class="mypage-main-form">
@@ -304,3 +302,5 @@ pageEncoding="UTF-8"%>
     </main>
   </body>
 </html>
+
+
