@@ -20,9 +20,8 @@
 <script src="https://kit.fontawesome.com/1ee4acc8d4.js" crossorigin="anonymous"></script>
 
 <!-- Project local -->
-<link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/admin.css">
-<script src="/js/main.js"></script>
+<script src="/js/admin.js"></script>
 
 </head>
 <body>
@@ -30,30 +29,27 @@
         <%@ include file="/views/include/admin_side.jsp" %>
         
         <section class="admin-main-form">
-        <h1 class="admin-main-title">Members List</h1>
+        <h1 class="admin-main-title">Game List</h1>
              <div class="admin-members-list">
-             	<c:if test="${membersList.size() > 0}">
+             	<c:if test="${gameList.size() > 0}">
              		<table>
              			<tr>
              				<th>ID</th>
-             				<th>Name</th>
-             				<th>Nick Name</th>
-             				<th>E-mail</th>
-             				<th>Gender</th>
-             				<th>Grade</th>
+             				<th>title</th>
+             				<th>thumbnail</th>
              			</tr>
-	             		<c:forEach var="members" items="${membersList}">
+	             		<c:forEach var="games" items="${gameList}">
 	             			<tr>
-	             				<td>${members.id}</td>
-	             				<td>${members.name}</td>
-	             				<td>${members.nickname}</td>
-	             				<td>${members.email}</td>
-	             				<td>${members.gender}</td>
-	             				<td>${members.grade}</td>
+	             				<td>${games.seq}</td>
+	             				<td>${games.title}</td>
+	             				<td>${games.thumbnail}</td>
 	             			</tr>
 	             		</c:forEach>
              		</table>
              		<!-- 페이징 -->
+             		<script>
+             			pagenation(${cpage}, ${recode_total_count}, ${recode_count_per_page}, ${navi_count_per_page}, "/game_list.admin");
+             		</script>
              	</c:if>
              </div>
              <!-- 멤버 검색 -->

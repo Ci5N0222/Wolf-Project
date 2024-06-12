@@ -20,9 +20,8 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <!-- Project local -->
-<link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/admin.css">
-<script src="/js/main.js"></script>
+<script src="/js/admin.js"></script>
 
 </head>
 <body>

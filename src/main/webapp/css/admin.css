@@ -1,100 +1,138 @@
 * {
-	    box-sizing: border-box;
-	    margin: 0;
-	    padding: 0;
-	}
-	
-	.admin-container {
-	    display: flex;
-	    height: 100vh;
-	    width: 100%;
-	}
-	
-	.admin-side-menu {
-	    flex: 1;
-	    height: 100%;
-	    background-color: antiquewhite;
-	}
-	
-	.admin-side-menu > p:hover {
-		cursor: pointer;
-	}
-	
-	.admin-side-menu > p {
-	    padding: 20px;
-	    font-size: 20px;
-	    font-weight: 800;
-	    text-align: center;
-	}
-	
-	.admin-logo {
-		display: flex;
-		justify-content: center;
-		padding: 10px;
-	}
-	
-	.admin-logo > img {
-		width: 230px;
-	}
-	
-	.admin-main-form {
-	    flex: 4;
-	    display: flex;
-	    flex-direction: column;
-    	align-items: center;
-	}
-	
-	.admin-dashboard {
-	    width: 90%;
-	    background-color: white;
-	    border-radius: 10px;
-	    display: flex;
-    	justify-content: space-around;
-    	align-items: center;
-    	padding: 20px;
-	    
-	}
-	
-	.admin-dashboard > .dashboard-item {
-		width: 450px;
-		height: 450px;
-	}
-	
-	.admin-logout {
-		padding: 10px;
-		display: flex;
-		justify-content: space-around;
-	}
-	.admin-logout > p {
-		margin: 20px 0;	
-	}
-	.admin-logout > p:hover {
-		cursor: pointer;
-	}
-	
-	.admin-main-title {
-		margin: 50px 0;
-		font-size: 50px;
-		color: white;
-	}
-	
-	.admin-members-list {
-		width: 90%;
-	    background-color: white;
-	    border-radius: 10px;
-	    display: flex;
-    	flex-direction: column;
-    	justify-content: space-around;
-    	align-items: center;
-    	padding: 20px;
-	}
-	
-	th {
-		padding: 10px 16px;
-	}
-	
-	td {
-		padding: 10px 16px;
-		text-align: center;
-	}
-	
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.admin-container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+.admin-login-form {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    background-color: #14213D;
+    color: aliceblue;
+    width: 400px;
+    height: 320px;
+    border-radius: 20px;
+}
+.admin-login-form > h2 {
+    text-align: center;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+.admin-login-form > input {
+    width: 80%;
+    height: 3rem;
+    margin: 10px auto;
+    font-size: 20px;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.admin-login-form > button {
+    width: 10rem;
+    height: 3rem;
+    margin: 20px auto;
+    background-color: aliceblue;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.admin-login-form > button:hover {
+    cursor: pointer;
+}
+
+.admin-side-menu {
+    flex: 1;
+    height: 100%;
+    background-color: antiquewhite;
+}
+
+.admin-side-menu > p:hover {
+    cursor: pointer;
+}
+
+.admin-side-menu > p {
+    padding: 20px;
+    font-size: 20px;
+    font-weight: 800;
+    text-align: center;
+}
+
+.admin-logo {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.admin-logo > img {
+    width: 230px;
+}
+
+.admin-main-form {
+    flex: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.admin-dashboard {
+    width: 90%;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    
+}
+
+.admin-dashboard > .dashboard-item {
+    width: 450px;
+    height: 450px;
+}
+
+.admin-logout {
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+}
+.admin-logout > p {
+    margin: 20px 0;	
+}
+.admin-logout > p:hover {
+    cursor: pointer;
+}
+
+.admin-main-title {
+    margin: 50px 0;
+    font-size: 50px;
+    color: black;
+}
+
+.admin-members-list {
+    width: 90%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+}
+
+th {
+    padding: 10px 18px;
+}
+
+td {
+    padding: 10px 16px;
+    text-align: center;
+}

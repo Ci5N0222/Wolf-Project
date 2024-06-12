@@ -44,14 +44,17 @@
                 <input type="text" placeholder="글 제목을 입력하세요" style="width: 100%;" name="title">
             </div>
             <div style="flex: 8;"  id="contents"></div>
-            <div style="display: flex; flex: 1; justify-content: flex-end;">
-                    <div style="display: none;"><input type="file" name="file" id="upload"></div>
+            <div style="display: flex; flex: 1; justify-content: flex-end;">        
                     <button type="button"  class="btn" id="list">목록으로</button>&nbsp&nbsp
                     <button class="btn">작성완료</button>
             </div>
         </div>
+        <div id="files">
+        </div>
+    </form>
 <script>
     var  myButton;
+    let index=0;
     tinymce.init({
       selector: 'div#contents',
       plugins:'wordcount anchor image inlinecss ',
@@ -75,11 +78,35 @@
                       myButton=e;
                     },
                     onAction: function() {
-                        $("#upload").click();
+                        let files=$("#files");
+
+                        let div=$("<div style='display: none;''>");
+                        let input=$("<input type='file'class='upload'>");
+                        input.attr("name","files"+index++);
+                        div.append(input);
+                        let button=$("<button style='width: 50px; height: 50px;'>삭제</button>")
+                        input.click();
+                        let temp=$("<div>");
                         //myButton.setText("aa");
+                        input.on('change', function() {
+                                var fileName = $(this).val().split('\\').pop();
+                                console.log(fileName);
+                                
+                                temp.html('파일 업로드: ' + fileName);
+                                temp.append(button);
+                                files.append(temp);
+                                
+                     
+                          });   
+                        button.on("click",function(){
+                            input.remove();
+                            temp.remove();
+                        })
+                        files.append(div);
                             
                     },         
-                });   
+                }); 
+                /*  
                 $('#upload').on('change', function() {
                      var fileName = $(this).val().split('\\').pop();
                      console.log(fileName);
@@ -91,7 +118,7 @@
                         myButton.setText('파일 업로드: ' + fileName);
                      }
                      
-                });   
+                });  */ 
                 editor.on('change', function () {
                     localStorage.setItem('editorContent', editor.getContent());
                 });
