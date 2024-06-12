@@ -47,16 +47,19 @@ public class MembersController extends HttpServlet {
 				
 				int result = dao.insert(new MembersDTO(id,pw,name,nickname,phone,email,gender,birth,1,null,null));
 				response.sendRedirect("/index.jsp");
+				
 			}else if(cmd.equals("/idcheck.members")) {
 				String id = request.getParameter("id");
 			    boolean result = dao.CheckById(id);
 			    
 			    response.getWriter().append(String.valueOf(result));
+			    
 			}else if(cmd.equals("/nicknamecheck.members")) {
 				String nickname = request.getParameter("nickname");
 			    boolean result = dao.CheckByNickname(nickname);
 			    
 			    response.getWriter().append(String.valueOf(result));
+			    
 			}else if (cmd.equals("/login.members")) {
 
 				String id = request.getParameter("id");
@@ -77,16 +80,11 @@ public class MembersController extends HttpServlet {
 				session.invalidate();
 				response.sendRedirect("/index.jsp");
 		
-				
 				/* 내 정보 */
 			} else if (cmd.equals("/select.members")) {
 
 				String loginID = (String)session.getAttribute("WolfID");
-
-				System.out.println("loginID : " + loginID);
-
 				MembersDTO dto = dao.selectMember(loginID);
-				System.out.println("MembersDTO: " + dto);
 				
 				request.setAttribute("member", dto);
 				request.getRequestDispatcher("/views/mypage/updateInfo.jsp").forward(request, response);
