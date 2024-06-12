@@ -9,6 +9,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import commons.DBConfig;
 import members.dto.MembersDTO;
 
 public class MembersDAO {
@@ -21,19 +22,12 @@ public class MembersDAO {
 		return instance;
 	}
 
-	private Connection getConnection() throws Exception {
-		Context ctx = new InitialContext();
-		DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/oracle");
-		return ds.getConnection();
-
-	}
-
 	private MembersDAO() {
 	}
 
 	public int insert(MembersDTO dto) throws Exception {
 		String sql = "insert into members values(?,?,?,?,?,?,?,?,?,?,sysdate)";
-		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+		try (Connection con=DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
 			pstat.setString(1, dto.getId());
 			pstat.setString(2, dto.getPw());
 			pstat.setString(3, dto.getName());
@@ -52,7 +46,7 @@ public class MembersDAO {
 
 	public boolean CheckById(String id) throws Exception {
 		String sql = "SELECT * FROM members WHERE id = ?";
-		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+		try (Connection con=DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
 			pstat.setString(1, id);
 			try (ResultSet rs = pstat.executeQuery()) {
 				return rs.next();
@@ -62,7 +56,7 @@ public class MembersDAO {
 
 	public boolean CheckByNickname(String nickname) throws Exception {
 		String sql = "SELECT * FROM members WHERE nickname = ?";
-		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+		try (Connection con=DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
 			pstat.setString(1, nickname);
 			try (ResultSet rs = pstat.executeQuery()) {
 				return rs.next();
@@ -72,7 +66,7 @@ public class MembersDAO {
 
 	public String[] login(String id, String pw) throws Exception {
 		String sql = "select * from members where id = ? and pw = ?";
-		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+		try (Connection con=DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
 			pstat.setString(1, id);
 			pstat.setString(2, pw);
 			try (ResultSet rs = pstat.executeQuery()) {
@@ -102,7 +96,7 @@ public class MembersDAO {
 
 		String sql = "select * from members where id = ?";
 
-		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+		try (Connection con=DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
 
 			pstat.setString(1, loginID);
 
@@ -141,7 +135,7 @@ public class MembersDAO {
 
 		String sql = "update members set name =?, nickname =?, phone= ?, email= ?, avatar =? where id = ?";
 
-		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+		try (Connection con=DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
 
 			pstat.setString(1, dto.getName());
 			pstat.setString(2, dto.getNickname());
@@ -167,7 +161,7 @@ public class MembersDAO {
 
 		String sql = "select * from members where id = ? and pw = ?";
 
-		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+		try (Connection con=DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
 
 			pstat.setString(1, id);
 			pstat.setString(2, currentPW);
@@ -192,7 +186,7 @@ public class MembersDAO {
 
 		String sql = "update members set pw =? where id = ?";
 
-		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+		try (Connection con=DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
 
 			pstat.setString(1, newPW);
 			pstat.setString(2, id);
