@@ -59,7 +59,6 @@ public class BoardController extends HttpServlet {
 				Object boardList[] =boardDAO.selectBoard(seq);
 				Object replyList[] =replyDAO.select(seq);
 				List<FilesDTO> fileList=filesDAO.select(seq);
-				System.out.println("디테일 보드 ");
 			
 				request.setAttribute("board_dto", boardList[0]);
 				request.setAttribute("board_nickname", boardList[1]);
