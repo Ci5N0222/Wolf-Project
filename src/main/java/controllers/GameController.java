@@ -33,11 +33,14 @@ public class GameController extends HttpServlet {
 				request.getRequestDispatcher("/views/game/gameList.jsp").forward(request, response);
 				
 			}else if(cmd.equals("/detail.game")) {
+				
 			    int seq = Integer.parseInt(request.getParameter("seq"));
-			    System.out.println(request.getParameter("seq"));
+//			    System.out.println(seq+ "확인");
 			    GameDTO dto= dao.getDetail(seq);
-			    String result= g.toJson(dto);
-			    response.getWriter().write(result);
+			    request.setAttribute("dto", dto);
+			    request.getRequestDispatcher("/views/game/gameDetail.jsp").forward(request, response);
+
+			    
 			    
 			}else if(cmd.equals("/score.game")) {
 				
