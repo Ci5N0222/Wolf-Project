@@ -58,6 +58,16 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         padding-left: 5px;
       }
 
+      .correct {
+        display: flex;
+      }
+      .correct_left {
+        flex: 2;
+      }
+      .correct_right {
+        flex: 5;
+      }
+
       .container .footer {
         flex: 0.8;
         display: flex;
@@ -101,18 +111,38 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
               <div class="txt">Name</div>
               <div class="content" id="name">${member.name}</div>
             </div>
+            <div class="correct">
+              <div class="correct_left"></div>
+              <div class="correct_right correct_name"></div>
+            </div>
+
             <div class="row">
               <div class="txt">NickName</div>
               <div class="content" id="nickname">${member.nickname}</div>
             </div>
+            <div class="correct">
+              <div class="correct_left"></div>
+              <div class="correct_right correct_nickname"></div>
+            </div>
+
             <div class="row">
               <div class="txt">Phone</div>
               <div class="content" id="phone">${member.phone}</div>
             </div>
+            <div class="correct">
+              <div class="correct_left"></div>
+              <div class="correct_right correct_phone"></div>
+            </div>
+
             <div class="row">
               <div class="txt">Email</div>
               <div class="content" id="email">${member.email}</div>
             </div>
+            <div class="correct">
+              <div class="correct_left"></div>
+              <div class="correct_right correct_email"></div>
+            </div>
+
             <div class="row">
               <div class="txt">Gender</div>
               <div class="content" id="gender">${member.gender}</div>
@@ -132,8 +162,9 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
               <div class="content" id="avatar">
                 <input type="file" name="file" />
                 <img
-                  src="C:\workspace\04_workspace_backend\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\First_Project\files\91.jpg"
-                  alt=""
+                  src="C:\workspace\04_workspace_backend\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Wolf-Project\files/4.jpg"
+                  alt="아바타 이미지"
+                  width="500"
                   id="img"
                 />
               </div>
@@ -191,11 +222,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         value="${member.avatar}"
       />
     </form>
-    <img
-      src="C:\workspace\04_workspace_backend\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\First_Project\files/92.jpg"
-      alt=""
-      id="img"
-    />
 
     <script>
       // 사용변수
@@ -205,6 +231,10 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       let phone = $("#phone");
       let email = $("#email");
       let avatar = $("#avatar");
+
+      let regexName = /^[가-힣]{2,5}$/;
+      let regexPhone = /^01[\d]-?\d{4}-?\d{4}$/;
+      let regexEmail = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.(com|net|co\.kr)+$/;
 
       // 수정버튼 눌렀을 시
       $("#edit").on("click", function () {
@@ -216,11 +246,62 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         phone.attr("contenteditable", true);
         email.attr("contenteditable", true);
         avatar.attr("contenteditable", true);
+
+        name.on("keyup", function () {
+          let result = regexName.test(name.html());
+
+          if (name.html() === "") {
+            $(".correct_name").html("");
+            return false;
+          }
+
+          if (result) {
+            $(".correct_name").html("확인");
+            $(".correct_name").css("color", "green");
+          } else {
+            $(".correct_name").html("불가");
+            $(".correct_name").css("color", "red");
+          }
+        });
+
+        phone.on("keyup", function () {
+          let result = regexPhone.test(phone.html());
+
+          if (name.html() === "") {
+            $(".correct_phone").html("");
+            return false;
+          }
+
+          if (result) {
+            $(".correct_phone").html("확인");
+            $(".correct_phone").css("color", "green");
+          } else {
+            $(".correct_phone").html("불가");
+            $(".correct_phone").css("color", "red");
+          }
+        });
+
+        email.on("keyup", function () {
+          let result = regexEmail.test(email.html());
+
+          if (name.html() === "") {
+            $(".correct_email").html("");
+            return false;
+          }
+
+          if (result) {
+            $(".correct_email").html("확인");
+            $(".correct_email").css("color", "green");
+          } else {
+            $(".correct_email").html("불가");
+            $(".correct_email").css("color", "red");
+          }
+        });
       });
 
       // 홈 버튼 눌렀을 시
       $("#home").on("click", function () {
-        location.href = "/test/index.jsp";
+        location.href = "/views/mypage/mypage.jsp";
       });
 
       // 완료 버튼 눌렀을 시
@@ -230,6 +311,17 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         $("#hidden_phone").val($("#phone").text().trim());
         $("#hidden_email").val($("#email").text().trim());
         $("#hidden_avatar").val($("#avatar").text().trim());
+
+        if (!regexName.test(name.html())) {
+          alert("이름을 올바르게 입력해주세요.");
+          return false;
+        } else if (!regexPhone.test(phone.html())) {
+          alert("전화번호를 올바르게 입력해주세요.");
+          return false;
+        } else if (!regexEmail.test(email.html())) {
+          alert("이메일을 올바르게 입력해주세요.");
+          return false;
+        }
       });
 
       // 취소 버튼 눌렀을 시

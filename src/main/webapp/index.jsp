@@ -19,24 +19,35 @@
 <!-- icon -->
 <script src="https://kit.fontawesome.com/1ee4acc8d4.js" crossorigin="anonymous"></script>
 
+<!-- bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+        
 <!-- Project local -->
 <link rel="stylesheet" href="css/style.css">
-<script src="js/main.js"></script>
+
 </head>
 <body>
 	<!-- container -->
     <div class="container-fluid d-flex flex-column">
     	 <div class="container text-center flex-grow-1 d-flex flex-column">
-    
+    		<img src="images/bg1.png" alt="" class="img_bg">
+            <img src="images/bg3.png" alt="" class="img_bg bgs">
+            <img src="images/bg3.png" alt="" class="img_bg bgs">
+            <img src="images/bg3.png" alt="" class="img_bg bgs">
+            <img src="images/bg3.png" alt="" class="img_bg bgs">
+            <img src="images/bg3.png" alt="" class="img_bg bgs">
+            <img src="images/bg3.png" alt="" class="img_bg bgs">
 	        <!-- nav -->
 	        <%@ include file="/views/include/header.jsp" %>
 	        
 	        <!-- 컨텐츠 -->
             <div id="contents" class="d-flex align-items-center justify-content-center my-3">
-                <div>Wolf</div>
-                <div>설명</div>
+                <div>Developer <br/> who wants to cry</div>
+                <div></div>
             </div>
-            s
+          
 			<!-- main -->
             <main class="main container flex-grow-1">
                 <section class="d-flex flex-wrap list">
@@ -84,18 +95,13 @@
             </main>
 	       	</div>
 	        
-			<div class="one"></div>
+			<div class="sun"></div>
 	        <!-- mode -->
 	        <div id="mode">
 	            <i class="fa-regular fa-lightbulb" style="display: none;"></i>
 	            <i class="fa-solid fa-lightbulb"></i>
 	        </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
     <script src="js/main.js"></script>
-
-	
 </body>
 </html>
