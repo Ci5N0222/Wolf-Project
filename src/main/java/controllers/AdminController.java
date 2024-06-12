@@ -39,7 +39,7 @@ public class AdminController extends HttpServlet {
 			/** 메인 **/
 			if(cmd.equals("/main.admin")) {
 				// 로그인된 세션이 없다면 로그인 페이지로 강제 이동
-				if(!adminSession) response.sendRedirect("/views/admin/admin_login.jsp");
+				if(!adminSession) response.sendRedirect("/page_login.admin");
 				else {
 					// 1. 남여 비율 대시보드
 					int[] genderCount = dao.membersTotalCount();
@@ -53,6 +53,10 @@ public class AdminController extends HttpServlet {
 			
 			
 			/** 로그인 **/
+			else if(cmd.equals("/page_login.admin")) {
+				request.getRequestDispatcher("/views/admin/admin_login.jsp").forward(request, response);
+			}
+			
 			else if(cmd.equals("/login.admin")) {
 				String admin_id = request.getParameter("admin_id");
 				String admin_pw = request.getParameter("admin_pw");
@@ -73,7 +77,7 @@ public class AdminController extends HttpServlet {
 			else if(cmd.equals("/logout.admin")) {
 				// 세션 종료
 				request.getSession().invalidate();
-				response.sendRedirect("/views/admin/admin_login.jsp");
+				response.sendRedirect("/page_login.admin");
 			}
 			
 			
