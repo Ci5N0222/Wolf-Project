@@ -192,7 +192,7 @@
                                     <input type="hidden" name="contents" class="reply_input">
                                     <input type="hidden" name="seq" value="${reply_dto.seq}" class="reply_seq">
                                      <input type="hidden" name="board_seq" value="${board_dto.seq}" class="notuse">
-                                    <button style="width: 50px; height: 50px;" type="submit" class="reply_confirm">확인</button>
+                                    <button style="width: 50px; height: 50px;" type="button" class="reply_confirm">확인</button>
                                     <button style="width: 50px; height: 50px;" type="button" class="reply_cancel">취소</button>
                                 </form>
                             </div>
@@ -290,19 +290,11 @@
 
             })
         })
+
         let files_seq=$(".files_seq");
         let data=[];
         files_delete.each(function(index,e){
             $(e).on("click",function(){       
-               /* $.ajax({
-                    url:"/delete.files",
-                    type:"post",
-                    data:{
-                        seq:
-                    }
-                }).done(function(resp){
-                    
-                })*/
                 data.push(files_seq.eq(index).text());
                 $(".files_div").eq(index).css({
                     display:"none"
@@ -311,13 +303,44 @@
         })
 
 
-        
+        /*
         $(".reply_update_form").on("submit", function () {
             let form=$(this);
             let reply_input=form.find(".reply_input");
             let reply_div=form.parents(".reply_contents").find(".reply_div");
             reply_input.val(reply_div.html().trim());
+        })*/
+
+        reply_confirm.on("click",function(){
+            let btn=$(this);
+            let reply_update_div=btn.parents(".reply_contents").find(".reply_div");
+            let reply_update_div1=btn.parents(".reply_contents").find(".reply_div1");
+            let reply_update_div2=btn.parents(".reply_contents").find(".reply_div2");
+            let reply_update_seq=btn.parent().find(".reply_seq").val();
+            let reply_update_contents=reply_update_div.html().trim();
+            $.ajax({
+                url:"/update.reply",
+                type:"post",
+                data:{
+                    seq:reply_update_seq,
+                    contents:reply_update_contents,
+                    board_seq:"${board_dto.seq}"
+                }
+
+            }).done(function(){
+                reply_update_div.attr("contenteditable", "false");
+                reply_update_div1.css({
+                    display: "flex"
+                })
+                reply_update_div2.css({
+                    display: "none"
+
+                })
+
+            });
+            
         })
+
 
 
         $("#replyform").on("submit",function(){
