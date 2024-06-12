@@ -44,8 +44,7 @@
                 <input type="text" placeholder="글 제목을 입력하세요" style="width: 100%;" name="title">
             </div>
             <div style="flex: 8;"  id="contents"></div>
-            <div style="display: flex; flex: 1; justify-content: flex-end;">
-                   
+            <div style="display: flex; flex: 1; justify-content: flex-end;">        
                     <button type="button"  class="btn" id="list">목록으로</button>&nbsp&nbsp
                     <button class="btn">작성완료</button>
             </div>
@@ -85,18 +84,24 @@
                         let input=$("<input type='file'class='upload'>");
                         input.attr("name","files"+index++);
                         div.append(input);
-                        
+                        let button=$("<button style='width: 50px; height: 50px;'>삭제</button>")
                         input.click();
+                        let temp=$("<div>");
                         //myButton.setText("aa");
                         input.on('change', function() {
                                 var fileName = $(this).val().split('\\').pop();
                                 console.log(fileName);
-                                let temp=$("<div>");
+                                
                                 temp.html('파일 업로드: ' + fileName);
+                                temp.append(button);
                                 files.append(temp);
+                                
                      
                           });   
-
+                        button.on("click",function(){
+                            input.remove();
+                            temp.remove();
+                        })
                         files.append(div);
                             
                     },         
