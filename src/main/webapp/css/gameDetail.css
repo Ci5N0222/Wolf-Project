@@ -1,0 +1,165 @@
+@charset "UTF-8";@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Noto+Sans+KR:wght@100..900&display=swap');
+:root {
+    --bg-light: #ffd449;
+    --bg-dark: #14213D;
+    --bg-transparent: transparent;
+
+    --color-white: #eeeeee;
+    --color-black: #14213D;
+    --bg-nav: #f9a620;
+    --color-nav-icon: #14213D;
+    --color-nav-bg: #f9a620;
+    font-size: 16px;
+}
+html,
+body {
+    height: 100%;
+    margin: 0;
+    background-color: var(--bg-dark);
+    color: var(--bg-black);
+    color: var(--color-black);
+    overflow: hidden;
+    /* 폰트 */
+    font-family: "Noto Sans KR", sans-serif;
+    font-family: "Luckiest Guy", cursive;
+}
+body.light {
+    background-color: var(--bg-light);
+    color: var(--bg-black);
+}
+/* 모드 변경시 부드럽게 넘어가는 효과 */
+.sun,
+.navi {
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+}
+/* img */
+.img_bg{position: absolute;top: -60%;left: 0; width: 100%; object-fit: cover;}
+.bgs{animation:bg 1s ease-in Infinite Alternate; transition: all ease-in 0.2s; width: 50px;}
+.bgs:nth-child(1){top: 15%;left: 80%;}
+.bgs:nth-child(2){top: 20%; left: 80%; width: 40px;}
+.bgs:nth-child(3){top: 15%; left: 20%;}
+.bgs:nth-child(4){top: 27%; left: 70%; width: 20px;}
+.bgs:nth-child(5){top: 12%; left: 50%;}
+.bgs:nth-child(6){top: 12%; left: 80%; width: 20px;}
+@keyframes bg {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.container-fluid,
+.container,
+.main {
+    height: 100%;
+}
+/* 메뉴 */
+.navi {
+    z-index: 5;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-nav);
+    padding: 0 3%;
+    font-size: 20px;
+    color: var(--color-white);
+    text-shadow: 1px 1px 1px gray;
+    letter-spacing: 1px;
+
+    border-radius: 40px 80px / 80px 40px;
+}
+.navi i {font-size: 22px;}
+    .navi > div {margin-top: 0;}
+    .navi > div:nth-child(2) #wolfLogo{width: 100px;height: 100px;}
+    /* 로고 */
+    .navi #wolfLogo > img {object-fit: cover; width: 100%;height: 100%;}
+    /* 메뉴 버튼 */
+    .naviBtn{cursor: pointer; transition: all 0.3s ease-in-out;}
+    .naviBtn:hover{opacity: 0.5;}
+/* -- main과 동일 -- */
+
+
+
+
+
+   /* main */
+    .main {
+        height: 90%; 
+    }
+    .main > section{display: flex; padding: 5%;}
+    .main > section > div{height: 100%; padding: 0;}
+    /* 게임 이미지, 버튼 */
+    .main > section > div:first-child{border: 1px solid white;border-radius: 2%;display: flex;flex-direction: column;}
+    /* 이미지 */
+    .main > section > div:first-child div:first-child{flex: 8; margin: 5%;border: 1px solid white; border-radius: 2%;}
+    .main > section > div:first-child div:first-child img{width: 100%;height: 100%; border-radius: 2%;}
+    /* 버튼 */
+    .main > section > div:first-child div:last-child{flex: 2;display: flex;flex-direction: column; justify-content: start ;align-items: center;}
+    /* 게임 설명 */
+    .main > section > div:last-child{border-radius: 2%;display: flex;background-color: #5f6676;}
+    .main > section > div:last-child div {flex: 1; margin: 5%;word-break:break-all;text-align: left;}
+
+    .main .row {height: 100%; display: flex;justify-content: center;align-items: center}
+    .main .row > div {display: flex;justify-content: center; }
+
+    .card {height: 300px;} /* 이미지가 카드를 넘어가면 잘림 */
+    .card > div:first-child {height: 200px;background-color: var(--color-nav-bg);} /* 이미지가 가로로 꽉 차게 설정 */
+    .card > div:first-child > img {height: 100%; object-fit: cover;} /* 이미지가 가로로 꽉 차게 설정 */
+    .card > div:last-child {height: 100px;}
+    @media (max-width: 1000px) {
+        #wolfLogo {display: none;}
+        body{overflow-y: scroll;}
+        .main {padding-top: 3%;}
+        .main > section {display: flex;flex-direction: column;}
+        .main > section > div:first-child{flex: 1;}
+        .main > section > div:last-child {flex: 1;}
+    }
+    
+
+
+
+
+
+    /* -- main과 동일 -- */
+    /* 라이트 다크 mode */
+    #mode {
+        cursor: pointer;
+        position: absolute;
+        bottom: 5%;
+        right: 5%;
+        background-color:var(--bg-dark);
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: all ease-in 0.2s;
+        animation:ball 1s ease-in Infinite Alternate;
+        border: double 1px rgba(255, 255, 255, 0.46);
+    }
+    @keyframes ball {
+        0% {
+            bottom:5%;
+        }
+        95% {
+            width: 50px;
+        }
+        to {
+            bottom:8%;
+            width:50px;
+            height:60px
+        } 
+    }
+    /* 모드 전환 버튼 호버 시 투명도 조정 */
+    #mode:hover {
+        opacity: 0.8;
+    }
+
+    /* 모드 전환 버튼 아이콘 스타일 */
+    #mode i {
+        font-size: 30px;
+        color: var(--color-nav-bg);
+    }

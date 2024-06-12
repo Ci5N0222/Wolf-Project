@@ -7,8 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
- <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<title>Game</title>
  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <!-- 부트스트랩 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -27,13 +26,13 @@
     <div class="container-fluid d-flex flex-column">
         <!-- nav -->
         <div class="container text-center flex-grow-1 d-flex flex-column">
-            <img src="img/bg1.png" alt="" class="img_bg">
-            <img src="img/bg3.png" alt="" class="img_bg bgs">
-            <img src="img/bg3.png" alt="" class="img_bg bgs">
-            <img src="img/bg3.png" alt="" class="img_bg bgs">
-            <img src="img/bg3.png" alt="" class="img_bg bgs">
-            <img src="img/bg3.png" alt="" class="img_bg bgs">
-            <img src="img/bg3.png" alt="" class="img_bg bgs">
+    		<img src="images/bg1.png" alt="" class="img_bg">
+            <img src="images/bg3.png" alt="" class="img_bg bgs">
+            <img src="images/bg3.png" alt="" class="img_bg bgs">
+            <img src="images/bg3.png" alt="" class="img_bg bgs">
+            <img src="images/bg3.png" alt="" class="img_bg bgs">
+            <img src="images/bg3.png" alt="" class="img_bg bgs">
+            <img src="images/bg3.png" alt="" class="img_bg bgs">
 
 
             <!-- nav -->
@@ -54,6 +53,7 @@
 			    </section>
 			</main>
         </div>
+        <div class="sun"></div>
         <!-- mode -->
         <div id="mode">
             <i class="fa-regular fa-lightbulb" style="display: none;"></i>
@@ -65,25 +65,10 @@
 <script>
 $(document).ready(function() {
     $('.btn').click(function() {
-        var seq = $(this).data('seq'); // 클릭된 버튼의 시퀀스를 가져옴
-        sendSequenceToServer(seq); // 시퀀스를 서버로 전송
+        var seq = $(this).data('seq'); 
+        location.href = "/detail.game?seq="+seq;
     });
 });
-
-// 시퀀스를 서버로 전송
-function sendSequenceToServer(seq) {
-    $.ajax({
-        type: "post", 
-        url: "/detail.game", 
-        data: { seq: seq }, 
-    }).done(function(response){
-    	var obj = JSON.parse(response);
-    	//console.log(obj)
-        var seq = obj.seq;
-        //console.log("seq: " + seq);
-        window.location.href = "/views/game/gameDetail.jsp?seq="+seq;
-    });
-}
 </script>
     <script src="js/main.js"></script>
 </body>

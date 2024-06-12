@@ -7,52 +7,61 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Game</title>
  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
- <style>
-        div {
-            border: 1px solid #000;
-        }
-
-        .container {
-            width: 500px;
-            height: 300px;
-            margin: auto;
-            display: flex;
-        }
-
-        .container>div {
-            flex: 1;
-        }
-
-        .container>div:first-child {
-            background-color: bisque;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .container>div:first-child div {
-            flex: 8;
-        }
-
-        .container>div:first-child button {
-            flex: 2;
-        }
-
-        .container>div:last-child {
-            background-color: thistle;
-        }
-    </style>
+    <!-- 부트스트랩 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- 아이콘 -->
+    <script src="https://kit.fontawesome.com/1ee4acc8d4.js" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+    
+	 <!-- Project local -->
+	<link rel="stylesheet" href="/css/gameDetail.css">
 </head>
 <body>
- ${seq}
-    <div class="container">
-        <div class="box1">
-            <div>이미지</div>
-            <button>버튼</button>
+	<!-- container -->
+    <div class="container-fluid d-flex flex-column">
+        <!-- nav -->
+        <div class="container text-center flex-grow-1 d-flex flex-column">
+    		<img src="/images/bg1.png" alt="" class="img_bg">
+            <img src="/images/bg3.png" alt="" class="img_bg bgs">
+            <img src="/images/bg3.png" alt="" class="img_bg bgs">
+            <img src="/images/bg3.png" alt="" class="img_bg bgs">
+            <img src="/images/bg3.png" alt="" class="img_bg bgs">
+            <img src="/images/bg3.png" alt="" class="img_bg bgs">
+            <img src="/images/bg3.png" alt="" class="img_bg bgs">
+
+
+            <!-- nav -->
+ 			<%@ include file="/views/include/header.jsp" %>
+
+ 			<!-- main -->
+            <main class="main container flex-grow-1">
+                <section class="row">
+                    <div class="col-lg-6 col-md-6 mb-4">
+                        <div><img src="${dto.thumbnail}"></div>
+                        <div>
+                            <button type="button" class="btn btn-outline-warning">게임 시작</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 mb-4">
+                        <div>
+							${dto.contents}
+                        </div>
+                    </div>
+                </section>
+            </main>
         </div>
-        <div class="box2">
+        <div class="sun"></div>
+        <!-- mode -->
+        <div id="mode">
+            <i class="fa-regular fa-lightbulb" style="display: none;"></i>
+            <i class="fa-solid fa-lightbulb"></i>
         </div>
     </div>
+<script src="/js/main.js"></script>
 </body>
 </html>
