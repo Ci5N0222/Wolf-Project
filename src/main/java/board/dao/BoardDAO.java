@@ -12,6 +12,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import board.dto.BoardDTO;
+import commons.DBConfig;
 
 public class BoardDAO {
 private static BoardDAO instance;
@@ -23,16 +24,10 @@ private static BoardDAO instance;
 	
 	private BoardDAO() {}
 	
-	private Connection getConnection() throws Exception {
-		Context ctx = new InitialContext();
-		DataSource db = (DataSource) ctx.lookup("java:comp/env/jdbc/oracle");
-		return db.getConnection();
-	}
-	
 	public int insert(BoardDTO dto) {
 		String sql="insert into board values(board_seq.nextval,?,?,0,?,sysdate)";
 		int seq=0;
-		try (Connection con=this.getConnection();
+		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql,new String[] {"seq"})){
 			pstat.setString(1, dto.getTitle());
 			pstat.setString(2, dto.getContents());
@@ -59,7 +54,7 @@ private static BoardDAO instance;
 		Object [] boardList=new Object[2];
 		ArrayList<String> nickname=new ArrayList<>();
 		
-		try (Connection con=this.getConnection();
+		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat= con.prepareStatement(sql);
 				ResultSet rs=pstat.executeQuery()){
 			
@@ -88,7 +83,7 @@ private static BoardDAO instance;
 		List<BoardDTO> list=new ArrayList<>();
 		Object [] boardList=new Object[2];
 		ArrayList<String> nickname=new ArrayList<>();
-		try (Connection con=this.getConnection();
+		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql);){
 			
 			pstat.setInt(1, cpage*recordCountPerPage - (recordCountPerPage-1));
@@ -125,7 +120,7 @@ private static BoardDAO instance;
 		String sql="select b.*, m.nickname from board b join members m on m.id =b.member_id where b.seq=?";
 		Object [] boardList=new Object[2];
 		String nickname="";
-		try (Connection con=this.getConnection();
+		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat= con.prepareStatement(sql);){
 			pstat.setInt(1, seq);
 			try(ResultSet rs=pstat.executeQuery()) {
@@ -151,7 +146,7 @@ private static BoardDAO instance;
 	
 	public void delete(int seq) {
 		String sql="delete from board where seq=?";
-		try (Connection con=this.getConnection();
+		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
 			pstat.setInt(1, seq);
 			pstat.executeUpdate();
@@ -162,7 +157,7 @@ private static BoardDAO instance;
 	
 	public void deleteMember(String member_id) {
 		String sql="delete from board where member_id=?";
-		try (Connection con=this.getConnection();
+		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
 			pstat.setString(1, member_id);
 		} catch (Exception e) {
@@ -173,7 +168,7 @@ private static BoardDAO instance;
 	public void update(BoardDTO dto) {
 		String sql="update board set title=?,contents=? , write_date=sysdate where seq=?";
 		
-		try (Connection con=this.getConnection();
+		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
 			pstat.setString(1, dto.getTitle());
 			pstat.setString(2, dto.getContents());
@@ -189,7 +184,7 @@ private static BoardDAO instance;
 	public int getRecordCount() {
 		int recordTotalCount=0;
 		String sql="select count(*) from board";
-		try (Connection con=this.getConnection();
+		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql);
 				ResultSet rs=pstat.executeQuery()){
 			rs.next();
@@ -203,7 +198,7 @@ private static BoardDAO instance;
 	
 	public void countUp(int seq) {
 		String sql="update board set count= count+1 where seq=?";
-		try (Connection con=this.getConnection();
+		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
 			pstat.setInt(1, seq);
 			pstat.executeUpdate();
