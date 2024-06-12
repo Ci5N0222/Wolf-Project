@@ -144,7 +144,7 @@ prefix="c" %>
           }).done(function (resp) {
             if (resp == "true") {
               alert("변경되었습니다");
-              location.href = "/test/index.jsp";
+              location.href = "/views/mypage/mypage.jsp";
             } else if (resp == "false1") {
               alert("확인 비밀번호 불일치");
               $("#current_password").val("");

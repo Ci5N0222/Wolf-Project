@@ -230,6 +230,43 @@ pageEncoding="UTF-8"%>
         background-color: white;
       }
 
+       @media (max-width: 1100px) {
+        .mypage-side-menu {
+          display: none;
+        }
+      }
+      
+       @media (max-width: 880px) {
+        .mypage-dashboard {
+          display: flex;
+          flex-direction: column;
+          gap: 20px 10px;
+          margin: 0px;
+        }
+        .mypage-dashboard > div:first-child > div:last-child {
+          display: flex;
+          flex-direction: column;
+          gap: 20px 10px;
+          margin: 0px;
+        }
+
+        .mypage-dashboard > div:first-child > div:first-child {
+          /* gap: 20px 10px; */
+          margin: 0px;
+        }
+        .mypage-dashboard > div:first-child > div:last-child > div:last-child {
+          margin: 0px;
+        }
+        .mypage-dashboard > div:last-child > div:first-child {
+          margin: 0px;
+        }
+        .mypage-dashboard > div:last-child > div:last-child {
+          margin: 0px;
+        }
+
+      }
+
+
     </style>
   </head>
   <body>
@@ -246,7 +283,7 @@ pageEncoding="UTF-8"%>
         <p onclick="location.href='/views/mypage/mypage.jsp'">내정보 홈</p>
         <p onclick="location.href='/select.members'">개인정보관리</p>
         <p onclick="location.href='/views/mypage/updatePW.jsp'">비밀번호 변경</p>
-        <p onclick="location.href='/'">게임플레이 정보</p>
+        <p onclick="location.href='/myGameList.members'">게임플레이 정보</p>
         <p onclick="location.href='/'">문의내역</p>
         <p onclick="location.href='/'">회원탈퇴</p>
       </aside>
@@ -273,7 +310,7 @@ pageEncoding="UTF-8"%>
               <div>
                 <div class="dashboard-inner_box">
                   <div><p>게임플레이 정보</p></div>
-                  <div><button>바로가기</button></div>
+                  <div><button onclick="location.href='/myGameList.members'">바로가기</button></div>
                 </div>
               </div>
               <div>
@@ -302,5 +339,6 @@ pageEncoding="UTF-8"%>
     </main>
   </body>
 </html>
+
 
 

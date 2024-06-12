@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +20,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import commons.EncryptionUitls;
 import members.dao.MembersDAO;
 import members.dto.MembersDTO;
+import mypage.dto.GameScoreDTO;
 
 @WebServlet("*.members")
 public class MembersController extends HttpServlet {
@@ -147,7 +149,7 @@ public class MembersController extends HttpServlet {
 				PrintWriter pw = response.getWriter();
 				
 				if(result) { // db에 pw있다면 변경
-					id = "qwerqwer";
+					id = (String)session.getAttribute("WolfID");
 					String new_password = EncryptionUitls.getSHA512(request.getParameter("new_password"));
 					String confirm_password = EncryptionUitls.getSHA512(request.getParameter("confirm_password"));
 					
@@ -165,7 +167,26 @@ public class MembersController extends HttpServlet {
 					System.out.println("현재 비밀번호 오류");
 				}				
 				
-			} 
+				/* 게임 플레이 정보 조회 */
+			} else if(cmd.equals("/myGameList.members")) {
+				
+				String id = (String)session.getAttribute("WolfID");
+				
+				List<GameScoreDTO> result = dao.gameList(id);
+				System.out.println(result);
+				
+				request.setAttribute("result", result);
+				request.getRequestDispatcher("/views/mypage/myGameList.jsp").forward(request, response);
+
+				
+				/* 문의내역 조회 */
+			} else if(cmd.equals("/myPost.members")) {
+				
+				
+				/* 회원 탈퇴 */
+			} else if(cmd.equals("/delete.members")) {
+				
+			}
 			
 			
 			
