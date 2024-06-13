@@ -1,3 +1,38 @@
+/** 페이지 로드 이후 동작해야 할 스크립트 **/
+$(() => {
+	
+});
+
+
+
+// Member 정보를 수정할 수 있게 폼을 바꾸는 함수
+const adminMemberEdit = () => {
+	// 입력 폼
+	
+	// 버튼
+	$(".btn-box1").css({"display":"none"});
+	$(".btn-box2").css({"display":"block"});
+}
+
+
+// Game정보를 삭제하는 함수
+const adminGameDelete = (seq) => {
+	
+	$.ajax({
+		url: "/game_delete.admin",
+		data:{
+			seq
+		}
+	})
+	.done((res)=> {
+		if(res === "ok"){
+			location.href = "/game_list.admin";
+		}
+	});
+	
+}
+
+
 /** 페이지 네비게이션 함수 **/
 const pagenation = (cpage, recordTotalCount, recordCountPerPage, naviCountPerPage, url) => {
 	

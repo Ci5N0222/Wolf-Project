@@ -30,6 +30,9 @@
         
         <section class="admin-main-form">
         <h1 class="admin-main-title">Game List</h1>
+        	<div class="admin-game-insert-btn">
+        		<button onclick="location.href='/page_game_insert.admin'">게임 추가</button>
+        	</div>
              <div class="admin-members-list">
              	<c:if test="${gameList.size() > 0}">
              		<table>
@@ -41,7 +44,7 @@
 	             		<c:forEach var="games" items="${gameList}">
 	             			<tr>
 	             				<td>${games.seq}</td>
-	             				<td>${games.title}</td>
+	             				<td><a href="game_detail.admin?seq=${games.seq}">${games.title}</a></td>
 	             				<td>${games.thumbnail}</td>
 	             			</tr>
 	             		</c:forEach>

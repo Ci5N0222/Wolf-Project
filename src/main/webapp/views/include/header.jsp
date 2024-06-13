@@ -15,7 +15,17 @@
     <div class="col-4 d-flex justify-content-end">
         <div class="d-flex flex-row">
             <c:if test="${WolfID != null}">
-	            <div class="naviBtn" onclick="location.href ='/views/mypage/mypage.jsp'"><i class="fa-solid fa-user menus"></i></div>
+	            <div class="naviBtn" onclick="location.href ='/views/mypage/mypage.jsp'">
+	            	<c:choose>
+	            		<c:when test="${WolfAvatar != null}">
+	            			<img src="${WolfAvatar}">
+	            		</c:when>
+	            		<c:otherwise>
+	            			<img src="/images/default-avatar.png" width="50" alt="기본 아바타">
+	            		</c:otherwise>
+	            	</c:choose>
+	            	
+	            </div>
             </c:if>
             <c:if test="${WolfID == null}">
 	            <div class="naviBtn" onclick="location.href ='/views/members/login.jsp'"><i class="fa-solid fa-user menus"></i></div>

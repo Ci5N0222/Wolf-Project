@@ -37,18 +37,12 @@
              				<th>ID</th>
              				<th>Name</th>
              				<th>Nick Name</th>
-             				<th>E-mail</th>
-             				<th>Gender</th>
-             				<th>Grade</th>
              			</tr>
 	             		<c:forEach var="members" items="${membersList}">
 	             			<tr>
-	             				<td>${members.id}</td>
+	             				<td><a href="/members_detail.admin?id=${members.id}">${members.id}</a></td>
 	             				<td>${members.name}</td>
 	             				<td>${members.nickname}</td>
-	             				<td>${members.email}</td>
-	             				<td>${members.gender}</td>
-	             				<td>${members.grade}</td>
 	             			</tr>
 	             		</c:forEach>
              		</table>

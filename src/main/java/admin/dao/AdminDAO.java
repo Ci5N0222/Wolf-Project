@@ -128,18 +128,20 @@ public class AdminDAO {
 	
 	
 	/**
-	 * 모든 멤버 목록을 반환하는 메서드
+	 * 선택된 멤버의 정보를 반환하는 메서드
+	 * @param memberId
 	 * @return
 	 * @throws Exception
 	 */
-	public List<MembersDTO> getMemberListAll() throws Exception {
-		String sql ="select * from members where grade not in (98, 99)";
+	public MembersDTO getMemberInfo(String memberId) throws Exception {
+		String sql = "select * from members where id = ?";
 		try(Connection con = DBConfig.getConnection();
-			PreparedStatement pstat = con.prepareStatement(sql);
-			ResultSet rs = pstat.executeQuery()){
-			
-			List<MembersDTO> list = new ArrayList<>();
-			while(rs.next()) {
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, memberId);
+			try (ResultSet rs = pstat.executeQuery()){
+					
+				rs.next();
+				
 				String id = rs.getString("id");
 				String name = rs.getString("name");
 				String nickname = rs.getString("nickname");
@@ -149,12 +151,10 @@ public class AdminDAO {
 				String birth = rs.getString("birth");
 				int grade = rs.getInt("grade");
 				Timestamp join_date = rs.getTimestamp("join_date");
-				// 그외 정보
 				
-				list.add(new MembersDTO(id, null, name, nickname, phone, email,gender, birth, grade, null, join_date));
+				return new MembersDTO(id, null, name, nickname, phone, email, gender, birth, grade, null, join_date);
+					
 			}
-			
-			return list;
 		}
 	}
 	
@@ -206,30 +206,38 @@ public class AdminDAO {
 		}
 	}
 	
-	
-	/**
-	 * 모든 게임 목록을 반환하는 메서드
-	 * @return
-	 * @throws Exception
-	 */
-	public List<GameDTO> getGameListAll() throws Exception {
-		String sql = "select * from game";
+
+	public GameDTO getGameInfo(int gameSeq) throws Exception {
+		String sql = "select * from game where seq = ?";
 		try(Connection con = DBConfig.getConnection();
-			PreparedStatement pstat = con.prepareStatement(sql);
-			ResultSet rs = pstat.executeQuery()){
-			
-			List<GameDTO> list = new ArrayList<>();
-			while(rs.next()) {
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setInt(1, gameSeq);
+			try (ResultSet rs = pstat.executeQuery()){
+					
+				rs.next();
+				
 				int seq = rs.getInt("seq");
 				String title = rs.getString("title");
-				String contents= rs.getString("contents");
+				String contents = rs.getString("contents");
 				String thumbnail = rs.getString("thumbnail");
 				
-				list.add(new GameDTO(seq, title, contents, thumbnail));
+				return new GameDTO(seq, title, contents, thumbnail);
+					
 			}
-			
-			return list;
 		}
+	}
+	
+	
+	public int adminGameDelete(int seq) throws Exception {
+		String sql ="delete from game where seq = ?";
+		
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setInt(1, seq);
+			
+			return pstat.executeUpdate();
+		}
+			
 	}
 	
 }

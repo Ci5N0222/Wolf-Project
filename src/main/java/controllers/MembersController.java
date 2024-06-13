@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import commons.EmailSender;
 import commons.EncryptionUitls;
 import members.dao.MembersDAO;
 import members.dto.MembersDTO;
@@ -78,12 +79,24 @@ public class MembersController extends HttpServlet {
 				}
 				response.sendRedirect("/index.jsp");
 
-			} else if(cmd.equals("/logout.members")) {
+			}else if (cmd.equals("/checkLogin.members")) 
+            {
+                String id = request.getParameter("id");
+                String pw = EncryptionUitls.getSHA512(request.getParameter("pw"));
+                
+                boolean result = dao.checklogin(id, pw);
+                if (result) {
+                    session.setAttribute("ID", id);
+                    response.getWriter().write("{\"success\": true}");
+                } else {
+                    response.getWriter().write("{\"success\": false}");
+                }
+            } else if(cmd.equals("/logout.members")) {
 				session.invalidate();
 				response.sendRedirect("/index.jsp");
-		
+            }
 				/* 내 정보 */
-			} else if (cmd.equals("/select.members")) {
+			 else if (cmd.equals("/select.members")) {
 
 				String loginID = (String)session.getAttribute("WolfID");
 				MembersDTO dto = dao.selectMember(loginID);
@@ -173,7 +186,7 @@ public class MembersController extends HttpServlet {
 				String id = (String)session.getAttribute("WolfID");
 				
 				List<GameScoreDTO> result = dao.gameList(id);
-				System.out.println(result);
+				System.out.println(result.size());
 				
 				request.setAttribute("result", result);
 				request.getRequestDispatcher("/views/mypage/myGameList.jsp").forward(request, response);
@@ -185,8 +198,75 @@ public class MembersController extends HttpServlet {
 				
 				/* 회원 탈퇴 */
 			} else if(cmd.equals("/delete.members")) {
-				
-			}
+			
+				/* 이메일 전송 */
+			}else    if (cmd.equals("/sendEmail.members")) {
+                String email = request.getParameter("email");
+                String id = request.getParameter("id");
+             
+                try {
+                    boolean result = dao.selectMemberByIdAndEmail(id, email);
+                    if (result) { // 아이디와 이메일이 일치하는 회원이 있으면
+                        String CertificationCode = generateRandomCode();
+                        System.out.println(CertificationCode);
+                        session.setAttribute("CertificationCode", CertificationCode);
+                        EmailSender.sendEmail(email, "이메일 전송", "인증번호 : " + CertificationCode);
+                        response.getWriter().append("true");
+                    } else {
+                        response.getWriter().append("false");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    response.getWriter().append("false");
+                }
+                /* 인증번호 확인 */
+            } else if (cmd.equals("/CertificationCode.members")) {
+                String userEnteredCode = request.getParameter("CertificationCode");
+              
+                String CertificationCode = (String) session.getAttribute("CertificationCode"); // 변경된 부분
+
+                if (CertificationCode != null && CertificationCode.equals(userEnteredCode)) {
+                    response.getWriter().append("true");
+                } else {
+                    response.getWriter().append("false");
+                }
+                /* 인증번호가 맞을 시 비밀번호 변경 */
+            } else if (cmd.equals("/changePassword.members")) {
+                String email = request.getParameter("email"); // 이메일 받아오기
+                String newPassword = EncryptionUitls.getSHA512(request.getParameter("newPassword")); // 새 비밀번호 받아오기
+                String userEnteredCode = request.getParameter("CertificationCode"); // 인증 코드 받아오기
+
+                String CertificationCode = (String) session.getAttribute("CertificationCode"); // 세션에서 인증 코드 가져오기
+
+                if (CertificationCode != null && CertificationCode.equals(userEnteredCode)) { // 인증 코드 확인
+                    int result = 0;
+                    try {
+                        result = dao.updatePassword(email, newPassword); // 비밀번호 업데이트
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    if (result > 0) {
+                        
+                        response.getWriter().append("비밀번호가 성공적으로 변경되었습니다!");
+                        
+
+                    } else {
+                        response.getWriter().append("비밀번호 변경 실패!");
+                    }
+                } else {
+                    response.getWriter().append("인증 코드가 일치하지 않습니다!");
+                }
+                /* 아이디 찾기 */
+            }else if (cmd.equals("/selectId.members")) {
+                String name = request.getParameter("name");
+                String email = request.getParameter("email");
+                String userId = dao.selectID(name, email);
+                
+                response.getWriter().write(userId != null ? userId : "아이디가 존재하지 않습니다.");
+
+                
+            }
 			
 			
 			
@@ -198,5 +278,15 @@ public class MembersController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
-
+    private String generateRandomCode() {
+        String chars = "0123456789";
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 6; i++) {
+            int index = (int) (Math.random() * chars.length());
+            sb.append(chars.charAt(index));
+        }
+        return sb.toString();
+    }
 }
+
+
