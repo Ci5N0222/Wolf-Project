@@ -9,7 +9,7 @@ public class BoardDTO {
 	private int count ;
 	private String member_id;
 	private int board_code;
-	private Timestamp write_date;
+	private Timestamp write_date; 
 	
 	public BoardDTO() {
 		super();
