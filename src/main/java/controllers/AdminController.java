@@ -16,7 +16,6 @@ import commons.EncryptionUitls;
 import game.dto.GameDTO;
 import members.dto.MembersDTO;
 
-
 @WebServlet("*.admin")
 public class AdminController extends HttpServlet {
 	
