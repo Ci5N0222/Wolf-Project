@@ -23,6 +23,7 @@ import commons.PageConfig;
 import files.dao.FilesDAO;
 import files.dto.FilesDTO;
 import reply.dao.ReplyDAO;
+import reply_child.dao.Reply_childDAO;
 
 @WebServlet("*.board")
 public class BoardController extends HttpServlet {
@@ -35,10 +36,17 @@ public class BoardController extends HttpServlet {
 		BoardDAO boardDAO= BoardDAO.getInstance();
 		FilesDAO filesDAO= FilesDAO.getInstance();
 		ReplyDAO replyDAO= ReplyDAO.getInstance();
+		Reply_childDAO reply_childDAO= Reply_childDAO.getInstance();
 		List<BoardDTO> list = new ArrayList<>();
 		
 		try {
 			if(cmd.equals("/list.board")) {
+				String login_id= (String)session.getAttribute("WolfID");
+				if(login_id.equals("")) {
+					response.sendRedirect("/index.jsp");
+				}
+				
+				
 				String pcpage=request.getParameter("cpage");
 				if(pcpage==null) pcpage="1";
 				int cpage=Integer.parseInt(pcpage);
@@ -58,8 +66,13 @@ public class BoardController extends HttpServlet {
 				boardDAO.countUp(seq);
 				Object boardList[] =boardDAO.selectBoard(seq,PageConfig.board);
 				Object replyList[] =replyDAO.select(seq);
+				Object reply_childList[]=reply_childDAO.selectAll();
 				List<FilesDTO> fileList=filesDAO.select(seq);
-			
+				
+				System.out.println();
+				
+				
+				
 				request.setAttribute("board_dto", boardList[0]);
 				request.setAttribute("board_nickname", boardList[1]);
 				
@@ -67,6 +80,9 @@ public class BoardController extends HttpServlet {
 				request.setAttribute("reply_nickname_list", replyList[1]);
 			
 				request.setAttribute("files_list", fileList);
+				
+				request.setAttribute("reply_child_list",reply_childList[0] );
+				request.setAttribute("reply_child_nickname",reply_childList[1] );
 				
 				request.getRequestDispatcher("/views/board/board_detail.jsp").forward(request, response);
 				
