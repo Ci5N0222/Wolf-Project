@@ -240,28 +240,41 @@ pageEncoding="UTF-8"%>
         .mypage-dashboard {
           display: flex;
           flex-direction: column;
-          gap: 20px 10px;
+          gap: 20px 0;
           margin: 0px;
+          padding: 0 20px;
+          overflow-y: scroll;
+        }
+        .mypage-dashboard > div:first-child {
+          gap: 20px 0;
         }
         .mypage-dashboard > div:first-child > div:last-child {
           display: flex;
           flex-direction: column;
-          gap: 20px 10px;
+          gap: 20px 0;
           margin: 0px;
         }
 
         .mypage-dashboard > div:first-child > div:first-child {
-          /* gap: 20px 10px; */
           margin: 0px;
         }
+        /* .dashboard-inner_box > div:last-child{ // 내정보 버튼 가운데로 오게 해야하는데..
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        } */
         .mypage-dashboard > div:first-child > div:last-child > div:last-child {
           margin: 0px;
+        }
+        .mypage-dashboard > div:last-child{
+          gap: 20px 0;
         }
         .mypage-dashboard > div:last-child > div:first-child {
           margin: 0px;
         }
         .mypage-dashboard > div:last-child > div:last-child {
           margin: 0px;
+          /* gap: 20px 0; */
         }
 
       }
