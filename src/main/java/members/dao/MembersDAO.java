@@ -270,7 +270,7 @@ asdasdasda
 	 */
 	public List<GameScoreDTO> gameList(String id) throws Exception {
 		
-		String sql = "select * from game_score gs join game g on g.seq = gs.game_seq where member_id = ?";
+		String sql = "select * from game_score gs join game g on g.seq = gs.game_seq where member_id = ? order by seq";
 		
 		try (Connection con=DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
 

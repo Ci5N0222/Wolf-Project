@@ -186,7 +186,7 @@ public class MembersController extends HttpServlet {
 				String id = (String)session.getAttribute("WolfID");
 				
 				List<GameScoreDTO> result = dao.gameList(id);
-				System.out.println(result);
+				System.out.println(result.size());
 				
 				request.setAttribute("result", result);
 				request.getRequestDispatcher("/views/mypage/myGameList.jsp").forward(request, response);
