@@ -42,7 +42,9 @@ public class BoardController extends HttpServlet {
 		try {
 			if(cmd.equals("/list.board")) {
 				String login_id= (String)session.getAttribute("WolfID");
-				if(login_id.equals("")) {
+	
+				if(login_id==null) {
+					System.out.println("로그인을 해주세요");
 					response.sendRedirect("/index.jsp");
 				}
 				
