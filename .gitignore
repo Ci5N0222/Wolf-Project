@@ -1,9 +1,15 @@
 src/main/java/test/
 src/main/webapp/test/
+
+src/main/java/email.properties/
+.gitignore
+
 src/main/java/email.properties
 
 .DS_store
+
 .project
+
 .classpath
 # Created by https://www.toptal.com/developers/gitignore/api/java,git,windows,eclipse
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,git,windows,eclipse

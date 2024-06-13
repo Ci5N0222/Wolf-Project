@@ -152,7 +152,8 @@ pageEncoding="UTF-8"%>
       .dashboard-inner_box > div:first-child > div:first-child {
         flex: 2;
         background-color: #d5d5d5;
-        border-radius: 100px;
+        width: 90%;
+        border-radius: 50%;
       }
 
       /* 내정보 닉네임 출력칸 */
@@ -230,12 +231,14 @@ pageEncoding="UTF-8"%>
         background-color: white;
       }
 
+      /* 사이드바 반응형 */
        @media (max-width: 1100px) {
         .mypage-side-menu {
           display: none;
         }
       }
       
+      /* 메인 반응형 */
        @media (max-width: 880px) {
         .mypage-dashboard {
           display: flex;
@@ -245,9 +248,11 @@ pageEncoding="UTF-8"%>
           padding: 0 20px;
           overflow-y: scroll;
         }
+        /* 내 정보 */
         .mypage-dashboard > div:first-child {
           gap: 20px 0;
         }
+        /* 게임플레이 정보, 문의내역 */
         .mypage-dashboard > div:first-child > div:last-child {
           display: flex;
           flex-direction: column;
@@ -266,6 +271,8 @@ pageEncoding="UTF-8"%>
         .mypage-dashboard > div:first-child > div:last-child > div:last-child {
           margin: 0px;
         }
+
+        /* 비밀번호 변경, 회원탈퇴 */
         .mypage-dashboard > div:last-child{
           gap: 20px 0;
         }
@@ -296,7 +303,7 @@ pageEncoding="UTF-8"%>
         <p onclick="location.href='/views/mypage/mypage.jsp'">내정보 홈</p>
         <p onclick="location.href='/select.members'">개인정보관리</p>
         <p onclick="location.href='/views/mypage/updatePW.jsp'">비밀번호 변경</p>
-        <p onclick="location.href='/myGameList.members'">게임플레이 정보</p>
+        <p onclick="location.href='/mypageGameList.mypage'">게임플레이 정보</p>
         <p onclick="location.href='/'">문의내역</p>
         <p onclick="location.href='/'">회원탈퇴</p>
         <p onclick="location.href='/logout.members'">로그아웃</p>
@@ -324,7 +331,7 @@ pageEncoding="UTF-8"%>
               <div>
                 <div class="dashboard-inner_box">
                   <div><p>게임플레이 정보</p></div>
-                  <div><button onclick="location.href='/myGameList.members'">바로가기</button></div>
+                  <div><button onclick="location.href='/mypageGameList.mypage'">바로가기</button></div>
                 </div>
               </div>
               <div>

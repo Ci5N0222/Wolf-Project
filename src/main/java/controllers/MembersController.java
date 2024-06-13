@@ -189,18 +189,6 @@ public class MembersController extends HttpServlet {
 					System.out.println("현재 비밀번호 오류");
 				}				
 				
-				/* 게임 플레이 정보 조회 */
-			} else if(cmd.equals("/myGameList.members")) {
-				
-				String id = (String)session.getAttribute("WolfID");
-				
-				List<GameScoreDTO> result = dao.gameList(id);
-				System.out.println(result);
-				
-				request.setAttribute("result", result);
-				request.getRequestDispatcher("/views/mypage/myGameList.jsp").forward(request, response);
-
-				
 				/* 문의내역 조회 */
 			} else if(cmd.equals("/myPost.members")) {
 				

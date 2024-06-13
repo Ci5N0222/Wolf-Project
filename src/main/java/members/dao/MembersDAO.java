@@ -268,35 +268,6 @@ asdasdasda
 	}
 	
 	
-	/**
-	 * 게임 플레이 정보 출력
-	 * @param id
-	 * @return
-	 * @throws Exception
-	 */
-	public List<GameScoreDTO> gameList(String id) throws Exception {
-		
-		String sql = "select * from game_score gs join game g on g.seq = gs.game_seq where member_id = ?";
-		
-		try (Connection con=DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
-
-			pstat.setString(1, id);
-			
-			try(ResultSet rs = pstat.executeQuery()){
-				
-				List<GameScoreDTO> list = new ArrayList<>();
-				while (rs.next()) {
-					String title = rs.getString("title");
-					int score = rs.getInt("score");
-					String member_id = rs.getString("member_id");
-					int game_seq = rs.getInt("game_seq");
-					
-					list.add(new GameScoreDTO(title, score, member_id, game_seq ));
-				} 
-				return list;
-			}
-		}
-		
-	}
+	
 
 }

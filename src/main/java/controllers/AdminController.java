@@ -75,6 +75,8 @@ public class AdminController extends HttpServlet {
 			}
 			
 			
+// ============================================ [ 회원 ] =============================================
+				
 			/** 멤버 목록 조회 **/
 			else if(cmd.equals("/members_list.admin")) {
 				if(!adminSession) response.sendRedirect("/page_login.admin");
@@ -123,6 +125,8 @@ public class AdminController extends HttpServlet {
 			}
 			
 			
+// ============================================ [ 게임 ] =============================================
+			
 			/** 서비스중인 게임 목록 **/
 			else if(cmd.equals("/game_list.admin")) {
 				if(!adminSession) response.sendRedirect("/page_login.admin");
@@ -154,20 +158,29 @@ public class AdminController extends HttpServlet {
 				if(!adminSession) response.sendRedirect("/page_login.admin");
 				else {
 					String seq = request.getParameter("seq");
-//					GameDTO game = dao.getGameInfo(Integer.parseInt(seq));
-//					request.setAttribute("game", game);
-//					
-//					request.getRequestDispatcher("/views/admin/admin_game_list.jsp").forward(request, response);
+					GameDTO game = dao.getGameInfo(Integer.parseInt(seq));
+					
+					request.setAttribute("game", game);
+					request.getRequestDispatcher("/views/admin/admin_game_detail.jsp").forward(request, response);
 				}
 			}
 			
+			
 			/** 게임 추가 **/
+			else if(cmd.equals("/page_game_insert.admin")) {
+				if(!adminSession) response.sendRedirect("/page_login.admin");
+				else request.getRequestDispatcher("/views/admin/admin_game_insert.jsp").forward(request, response);
+			}
 			else if(cmd.equals("/game_insert.admin")) {
 				if(!adminSession) response.sendRedirect("/page_login.admin");
 				else {
+					// 멀티파트로 썸네일 이미지 받아야 됨
+					String title = request.getParameter("title");
+					String contents = request.getParameter("contents");
 					
 				}
 			}
+			
 			
 			/** 게임 수정 **/
 			else if(cmd.equals("/game_update.admin")) {
@@ -177,13 +190,43 @@ public class AdminController extends HttpServlet {
 				}
 			}
 			
+			
 			/** 게임 삭제 **/
 			else if(cmd.equals("/game_delete.admin")) {
 				if(!adminSession) response.sendRedirect("/page_login.admin");
 				else {
 					
+					String seq = request.getParameter("seq");
+					int result = dao.adminGameDelete(Integer.parseInt(seq));
+					
+					if(result == 1) {
+						response.getWriter().append("ok");
+					} else {
+						response.getWriter().append("fail");
+					}
 				}
 			}
+
+			
+// ============================================ [ 게시판 ] =============================================
+			
+			/** 공지 게시판 글쓰기 **/
+			else if(cmd.equals("/board_notice.admin")) {
+				if(!adminSession) response.sendRedirect("/page_login.admin");
+				else {
+					
+				}
+			}
+			
+			/** QNA 게시판 답변 남기기 **/
+			else if(cmd.equals("/board_qna.admin")) {
+				if(!adminSession) response.sendRedirect("/page_login.admin");
+				else {
+					
+				}
+			}
+			
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();

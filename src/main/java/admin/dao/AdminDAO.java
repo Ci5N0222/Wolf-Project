@@ -207,29 +207,37 @@ public class AdminDAO {
 	}
 	
 
-//	public GameDTO getGameInfo(int gameSeq) throws Exception {
-//		String sql = "select * from game where seq = ?";
-//		try(Connection con = DBConfig.getConnection();
-//			PreparedStatement pstat = con.prepareStatement(sql)){
-//			pstat.setInt(1, gameSeq);
-//			try (ResultSet rs = pstat.executeQuery()){
-//					
-//				rs.next();
-//				
-//				String id = rs.getString("id");
-//				String name = rs.getString("name");
-//				String nickname = rs.getString("nickname");
-//				String phone = rs.getString("phone");
-//				String email = rs.getString("email");
-//				String gender = rs.getString("gender");
-//				String birth = rs.getString("birth");
-//				int grade = rs.getInt("grade");
-//				Timestamp join_date = rs.getTimestamp("join_date");
-//				
-//				return new MembersDTO(id, null, name, nickname, phone, email, gender, birth, grade, null, join_date);
-//					
-//			}
-//		}
-//	}
+	public GameDTO getGameInfo(int gameSeq) throws Exception {
+		String sql = "select * from game where seq = ?";
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setInt(1, gameSeq);
+			try (ResultSet rs = pstat.executeQuery()){
+					
+				rs.next();
+				
+				int seq = rs.getInt("seq");
+				String title = rs.getString("title");
+				String contents = rs.getString("contents");
+				String thumbnail = rs.getString("thumbnail");
+				
+				return new GameDTO(seq, title, contents, thumbnail);
+					
+			}
+		}
+	}
+	
+	
+	public int adminGameDelete(int seq) throws Exception {
+		String sql ="delete from game where seq = ?";
+		
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setInt(1, seq);
+			
+			return pstat.executeUpdate();
+		}
+			
+	}
 	
 }
