@@ -51,9 +51,11 @@ create table reply_child(
 create table game(
     seq number primary key,
     title varchar(50) not null,
-    contennts varchar(4000) not null,
-    thumbnail varchar(500) not null
+    contents varchar(4000) not null,
+    thumbnail varchar(500) not null,
+    service_code number not null
 );
+
 
 create table game_score(
     score number default 0,
@@ -66,6 +68,11 @@ create table files(
     oriname varchar(1000) not null,
     sysname varchar(1000) not null,
     board_seq number not null
+);
+
+create table service(
+    service_code number primary key,
+    service_state varchar(20) not null
 );
 
 create sequence board_seq
@@ -177,11 +184,11 @@ INSERT INTO reply_child VALUES(14, 'user014', '열네 번째 댓글의 답글입
 INSERT INTO reply_child VALUES(15, 'user015', '열다섯 번째 댓글의 답글입니다.', 8,sysdate);
 
 -- game table dummy data
-INSERT INTO game VALUES(game_seq.nextval, '게임1', '게임1에 대한 내용입니다.', 'thumbnail1.jpg');
-INSERT INTO game VALUES(game_seq.nextval, '게임2', '게임2에 대한 내용입니다.', 'thumbnail2.jpg');
-INSERT INTO game VALUES(game_seq.nextval, '게임3', '게임3에 대한 내용입니다.', 'thumbnail3.jpg');
-INSERT INTO game VALUES(game_seq.nextval, '게임4', '게임4에 대한 내용입니다.', 'thumbnail4.jpg');
-INSERT INTO game VALUES(game_seq.nextval, '게임5', '게임5에 대한 내용입니다.', 'thumbnail5.jpg');
+INSERT INTO game VALUES(game_seq.nextval, '게임1', '게임1에 대한 내용입니다.', 'thumbnail1.jpg', 1);
+INSERT INTO game VALUES(game_seq.nextval, '게임2', '게임2에 대한 내용입니다.', 'thumbnail2.jpg', 1);
+INSERT INTO game VALUES(game_seq.nextval, '게임3', '게임3에 대한 내용입니다.', 'thumbnail3.jpg', 0);
+INSERT INTO game VALUES(game_seq.nextval, '게임4', '게임4에 대한 내용입니다.', 'thumbnail4.jpg', 0);
+INSERT INTO game VALUES(game_seq.nextval, '게임5', '게임5에 대한 내용입니다.', 'thumbnail5.jpg', 1);
 
 -- game_score table dummy data
 INSERT INTO game_score VALUES(95, 'user001', 1);
@@ -207,5 +214,9 @@ INSERT INTO files VALUES (files_seq.nextval, 'image7.jpg', 'sys_image7.jpg', 7);
 INSERT INTO files VALUES (files_seq.nextval, 'image8.jpg', 'sys_image8.jpg', 8);
 INSERT INTO files VALUES (files_seq.nextval, 'image9.jpg', 'sys_image9.jpg', 9);
 INSERT INTO files VALUES (files_seq.nextval, 'image10.jpg', 'sys_image10.jpg', 10);
+
+-- service table dummy data
+INSERT INTO service VALUES (0, '서비스 중지');
+INSERT INTO service VALUES (1, '서비스 진행 중');
 
 COMMIT;
