@@ -105,7 +105,11 @@ public class AdminController extends HttpServlet {
 			else if(cmd.equals("/members_detail.admin")) {
 				if(!adminSession) response.sendRedirect("/page_login.admin");
 				else {
-					// 선택된 회원의 DTO 가져와서 조회
+					String id = request.getParameter("id");
+					MembersDTO member = dao.getMemberInfo(id);
+					
+					request.setAttribute("member", member);
+					request.getRequestDispatcher("/views/admin/admin_members_detail.jsp").forward(request, response);
 				}
 			}
 			
@@ -149,7 +153,11 @@ public class AdminController extends HttpServlet {
 			else if(cmd.equals("/game_detail.admin")) {
 				if(!adminSession) response.sendRedirect("/page_login.admin");
 				else {
-					// 선택된 게임의 디테일
+					String seq = request.getParameter("seq");
+//					GameDTO game = dao.getGameInfo(Integer.parseInt(seq));
+//					request.setAttribute("game", game);
+//					
+//					request.getRequestDispatcher("/views/admin/admin_game_list.jsp").forward(request, response);
 				}
 			}
 			
