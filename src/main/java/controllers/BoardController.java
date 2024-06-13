@@ -19,7 +19,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import board.dao.BoardDAO;
 import board.dto.BoardDTO;
-import commons.BoardConfig;
+import commons.PageConfig;
 import files.dao.FilesDAO;
 import files.dto.FilesDTO;
 import reply.dao.ReplyDAO;
@@ -42,13 +42,13 @@ public class BoardController extends HttpServlet {
 				String pcpage=request.getParameter("cpage");
 				if(pcpage==null) pcpage="1";
 				int cpage=Integer.parseInt(pcpage);
-				Object boardList[] = boardDAO.select( BoardConfig.recordCountPerPage, cpage);
+				Object boardList[] = boardDAO.select( PageConfig.recordCountPerPage, cpage,PageConfig.board);
 				
 				request.setAttribute("list", boardList[0]);
 				request.setAttribute("board_nickname_list", boardList[1]);//boardList[1]
 				request.setAttribute("cpage", cpage);
-				request.setAttribute("record_count_per_page", BoardConfig.recordCountPerPage);
-				request.setAttribute("navi_count_per_page", BoardConfig.naviCountPerPage);
+				request.setAttribute("record_count_per_page", PageConfig.recordCountPerPage);
+				request.setAttribute("navi_count_per_page", PageConfig.naviCountPerPage);
 				request.setAttribute("record_total_count", boardDAO.getRecordCount());
 				
 				request.getRequestDispatcher("/views/board/board_view.jsp").forward(request, response);
@@ -56,10 +56,9 @@ public class BoardController extends HttpServlet {
 			} else if(cmd.equals("/detail.board")) {
 				int seq= Integer.parseInt(request.getParameter("seq"));
 				boardDAO.countUp(seq);
-				Object boardList[] =boardDAO.selectBoard(seq);
+				Object boardList[] =boardDAO.selectBoard(seq,PageConfig.board);
 				Object replyList[] =replyDAO.select(seq);
 				List<FilesDTO> fileList=filesDAO.select(seq);
-				System.out.println("디테일 보드 ");
 			
 				request.setAttribute("board_dto", boardList[0]);
 				request.setAttribute("board_nickname", boardList[1]);
@@ -85,7 +84,7 @@ public class BoardController extends HttpServlet {
 				String title=multi.getParameter("title");
 				String contents=multi.getParameter("contents");
 				String member_id= (String)session.getAttribute("WolfID");
-				BoardDTO dto=new BoardDTO(0,title,contents,0,member_id,null);
+				BoardDTO dto=new BoardDTO(0,title,contents,0,member_id,PageConfig.board,null);
 				int board_seq= boardDAO.insert(dto);
 				//dao_files.insert(new FilesDTO(0, oriName, sysName, parent_seq));
 				Enumeration<String> names = multi.getFileNames();
@@ -105,7 +104,7 @@ public class BoardController extends HttpServlet {
 				int seq=Integer.parseInt(request.getParameter("seq"));
 				replyDAO.delete(seq);
 				filesDAO.deleteAll(seq);
-				boardDAO.delete(seq);
+				boardDAO.delete(seq,PageConfig.board);
 				response.sendRedirect("/list.board");
 				
 			} else if(cmd.equals("/update.board")) {
@@ -131,7 +130,7 @@ public class BoardController extends HttpServlet {
 				String contents=multi.getParameter("contents");
 				String member_id= (String)session.getAttribute("WolfID");
 				int count =Integer.parseInt(multi.getParameter("count"));
-				boardDAO.update(new BoardDTO(seq,title,contents,count,member_id,null));
+				boardDAO.update(new BoardDTO(seq,title,contents,count,member_id,PageConfig.board,null));
 				Enumeration<String> names = multi.getFileNames();
 		        while(names.hasMoreElements()) {
 		               String name = names.nextElement();

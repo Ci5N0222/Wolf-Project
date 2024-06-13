@@ -69,6 +69,7 @@
             width: 100%;
             height: auto;
             margin: 20px;
+            flex-direction: column;
            
         }
 
@@ -179,10 +180,12 @@
                         <div>${reply_nickname_list[status.index]}(${reply_dto.member_id.substring(0, 4)}****) </div>
                         <div class="reply_div">${reply_dto.contents}</div>
                         <div><p style="color: gray;"><fmt:formatDate value="${reply_dto.write_date}" pattern="yyyy.MM.dd HH:mm" /></p></div>
-                        <div> <button style="width: 50px; height: 50px;" class="reply_reply">답글</button></div>
                     </div>
                     <div style="flex: 1; font-size: x-small; justify-content: flex-end; align-items: flex-end;">
-                        <div id="check">
+                        <div style="flex: 1;"> 
+                            <button style="width: 50px; height: 50px;" class="reply_reply_btn">답글</button>
+                        </div>
+                        <div id="check" style="flex: 1; justify-content: flex-end;">
                             <div stylse=" display: flex; width: 110px;" class="reply_div1">
                                 <button style="width: 50px; height: 50px;" class="reply_update">수정</button>
                                 <button style="width: 50px; height: 50px;" class="reply_delete">삭제</button>
@@ -212,8 +215,58 @@
                             </c:otherwise>
                         </c:choose>
                     </div>
+                    <div class="reply_reply_div_main" style="flex-direction: column; display: none;">
+                        <div class="reply_reply_div"  style="width: 600px; height: 300px; flex-direction: column;">
+                            <div class="reply_reply_contents" style="flex-direction: column; flex: 6.5;">
+                                <div style="flex: 1;">
+                                    <p style="font-family: 'Courier New', Courier, monospace; font-size:small;">${WolfNickname}(${WolfID.substring(0, 4)}****) </p>
+                                </div>
+                                <div style="flex: 4;">
+                                    <input style="width: 100%; height: 100%;"   type="text" placeholder="주제와 무관한 댓글이나 스포일러, 악플은 경고조치 없이 삭제되며 징계 대상이 될 수 있습니다.">
+                                </div>
+                                <div style="flex: 1; justify-content: flex-end;">
+                                        <button class="reply_reply_insert" style="width: 60px; height: 30px;">등록</button>
+                                </div>         
+                            </div>
+                            <div style="flex: 1; justify-content: center; align-items: center;">
+                                <button style=" width: 150px; height: 20px;" class="reply_reply_close">답글 접기△</button>
+                            </div>
+                        </div>
+                    </div>
             </div>
         </c:forEach>
+        <script> //reply_reply_script
+            let reply_reply_btn=$(".reply_reply_btn");
+            let reply_reply_close=$(".reply_reply_close");
+            let reply_check=true;
+            reply_reply_btn.on("click",function(){
+                let btn=$(this);
+                let main=btn.parents(".reply_contents").find(".reply_reply_div_main");
+                
+                if(reply_check){
+                    main.css({
+                    display:"flex"
+                    })
+                    reply_check=false;
+                }
+              
+                else{
+                    reply_check=true;
+                    main.css({
+                    display:"none"
+                    })
+                }
+
+            })
+            reply_reply_close.on("click",function(){
+                let btn=$(this);
+                let main=btn.parents(".reply_reply_div_main");
+                main.css({
+                    display:"none"
+                })
+                reply_check=true;
+            })
+        </script>
     </div>
 
 
@@ -245,6 +298,7 @@
         let reply_div2 = $(".reply_div2");
         let reply_contents = [];
         let reply_confirm=$(".reply_confirm");
+       
 
         let files_delete=$(".files_delete");
 
@@ -341,6 +395,8 @@
             
         })
 
+
+    
 
 
         $("#replyform").on("submit",function(){

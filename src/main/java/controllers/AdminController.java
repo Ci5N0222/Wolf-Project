@@ -9,13 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-
 import admin.dao.AdminDAO;
+import commons.PageConfig;
 import commons.EncryptionUitls;
 import game.dto.GameDTO;
 import members.dto.MembersDTO;
-
 
 @WebServlet("*.admin")
 public class AdminController extends HttpServlet {
@@ -28,7 +26,7 @@ public class AdminController extends HttpServlet {
 		
 		AdminDAO dao = AdminDAO.getInstance();
 		
-		// Admin login 여부 확인
+		/** Admin login check **/ 
 		boolean adminSession = false;
 		if(request.getSession().getAttribute("WolfAdmin") != null) {
 			adminSession = (boolean)request.getSession().getAttribute("WolfAdmin");
@@ -79,18 +77,42 @@ public class AdminController extends HttpServlet {
 			
 			/** 멤버 목록 조회 **/
 			else if(cmd.equals("/members_list.admin")) {
-				if(!adminSession) response.sendRedirect("/views/admin/admin_login.jsp");
+				if(!adminSession) response.sendRedirect("/page_login.admin");
 				else {
-					List<MembersDTO> membersList = dao.getMemberList();
+					
+					String pcpage = request.getParameter("cpage");
+					if(pcpage == null) pcpage = "1";
+					int cpage = Integer.parseInt(pcpage);
+					
+					List<MembersDTO> membersList = dao.getMemberList(
+							cpage * PageConfig.recordCountPerPage - (PageConfig.recordCountPerPage - 1),
+							cpage * PageConfig.recordCountPerPage);
+					
 					request.setAttribute("membersList", membersList);
+					
+					/** 페이징 **/
+					request.setAttribute("cpage", cpage);
+					request.setAttribute("recode_total_count", dao.getMemberTotalCount());
+					request.setAttribute("recode_count_per_page", PageConfig.recordCountPerPage);
+					request.setAttribute("navi_count_per_page", PageConfig.naviCountPerPage);
+					
 					request.getRequestDispatcher("views/admin/admin_members_list.jsp").forward(request, response);
+				}
+			}
+			
+			
+			/** 멤버 정보 디테일 **/
+			else if(cmd.equals("/members_detail.admin")) {
+				if(!adminSession) response.sendRedirect("/page_login.admin");
+				else {
+					// 선택된 회원의 DTO 가져와서 조회
 				}
 			}
 			
 			
 			/** 멤버 정보 수정 **/
 			else if(cmd.equals("/members_update.admin")) {
-				if(!adminSession) response.sendRedirect("/views/admin/admin_login.jsp");
+				if(!adminSession) response.sendRedirect("/page_login.admin");
 				else {
 					// 선택된 회원의 DTO 가져와서 수정할 수 있어야 됨
 				}
@@ -99,32 +121,60 @@ public class AdminController extends HttpServlet {
 			
 			/** 서비스중인 게임 목록 **/
 			else if(cmd.equals("/game_list.admin")) {
-				if(!adminSession) response.sendRedirect("/views/admin/admin_login.jsp");
+				if(!adminSession) response.sendRedirect("/page_login.admin");
 				else {
-					List<GameDTO> gameList = dao.getGameList();
+					
+					String pcpage = request.getParameter("cpage");
+					if(pcpage == null) pcpage = "1";
+					int cpage = Integer.parseInt(pcpage);
+					
+					List<GameDTO> gameList = dao.getGameList(
+							cpage * PageConfig.recordCountPerPage - (PageConfig.recordCountPerPage - 1),
+							cpage * PageConfig.recordCountPerPage);
+					
 					request.setAttribute("gameList", gameList);
+					
+					/** 페이징 **/
+					request.setAttribute("cpage", cpage);
+					request.setAttribute("recode_total_count", dao.getGameTotalCount());
+					request.setAttribute("recode_count_per_page", PageConfig.recordCountPerPage);
+					request.setAttribute("navi_count_per_page", PageConfig.naviCountPerPage);
+					
 					request.getRequestDispatcher("/views/admin/admin_game_list.jsp").forward(request, response);
 				}
 			}
 			
+			
 			/** 게임 디테일 **/
 			else if(cmd.equals("/game_detail.admin")) {
-				
+				if(!adminSession) response.sendRedirect("/page_login.admin");
+				else {
+					// 선택된 게임의 디테일
+				}
 			}
 			
-			/** 게임 데이터 추가 **/
+			/** 게임 추가 **/
 			else if(cmd.equals("/game_insert.admin")) {
-				
+				if(!adminSession) response.sendRedirect("/page_login.admin");
+				else {
+					
+				}
 			}
 			
-			/** 게임 데이터 수정 **/
+			/** 게임 수정 **/
 			else if(cmd.equals("/game_update.admin")) {
-				
+				if(!adminSession) response.sendRedirect("/page_login.admin");
+				else {
+					
+				}
 			}
 			
-			/** 게임 데이터 삭제 **/
+			/** 게임 삭제 **/
 			else if(cmd.equals("/game_delete.admin")) {
-				
+				if(!adminSession) response.sendRedirect("/page_login.admin");
+				else {
+					
+				}
 			}
 			
 		} catch (Exception e) {

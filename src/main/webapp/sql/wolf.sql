@@ -52,8 +52,12 @@ create table game(
     seq number primary key,
     title varchar(50) not null,
     contents varchar(4000) not null,
+<<<<<<< HEAD
     thumbnail varchar(500) not null,
     service_code number not null
+=======
+    thumbnail varchar(500) not null
+>>>>>>> 54b4dcca19efbe1ce9d8fc6178cb295ac9107f37
 );
 
 
