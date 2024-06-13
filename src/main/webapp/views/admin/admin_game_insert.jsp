@@ -29,16 +29,8 @@
         <%@ include file="/views/include/admin_side.jsp" %>
         
         <section class="admin-main-form">
-        	<h1 class="admin-main-title">Game Info</h1>
+        	<h1 class="admin-main-title">Game Insert</h1>
 
-			<!-- 게임 썸네일로 바껴야 됨 -->
-   			<img src="/images/default-game.png" width="500" alt="게임 섬네일 이미지">
-        	
-	        ${game.title}
-	        ${game.contents}
-	        <button onclick="adminGameDelete(${game.seq})">삭제</button>
-	        <form action="/game_update.admin">
-	        </form>
 	        
         </section>
 
