@@ -186,7 +186,7 @@ INSERT INTO reply_child VALUES(15, 'user015', '열다섯 번째 댓글의 답글
 -- game table dummy data
 INSERT INTO game VALUES(game_seq.nextval, '게임1', '게임1에 대한 내용입니다.', 'thumbnail1.jpg', 1);
 INSERT INTO game VALUES(game_seq.nextval, '게임2', '게임2에 대한 내용입니다.', 'thumbnail2.jpg', 1);
-INSERT INTO game VALUES(game_seq.nextval, '게임3', '게임3에 대한 내용입니다.', 'thumbnail3.jpg', 0);
+INSERT INTO game VALUES(game_seq.nextval, '게임3', '게임3에 대한 내용입니다.', 'thumbnail3.jpg', 1);
 INSERT INTO game VALUES(game_seq.nextval, '게임4', '게임4에 대한 내용입니다.', 'thumbnail4.jpg', 0);
 INSERT INTO game VALUES(game_seq.nextval, '게임5', '게임5에 대한 내용입니다.', 'thumbnail5.jpg', 1);
 
