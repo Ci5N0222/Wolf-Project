@@ -1,3 +1,7 @@
+src/main/java/test/
+src/main/webapp/test/
+src/main/java/email.properties
+
 .DS_store
 .project
 .classpath

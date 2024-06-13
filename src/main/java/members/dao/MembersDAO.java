@@ -81,13 +81,78 @@ public class MembersDAO {
 
 			}
 		}
-	}
+	}    public boolean checklogin(String id, String pw) throws Exception {
+        String sql = "select * from members where id = ? and pw = ?";
+        try (Connection con=DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+            pstat.setString(1, id);
+            pstat.setString(2, pw);
+            try (ResultSet rs = pstat.executeQuery()) {
+                return rs.next();
+            }
+        }
+    }
+	public int updatePassword(String email, String newPassword) throws Exception {
+        String sql = "UPDATE members SET pw = ? WHERE email = ? ";
+        try (Connection con=DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+            pstat.setString(1, newPassword);
+            pstat.setString(2, email);
+            return pstat.executeUpdate();
+        }
+    }
+    public String selectID(String name, String email) throws Exception {
+        String sql = "SELECT id FROM members WHERE email = ? AND name = ?";
+        try (Connection con=DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+            pstat.setString(1, email);
+            pstat.setString(2, name);
+            try (ResultSet rs = pstat.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("id");
+                } else {
+                    return null;
+                }
+            }
+        }
+    }
+    public boolean checkPassword(String email, String pw) throws Exception {
+    	String sql = "select * from members where email = ? and pw = ?";
+    	 try (Connection con=DBConfig.getConnection();
+    	         PreparedStatement pstmt = con.prepareStatement(sql)) {
+    	        pstmt.setString(1, email);
+    	        pstmt.setString(2, pw);
+    	        try (ResultSet rs = pstmt.executeQuery()) {
+    	            return rs.next(); // 결과가 존재하면 true, 아니면 false 반환
+    	        }
+    	    } 
+    	    
+    	}
+    public boolean selectMemberByIdAndEmail(String id, String email) throws Exception{
+       
+        String sql = "SELECT * FROM members WHERE id=? AND email=?";
+        try (Connection con=DBConfig.getConnection();
+   	         PreparedStatement pstmt = con.prepareStatement(sql)){
+        	pstmt.setString(1, id);
+        	pstmt.setString(2, email);
+        		try(ResultSet rs = pstmt.executeQuery()){
+        			if(rs.next()) {
+        				rs.getString("id");
+        				rs.getString("email");
+        				return true;
+        			}
+        		}
+        }
+		return false;
+        	
+        }
+           
+ 
 	
 	
 	/**
 	 * "내정보" 출력
 	 * 
 	 * @param loginID
+asdasdasda
+
 	 * @return
 	 * @throws Exception
 	 */

@@ -8,22 +8,12 @@ public class BoardDTO {
 	private String contents;
 	private int count ;
 	private String member_id;
+	private int board_code;
 	private Timestamp write_date;
 	
 	public BoardDTO() {
 		super();
 	}
-	
-	public BoardDTO(int seq, String title, String contents, int count, String member_id, Timestamp write_date) {
-		super();
-		this.seq = seq;
-		this.title = title;
-		this.contents = contents;
-		this.count = count;
-		this.member_id = member_id;
-		this.write_date = write_date;
-	}
-
 
 	public int getSeq() {
 		return seq;
@@ -65,6 +55,14 @@ public class BoardDTO {
 		this.member_id = member_id;
 	}
 
+	public int getBoard_code() {
+		return board_code;
+	}
+
+	public void setBoard_code(int board_code) {
+		this.board_code = board_code;
+	}
+
 	public Timestamp getWrite_date() {
 		return write_date;
 	}
@@ -72,4 +70,18 @@ public class BoardDTO {
 	public void setWrite_date(Timestamp write_date) {
 		this.write_date = write_date;
 	}
+
+	public BoardDTO(int seq, String title, String contents, int count, String member_id, int board_code,
+			Timestamp write_date) {
+		super();
+		this.seq = seq;
+		this.title = title;
+		this.contents = contents;
+		this.count = count;
+		this.member_id = member_id;
+		this.board_code = board_code;
+		this.write_date = write_date;
+	}
+	
+
 }

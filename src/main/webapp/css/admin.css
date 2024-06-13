@@ -120,7 +120,6 @@
 
 .admin-members-list {
     width: 90%;
-    border-radius: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -135,4 +134,8 @@ th {
 td {
     padding: 10px 16px;
     text-align: center;
+}
+
+#admin_update > .btn-box2 {
+	display: none;
 }

@@ -1,3 +1,17 @@
+/** 페이지 로드 이후 동작해야 할 스크립트 **/
+$(() => {
+	
+});
+
+// Admin_members_detail 페이지에서 '수정하기' 버튼 클릭 시 수정 가능한 폼으로 변경
+const adminMemberEdit = () => {
+	// 입력 폼
+	
+	// 버튼
+	$(".btn-box1").css({"display":"none"});
+	$(".btn-box2").css({"display":"block"});
+}
+
 /** 페이지 네비게이션 함수 **/
 const pagenation = (cpage, recordTotalCount, recordCountPerPage, naviCountPerPage, url) => {
 	

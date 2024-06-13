@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import admin.dao.AdminDAO;
-import commons.BoardConfig;
+import commons.PageConfig;
 import commons.EncryptionUitls;
 import game.dto.GameDTO;
 import members.dto.MembersDTO;
@@ -85,16 +85,16 @@ public class AdminController extends HttpServlet {
 					int cpage = Integer.parseInt(pcpage);
 					
 					List<MembersDTO> membersList = dao.getMemberList(
-							cpage * BoardConfig.recordCountPerPage - (BoardConfig.recordCountPerPage - 1),
-							cpage * BoardConfig.recordCountPerPage);
+							cpage * PageConfig.recordCountPerPage - (PageConfig.recordCountPerPage - 1),
+							cpage * PageConfig.recordCountPerPage);
 					
 					request.setAttribute("membersList", membersList);
 					
 					/** 페이징 **/
 					request.setAttribute("cpage", cpage);
 					request.setAttribute("recode_total_count", dao.getMemberTotalCount());
-					request.setAttribute("recode_count_per_page", BoardConfig.recordCountPerPage);
-					request.setAttribute("navi_count_per_page", BoardConfig.naviCountPerPage);
+					request.setAttribute("recode_count_per_page", PageConfig.recordCountPerPage);
+					request.setAttribute("navi_count_per_page", PageConfig.naviCountPerPage);
 					
 					request.getRequestDispatcher("views/admin/admin_members_list.jsp").forward(request, response);
 				}
@@ -105,7 +105,11 @@ public class AdminController extends HttpServlet {
 			else if(cmd.equals("/members_detail.admin")) {
 				if(!adminSession) response.sendRedirect("/page_login.admin");
 				else {
-					// 선택된 회원의 DTO 가져와서 조회
+					String id = request.getParameter("id");
+					MembersDTO member = dao.getMemberInfo(id);
+					
+					request.setAttribute("member", member);
+					request.getRequestDispatcher("/views/admin/admin_members_detail.jsp").forward(request, response);
 				}
 			}
 			
@@ -129,16 +133,16 @@ public class AdminController extends HttpServlet {
 					int cpage = Integer.parseInt(pcpage);
 					
 					List<GameDTO> gameList = dao.getGameList(
-							cpage * BoardConfig.recordCountPerPage - (BoardConfig.recordCountPerPage - 1),
-							cpage * BoardConfig.recordCountPerPage);
+							cpage * PageConfig.recordCountPerPage - (PageConfig.recordCountPerPage - 1),
+							cpage * PageConfig.recordCountPerPage);
 					
 					request.setAttribute("gameList", gameList);
 					
 					/** 페이징 **/
 					request.setAttribute("cpage", cpage);
 					request.setAttribute("recode_total_count", dao.getGameTotalCount());
-					request.setAttribute("recode_count_per_page", BoardConfig.recordCountPerPage);
-					request.setAttribute("navi_count_per_page", BoardConfig.naviCountPerPage);
+					request.setAttribute("recode_count_per_page", PageConfig.recordCountPerPage);
+					request.setAttribute("navi_count_per_page", PageConfig.naviCountPerPage);
 					
 					request.getRequestDispatcher("/views/admin/admin_game_list.jsp").forward(request, response);
 				}
@@ -149,7 +153,11 @@ public class AdminController extends HttpServlet {
 			else if(cmd.equals("/game_detail.admin")) {
 				if(!adminSession) response.sendRedirect("/page_login.admin");
 				else {
-					// 선택된 게임의 디테일
+					String seq = request.getParameter("seq");
+//					GameDTO game = dao.getGameInfo(Integer.parseInt(seq));
+//					request.setAttribute("game", game);
+//					
+//					request.getRequestDispatcher("/views/admin/admin_game_list.jsp").forward(request, response);
 				}
 			}
 			
