@@ -6,5 +6,5 @@ public class PageConfig {
 		public static int recordCountPerPage=10;
 		public static int board=1;
 		public static int qna=2;
-		 
+		
 }
