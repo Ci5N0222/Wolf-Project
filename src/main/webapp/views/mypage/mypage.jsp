@@ -299,6 +299,7 @@ pageEncoding="UTF-8"%>
         <p onclick="location.href='/myGameList.members'">게임플레이 정보</p>
         <p onclick="location.href='/'">문의내역</p>
         <p onclick="location.href='/'">회원탈퇴</p>
+        <p onclick="location.href='/logout.members'">로그아웃</p>
       </aside>
 
       <section class="mypage-main-form">

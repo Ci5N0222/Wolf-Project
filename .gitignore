@@ -1,6 +1,8 @@
 src/main/java/test/
 src/main/webapp/test/
 src/main/java/email.properties
+
+.DS_store
 .project
 .classpath
 # Created by https://www.toptal.com/developers/gitignore/api/java,git,windows,eclipse
