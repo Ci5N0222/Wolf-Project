@@ -29,28 +29,28 @@
         <%@ include file="/views/include/admin_side.jsp" %>
         
         <section class="admin-main-form">
-        <h1 class="admin-main-title">Members List</h1>
+        <h1 class="admin-main-title">Game List</h1>
              <div class="admin-members-list">
-             	<c:if test="${membersList.size() > 0}">
+             	<c:if test="${gameList.size() > 0}">
              		<table>
              			<tr>
              				<th>ID</th>
-             				<th>Name</th>
-             				<th>Nick Name</th>
+             				<th>title</th>
+             				<th>thumbnail</th>
              			</tr>
-	             		<c:forEach var="members" items="${membersList}">
+	             		<c:forEach var="games" items="${gameList}">
 	             			<tr>
-	             				<td><a href="/members_detail.admin?id=${members.id}">${members.id}</a></td>
-	             				<td>${members.name}</td>
-	             				<td>${members.nickname}</td>
+	             				<td>${games.seq}</td>
+	             				<td>${games.title}</td>
+	             				<td>${games.thumbnail}</td>
 	             			</tr>
 	             		</c:forEach>
              		</table>
+             		<!-- 페이징 -->
+             		<script>
+             			pagenation(${cpage}, ${recode_total_count}, ${recode_count_per_page}, ${navi_count_per_page}, "/game_list.admin");
+             		</script>
              	</c:if>
-             	<!-- 페이징 -->
-           		<script>
-           			pagenation(${cpage}, ${recode_total_count}, ${recode_count_per_page}, ${navi_count_per_page}, "/members_list.admin")
-           		</script>
              </div>
              <!-- 멤버 검색 -->
         </section>
