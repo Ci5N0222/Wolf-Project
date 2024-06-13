@@ -148,7 +148,7 @@ body {
 		
 		
 		$("#login").on("click", function() {
-			console.log("aaa");
+			
 			let id = $("#id").val();
 			let password = $("#pw").val();
 			if (id == "") {
@@ -166,12 +166,15 @@ body {
 			    dataType: "json"
 			})
 			.done(function(resp) {
-			    if (resp.success) {
-			        
-			        location.href = "/index.jsp"; 
-			    } else {
-			        alert("아이디 또는 비밀번호가 잘못되었습니다. 다시 확인해 주세요.");
-			    }
+				 if (resp.success) {
+		                location.href = "/index.jsp"; 
+		            } else {
+		                if (resp.grade === 3) {
+		                    alert("Grade가 3인 회원은 로그인할 수 없습니다.");
+		                } else {
+		                    alert("아이디 또는 비밀번호가 잘못되었습니다. 다시 확인해 주세요.");
+		                }
+		            }
 			})
 			});
 		

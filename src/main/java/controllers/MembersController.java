@@ -69,16 +69,25 @@ public class MembersController extends HttpServlet {
 				String pw = EncryptionUitls.getSHA512(request.getParameter("pw"));
 				
 				String[] result = dao.login(id, pw);
-				if (result != null) {
-					
-					session.setAttribute("WolfID", result[0]);
-					session.setAttribute("WolfNickname",result[1] );
-					session.setAttribute("WolfAvatar", result[2]);
-					
-					
-				}
-				response.sendRedirect("/index.jsp");
-
+				 if (result != null) {
+				        // Check if login was successful
+				        if (result.length > 0) {
+				            // Set session attributes
+				            session.setAttribute("WolfID", result[0]);
+				            session.setAttribute("WolfNickname", result[1]);
+				            session.setAttribute("WolfAvatar", result[2]);
+				            response.sendRedirect("/index.jsp");
+				        } else {
+				            response.sendRedirect("/login.jsp"); // Handle login failure
+				        }
+				    } else {
+				        
+				     
+				        PrintWriter pw1 = response.getWriter();
+				        pw1.append("{\"grade\": 3}");
+				       
+				       
+				    }
 			}else if (cmd.equals("/checkLogin.members")) 
             {
                 String id = request.getParameter("id");

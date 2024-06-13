@@ -70,6 +70,12 @@ public class MembersDAO {
 			pstat.setString(2, pw);
 			try (ResultSet rs = pstat.executeQuery()) {
 				if (rs.next()) {
+					 String grade = rs.getString("grade");
+					
+					 if ("3".equals(grade)){
+						 return null;
+					 }
+					
 					String[] result = new String[3];
 					result[0] = rs.getString(1);
 					result[1] = rs.getString(4);
@@ -143,7 +149,7 @@ public class MembersDAO {
 		return false;
         	
         }
-           
+     
  
 	
 	

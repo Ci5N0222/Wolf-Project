@@ -130,6 +130,7 @@ INSERT INTO members VALUES ('user020', 'password20', 'Tina', 'tina_t', '01001203
 -- grade table data
 INSERT INTO grade (seq, name) VALUES (1, '일반회원');
 INSERT INTO grade (seq, name) VALUES (2, '휴면계정');
+INSERT INTO grade (seq, name) VALUES (3, '블랙리스트');
 INSERT INTO grade (seq, name) VALUES (98, '서브관리자');
 INSERT INTO grade (seq, name) VALUES (99, '메인관리자');
 
