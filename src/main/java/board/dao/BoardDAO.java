@@ -7,10 +7,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
-
 import board.dto.BoardDTO;
 import commons.DBConfig;
 
@@ -25,13 +21,14 @@ private static BoardDAO instance;
 	private BoardDAO() {}
 	
 	public int insert(BoardDTO dto) {
-		String sql="insert into board values(board_seq.nextval,?,?,0,?,sysdate)";
+		String sql="insert into board values(board_seq.nextval,?,?,0,?,?,sysdate)";
 		int seq=0;
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql,new String[] {"seq"})){
 			pstat.setString(1, dto.getTitle());
 			pstat.setString(2, dto.getContents());
 			pstat.setString(3, dto.getMember_id());
+			pstat.setInt(4, dto.getBoard_code());
 			
 			pstat.executeUpdate();
 			try (ResultSet rs=pstat.getGeneratedKeys()){
@@ -48,7 +45,7 @@ private static BoardDAO instance;
 	}
 	
 	
-	public Object[] selectAll(){
+	public Object[] selectAll(int board_code){
 		List<BoardDTO> list = new ArrayList<>();
 		String sql="select b.*, m.nickname from board b join members m on m.id =b.member_id";
 		Object [] boardList=new Object[2];
@@ -66,7 +63,7 @@ private static BoardDAO instance;
 				String member_id=rs.getString(5);
 				Timestamp write_date=rs.getTimestamp(6);
 				nickname.add(rs.getString(8));
-				list.add(new BoardDTO(seq,title,contents,count,member_id,write_date));			
+				list.add(new BoardDTO(seq,title,contents,count,member_id,board_code,write_date));			
 			}		
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -78,8 +75,8 @@ private static BoardDAO instance;
 		return boardList;
 		
 	}
-	public Object[] select(int recordCountPerPage,int cpage){
-		String sql="SELECT a.*,m.nickname FROM (SELECT  board.*, ROW_NUMBER() OVER (ORDER BY seq DESC) AS rown FROM board)a join members m on m.id=a.member_id WHERE rown between ? and ?";
+	public Object[] select(int recordCountPerPage,int cpage,int board_code){
+		String sql="SELECT a.*,m.nickname FROM (SELECT  board.*, ROW_NUMBER() OVER (ORDER BY seq DESC) AS rown FROM board)a join members m on m.id=a.member_id WHERE rown between ? and ? and board_code=?";
 		List<BoardDTO> list=new ArrayList<>();
 		Object [] boardList=new Object[2];
 		ArrayList<String> nickname=new ArrayList<>();
@@ -88,6 +85,7 @@ private static BoardDAO instance;
 			
 			pstat.setInt(1, cpage*recordCountPerPage - (recordCountPerPage-1));
 			pstat.setInt(2, cpage*recordCountPerPage);
+			pstat.setInt(3, board_code);
 			try(ResultSet rs=pstat.executeQuery()) {
 				for (int i = 0; i < recordCountPerPage; i++) {
 					rs.next();
@@ -96,9 +94,9 @@ private static BoardDAO instance;
 					String contents=rs.getString(3);
 					int count =rs.getInt(4);
 					String member_id=rs.getString(5);
-					Timestamp write_date=rs.getTimestamp(6);
-					nickname.add(rs.getString(8));
-					BoardDTO dto=new BoardDTO(seq,title,contents,count,member_id,write_date);
+					Timestamp write_date=rs.getTimestamp(7);
+					nickname.add(rs.getString(9));
+					BoardDTO dto=new BoardDTO(seq,title,contents,count,member_id,board_code,write_date);
 					list.add(dto);
 				}
 			} catch (Exception e) {
@@ -115,7 +113,7 @@ private static BoardDAO instance;
 		
 		return boardList;
 	}
-	public Object[] selectBoard(int seq){
+	public Object[] selectBoard(int seq,int board_code){
 		BoardDTO dto= new BoardDTO();
 		String sql="select b.*, m.nickname from board b join members m on m.id =b.member_id where b.seq=?";
 		Object [] boardList=new Object[2];
@@ -129,9 +127,9 @@ private static BoardDAO instance;
 					String contents=rs.getString(3);
 					int count =rs.getInt(4);
 					String member_id=rs.getString(5);
-					Timestamp write_date=rs.getTimestamp(6);
-					nickname=rs.getString(7);
-					dto=(new BoardDTO(seq,title,contents,count,member_id,write_date));
+					Timestamp write_date=rs.getTimestamp(7);
+					nickname=rs.getString(8);
+					dto=(new BoardDTO(seq,title,contents,count,member_id,board_code,write_date));
 			} catch (Exception e) {
 				
 			}
@@ -144,7 +142,7 @@ private static BoardDAO instance;
 		return boardList;
 	}
 	
-	public void delete(int seq) {
+	public void delete(int seq,int board_code) {
 		String sql="delete from board where seq=?";
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
