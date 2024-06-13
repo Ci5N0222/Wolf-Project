@@ -19,7 +19,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import board.dao.BoardDAO;
 import board.dto.BoardDTO;
-import commons.BoardConfig;
+import commons.PageConfig;
 import files.dao.FilesDAO;
 import files.dto.FilesDTO;
 import reply.dao.ReplyDAO;
@@ -42,13 +42,13 @@ public class BoardController extends HttpServlet {
 				String pcpage=request.getParameter("cpage");
 				if(pcpage==null) pcpage="1";
 				int cpage=Integer.parseInt(pcpage);
-				Object boardList[] = boardDAO.select( BoardConfig.recordCountPerPage, cpage);
+				Object boardList[] = boardDAO.select( PageConfig.recordCountPerPage, cpage);
 				
 				request.setAttribute("list", boardList[0]);
 				request.setAttribute("board_nickname_list", boardList[1]);//boardList[1]
 				request.setAttribute("cpage", cpage);
-				request.setAttribute("record_count_per_page", BoardConfig.recordCountPerPage);
-				request.setAttribute("navi_count_per_page", BoardConfig.naviCountPerPage);
+				request.setAttribute("record_count_per_page", PageConfig.recordCountPerPage);
+				request.setAttribute("navi_count_per_page", PageConfig.naviCountPerPage);
 				request.setAttribute("record_total_count", boardDAO.getRecordCount());
 				
 				request.getRequestDispatcher("/views/board/board_view.jsp").forward(request, response);
