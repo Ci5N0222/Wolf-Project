@@ -335,6 +335,7 @@
                         reply_seq:reply_seq.val()
                     }
                 }).done(function(resp){
+                    input.html("");
                     let clone=$(".reply_child_list").eq(0).clone(true);
                     clone.css("display","flex");
                     clone.find(".reply_child_list_title").html("${WolfNickname} ${WolfID}");
