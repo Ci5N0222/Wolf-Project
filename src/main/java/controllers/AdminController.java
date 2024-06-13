@@ -121,6 +121,11 @@ public class AdminController extends HttpServlet {
 				if(!adminSession) response.sendRedirect("/page_login.admin");
 				else {
 					// 선택된 회원의 DTO 가져와서 수정할 수 있어야 됨
+					String name = request.getParameter("name");
+					String nickname = request.getParameter("nickname");
+					String phone = request.getParameter("phone");
+					String email = request.getParameter("email");
+					String grade = request.getParameter("grade");
 				}
 			}
 			
