@@ -174,17 +174,26 @@
 	<script>
 
 		$(document).ready(function () {
-			$("#male").on("click", function () {
+			let didIdCheck = false;
+			let didnicknameCheck = false;
 
+			$("#male").on("click", function () {
 				$("#female").prop("checked", false);
 			});
 
-
 			$("#female").on("click", function () {
-
 				$("#male").prop("checked", false);
 			});
+
 			$("#idCheck").on("click", function () {
+				let id = $("#id").val();
+				let msg = $("#msg");
+				let regex = /^[a-z0-9_]{8,}$/;
+				let result = regex.test(id);
+				if (!result) {
+					alert("사용할 수 없는 형식의 ID입니다");
+					return false;
+				}
 				if ($("#id").val() == "") {
 					alert("ID를 먼저 입력해주세요.");
 					return;
@@ -199,6 +208,7 @@
 						alert("이미 사용중인 ID 입니다.");
 					} else {
 						alert("사용가능한 ID 입니다.");
+						idCheckFlag = true;
 					}
 				});
 			});
@@ -218,8 +228,12 @@
 						alert("이미 사용중인 닉네임 입니다.");
 					} else {
 						alert("사용가능한 닉네임 입니다.");
+						nicknameCheckFlag = true;
 					}
 				});
+			});
+			$("#nickname").on("keyup", function () {
+				nicknameCheckFlag = false;
 			});
 
 			$("#back").on("click", function () {
@@ -237,16 +251,6 @@
 				}
 			});
 
-			$("#postcode").on("click", function () {
-				new daum.Postcode({
-					oncomplete: function (data) {
-						let address = data.jibunAddress;
-						let postcode = data.zonecode;
-						$("#post").val(postcode);
-						$("#address1").val(address);
-					}
-				}).open();
-			});
 
 			$("#id").on("keyup", function () {
 				let id = $("#id").val();
@@ -258,6 +262,7 @@
 				} else {
 					msg.text("사용할 수 없는 형식의 ID입니다").css("color", "red");
 				}
+				idCheckFlag = false;
 			});
 
 			$("#name").on("keyup", function () {
@@ -308,7 +313,15 @@
 				}
 			});
 
-			$("#joinform").on("submit", function () {
+			$("#joinform").on("submit", function (event) {
+				event.preventDefault();
+
+				if (!idCheckFlag) {
+					alert("ID 중복확인을 해주세요.");
+					return false;
+				}
+
+
 				if ($("#id").val() == "") {
 					alert("ID를 먼저 입력해주세요.");
 					return false;
@@ -323,19 +336,6 @@
 					}
 				}
 
-				if ($("#name").val() == "") {
-					alert("이름을 입력해주세요.");
-					return false;
-				} else {
-					let name = $("#name").val();
-					let msg1 = $("#msg1");
-					let regex = /^[가-힣]{2,5}$/;
-					let result = regex.test(name);
-					if (!result) {
-						alert("올바르지 않은 형식의 이름입니다.");
-						return false;
-					}
-				}
 
 				if ($("#pw").val() == "" || $("#pwc").val() == "") {
 					alert("PW를 입력 해주세요");
@@ -350,9 +350,26 @@
 						return false;
 					}
 				}
+				if ($("#name").val() == "") {
+					alert("이름을 입력해주세요.");
+					return false;
+				} else {
+					let name = $("#name").val();
+					let msg1 = $("#msg1");
+					let regex = /^[가-힣]{2,5}$/;
+					let result = regex.test(name);
+					if (!result) {
+						alert("올바르지 않은 형식의 이름입니다.");
+						return false;
+					}
+				}
 
 				if ($("#nickname").val() == "") {
 					alert("닉네임을 입력 해주세요.");
+					return false;
+				}
+				if (!nicknameCheckFlag) {
+					alert("닉네임 중복확인을 해주세요.");
 					return false;
 				}
 
@@ -368,7 +385,13 @@
 						return false;
 					}
 				}
+				if (!$("#male").is(":checked") && !$("#female").is(":checked")) {
+				    alert("성별을 선택 해주세요.");
+				    return false;
+				    
+				}
 
+				this.submit();
 			});
 		});
 
