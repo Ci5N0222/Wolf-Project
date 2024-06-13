@@ -28,7 +28,7 @@
 <link rel="stylesheet" href="css/style.css">
 
 </head>
-<body>
+<body> 
 	<!-- container -->
     <div class="container-fluid d-flex flex-column">
     	 <div class="container text-center flex-grow-1 d-flex flex-column">
