@@ -33,6 +33,7 @@ public class AdminDAO {
 	 */
 	public int[] membersTotalCount() throws Exception {
 		String sql = "select (select count(*) from members) as \"total\", (select count(*) from members where gender = 'M') as \"man\" from dual";
+		
 		try(Connection con = DBConfig.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql);
 			ResultSet rs = pstat.executeQuery()){
@@ -52,12 +53,12 @@ public class AdminDAO {
 	 */
 	public int adminLogin(String id, String pw) throws Exception {
 		String sql = "select id, pw from members where id = ? and grade = 99";
+		
 		try(Connection con = DBConfig.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql)){
 			pstat.setString(1, id);
 			
 			try(ResultSet rs = pstat.executeQuery()){
-				
 				rs.next();
 				
 				try {
@@ -82,6 +83,7 @@ public class AdminDAO {
 	 */
 	public int getMemberTotalCount() throws Exception {
 		String sql ="select count(*) from members where grade not in (98, 99)";
+		
 		try(Connection con = DBConfig.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql);
 			ResultSet rs = pstat.executeQuery()){
@@ -100,10 +102,12 @@ public class AdminDAO {
 	 */
 	public List<MembersDTO> getMemberList(int start, int end) throws Exception {
 		String sql = "select * from (select members.*, row_number() over(order by join_date desc) rown from members) where rown between ? and ?";
+		
 		try(Connection con = DBConfig.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql)){
 			pstat.setInt(1, start);
 			pstat.setInt(2, end);
+			
 			try (ResultSet rs = pstat.executeQuery()){
 				List<MembersDTO> list = new ArrayList<>();
 				
@@ -135,11 +139,12 @@ public class AdminDAO {
 	 */
 	public MembersDTO getMemberInfo(String memberId) throws Exception {
 		String sql = "select * from members where id = ?";
+		
 		try(Connection con = DBConfig.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql)){
 			pstat.setString(1, memberId);
+			
 			try (ResultSet rs = pstat.executeQuery()){
-					
 				rs.next();
 				
 				String id = rs.getString("id");
@@ -166,6 +171,7 @@ public class AdminDAO {
 	 */
 	public int getGameTotalCount() throws Exception {
 		String sql ="select count(*) from game";
+		
 		try(Connection con = DBConfig.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql);
 			ResultSet rs = pstat.executeQuery()){
@@ -185,13 +191,15 @@ public class AdminDAO {
 	 */
 	public List<GameDTO> getGameList(int start, int end) throws Exception {
 		String sql = "select * from (select game.*, row_number() over(order by seq) rown from game) where rown between ? and ?";
+		
 		try(Connection con = DBConfig.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql)){
-				pstat.setInt(1, start);
-				pstat.setInt(2, end);
-				try(ResultSet rs = pstat.executeQuery()){
-				
+			pstat.setInt(1, start);
+			pstat.setInt(2, end);
+			
+			try(ResultSet rs = pstat.executeQuery()){
 				List<GameDTO> list = new ArrayList<>();
+				
 				while(rs.next()) {
 					int seq = rs.getInt("seq");
 					String title = rs.getString("title");
@@ -207,6 +215,12 @@ public class AdminDAO {
 	}
 	
 
+	/**
+	 * 게임 정보를 반환하는 메서드
+	 * @param gameSeq
+	 * @return
+	 * @throws Exception
+	 */
 	public GameDTO getGameInfo(int gameSeq) throws Exception {
 		String sql = "select * from game where seq = ?";
 		try(Connection con = DBConfig.getConnection();
@@ -228,6 +242,12 @@ public class AdminDAO {
 	}
 	
 	
+	/**
+	 * 게임을 삭제하는 메서드
+	 * @param seq
+	 * @return
+	 * @throws Exception
+	 */
 	public int adminGameDelete(int seq) throws Exception {
 		String sql ="delete from game where seq = ?";
 		

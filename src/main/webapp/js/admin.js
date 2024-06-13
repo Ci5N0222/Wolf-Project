@@ -11,7 +11,7 @@ const adminMemberEdit = () => {
 	
 	// 버튼
 	$(".btn-box1").css({"display":"none"});
-	$(".btn-box2").css({"display":"block"});
+	$(".btn-box2").css({"display": "flex", "justify-content": "space-evenly", "align-items": "center"});
 }
 
 
