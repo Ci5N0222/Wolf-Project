@@ -99,6 +99,7 @@
                 data: formData,
                 success: function(response) {
                     alert("회원님의 아이디는 : : " + response);
+                    location.href = '/views/members/login.jsp';
                 },
                 error: function(xhr, status, error) {
                     console.error('Error:', error);
