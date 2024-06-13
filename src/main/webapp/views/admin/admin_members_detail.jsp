@@ -29,7 +29,7 @@
         <%@ include file="/views/include/admin_side.jsp" %>
         
         <section class="admin-main-form">
-        <h1 class="admin-main-title">Member Info</h1>
+        	<h1 class="admin-main-title">Member Info</h1>
              <div class="admin-members-list">
              	
            		<!-- ID -->
@@ -78,7 +78,6 @@
 		            <input type="hidden" id="input_email" name="email">
 		            <input type="hidden" id="input_grade" name="grade">
 
-		            
 					<div class="btn-box1">
 						<button type="button" onclick="adminMemberEdit()">정보 수정하기</button>
 		            	<button type="button" onclick="location.href='/members_list.admin'">목록보기</button>
