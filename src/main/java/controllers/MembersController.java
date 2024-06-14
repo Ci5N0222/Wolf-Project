@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,7 +20,7 @@ import commons.EmailSender;
 import commons.EncryptionUitls;
 import members.dao.MembersDAO;
 import members.dto.MembersDTO;
-import mypage.dto.GameScoreDTO;
+import oracle.net.aso.c;
 
 @WebServlet("*.members")
 public class MembersController extends HttpServlet {
@@ -64,43 +63,43 @@ public class MembersController extends HttpServlet {
 			    response.getWriter().append(String.valueOf(result));
 			    
 			}else if (cmd.equals("/login.members")) {
+			    String id = request.getParameter("id");
+			    String pw = EncryptionUitls.getSHA512(request.getParameter("pw"));
 
+			    String[] result = dao.login(id, pw);
+
+			    if (result != null && result.length > 0) {
+			        int grade = dao.selectGrade(id);
+			        if (grade == 3) {
+			            // 등급이 3일 경우
+			        	response.getWriter().write("{\"success\": false, \"message\": \"등급이 3인 회원은 로그인할 수 없습니다.\"}");
+			        } else {
+			            // 로그인 성공 시 세션에 정보 설정
+			            session.setAttribute("WolfID", result[0]);
+			            session.setAttribute("WolfNickname", result[1]);
+			            session.setAttribute("WolfAvatar", result[2]);
+			            response.getWriter().write("{\"success\": true}");
+			        }
+			    } 
+			
+			}else if (cmd.equals("/checkLogin.members")) {
 				String id = request.getParameter("id");
-				String pw = EncryptionUitls.getSHA512(request.getParameter("pw"));
-				
-				String[] result = dao.login(id, pw);
-				 if (result != null) {
-				        // Check if login was successful
-				        if (result.length > 0) {
-				            // Set session attributes
-				            session.setAttribute("WolfID", result[0]);
-				            session.setAttribute("WolfNickname", result[1]);
-				            session.setAttribute("WolfAvatar", result[2]);
-				            response.sendRedirect("/index.jsp");
-				        } else {
-				            response.sendRedirect("/login.jsp"); // Handle login failure
-				        }
-				    } else {
-				        
-				     
-				        PrintWriter pw1 = response.getWriter();
-				        pw1.append("{\"grade\": 3}");
-				       
-				       
-				    }
-			}else if (cmd.equals("/checkLogin.members")) 
-            {
-                String id = request.getParameter("id");
-                String pw = EncryptionUitls.getSHA512(request.getParameter("pw"));
-                
-                boolean result = dao.checklogin(id, pw);
-                if (result) {
-                    session.setAttribute("ID", id);
-                    response.getWriter().write("{\"success\": true}");
-                } else {
-                    response.getWriter().write("{\"success\": false}");
-                }
-            } else if(cmd.equals("/logout.members")) {
+			    String pw = EncryptionUitls.getSHA512(request.getParameter("pw"));
+
+			    // 회원 로그인 여부 확인
+			    boolean result = dao.checkLogin(id, pw);
+
+			    if (result) {
+			        // 로그인 성공 시
+			        session.setAttribute("ID", id);
+			        response.getWriter().write("{\"success\": true}");
+			    } else {
+			        // 로그인 실패 시
+			        response.getWriter().write("{\"success\": false, \"error\": true}");
+			    }
+            
+		         
+		        }else if(cmd.equals("/logout.members")) {
 				session.invalidate();
 				response.sendRedirect("/index.jsp");
             }
