@@ -29,7 +29,11 @@ public class MypageController extends HttpServlet {
 		
 		try {
 			
-			if(cmd.equals("/")) {
+			if(cmd.equals("/selectMember.mypage")) {
+				
+				
+			} else if(cmd.equals("/")) {
+				
 				
 				/* 마이페이지 게임플레이 정보 조회 */
 			} else if(cmd.equals("/mypageGameList.mypage")) {

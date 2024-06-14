@@ -223,7 +223,7 @@
                             <div style="width:500px ; border: 1px solid black; flex-direction: column;" class="reply_child_list">
                                 <div style="flex-direction: column;">
                                     <div style="flex: 1; font-family: 'Courier New', Courier, monospace; font-size:small; font-size: 13px;" class="reply_child_list_title">
-                                        ${reply_child_nickname_list[status.index]}(${reply_child_dto.member_id.substring(0, 4)}****)     
+                                        ${reply_child_nickname[status.index]}(${reply_child_dto.member_id.substring(0, 4)}****)     
                                     </div>
                                     <div style="flex: 4;" class="reply_child_list_contents">
                                        ${reply_child_dto.contents}
@@ -251,7 +251,7 @@
                             </div>
                         </div>
                         <div style="justify-content: flex-end;">
-                            <button style="width: 50px; height: 30px;">수정</button>
+                            <button style="width: 50px; height: 30px;" onclick="reply_child_update(this)">수정</button>
                             <button style="width: 50px; height: 30px;" onclick="reply_child_delete(this)">삭제</button>
                             <input type="hidden" class="reply_child_seq">
                         </div>
@@ -335,6 +335,7 @@
                         reply_seq:reply_seq.val()
                     }
                 }).done(function(resp){
+                    
                     let clone=$(".reply_child_list").eq(0).clone(true);
                     clone.css("display","flex");
                     clone.find(".reply_child_list_title").html("${WolfNickname} ${WolfID}");
@@ -345,10 +346,27 @@
                     clone.find(".reply_child_seq").val(resp[0]);
                     let main=div.parent();
                     main.prepend(clone);
+                    input.html("");
 
                 })
 
             })
+
+            function reply_child_update(e){
+                let parent=$(e).parent().parent();
+                let seq= parent.find(".reply_child_seq").val();
+                $.ajax({
+                    url:"/update.reply_child",
+                    type:"post",
+                    data:{
+                        seq:seq
+                    }
+                }).done(function(){
+                    parent.remove();
+                })
+            }
+
+
 
             function reply_child_delete(e){
                 let parent= $(e).parent().parent();

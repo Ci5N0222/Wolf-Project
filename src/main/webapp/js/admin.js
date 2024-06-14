@@ -4,20 +4,35 @@ $(() => {
 });
 
 
-
 // Member 정보를 수정할 수 있게 폼을 바꾸는 함수
-const adminMemberEdit = () => {
-	// 입력 폼
+const adminMemberEdit = (defaultValue) => {
+	$('#grade_select').val(defaultValue); 
+	$('#grade_select').css({"display": "flex"});
+	$('#grade').css({"display": "none"});
 	
 	// 버튼
 	$(".btn-box1").css({"display":"none"});
-	$(".btn-box2").css({"display":"block"});
+	$(".btn-box2").css({"display": "flex", "justify-content": "space-evenly", "align-items": "center"});
 }
 
+const adminMemberUpdate = (id) => {
+	$.ajax({
+		url: "/members_update.admin",
+		data:{
+			grade: $("#grade_select").val(),
+			id: id
+		}
+	})
+	.done((res)=> {
+		console.log("res === ", res);
+		if(res === "ok"){
+			location.href = `members_detail.admin?id=${id}`;
+		}
+	});
+}
 
 // Game정보를 삭제하는 함수
 const adminGameDelete = (seq) => {
-	
 	$.ajax({
 		url: "/game_delete.admin",
 		data:{

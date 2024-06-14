@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.plaf.synth.SynthOptionPaneUI;
 
 import admin.dao.AdminDAO;
 import commons.PageConfig;
@@ -121,6 +122,13 @@ public class AdminController extends HttpServlet {
 				if(!adminSession) response.sendRedirect("/page_login.admin");
 				else {
 					// 선택된 회원의 DTO 가져와서 수정할 수 있어야 됨
+					String id = request.getParameter("id");
+					String grade = request.getParameter("grade");
+					
+					int result = dao.memberGradeUpdate(id, Integer.parseInt(grade));
+					
+					if(result > 0) response.getWriter().append("ok");
+					else  response.getWriter().append("fail");
 				}
 			}
 			
