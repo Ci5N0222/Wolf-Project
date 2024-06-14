@@ -125,5 +125,41 @@ public class Reply_childDAO {
 			// TODO: handle exception
 		}
 	}
+	
+	public String cancel(int seq) {
+		String sql="select contents from reply_child where seq=?";
+		String contents="";
+		try (Connection con=DBConfig.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)){
+			pstat.setInt(1, seq);
+			try(ResultSet rs=pstat.executeQuery()) {
+				rs.next();
+				contents=rs.getString(1);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return contents;
+	}
+	
+	public boolean update(int seq,String contents) {
+		String sql="update reply_child set contents=? , write_date= sysdate  where seq=?";
+		
+		try (Connection con=DBConfig.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)){
+			pstat.setString(1, contents);
+			pstat.setInt(2, seq);
+			if(pstat.executeUpdate()>0)return true;
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return false;
+	}
+	
 
 }

@@ -26,6 +26,7 @@ public class Reply_childController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("UTF-8");
 		HttpSession session= request.getSession();
 		String cmd = request.getRequestURI();
 		PrintWriter pw= response.getWriter();
@@ -67,6 +68,22 @@ public class Reply_childController extends HttpServlet {
 			else if(cmd.equals("/delete.reply_child")) {
 				int seq=Integer.parseInt(request.getParameter("seq"));
 				reply_childDAO.delete(seq);
+			}
+			
+			else if(cmd.equals("/update.reply_child")) {
+				int seq=Integer.parseInt(request.getParameter("seq"));
+				String contents=request.getParameter("contents");
+				boolean check=reply_childDAO.update(seq, contents);
+				if(check)pw.append("S");
+				else pw.append("F");
+			}
+			
+			else if(cmd.equals("/cancel.reply_child")) {
+				int seq=Integer.parseInt(request.getParameter("seq"));
+				String contents= reply_childDAO.cancel(seq);
+				System.out.println(contents);
+				pw.append(contents);
+				
 			}
 			
 		} catch (Exception e) {
