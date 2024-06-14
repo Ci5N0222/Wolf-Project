@@ -136,6 +136,18 @@
             <div class="center" style="flex: 1; font-family: 'Luckiest Guy', cursive; font-size: 30px;">
                 자유게시판
             </div>
+            <div style="flex: 0.7; justify-content: flex-end;">
+                <form action="/list.board" method="get" >
+                    <select name="target" title="검색선택" style="height: 30px;">
+                        <option value="">선택</option>
+                        <option value="title">제목</option>
+                        <option value="contents">내용</option>
+                        <option value="nickname">작성자</option>
+                    </select>
+                    <input type="text" name="keyword" value="" placeholder="검색어를 입력해주세요" style="height: 30px;">
+                    <button >검색</button>
+                </form>
+            </div>
             <div style="flex: 1; background-color: #f5f5f5; color: #545861;font-weight: bold; border-bottom: 5px solid #e3e3e3;">
                     <div style="flex: 1;" class="center">번호</div>
                     <div style="flex: 5;" class="center">제목</div>
