@@ -138,14 +138,17 @@
             </div>
             <div style="flex: 0.7; justify-content: flex-end;">
                 <form action="/list.board" method="get" >
-                    <select name="target" title="검색선택" style="height: 30px;">
+                    <select name="target" title="검색선택" style="height: 30px;" id="targetSelect">
                         <option value="">선택</option>
                         <option value="title">제목</option>
                         <option value="contents">내용</option>
                         <option value="nickname">작성자</option>
                     </select>
-                    <input type="text" name="keyword" value="" placeholder="검색어를 입력해주세요" style="height: 30px;">
+                    <input type="text" name="keyword" value="${keyword}" placeholder="검색어를 입력해주세요" style="height: 30px;">
                     <button >검색</button>
+                    <script>
+                        document.getElementById('targetSelect').value = '${target}';
+                    </script>
                 </form>
             </div>
             <div style="flex: 1; background-color: #f5f5f5; color: #545861;font-weight: bold; border-bottom: 5px solid #e3e3e3;">
@@ -212,7 +215,7 @@
 		
 		for (let i = startNavi; i <= endNavi; i++) {
             let div=$("<div class='page-number center'>");
-                div.append("<a href='/list.board?cpage="+i+"'>"+ i +"</a>");
+                div.append("<a href='/list.board?cpage="+i+"&target=${target}&keyword=${keyword}'>"+ i +"</a>");
                 if(i==cpage){
                     div.css({
                         backgroundColor:"red"
