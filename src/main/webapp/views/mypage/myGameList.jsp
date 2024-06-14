@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core"
+pageEncoding="UTF-8"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core"
 prefix="c" %>
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8" />
     <title>게임 플레이 정보</title>
+    <link rel="stylesheet" href="/css/style.css" />
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
     <style>
@@ -37,7 +37,7 @@ prefix="c" %>
 
       * {
         box-sizing: border-box;
-        margin: 0;
+        /* margin: 0; */
         padding: 0;
       }
       div {
@@ -46,36 +46,30 @@ prefix="c" %>
 
       .mypage-container {
         display: flex;
-        height: 100vh;
+        /* height: 100vh; */
         width: 100%;
       }
 
       .mypage-side-menu {
         min-width: 200px;
         height: 100%;
-        /* background-color: rgb(150, 217, 6); */
-        background-color: #f8faff;
+        background-color: #f0f0f0;
+        margin-left: 50px;
+        margin-top: 200px;
+        border-radius: 10px;
       }
 
       .mypage-side-menu > p:hover {
         cursor: pointer;
+        background-color: #e0e0e0;
       }
 
       .mypage-side-menu > p {
-        padding: 20px;
+        margin-top: 15px;
+        padding: 10px;
         font-size: 20px;
         font-weight: 800;
         text-align: center;
-      }
-
-      .mypage-logo {
-        display: flex;
-        justify-content: center;
-        padding: 10px;
-      }
-
-      .mypage-logo > img {
-        width: 230px;
       }
 
       .mypage-myGame-form {
@@ -142,46 +136,46 @@ prefix="c" %>
     </style>
   </head>
   <body>
-    <main class="mypage-container">
-      <aside class="mypage-side-menu">
-        <div class="mypage-logo">
-          <img
-            src="/images/img09.png"
-            alt="logo"
-            onclick="location.href='/index.jsp'"
-            style="cursor: pointer"
-          />
-        </div>
-        <p onclick="location.href='/views/mypage/mypage.jsp'">내정보 홈</p>
-        <p onclick="location.href='/select.members'">개인정보관리</p>
-        <p onclick="location.href='/views/mypage/updatePW.jsp'">
-          비밀번호 변경
-        </p>
-        <p onclick="location.href='/myGameList.members'">게임플레이 정보</p>
-        <p onclick="location.href='/'">문의내역</p>
-        <p onclick="location.href='/'">회원탈퇴</p>
-        <p onclick="location.href='/logout.members'">로그아웃</p>
-      </aside>
+    <div style="display: flex; flex-direction: column">
+      <!-- nav -->
+      <div><%@ include file="/views/include/header.jsp" %></div>
+      <main class="mypage-container">
+        <aside class="mypage-side-menu">
+          <p onclick="location.href='/views/mypage/mypage.jsp'">내정보 홈</p>
+          <p onclick="location.href='/select.members'">개인정보관리</p>
+          <p onclick="location.href='/views/mypage/updatePW.jsp'">
+            비밀번호 변경
+          </p>
+          <p onclick="location.href='/myGameList.members'">게임플레이 정보</p>
+          <p onclick="location.href='/'">문의내역</p>
+          <p onclick="location.href='/'">회원탈퇴</p>
+          <p onclick="location.href='/logout.members'">로그아웃</p>
+        </aside>
 
-      <section class="mypage-myGame-form">
-        <h1 class="mypage-myGame-title">게임 플레이 정보</h1>
+        <section class="mypage-myGame-form">
+          <h1 class="mypage-myGame-title">게임 플레이 정보</h1>
 
-        <div class="mypage-myGameList">
-          <c:if test="${result == null}"> 플레이 한 게임이 없습니다. </c:if>
-          <c:if test="${result != null}">
-            <div>
-              <c:forEach var="i" items="${result}">
-                <div>
-                  <div class="title"><p>${i.title}</p></div>
-                  <div class="score">
-                    <p>최고점수 : <p class="score_txt">${i.score}</p>점</p>
+          <div class="mypage-myGameList">
+            <c:if test="${result == null}"> 플레이 한 게임이 없습니다. </c:if>
+            <c:if test="${result != null}">
+              <div>
+                <c:forEach var="i" items="${result}">
+                  <div>
+                    <div class="title"><p>${i.title}</p></div>
+                    <div class="score">
+                      <p>
+                        최고점수 :
+                        <p class="score_txt">${i.score}</p>
+                        점
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </c:forEach>
-            </div>
-          </c:if>
-        </div>
-      </section>
-    </main>
+                </c:forEach>
+              </div>
+            </c:if>
+          </div>
+        </section>
+      </main>
+    </div>
   </body>
 </html>
