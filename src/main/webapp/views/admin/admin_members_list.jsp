@@ -29,30 +29,48 @@
         <%@ include file="/views/include/admin_side.jsp" %>
         
         <section class="admin-main-form">
-        <h1 class="admin-main-title">Members List</h1>
-             <div class="admin-members-list">
-             	<c:if test="${membersList.size() > 0}">
-             		<table>
-             			<tr>
-             				<th>ID</th>
-             				<th>Name</th>
-             				<th>Nick Name</th>
-             			</tr>
-	             		<c:forEach var="members" items="${membersList}">
-	             			<tr>
-	             				<td><a href="/members_detail.admin?id=${members.id}">${members.id}</a></td>
-	             				<td>${members.name}</td>
-	             				<td>${members.nickname}</td>
-	             			</tr>
-	             		</c:forEach>
-             		</table>
-             	</c:if>
-             	<!-- 페이징 -->
-           		<script>
-           			pagenation(${cpage}, ${recode_total_count}, ${recode_count_per_page}, ${navi_count_per_page}, "/members_list.admin")
-           		</script>
-             </div>
-             <!-- 멤버 검색 -->
+	        <h1 class="admin-main-title">Members List</h1>
+			<div class="admin-members-list">
+				<c:if test="${membersList.size() > 0}">
+					<table>
+						<tr>
+							<th>ID</th>
+							<th>이름</th>
+							<th>닉네임</th>
+							<th>회원 등급</th>
+						</tr>
+			 			<c:forEach var="members" items="${membersList}">
+				 			<tr>
+				 				<td><a href="/members_detail.admin?id=${members.id}">${members.id}</a></td>
+				 				<td>${members.name}</td>
+				 				<td>${members.nickname}</td>
+				 				<c:choose>
+							   		<c:when test="${ members.grade eq 1 }">
+							   			<td>일반 회원</td>
+							   		</c:when>
+							   		<c:when test="${ members.grade eq 2 }">
+							   			<td>휴면 회원</td>
+							   		</c:when>
+							   		<c:when test="${ members.grade eq 3 }">
+							   			<td>블랙 회원</td>
+							   		</c:when>
+							   		<c:when test="${ members.grade eq 98 }">
+							   			<td>서브 관리자</td>
+							   		</c:when>
+							   		<c:when test="${members.grade eq 99 }">
+							   			<td>메인 관리자</td>
+							   		</c:when>
+							   	</c:choose>
+				 			</tr>
+			 			</c:forEach>
+					</table>
+				</c:if>
+			<script>
+				/** 페이징 네이게이터 **/
+				pagenation(${cpage}, ${recode_total_count}, ${recode_count_per_page}, ${navi_count_per_page}, "/members_list.admin")
+			</script>
+			</div>
+	          <!-- 멤버 검색 -->
         </section>
 
     </main>
