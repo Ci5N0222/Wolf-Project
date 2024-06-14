@@ -30,16 +30,37 @@
         
         <section class="admin-main-form">
         	<h1 class="admin-main-title">Game Info</h1>
-
-			<!-- 게임 썸네일로 바껴야 됨 -->
-   			<img src="/images/default-game.png" width="500" alt="게임 섬네일 이미지">
+        	<div class="admin-game-form">
         	
-	        ${game.title}
-	        ${game.contents}
-	        <button onclick="adminGameDelete(${game.seq})">삭제</button>
-	        <form action="/game_update.admin">
-	        </form>
-	        
+        		<c:choose>
+        			<c:when test="${game.thumbnail != null}">
+        			<div>
+        			</div>
+        				<!-- <img src="/${game.thumbnail}" width="500" alt="게임 섬네일 이미지"> -->
+        				<img src="/images/default-game.png" width="500" alt="게임 섬네일 이미지">
+        			</c:when>
+        			<c:otherwise>
+        				<img src="/images/default-game.png" width="500" alt="게임 섬네일 이미지">	
+        			</c:otherwise>
+        		</c:choose>
+   				
+   				<p>${game.title}</p>
+   				
+   				<div class="admin-game-discription">
+   					${game.contents}
+   				</div>
+	        	<div class="admin-game-btn">
+	        		<button onclick="adminGameEdit()">수정</button>
+			        <button onclick="adminGameDelete(${game.seq})">삭제</button>
+			        <button onclick="location.href='/game_list.admin'">목록</button>
+	        	</div>
+	        	<div class="admin-game-update-btn">
+	        		<button onclick="amdinGameUpdate()">확인</button>
+			        <button onclick="location.reload()">취소</button>
+	        	</div>
+		        
+        	</div>
+
         </section>
 
     </main>

@@ -123,60 +123,54 @@ body {
 		</form>
 	</div>
 
-	<script>
-		$("#togglePassword").on("click", function() {
-			console.log("aaa");
-			// #togglePassword 요소에 클릭 이벤트를 바인딩합니다.
+<script>
+    $(document).ready(function() {
+        $("#loginForm").submit(function(event) {
+            event.preventDefault(); // 기본 제출 동작 방지
 
-			let passwordField = $("#pw");
-			// 변수 passwordField에는 id가 "pw"인 요소(jQuery 객체)가 할당됩니다.
-
-			let type;
-			if (passwordField.attr("type") === "password") {
-				type = "text";
-			} else {
-				type = "password";
-			}
-			// passwordField의 type 속성이 "password"인지 확인합니다.
-			// 만약 "password"이면 변수 type에 "text"를 할당하고,
-			// 그렇지 않으면 "password"를 할당합니다.
-
-			passwordField.attr("type", type);
-			// passwordField의 type 속성을 변수 type의 값으로 설정합니다.
-			// 이로써 비밀번호 입력 필드의 텍스트 표시/숨기기가 토글됩니다.
-		});
-		
-		
-		$("#login").on("click", function() {
-			console.log("aaa");
-			let id = $("#id").val();
-			let password = $("#pw").val();
-			if (id == "") {
-				alert("아이디를 입력하세요!");
+            let id = $("#id").val();
+            let pw = $("#pw").val();
+			if(id == ""){
+				alert("ID를 입력해주세요.");
 				return false;
 			}
-			if (password == "") {
-				alert("비밀번호를 입력하세요!");
+			if(pw == ""){
+				alert("PassWord를 입력해주세요.");
 				return false;
 			}
-			$.ajax({
-			    url: "/checkLogin.members",
-			    method: "POST",
-			    data: { id: id, pw: password },
-			    dataType: "json"
-			})
-			.done(function(resp) {
-			    if (resp.success) {
-			        
-			        location.href = "/index.jsp"; 
-			    } else {
-			        alert("아이디 또는 비밀번호가 잘못되었습니다. 다시 확인해 주세요.");
-			    }
-			})
-			});
-		
-		
-		
-	</script>
+				
+
+			  $.ajax({
+		            url: "/login.members",
+		            type: "POST",
+		            data: { id: id, pw: pw },
+		            dataType: "json",
+		            success: function(response) {
+		                if (response.success) {
+		                    alert("로그인 성공!");
+		                    location.href = "/index.jsp"; // 로그인 성공 시 메인 페이지로 이동
+		                } else {
+		                    if (response.message) {
+		                        alert(response.message); // 등급이 3인 경우 메시지 출력
+		                        $("#id").val(""); // ID 입력 필드 초기화
+		                        $("#pw").val(""); // 비밀번호 입력 필드 초기화
+		                    } else {
+		                        alert("아이디 또는 비밀번호가 잘못되었습니다. 다시 확인해 주세요.");
+		                    }
+		                }
+		            },
+		            error: function() {
+		                alert("서버와의 통신에 실패하였습니다. 잠시 후 다시 시도해주세요.");
+		            }
+		        });
+		    });
+        $("#togglePassword").on("click", function() {
+            let passwordField = $("#pw");
+            let type = passwordField.attr("type") === "password" ? "text" : "password";
+            passwordField.attr("type", type);
+        });
+    });
+</script>
+
 </body>
 </html>
