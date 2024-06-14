@@ -152,7 +152,7 @@
             $('#changePasswordBtn').click(function() {
                 var newPassword = $('#newPassword').val();
                 var confirmPassword = $('#confirmNewPassword').val();
-                var email = $('#email').val();
+                var id = $('#id').val();
                 var CertificationCode = $('#CertificationCode').val(); // 인증 코드 가져오기
                 
                 if (newPassword !== confirmPassword) {
@@ -163,7 +163,7 @@
                 }
 
                 var formData = {
-                    email: email,
+                    id: id,
                     newPassword: newPassword,
                     CertificationCode: CertificationCode
                 };
