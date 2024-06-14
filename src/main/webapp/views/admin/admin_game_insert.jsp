@@ -31,12 +31,12 @@
         <section class="admin-main-form">
         	<h1 class="admin-main-title">Game Insert</h1>
 			<div class="admin-game-form">
-				<form action="/game_insert.admin" method="post" id="admin_game_insert">
+				<form action="/game_insert.admin" method="post" id="admin_game_insert" enctype="multipart/form-data">
 					<div class="preview">
 						<img id="imagePreview" src="" alt="이미지 미리보기" width="500" style="display: none;">
 					</div>
 					<div class="file-btn">
-						<input type="file" id="admin_game_thumbnail" accept="image/*">
+						<input type="file" id="admin_game_thumbnail" name="game_image" accept="image/*">
 						<button type="button" id="imagePreviewBtn" onclick="previewImageDelete()" style="display: none;">X</button>
 					</div>
 					
@@ -47,18 +47,19 @@
 					
 					<div class="admin-game-insert-discription">
 						<p>요약 설명</p>
-						<div id="game_discription" name="game_discription" contenteditable="true"></div>
+						<div id="div_game_discription" contenteditable="true"></div>
 					</div>
 					
 					<div class="admin-game-insert-contents">
 						<p>상세 설명</p>
-						<div id="game_contents" name="game_contents" contenteditable="true"></div>
+						<div id="div_game_contents" contenteditable="true"></div>
 					</div>
 					<div class="admin_game_insert_btn">
 						<button type="submit">작성</button>
 						<button type="button" onclick="location.href='/game_list.admin'">취소</button>
 					</div>
-					
+					<input type="text" id="game_discription" name="game_discription">
+					<input type="text" id="game_contents" name="game_contents">
 				</form>
 			</div>
 	        

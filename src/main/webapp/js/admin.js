@@ -20,8 +20,60 @@ $(() => {
                 $("#imagePreviewBtn").hide();
 			}
         });
-        
     }
+    
+    // Game Insert Validation
+    $("#admin_game_insert").on("submit", () => {
+		$("#game_discription").val($("#div_game_discription").html().trim);
+		$("#game_contents").val($("#div_game_contents").html().trim);
+		
+		if($("#admin_game_thumbnail").val() === ""){
+			alert("thumbnail 이미지 없음!");
+			return false;
+		}
+		
+		if($("#game_title").val() === ""){
+			alert("제목을 읿력하세요");
+			return false;
+		}
+		
+		if($("#game_discription").val() === ""){
+			alert("요약 내용을 입력하세요");
+			return false;
+		}
+		
+		if($("#game_contents").val() === ""){
+			alert("상세 내용을 입력하세요.");
+			return false;
+		}
+	});
+	
+	const gameInsertValidation = () => {
+		$("#game_discription").val($("#div_game_discription").html().trim);
+		$("#game_contents").val($("#div_game_contents").html().trim);
+		
+		if($("#admin_game_thumbnail").val() === ""){
+			alert("thumbnail 이미지 없음!");
+			return false;
+		}
+		
+		if($("#game_title").val() === ""){
+			alert("제목을 읿력하세요");
+			return false;
+		}
+		
+		if($("#game_discription").val() === ""){
+			alert("요약 내용을 입력하세요");
+			return false;
+		}
+		
+		if($("#game_contents").val() === ""){
+			alert("상세 내용을 입력하세요.");
+			return false;
+		}
+	}
+    
+    
 });
 
 
