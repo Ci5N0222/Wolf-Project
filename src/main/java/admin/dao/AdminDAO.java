@@ -52,7 +52,7 @@ public class AdminDAO {
 	 * @throws Exception
 	 */
 	public int adminLogin(String id, String pw) throws Exception {
-		String sql = "select id, pw from members where id = ? and grade = 99";
+		String sql = "select id, pw from members where id = ? and grade in (98, 99)";
 		
 		try(Connection con = DBConfig.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql)){
@@ -160,6 +160,26 @@ public class AdminDAO {
 				return new MembersDTO(id, null, name, nickname, phone, email, gender, birth, grade, null, join_date);
 					
 			}
+		}
+	}
+	
+	
+	/**
+	 * 멤버의 등급을 수정하는 메서드
+	 * @param id
+	 * @param grade
+	 * @return
+	 * @throws Exception
+	 */
+	public int memberGradeUpdate(String id, int grade) throws Exception {
+		String sql="update members set grade = ? where id = ?";
+		
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setInt(1, grade);
+			pstat.setString(2, id);
+			
+			return pstat.executeUpdate();
 		}
 	}
 	

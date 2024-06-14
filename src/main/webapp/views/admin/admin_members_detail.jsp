@@ -79,16 +79,24 @@
             		</c:when>
             	</c:choose>
             	
+           	    <select id="grade_select">
+			        <option value="1">일반회원</option>
+			        <option value="2">휴면계정</option>
+			        <option value="3">블랙리스트</option>
+			        <option value="98">서브관리자</option>
+			        <option value="99">메인관리자</option>
+			    </select>
+            	
             	<label for="join_date">가입일</label>            	
             	<span class="member-info-date"><fmt:formatDate value="${ member.join_date }" pattern="yyyy-MM-dd" /></span>
 
 				<div class="btn-box1">
-					<button type="button" onclick="adminMemberEdit()">정보 수정하기</button>
-	            	<button type="button" onclick="location.href='/members_list.admin'">목록보기</button>
+					<button onclick="adminMemberEdit(${member.grade})">등급 수정</button>
+	            	<button onclick="location.href='/members_list.admin'">목록보기</button>
 				</div>
 				<div class="btn-box2">
-					<button type="submit">확인</button>
-	            	<button type="button" onclick="location.reload()">취소</button>
+					<button onclick="adminMemberUpdate('${member.id}')">확인</button>
+	            	<button onclick="location.reload()">취소</button>
 				</div>
              	
              </div>
