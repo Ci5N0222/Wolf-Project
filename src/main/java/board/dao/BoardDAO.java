@@ -75,7 +75,7 @@ private static BoardDAO instance;
 		return boardList;
 		
 	}
-	public Object[] select(int recordCountPerPage,int cpage,int board_code){
+	public Object[] selectAll(int recordCountPerPage,int cpage,int board_code){
 		String sql="SELECT a.*,m.nickname FROM (SELECT  board.*, ROW_NUMBER() OVER (ORDER BY seq DESC) AS rown FROM board)a join members m on m.id=a.member_id WHERE rown between ? and ? and board_code=?";
 		List<BoardDTO> list=new ArrayList<>();
 		Object [] boardList=new Object[2];
@@ -113,6 +113,97 @@ private static BoardDAO instance;
 		
 		return boardList;
 	}
+	
+	public Object[] selectType(int recordCountPerPage,int cpage,int board_code,String target,String keyword){
+		List<BoardDTO> list=new ArrayList<>();
+	
+		Object [] boardList=new Object[2];
+		ArrayList<String> nickname=new ArrayList<>();
+		
+		if(target.equals("title")) {
+			String sql="	SELECT * FROM (SELECT c.*, ROW_NUMBER() OVER (ORDER BY seq DESC) AS rown FROM (SELECT * FROM (select b.*,m.nickname from board b join members m on b.member_id =m.id where b.title like ?))c)a WHERE rown between ? and ? and a.board_code=?";
+			try (Connection con=DBConfig.getConnection();
+					PreparedStatement pstat=con.prepareStatement(sql);){
+				pstat.setString(1, "%" + keyword + "%");
+				pstat.setInt(2, cpage*recordCountPerPage - (recordCountPerPage-1));
+				pstat.setInt(3, cpage*recordCountPerPage);
+				pstat.setInt(4, board_code);
+		
+				try(ResultSet rs=pstat.executeQuery()) {
+					for (int i = 0; i < recordCountPerPage; i++) {
+						rs.next();
+						int seq=rs.getInt(1);
+						String title=rs.getString(2);
+						String contents=rs.getString(3);
+						int count =rs.getInt(4);
+						String member_id=rs.getString(5);
+						Timestamp write_date=rs.getTimestamp(7);
+						nickname.add(rs.getString(8));
+						BoardDTO dto=new BoardDTO(seq,title,contents,count,member_id,board_code,write_date);
+						list.add(dto);
+					}
+				} catch (Exception e) {}
+			} catch (Exception e) {}
+		} else if(target.equals("contents")) {
+			String sql="SELECT * FROM (SELECT c.*, ROW_NUMBER() OVER (ORDER BY seq DESC) AS rown FROM (SELECT * FROM (select b.*,m.nickname from board b join members m on b.member_id =m.id where b.contents like ?))c)a WHERE rown between ? and ? and a.board_code=?";
+			try (Connection con=DBConfig.getConnection();
+					PreparedStatement pstat=con.prepareStatement(sql);){
+				pstat.setString(1, "%" + keyword + "%");
+				pstat.setInt(2, cpage*recordCountPerPage - (recordCountPerPage-1));
+				pstat.setInt(3, cpage*recordCountPerPage);
+				pstat.setInt(4, board_code);
+			
+				try(ResultSet rs=pstat.executeQuery()) {
+					for (int i = 0; i < recordCountPerPage; i++) {
+						rs.next();
+						int seq=rs.getInt(1);
+						String title=rs.getString(2);
+						String contents=rs.getString(3);
+						int count =rs.getInt(4);
+						String member_id=rs.getString(5);
+						Timestamp write_date=rs.getTimestamp(7);
+						nickname.add(rs.getString(8));
+						BoardDTO dto=new BoardDTO(seq,title,contents,count,member_id,board_code,write_date);
+						list.add(dto);
+					}
+				} catch (Exception e) {}
+			} catch (Exception e) {}
+			
+		} else if(target.equals("nickname")) {
+			String sql="SELECT * FROM (SELECT c.*, ROW_NUMBER() OVER (ORDER BY seq DESC) AS rown FROM (SELECT * FROM (select b.*,m.nickname from board b join members m on b.member_id =m.id where m.nickname=?))c)a WHERE rown between ? and ? and a.board_code=?";
+			try (Connection con=DBConfig.getConnection();
+					PreparedStatement pstat=con.prepareStatement(sql);){
+				pstat.setString(1, keyword);
+				pstat.setInt(2, cpage*recordCountPerPage - (recordCountPerPage-1));
+				pstat.setInt(3, cpage*recordCountPerPage);
+				pstat.setInt(4, board_code);
+			
+				try(ResultSet rs=pstat.executeQuery()) {
+					for (int i = 0; i < recordCountPerPage; i++) {
+						rs.next();
+						int seq=rs.getInt(1);
+						String title=rs.getString(2);
+						String contents=rs.getString(3);
+						int count =rs.getInt(4);
+						String member_id=rs.getString(5);
+						Timestamp write_date=rs.getTimestamp(7);
+						nickname.add(rs.getString(8));
+						BoardDTO dto=new BoardDTO(seq,title,contents,count,member_id,board_code,write_date);
+						list.add(dto);
+					}
+				} catch (Exception e) {}
+			} catch (Exception e) {}
+			
+		}
+		
+		
+		boardList[0]= list;
+		boardList[1]= nickname;
+
+		return boardList;
+	}
+	
+	
 	public Object[] selectBoard(int seq,int board_code){
 		BoardDTO dto= new BoardDTO();
 		String sql="select b.*, m.nickname from board b join members m on m.id =b.member_id where b.seq=?";
@@ -179,17 +270,73 @@ private static BoardDAO instance;
 		
 	}
 	
-	public int getRecordCount() {
+	public int getRecordCount(String type,String keyword) {
 		int recordTotalCount=0;
-		String sql="select count(*) from board";
-		try (Connection con=DBConfig.getConnection();
-				PreparedStatement pstat=con.prepareStatement(sql);
-				ResultSet rs=pstat.executeQuery()){
-			rs.next();
-			recordTotalCount=rs.getInt(1);	
-		} catch (Exception e) {
-			// TODO: handle exception
+		if(type.equals("")) {
+			String sql="select count(*) from board";
+			try (Connection con=DBConfig.getConnection();
+					PreparedStatement pstat=con.prepareStatement(sql);
+					ResultSet rs=pstat.executeQuery()){
+				rs.next();
+				recordTotalCount=rs.getInt(1);	
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 		}
+		else if(type.equals("title")) {
+			String sql="select count(*) from board where title like ?";
+			try (Connection con=DBConfig.getConnection();
+					PreparedStatement pstat=con.prepareStatement(sql);){
+				pstat.setString(1, "%" + keyword + "%");
+				try (ResultSet rs=pstat.executeQuery()){
+					rs.next();
+					recordTotalCount=rs.getInt(1);	
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+		} else if(type.equals("contents")) {
+			String sql="select count(*) from board where contents like ?";
+			try (Connection con=DBConfig.getConnection();
+					PreparedStatement pstat=con.prepareStatement(sql);){
+				pstat.setString(1, "%" + keyword + "%");
+				try (ResultSet rs=pstat.executeQuery()){
+					rs.next();
+					recordTotalCount=rs.getInt(1);	
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+		} else if(type.equals("nickname")) {
+			String sql="select count(*) from board b join members m on b.member_id =m.id where m.nickname=?";
+			try (Connection con=DBConfig.getConnection();
+					PreparedStatement pstat=con.prepareStatement(sql);){
+				pstat.setString(1, keyword);
+				try (ResultSet rs=pstat.executeQuery()){
+					rs.next();
+					recordTotalCount=rs.getInt(1);	
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+		}
+		
+		
 		
 		return recordTotalCount;
 	}

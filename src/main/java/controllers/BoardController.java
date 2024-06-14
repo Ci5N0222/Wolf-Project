@@ -47,19 +47,33 @@ public class BoardController extends HttpServlet {
 					System.out.println("로그인을 해주세요");
 					response.sendRedirect("/index.jsp");
 				}
-				
-				
+				String target=request.getParameter("target");
+				String keyword=request.getParameter("keyword");
+				Object boardList[]=new Object[2];
 				String pcpage=request.getParameter("cpage");
 				if(pcpage==null) pcpage="1";
 				int cpage=Integer.parseInt(pcpage);
-				Object boardList[] = boardDAO.select( PageConfig.recordCountPerPage, cpage,PageConfig.board);
+		
+				if(target==null||keyword.equals("")||target.equals("")) {
+					boardList = boardDAO.selectAll( PageConfig.recordCountPerPage, cpage,PageConfig.board);
+					request.setAttribute("record_total_count", boardDAO.getRecordCount("",""));
+					
+				}
+				else {
+					boardList = boardDAO.selectType( PageConfig.recordCountPerPage, cpage,PageConfig.board,target,keyword);
+					System.out.println(	((List<BoardDTO>)boardList[0]).size());
+					request.setAttribute("record_total_count", boardDAO.getRecordCount(target,keyword));
+				}
+			
 				
+				request.setAttribute("target",target);
+				request.setAttribute("keyword",keyword);
 				request.setAttribute("list", boardList[0]);
 				request.setAttribute("board_nickname_list", boardList[1]);//boardList[1]
 				request.setAttribute("cpage", cpage);
 				request.setAttribute("record_count_per_page", PageConfig.recordCountPerPage);
 				request.setAttribute("navi_count_per_page", PageConfig.naviCountPerPage);
-				request.setAttribute("record_total_count", boardDAO.getRecordCount());
+				
 				
 				request.getRequestDispatcher("/views/board/board_view.jsp").forward(request, response);
 				
@@ -164,7 +178,37 @@ public class BoardController extends HttpServlet {
 				
 				response.sendRedirect("/detail.board?seq="+seq);
 				
-			} else if(cmd.equals("/2.board")) {
+			} else if(cmd.equals("/serch.board")) {
+				
+				
+				Object boardList[]=new Object[2];
+				String traget=request.getParameter("target");
+				String keyword=request.getParameter("keyword");
+
+				String pcpage=request.getParameter("cpage");
+				if(pcpage==null) pcpage="1";
+				int cpage=Integer.parseInt(pcpage);
+				
+				if(keyword.equals("")||traget.equals("")) {
+					boardList = boardDAO.selectAll( PageConfig.recordCountPerPage, cpage,PageConfig.board);
+					request.setAttribute("record_total_count", boardDAO.getRecordCount("",""));
+				}
+				else {
+					boardList = boardDAO.selectType( PageConfig.recordCountPerPage, cpage,PageConfig.board,traget,keyword);
+					System.out.println(	((List<BoardDTO>)boardList[0]).size());
+					request.setAttribute("record_total_count", boardDAO.getRecordCount(traget,keyword));
+				}
+				
+				
+				request.setAttribute("list", boardList[0]);
+				request.setAttribute("board_nickname_list", boardList[1]);//boardList[1]
+				request.setAttribute("cpage", cpage);
+				request.setAttribute("record_count_per_page", PageConfig.recordCountPerPage);
+				request.setAttribute("navi_count_per_page", PageConfig.naviCountPerPage);
+				request.getRequestDispatcher("/views/board/board_view.jsp").forward(request, response);
+				
+				
+				
 				
 			}
 			
