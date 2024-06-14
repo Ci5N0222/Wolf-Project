@@ -70,24 +70,31 @@ public class MembersDAO {
 			pstat.setString(2, pw);
 			try (ResultSet rs = pstat.executeQuery()) {
 				if (rs.next()) {
+				
+					
 					String[] result = new String[3];
 					result[0] = rs.getString(1);
 					result[1] = rs.getString(4);
 					result[2] = rs.getString(10);
 					return result;
 				} else {
-					return new String[0];
+					return null;
 				}
 
 			}
 		}
-	}    public boolean checklogin(String id, String pw) throws Exception {
-        String sql = "select * from members where id = ? and pw = ?";
-        try (Connection con=DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+	} public boolean checkLogin(String id, String pw) throws Exception {
+        String sql = "SELECT grade FROM members WHERE id = ? AND pw = ?";
+        try (Connection con = DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
             pstat.setString(1, id);
             pstat.setString(2, pw);
             try (ResultSet rs = pstat.executeQuery()) {
-                return rs.next();
+                if (rs.next()) {
+                    int grade = rs.getInt("grade");
+                    return grade != 3; // Grade가 3이 아닌 경우 true 반환
+                } else {
+                    return false; // 아이디와 비밀번호가 일치하지 않는 경우
+                }
             }
         }
     }
@@ -112,6 +119,23 @@ public class MembersDAO {
                 }
             }
         }
+    }
+    
+    public int selectGrade(String id) throws Exception {
+        String sql = "SELECT grade FROM members WHERE id = ?";
+        
+        try (Connection con = DBConfig.getConnection(); 
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+            
+            pstmt.setString(1, id);
+            
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("grade");
+                }
+            }
+        }
+        return 0; 
     }
     public boolean checkPassword(String email, String pw) throws Exception {
     	String sql = "select * from members where email = ? and pw = ?";
@@ -143,7 +167,7 @@ public class MembersDAO {
 		return false;
         	
         }
-           
+     
  
 	
 	
