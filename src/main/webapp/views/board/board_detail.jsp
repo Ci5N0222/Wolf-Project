@@ -232,11 +232,17 @@
                                         <fmt:formatDate value="${reply_child_dto.write_date}" pattern="yyyy.MM.dd HH:mm" />
                                     </div>
                                 </div>
-                                <div style="justify-content: flex-end;">
-                                    <button style="width: 50px; height: 30px;">수정</button>
+                            <c:if test="${WolfID==reply_child_dto.member_id}">
+                                <div style="justify-content: flex-end;" class="reply_child_div1">
+                                    <button style="width: 50px; height: 30px;" onclick="reply_child_update(this)">수정</button>
                                     <button style="width: 50px; height: 30px;" onclick="reply_child_delete(this)">삭제</button>
                                     <input type="hidden" value="${reply_child_dto.seq}" class="reply_child_seq">
                                 </div>
+                                <div style="justify-content: flex-end; display: none;" class="reply_child_div2">
+                                    <button style="width: 50px; height: 30px;" onclick="reply_child_confirm(this)">확인</button>
+                                    <button style="width: 50px; height: 30px;" onclick="reply_child_cancel(this)">취소</button>       
+                                </div>
+                            </c:if>
                             </div>
                         </c:if>
                     </c:forEach> 
@@ -250,10 +256,14 @@
                             <div style="flex: 1;" class="reply_child_list_write_date">
                             </div>
                         </div>
-                        <div style="justify-content: flex-end;">
+                        <div style="justify-content: flex-end;" class="reply_child_div1">
                             <button style="width: 50px; height: 30px;" onclick="reply_child_update(this)">수정</button>
                             <button style="width: 50px; height: 30px;" onclick="reply_child_delete(this)">삭제</button>
                             <input type="hidden" class="reply_child_seq">
+                        </div>
+                        <div style="justify-content: flex-end; display: none;" class="reply_child_div2">
+                            <button style="width: 50px; height: 30px;" onclick="reply_child_confirm(this)">확인</button>
+                            <button style="width: 50px; height: 30px;" onclick="reply_child_cancel(this)">취소</button>       
                         </div>
                     </div>
                     <!---->
@@ -276,7 +286,7 @@
                     </div>
             </div>
         </c:forEach>
-
+       
 
    
 
@@ -354,29 +364,72 @@
 
             function reply_child_update(e){
                 let parent=$(e).parent().parent();
+                let contents=parent.find(".reply_child_list_contents");
+                let div1=parent.find(".reply_child_div1");
+                let div2=parent.find(".reply_child_div2");
+
+                contents.attr("contenteditable",true);
+                div1.css("display","none");
+                div2.css("display","flex");
+                
+            }
+
+            function reply_child_confirm(e){
+                let parent=$(e).parent().parent();
                 let seq= parent.find(".reply_child_seq").val();
+                let contents=parent.find(".reply_child_list_contents");
+                let div1=parent.find(".reply_child_div1");
+                let div2=parent.find(".reply_child_div2");
                 $.ajax({
                     url:"/update.reply_child",
                     type:"post",
                     data:{
+                        seq:seq,
+                        contents:contents.html().trim()
+                    }
+                }).done(function(resp){
+                    if(resp){
+                        contents.attr("contenteditable",false);
+                        div1.css("display","flex");
+                        div2.css("display","none");
+                    }
+                })
+            }
+
+            function reply_child_cancel(e){
+                let parent=$(e).parent().parent();
+                let seq= parent.find(".reply_child_seq").val();
+                let contents=parent.find(".reply_child_list_contents");
+                let div1=parent.find(".reply_child_div1");
+                let div2=parent.find(".reply_child_div2");
+
+                contents.attr("contenteditable",false);
+                div1.css("display","flex");
+                div2.css("display","none");
+
+                $.ajax({
+                    url:"/cancel.reply_child",
+                    type:"post",
+                    data:{
                         seq:seq
                     }
-                }).done(function(){
-                    parent.remove();
+                }).done(function(resp){
+                    contents.html(resp);
                 })
+        
             }
 
 
 
             function reply_child_delete(e){
                 let parent= $(e).parent().parent();
-               let seq= parent.find(".reply_child_seq").val();
-               console.log(seq);
-               $.ajax({
+                let seq= parent.find(".reply_child_seq").val();
+                console.log(seq);
+                $.ajax({
                     url:"/delete.reply_child?seq="+seq
-               }).done(function(){
+                }).done(function(){
                     parent.remove();
-               })
+                })
             }
         </script>
     </div>

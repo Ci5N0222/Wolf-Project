@@ -182,9 +182,16 @@ public class AdminController extends HttpServlet {
 			else if(cmd.equals("/game_insert.admin")) {
 				if(!adminSession) response.sendRedirect("/page_login.admin");
 				else {
-					// 멀티파트로 썸네일 이미지 받아야 됨
-					String title = request.getParameter("title");
-					String contents = request.getParameter("contents");
+					// 멀티파트로 썸네일 이미지 처리해야됨
+					String image = request.getParameter("game_image");
+					
+					String title = request.getParameter("game_title");
+					String discription = request.getParameter("game_discription");
+					String contents = request.getParameter("game_contents");
+					
+					System.out.println("title ==== "+ title);
+					System.out.println("discription ==== "+ discription);
+					System.out.println("contents ==== "+ contents);
 					
 				}
 			}
