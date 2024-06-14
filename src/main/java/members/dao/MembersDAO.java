@@ -98,11 +98,11 @@ public class MembersDAO {
             }
         }
     }
-	public int updatePassword(String email, String newPassword) throws Exception {
-        String sql = "UPDATE members SET pw = ? WHERE email = ? ";
+	public int updatePassword(String id, String newPassword) throws Exception {
+        String sql = "UPDATE members SET pw = ? WHERE id = ? ";
         try (Connection con=DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
             pstat.setString(1, newPassword);
-            pstat.setString(2, email);
+            pstat.setString(2, id);
             return pstat.executeUpdate();
         }
     }

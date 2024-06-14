@@ -53,9 +53,9 @@ create table game(
     title varchar(50) not null,
     contents varchar(4000) not null,
     thumbnail varchar(500) not null,
-    service_code number not null
-    thumbnail varchar(500) not null
-
+    service_code number not null,
+    discription varchar(1000) not null
+	
 );
 
 
@@ -187,11 +187,11 @@ INSERT INTO reply_child VALUES(14, 'user014', '열네 번째 댓글의 답글입
 INSERT INTO reply_child VALUES(15, 'user015', '열다섯 번째 댓글의 답글입니다.', 8,sysdate);
 
 -- game table dummy data
-INSERT INTO game VALUES(game_seq.nextval, '게임1', '게임1에 대한 내용입니다.', 'thumbnail1.jpg', 1);
-INSERT INTO game VALUES(game_seq.nextval, '게임2', '게임2에 대한 내용입니다.', 'thumbnail2.jpg', 1);
-INSERT INTO game VALUES(game_seq.nextval, '게임3', '게임3에 대한 내용입니다.', 'thumbnail3.jpg', 1);
-INSERT INTO game VALUES(game_seq.nextval, '게임4', '게임4에 대한 내용입니다.', 'thumbnail4.jpg', 0);
-INSERT INTO game VALUES(game_seq.nextval, '게임5', '게임5에 대한 내용입니다.', 'thumbnail5.jpg', 1);
+INSERT INTO game VALUES(game_seq.nextval, '게임1', '게임1에 대한 내용입니다.', 'thumbnail1.jpg', 1,'게임1요약');
+INSERT INTO game VALUES(game_seq.nextval, '게임2', '게임2에 대한 내용입니다.', 'thumbnail2.jpg', 1,'게임2요약');
+INSERT INTO game VALUES(game_seq.nextval, '게임3', '게임3에 대한 내용입니다.', 'thumbnail3.jpg', 1,'게임3요약');
+INSERT INTO game VALUES(game_seq.nextval, '게임4', '게임4에 대한 내용입니다.', 'thumbnail4.jpg', 0,'게임4요약');
+INSERT INTO game VALUES(game_seq.nextval, '게임5', '게임5에 대한 내용입니다.', 'thumbnail5.jpg', 1,'게임5요약');
 
 -- game_score table dummy data
 INSERT INTO game_score VALUES(95, 'user001', 1);

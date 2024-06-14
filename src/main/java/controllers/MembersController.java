@@ -72,7 +72,7 @@ public class MembersController extends HttpServlet {
 			        int grade = dao.selectGrade(id);
 			        if (grade == 3) {
 			            // 등급이 3일 경우
-			        	response.getWriter().write("{\"success\": false, \"message\": \"등급이 3인 회원은 로그인할 수 없습니다.\"}");
+			        	response.getWriter().write("{\"success\": false, \"message\": \"블랙리스트 회원은 로그인을 하실 수 없습니다.\"}");
 			        } else {
 			            // 로그인 성공 시 세션에 정보 설정
 			            session.setAttribute("WolfID", result[0]);
@@ -228,7 +228,7 @@ public class MembersController extends HttpServlet {
                 }
                 /* 인증번호가 맞을 시 비밀번호 변경 */
             } else if (cmd.equals("/changePassword.members")) {
-                String email = request.getParameter("email"); // 이메일 받아오기
+                String id = request.getParameter("id"); // 이메일 받아오기
                 String newPassword = EncryptionUitls.getSHA512(request.getParameter("newPassword")); // 새 비밀번호 받아오기
                 String userEnteredCode = request.getParameter("CertificationCode"); // 인증 코드 받아오기
 
@@ -237,7 +237,7 @@ public class MembersController extends HttpServlet {
                 if (CertificationCode != null && CertificationCode.equals(userEnteredCode)) { // 인증 코드 확인
                     int result = 0;
                     try {
-                        result = dao.updatePassword(email, newPassword); // 비밀번호 업데이트
+                        result = dao.updatePassword(id, newPassword); // 비밀번호 업데이트
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
