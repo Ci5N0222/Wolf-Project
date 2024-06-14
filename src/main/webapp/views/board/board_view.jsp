@@ -23,6 +23,31 @@
 <!-- Project local -->
 
 <style>
+    :root {
+    --bg-light: #ffd449;
+    --bg-dark: #14213D;
+    --bg-transparent: transparent;
+
+    --color-white: #eeeeee;
+    --color-black: #14213D;
+    --bg-nav: #f9a620;
+    --color-nav-icon: #14213D;
+    --color-nav-bg: #f9a620;
+    font-size: 16px;
+}
+html,
+body {
+    height: 100%;
+    margin: 0;
+    background-color: var(--bg-dark);
+    color: var(--bg-black);
+    color: var(--color-black);
+    overflow: hidden;
+    /* 폰트 */
+    font-family: "Noto Sans KR", sans-serif;
+    font-family: "Luckiest Guy", cursive;
+}
+
       /* 메뉴 */
       .navi {
         transition: background-color 0.5s ease, box-shadow 0.5s ease;
@@ -33,7 +58,6 @@
         display: flex;
         align-items: center;
         background-color:#f9a620;
-        padding: 0 3%;
         font-size: 20px;
         color: white;
         text-shadow: 1px 1px 1px gray;
@@ -58,12 +82,15 @@
       
         display: flex;
     }
-    .container{
+    body{
+        background-image: url('/images/board_body_background.jpg');
+    } 
+    .container1{
         width: 850px;
         height: 850px;
         margin: auto;
         flex-direction: column;
-        background-image: url('/images/board_background.png');
+        background-color: white ;
         
     } 
     .title{
@@ -147,11 +174,12 @@
 </style>
 </head>
 <body>
-    <div class="container">
-        <div style="flex: 1; " class="container">
-            <div class="row g-4 my-0 navi">
+    
+    <div class="container1">
+        <div style="flex: 1; ">
+            <div class="navi" style="width: 850px !important;">
                 <div class="col-4 d-flex justify-content-start">
-                    <div class="d-flex flex-row" style="justify-content: center; align-items: center; display: flex;">
+                    <div class="d-flex" style="justify-content: center; align-items: center; display: flex; width: 650px !important;">
                         <div class="me-3 naviBtn" onclick="location.href='/list.game'">Game</div>
                         <div class="me-3 naviBtn" onclick="location.href='/list.board'">Board</div>
                         <div class="naviBtn">About</div>
