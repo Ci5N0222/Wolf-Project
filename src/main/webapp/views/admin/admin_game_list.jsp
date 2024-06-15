@@ -49,7 +49,7 @@
 	             			</tr>
 	             		</c:forEach>
              		</table>
-             		<!-- 페이징 -->
+             		<div class="page-navigation"></div>
              		<script>
              			pagenation(${cpage}, ${recode_total_count}, ${recode_count_per_page}, ${navi_count_per_page}, "/game_list.admin");
              		</script>

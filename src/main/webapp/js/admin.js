@@ -191,23 +191,23 @@ const pagenation = (cpage, recordTotalCount, recordCountPerPage, naviCountPerPag
 	if(endNavi == pageTotalCount) needNext = false;
 	
 	if(needPrev){
-		let prev = `<a href='${url}?cpage=" + (startNavi - 1) + "'>" + "< </a>`;
-		$('#navi').append(prev);
+		let prev = `<a href='${url}?cpage=${(startNavi - 1)}'> < </a>`;
+		$('.page-navigation').append(prev);
 	}
 	
 	for(let i = startNavi; i <= endNavi; i++){
 		if(cpage === i){
-			let items = `<a href='${url}?cpage=" + i + "'>" + i + "</a> `;
-    		$('#navi').append(items);
+			let items = `<a href='${url}?cpage=${i}'> ${i} </a>`;
+    		$('.page-navigation').append(items);
 		} else {
-			let items = `<a href='${url}?cpage=" + i + "'>" + i + "</a> `;
-    		$('#navi').append(items);	
+			let items = `<a href='${url}?cpage=${i}'> ${i} </a>`;
+    		$('.page-navigation').append(items);	
 		}
 	}
 	
 	if(needNext) {
-		let next = `<a href='${url}?cpage=" + (endNavi + 1) + "'>></a>`;
-		$('#navi').append(next);
+		let next = `<a href='${url}?cpage=${(endNavi + 1)}'> > </a>`;
+		$('.page-navigation').append(next);
 	}
 	
 }

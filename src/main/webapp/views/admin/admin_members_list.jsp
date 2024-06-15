@@ -64,11 +64,12 @@
 				 			</tr>
 			 			</c:forEach>
 					</table>
+					<div class="page-navigation"></div>
+					<script>
+						/** 페이징 네이게이터 **/
+						pagenation(${cpage}, ${recode_total_count}, ${recode_count_per_page}, ${navi_count_per_page}, "/members_list.admin");
+					</script>
 				</c:if>
-			<script>
-				/** 페이징 네이게이터 **/
-				pagenation(${cpage}, ${recode_total_count}, ${recode_count_per_page}, ${navi_count_per_page}, "/members_list.admin")
-			</script>
 			</div>
 	          <!-- 멤버 검색 -->
         </section>
