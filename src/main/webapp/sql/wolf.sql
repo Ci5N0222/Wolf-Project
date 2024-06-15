@@ -58,7 +58,6 @@ create table game(
 	
 );
 
-
 create table game_score(
     score number default 0,
     member_id varchar(20) not null,
