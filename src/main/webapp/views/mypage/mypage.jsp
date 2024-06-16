@@ -435,7 +435,7 @@ body.light {
                     </div>
                   </div>
                   <div>
-                    <button class="mypage_btn" onclick="location.href='/select.members'">내 정보</button>
+                    <button class="mypage_btn" onclick="location.href='/selectMember.mypage'">내 정보</button>
                   </div>
                 </div>
               </div>

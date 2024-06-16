@@ -98,7 +98,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     </style>
   </head>
   <body>
-    <form action="/update.members" method="post" enctype="multipart/form-data">
+    <form action="/update.mypage" method="post" enctype="multipart/form-data">
       <div class="wrap">
         <div class="container">
           <div class="header">Member Details</div>
@@ -326,7 +326,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
       // 취소 버튼 눌렀을 시
       $("#cancel").on("click", function () {
-        location.href = "/select.members";
+        location.href = "/selectMember.mypage";
       });
 
       // enter 입력하지 못하게. 여기에 유효성검사해도됨
