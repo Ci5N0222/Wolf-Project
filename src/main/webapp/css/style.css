@@ -85,7 +85,7 @@
     }
     .navi i {font-size: 22px;}
     .navi > div {margin-top: 0;}
-    .navi > div:nth-child(2) #wolfLogo{width: 100px;height: 100px;}
+    .navi > div:nth-child(2) #wolfLogo{width: 80%;height: 80%; }
     /* 로고 */
     .navi #wolfLogo > img {object-fit: cover; width: 100%;height: 100%;}
     /* 메뉴 버튼 */

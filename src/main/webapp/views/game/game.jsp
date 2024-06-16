@@ -24,7 +24,7 @@
 	crossorigin="anonymous"></script>
 
 <!-- Project local -->
-<link rel="stylesheet" href="/css/gameDetail.css">
+<link rel="stylesheet" href="/css/score.css">
 </head>
 <body>
 	<!-- container -->
@@ -44,21 +44,34 @@
 			<%@ include file="/views/include/header.jsp"%>
 
 			<!-- main -->
-			<main class="main container flex-grow-1">
-				<div class="datail">
-					<div>
+			<main class="main">
+				<div>
+					<div class="game">게임 화면</div>
+					<div class="ranking">
+						<div>ranking</div>
 						<div>
-							<img src="${dto.thumbnail}">
-						</div>
-						<form action='/gameview.game' method='post'>
 							<div>
-								<input type='hidden' name='seq' value="${dto.seq}" />
-								<button class="btn btn-outline-warning">게임 시작</button>
+								<div>
+									<img src="/images/wolf-1.gif">
+								</div>
+								<div>${list[0].member_id}</div>
+								<div>${list[0].score}</div>
 							</div>
-						</form>
-					</div>
-					<div>
-						<div>${dto.contents}</div>
+							<div>
+								<div>
+									<img src="/images/wolf-2.gif">
+								</div>
+								<div>${list[1].member_id}</div>
+								<div>${list[1].score}</div>
+							</div>
+							<div>
+								<div>
+									<img src="/images/wolfLogo.png">
+								</div>
+								<div>${list[2].member_id}</div>
+								<div>${list[2].score}</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</main>
@@ -70,6 +83,7 @@
 				class="fa-solid fa-lightbulb"></i>
 		</div>
 	</div>
+	</form>
 	<script src="/js/main.js"></script>
 </body>
 </html>

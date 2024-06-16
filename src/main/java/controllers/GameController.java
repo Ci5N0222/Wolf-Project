@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.Console;
 import java.io.IOException;
 import java.util.List;
 
@@ -12,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import game.dao.GameDAO;
+import game.dao.ScoreDAO;
 import game.dto.GameDTO;
+import game.dto.ScoreDTO;
 
 
 @WebServlet("*.game")
@@ -20,6 +23,7 @@ public class GameController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		GameDAO dao = GameDAO.getInstance();
+		ScoreDAO scoreDAO = ScoreDAO.getInstance();
 		Gson g = new Gson();
 		
 		String cmd= request.getRequestURI();
@@ -33,12 +37,20 @@ public class GameController extends HttpServlet {
 				request.getRequestDispatcher("/views/game/gameList.jsp").forward(request, response);
 				
 			}else if(cmd.equals("/detail.game")) {
+				
 			    int seq = Integer.parseInt(request.getParameter("seq"));
-			    System.out.println(request.getParameter("seq"));
 			    GameDTO dto= dao.getDetail(seq);
 			    request.setAttribute("dto", dto);
 			    request.getRequestDispatcher("/views/game/gameDetail.jsp").forward(request, response);
-			}else if(cmd.equals("/score.game")) {
+			    
+			}else if(cmd.equals("/gameview.game")) {
+				String game_seq= request.getParameter("seq");
+				System.out.println(game_seq + ": test!!!");
+				
+				List <ScoreDTO> list= scoreDAO.gameList(Integer.parseInt(game_seq));
+				request.setAttribute("list", list);
+				request.getRequestDispatcher("/views/game/game.jsp").forward(request, response);
+				
 				
 			}
 		} catch (Exception e) {
