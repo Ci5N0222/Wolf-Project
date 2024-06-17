@@ -258,9 +258,11 @@ public class MembersController extends HttpServlet {
                 String name = request.getParameter("name");
                 String email = request.getParameter("email");
                 String userId = dao.selectID(name, email);
-                
-                response.getWriter().write(userId != null ? userId : "아이디가 존재하지 않습니다.");
-
+                if(userId != null) {
+                	response.getWriter().write("회원님의 아이디는 : " + userId);
+                }else if(userId == null) {
+                response.getWriter().write("존재하는 아이디가 없습니다.");
+                }
                 
             }
 			

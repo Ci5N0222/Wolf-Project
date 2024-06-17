@@ -448,10 +448,10 @@ button:hover {
 						<div class="login-buttons">
 							<button type="submit" id="login">로그인</button>
 						</div>
-						<div class="links">
-							<a href="/views/members/signup.jsp">회원가입</a> <br> <a
-								href="/views/members/findid.jsp">아이디찾기</a> <span>|</span> <a
-								href="/views/members/findpw.jsp">비밀번호찾기</a>
+			         <div class="links">
+							<a href="/views/members/signup.jsp">회원가입</a> <span>|</span>
+							 <a	href="/views/members/findid.jsp">아이디찾기</a> <span>|</span> 
+							 <a	href="/views/members/findpw.jsp">비밀번호찾기</a>
 						</div>
 					</div>
 
@@ -497,7 +497,7 @@ button:hover {
 																	success : function(
 																			response) {
 																		if (response.success) {
-																			alert("로그인 성공!");
+
 																			location.href = "/index.jsp"; // 로그인 성공 시 메인 페이지로 이동
 																		} else {
 																			if (response.message) {
