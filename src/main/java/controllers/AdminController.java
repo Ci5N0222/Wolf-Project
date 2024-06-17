@@ -243,13 +243,18 @@ public class AdminController extends HttpServlet {
 					String title = multi.getParameter("game_title");
 					String discription = multi.getParameter("game_discription");
 					String contents = multi.getParameter("game_contents");
+					String service = multi.getParameter("sevice_select");
 					
 					String oriname = multi.getOriginalFileName("game_image");
 					String sysname = multi.getFilesystemName("game_image");
+					
+					System.out.println("oriname === " + oriname);
 
-					int result = dao.adminGameUpdate(Integer.parseInt(seq), title, discription, contents, oriname);
+					int result = dao.adminGameUpdate(Integer.parseInt(seq), title, discription, contents, oriname, service);
 					if(result > 0) {
-						dao.adminGameThumbnailInsert(oriname, sysname, image_code, Integer.parseInt(seq));
+						if(sysname != null) {
+							dao.adminGameThumbnailInsert(oriname, sysname, image_code, Integer.parseInt(seq));
+						}
 					}
 					
 					// 서버에 저장된 이미지 삭제
