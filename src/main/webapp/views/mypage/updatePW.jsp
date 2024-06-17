@@ -134,7 +134,7 @@ prefix="c" %>
       $("#confirm").on("click", function () {
         if (confirm("변경하시겠습니까?")) {
           $.ajax({
-            url: "/pwUpdate.members",
+            url: "/pwUpdate.mypage",
             method: "post",
             data: {
               current_password: $("#current_password").val(),

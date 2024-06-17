@@ -262,6 +262,21 @@ public class AdminDAO {
 	}
 	
 	
+	public int adminGameInsert(String title, String discription, String contents, String thumbnail) throws Exception {
+		String sql = "insert into game values(game_seq.nextval, ?, ?, ?, ?)";
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, title);
+			pstat.setString(2, discription);
+			pstat.setString(3, contents);
+			pstat.setString(4, thumbnail);
+			
+			return pstat.executeUpdate();
+		}
+		
+	}
+	
+	
 	/**
 	 * 게임을 삭제하는 메서드
 	 * @param seq

@@ -1,6 +1,8 @@
 package controllers;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -8,11 +10,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.plaf.synth.SynthOptionPaneUI;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import admin.dao.AdminDAO;
-import commons.PageConfig;
 import commons.EncryptionUitls;
+import commons.PageConfig;
 import game.dto.GameDTO;
 import members.dto.MembersDTO;
 
@@ -182,17 +186,33 @@ public class AdminController extends HttpServlet {
 			else if(cmd.equals("/game_insert.admin")) {
 				if(!adminSession) response.sendRedirect("/page_login.admin");
 				else {
-					// 멀티파트로 썸네일 이미지 처리해야됨
-					String image = request.getParameter("game_image");
 					
-					String title = request.getParameter("game_title");
-					String discription = request.getParameter("game_discription");
-					String contents = request.getParameter("game_contents");
+					int maxSize = 1024 * 1024 * 10;
+					String realPath = request.getServletContext().getRealPath("thumbnails");
+					File uploadPath = new File(realPath);
 					
+					if(!uploadPath.exists()) {
+						uploadPath.mkdir();
+					}
+					
+					MultipartRequest multi = new MultipartRequest(request, realPath, maxSize, "UTF8", new DefaultFileRenamePolicy());
+					
+					// Game 테이블에 저장
+					String title = multi.getParameter("game_title");
+					String discription = multi.getParameter("game_discription");
+					String contents = multi.getParameter("game_contents");
+					String thumbnail = request.getParameter("game_image");
 					System.out.println("title ==== "+ title);
 					System.out.println("discription ==== "+ discription);
 					System.out.println("contents ==== "+ contents);
 					
+					int result = dao.adminGameInsert(title, discription, contents, thumbnail);
+					
+					// Image 테이블 필요 ( idx, oriname, sysname, state(아바타, 섬네일) )
+					String oriname = multi.getOriginalFileName(thumbnail);
+					String sysname = multi.getFilesystemName(thumbnail);
+					
+
 				}
 			}
 			

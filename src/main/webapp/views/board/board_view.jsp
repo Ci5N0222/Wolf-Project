@@ -8,7 +8,73 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        
+ 
+<!-- icon -->
+<script src="https://kit.fontawesome.com/1ee4acc8d4.js" crossorigin="anonymous"></script>
+
+<!-- bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+        
+<!-- Project local -->
+
 <style>
+    :root {
+    --bg-light: #ffd449;
+    --bg-dark: #14213D;
+    --bg-transparent: transparent;
+
+    --color-white: #eeeeee;
+    --color-black: #14213D;
+    --bg-nav: #f9a620;
+    --color-nav-icon: #14213D;
+    --color-nav-bg: #f9a620;
+    font-size: 16px;
+}
+html,
+body {
+    height: 100%;
+    margin: 0;
+    background-color: var(--bg-dark);
+    color: var(--bg-black);
+    color: var(--color-black);
+    overflow: hidden;
+    /* 폰트 */
+    font-family: "Noto Sans KR", sans-serif;
+    font-family: "Luckiest Guy", cursive;
+}
+
+      /* 메뉴 */
+      .navi {
+        transition: background-color 0.5s ease, box-shadow 0.5s ease;
+        }
+      .navi {
+        z-index: 5;
+        height: 85px;
+        display: flex;
+        align-items: center;
+        background-color:#f9a620;
+        font-size: 20px;
+        color: white;
+        text-shadow: 1px 1px 1px gray;
+        letter-spacing: 1px;
+        border-radius: 40px 80px / 80px 40px;
+        justify-content: center;
+        align-items: center;
+        }
+    .navi i {font-size: 22px;}
+    .navi > div {margin-top: 0;}
+    .navi > div:nth-child(2) #wolfLogo{width: 100px;height: 100px;}
+    /* 로고 */
+    .navi #wolfLogo > img {object-fit: cover; width: 100%;height: 100%;}
+    /* 메뉴 버튼 */
+    .naviBtn{cursor: pointer; transition: all 0.3s ease-in-out;}
+    .naviBtn:hover{opacity: 0.5;}
+
     *{
         box-sizing: border-box;
     }
@@ -16,10 +82,15 @@
       
         display: flex;
     }
-    .container{
+    body{
+        background-image: url('/images/board_body_background.jpg');
+    } 
+    .container1{
         width: 850px;
         height: 850px;
         margin: auto;
+        flex-direction: column;
+        background-color: white ;
         
     } 
     .title{
@@ -32,11 +103,7 @@
        
     }
 
-    .footer{
-        flex: 1;
-        justify-content: flex-end;
-        align-items: center;
-    }
+
     .center{
         display: flex;
         justify-content: center;
@@ -107,73 +174,104 @@
 </style>
 </head>
 <body>
-    <div class="container">
-        <div class="menu">
-            <div style="flex: 1; flex-direction: column;">
-                <div style="flex: 1;" class="center menu_title" id="board_1">
-                    자유 게시판
+    
+    <div class="container1">
+        <div style="flex: 1; ">
+            <div class="navi" style="width: 850px !important;">
+                <div class="col-4 d-flex justify-content-start">
+                    <div class="d-flex" style="justify-content: center; align-items: center; display: flex; width: 650px !important;">
+                        <div class="me-3 naviBtn" onclick="location.href='/list.game'">Game</div>
+                        <div class="me-3 naviBtn" onclick="location.href='/list.board'">Board</div>
+                        <div class="naviBtn">About</div>
+                    </div>
                 </div>
-                <div style="flex: 1;"  class="center menu_title" id="board_2">
-                    공지 게시판
+                <div class="col-4 d-flex justify-content-center align-items-center">
+                        <div id="wolfLogo" onclick="location.href='/index.jsp'">
+                            <img src="/images/wolf_1.png" alt="">
+                        </div>
                 </div>
-                <div style="flex: 1;"  class="center menu_title" id="board_3">
-                    QNA 게시판
+                <div class="col-4 d-flex justify-content-end">
+                    <div class="d-flex flex-row">
+                        
+                            <div class="naviBtn" onclick="location.href ='/views/mypage/mypage.jsp'">                  
+                                        <img src="/images/default-avatar.png" width="50" alt="">
+                            </div>
+                    </div>
                 </div>
-                <div style="flex: 1;"  class="center menu_title" id="board_4">
-                    문의하기
-                </div>
-                <script>
-                    $("#board_1").on("click",function(){
-                        location.href="/list.board";
-                    })
-                </script>
-            </div>
-            <div style="flex: 1;">
-
             </div>
         </div>
-        <div class="board">
-            <div class="center" style="flex: 1; font-family: 'Luckiest Guy', cursive; font-size: 30px;">
-                자유게시판
-            </div>
-            <div style="flex: 0.7; justify-content: flex-end;">
-                <form action="/list.board" method="get" >
-                    <select name="target" title="검색선택" style="height: 30px;" id="targetSelect">
-                        <option value="">선택</option>
-                        <option value="title">제목</option>
-                        <option value="contents">내용</option>
-                        <option value="nickname">작성자</option>
-                    </select>
-                    <input type="text" name="keyword" value="${keyword}" placeholder="검색어를 입력해주세요" style="height: 30px;">
-                    <button >검색</button>
-                    <script>
-                        document.getElementById('targetSelect').value = '${target}';
-                    </script>
-                </form>
-            </div>
-            <div style="flex: 1; background-color: #f5f5f5; color: #545861;font-weight: bold; border-bottom: 5px solid #e3e3e3;">
-                    <div style="flex: 1;" class="center">번호</div>
-                    <div style="flex: 5;" class="center">제목</div>
-                    <div style="flex: 1;" class="center">작성자</div>
-                    <div style="flex: 1;" class="center">날짜</div>
-                    <div style="flex: 1;" class="center" id="a">조회</div>
-            </div>    
-            <div class="contents">
-                <c:forEach var="dto" items="${list}" varStatus="status">
-                    <div style="display: flex; height: 50px;  border-bottom: 2px solid #e3e3e3;" >
-                        <div style="flex: 1;" class="center"><span class="seq">${dto.seq}</span></div>
-                        <div style="flex: 5;" class="center"><span class="title">${dto.title}</span> </div>
-                        <div style="flex: 1;" class="center">${board_nickname_list[status.index]}</div>
-                        <div style="flex: 1;" class="center"><fmt:formatDate value="${dto.write_date}" pattern="yyyy.MM.dd"/></div>
-                        <div style="flex: 1;" class="center">${dto.count}</div>
+        <div>
+            <div class="menu" style="flex: 1;">
+                <div style="flex: 1; flex-direction: column;">
+                    <div style="flex: 1;" class="center menu_title" id="board_1">
+                        자유 게시판
                     </div>
-                </c:forEach>
+                    <div style="flex: 1;"  class="center menu_title" id="board_2">
+                        공지 게시판
+                    </div>
+                    <div style="flex: 1;"  class="center menu_title" id="board_3">
+                        QNA 게시판
+                    </div>
+                    <div style="flex: 1;"  class="center menu_title" id="board_4">
+                        문의하기
+                    </div>
+                    <script>
+                        $("#board_1").on("click",function(){
+                            location.href="/list.board";
+                        })
+                    </script>
+                </div>
+                <div style="flex: 1;">
+    
+                </div>
             </div>
-            <div style="flex: 1;" class="center" id="navi"></div>
-            <div class="footer">
-                <button id="new">글쓰기</button>&nbsp&nbsp
-                <button id="index">뒤로가기</button>&nbsp&nbsp&nbsp
+            <div class="board">
+                <div class="center" style="flex: 1; font-family: 'Luckiest Guy', cursive; font-size: 30px;">
+                    자유게시판
+                </div>
+                <div style="flex: 0.7; justify-content: flex-end;">
+                    <form action="/list.board" method="get" >
+                        <select name="target" title="검색선택" style="height: 30px;" id="targetSelect">
+                            <option value="">선택</option>
+                            <option value="title">제목</option>
+                            <option value="contents">내용</option>
+                            <option value="nickname">작성자</option>
+                        </select>
+                        <input type="text" name="keyword" value="${keyword}" placeholder="검색어를 입력해주세요" style="height: 30px;">
+                        <button >검색</button>
+                        <script>
+                            document.getElementById('targetSelect').value = '${target}';
+                        </script>
+                    </form>
+                </div>
+                <div style="flex: 1; background-color: #f5f5f5; color: #545861;font-weight: bold; border-bottom: 5px solid #e3e3e3;">
+                        <div style="flex: 1;" class="center">번호</div>
+                        <div style="flex: 5;" class="center">제목</div>
+                        <div style="flex: 1;" class="center">작성자</div>
+                        <div style="flex: 1;" class="center">날짜</div>
+                        <div style="flex: 1;" class="center" id="a">조회</div>
+                </div>    
+                <div class="contents">
+                    <c:forEach var="dto" items="${list}" varStatus="status">
+                        <div style="display: flex; height: 50px;  border-bottom: 2px solid #e3e3e3;" >
+                            <div style="flex: 1;" class="center"><span class="seq">${dto.seq}</span></div>
+                            <div style="flex: 5;" class="center"><span class="title">${dto.title}</span> </div>
+                            <div style="flex: 1;" class="center">${board_nickname_list[status.index]}</div>
+                            <div style="flex: 1;" class="center"><fmt:formatDate value="${dto.write_date}" pattern="yyyy.MM.dd"/></div>
+                            <div style="flex: 1;" class="center">${dto.count}</div>
+                        </div>
+                    </c:forEach>
+                </div>
+                <div style="flex: 1;" class="center" id="navi"></div>
+                <div style="flex: 1; justify-content: flex-end; align-items: center;">
+                    <button id="new">글쓰기</button>&nbsp&nbsp
+                    <button id="index">뒤로가기</button>&nbsp&nbsp&nbsp
+                </div>
             </div>
+        </div>
+       
+        <div class="footer" style="flex: 1;">
+                
         </div>
     </div>
 
