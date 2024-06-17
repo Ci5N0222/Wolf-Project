@@ -79,6 +79,8 @@ public class BoardController extends HttpServlet {
 				
 			} else if(cmd.equals("/detail.board")) {
 				int seq= Integer.parseInt(request.getParameter("seq"));
+				String target=request.getParameter("target");
+				String keyword=request.getParameter("keyword");
 				boardDAO.countUp(seq);
 				Object boardList[] =boardDAO.selectBoard(seq,PageConfig.board);
 				Object replyList[] =replyDAO.select(seq);
@@ -88,7 +90,8 @@ public class BoardController extends HttpServlet {
 				System.out.println();
 				
 				
-				
+				request.setAttribute("target",target);
+				request.setAttribute("keyword",keyword);
 				request.setAttribute("board_dto", boardList[0]);
 				request.setAttribute("board_nickname", boardList[1]);
 				

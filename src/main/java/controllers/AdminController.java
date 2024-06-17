@@ -196,23 +196,18 @@ public class AdminController extends HttpServlet {
 					}
 					
 					MultipartRequest multi = new MultipartRequest(request, realPath, maxSize, "UTF8", new DefaultFileRenamePolicy());
-					
-					// Game 테이블에 저장
+
 					String title = multi.getParameter("game_title");
 					String discription = multi.getParameter("game_discription");
 					String contents = multi.getParameter("game_contents");
-					String thumbnail = request.getParameter("game_image");
-					System.out.println("title ==== "+ title);
-					System.out.println("discription ==== "+ discription);
-					System.out.println("contents ==== "+ contents);
+					String oriname = multi.getOriginalFileName("game_image");
+					String sysname = multi.getFilesystemName("game_image");
 					
-					int result = dao.adminGameInsert(title, discription, contents, thumbnail);
-					
-					// Image 테이블 필요 ( idx, oriname, sysname, state(아바타, 섬네일) )
-					String oriname = multi.getOriginalFileName(thumbnail);
-					String sysname = multi.getFilesystemName(thumbnail);
-					
-
+					int seq = dao.adminGameInsert(title, discription, contents, oriname);
+					if(seq > 0) {
+						dao.adminGameThumbnailInsert(oriname, sysname, 3, seq);
+						response.sendRedirect("/game_list.admin");
+					}
 				}
 			}
 			

@@ -24,8 +24,8 @@ $(() => {
     
     // Game Insert Validation
     $("#admin_game_insert").on("submit", () => {
-		$("#game_discription").val($("#div_game_discription").html().trim);
-		$("#game_contents").val($("#div_game_contents").html().trim);
+		$("#game_discription").val($("#div_game_discription").html().trim());
+		$("#game_contents").val($("#div_game_contents").html().trim());
 		
 		if($("#admin_game_thumbnail").val() === ""){
 			alert("thumbnail 이미지 없음!");
@@ -33,7 +33,7 @@ $(() => {
 		}
 		
 		if($("#game_title").val() === ""){
-			alert("제목을 읿력하세요");
+			alert("제목을 입력하세요");
 			return false;
 		}
 		

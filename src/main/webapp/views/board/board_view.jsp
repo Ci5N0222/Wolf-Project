@@ -82,9 +82,7 @@ body {
       
         display: flex;
     }
-    body{
-        background-image: url('/images/board_body_background.jpg');
-    } 
+    
     .container1{
         width: 850px;
         height: 850px;
@@ -331,7 +329,7 @@ body {
             //console.log($(e).text());
             //console.log(seq.eq(index).text());
             $(e).on("click",function(){
-                location.href="/detail.board?seq="+seq.eq(index).text();
+                location.href="/detail.board?seq="+seq.eq(index).text()+"&target=${target}&keyword=${keyword}";
             })
 
          })

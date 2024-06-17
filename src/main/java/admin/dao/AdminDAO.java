@@ -223,10 +223,12 @@ public class AdminDAO {
 				while(rs.next()) {
 					int seq = rs.getInt("seq");
 					String title = rs.getString("title");
+					String discription = rs.getString("discription");
 					String contents = rs.getString("contents");
 					String thumbnail = rs.getString("thumbnail");
+					int service_code = rs.getInt("service_code");
 					
-					list.add(new GameDTO(seq, title, contents, thumbnail));
+					list.add(new GameDTO(seq, title, discription, contents, thumbnail, service_code));
 				}
 				
 				return list;
@@ -252,28 +254,74 @@ public class AdminDAO {
 				
 				int seq = rs.getInt("seq");
 				String title = rs.getString("title");
+				String discription = rs.getString("discription");
 				String contents = rs.getString("contents");
 				String thumbnail = rs.getString("thumbnail");
+				int service_code = rs.getInt("service_code");
 				
-				return new GameDTO(seq, title, contents, thumbnail);
+				return new GameDTO(seq, title, discription, contents, thumbnail, service_code);
 					
 			}
 		}
 	}
 	
 	
+	/**
+	 * 게임을 추가하는 메서드
+	 * @param title
+	 * @param discription
+	 * @param contents
+	 * @param thumbnail
+	 * @return
+	 * @throws Exception
+	 */
 	public int adminGameInsert(String title, String discription, String contents, String thumbnail) throws Exception {
-		String sql = "insert into game values(game_seq.nextval, ?, ?, ?, ?)";
+		String sql = "insert into game values(game_seq.nextval, ?, ?, ?, ?, 0)";
+		
 		try(Connection con = DBConfig.getConnection();
-			PreparedStatement pstat = con.prepareStatement(sql)){
+			PreparedStatement pstat = con.prepareStatement(sql, new String[] {"seq"})){
 			pstat.setString(1, title);
 			pstat.setString(2, discription);
 			pstat.setString(3, contents);
 			pstat.setString(4, thumbnail);
 			
-			return pstat.executeUpdate();
+			pstat.executeQuery();
+			
+			try(ResultSet rs = pstat.getGeneratedKeys()){
+				if(rs.next()) {
+					return rs.getInt(1);
+				} else {
+					return 0;
+				}
+				
+			}
+			
 		}
 		
+	}
+	
+	
+	/**
+	 * 게임 추가시 섬네일을 저장하는 메서드
+	 * @param path
+	 * @param oriName
+	 * @param sysName
+	 * @param seq
+	 * @return
+	 * @throws Exception
+	 */
+	public int adminGameThumbnailInsert(String oriName, String sysName, int path, int seq) throws Exception {
+		String sql = "insert into image values(image_seq.nextval, ?, ?, ?, ?, null)";
+		
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, oriName);
+			pstat.setString(2, sysName);
+			pstat.setInt(3, path);
+			pstat.setInt(4, seq);
+			
+			return pstat.executeUpdate();
+		}
 	}
 	
 	
