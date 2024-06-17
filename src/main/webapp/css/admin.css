@@ -311,10 +311,6 @@ td {
 	cursor: pointer;
 }
 
-div {
-	border: 1px solid black;
-}
-
 .admin-game-insert-title {
 	min-width: 600px;
 	margin: 10px;
@@ -372,4 +368,13 @@ div {
 
 .admin_game_update_thumbnail {
 	display: none;
+}
+
+#sevice_select {
+	display: none;
+	padding: 10px;
+    margin: 10px;
+    width: 200px;
+    border-radius: 8px;
+    font-size: 16px;
 }

@@ -133,7 +133,7 @@ const previewImageDelete = (image, url) => {
 
 
 // Game 정보를 수정할 수 있게 폼을 바꾸는 함수
-const adminGameEdit = () => {
+const adminGameEdit = (defaultValue) => {
 	$(".admin-game-btn").css({"display": "none"});
 	$(".admin-game-update-btn").css({
 		"display": "flex", 
@@ -141,7 +141,14 @@ const adminGameEdit = () => {
 		"align-items": "center"
 	});
 	
-	$(".admin_game_update_thumbnail").show()
+	$('#sevice_select').val(defaultValue); 
+	$('#sevice_select').css({"display": "inline-block"});
+	
+	$(".admin_game_update_thumbnail").show();
+	$("#game_title").removeAttr("readonly");
+	$("#div_game_discription").attr("contenteditable", "true");
+	$("#div_game_contents").attr("contenteditable", "true");
+	$("#game_title").focus();
 	
 }
 
