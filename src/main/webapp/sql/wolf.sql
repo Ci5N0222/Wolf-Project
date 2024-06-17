@@ -224,18 +224,6 @@ INSERT INTO game_score VALUES(145, 'user009', 3);
 INSERT INTO game_score VALUES(155, 'user010', 5);
 INSERT INTO game_score VALUES(165, 'user011', 4);
 
--- files table dummy data
-INSERT INTO files VALUES (files_seq.nextval, 'image1.jpg', 'sys_image1.jpg', 1);
-INSERT INTO files VALUES (files_seq.nextval, 'image2.jpg', 'sys_image2.jpg', 2);
-INSERT INTO files VALUES (files_seq.nextval, 'image3.jpg', 'sys_image3.jpg', 3);
-INSERT INTO files VALUES (files_seq.nextval, 'image4.jpg', 'sys_image4.jpg', 4);
-INSERT INTO files VALUES (files_seq.nextval, 'image5.jpg', 'sys_image5.jpg', 5);
-INSERT INTO files VALUES (files_seq.nextval, 'image6.jpg', 'sys_image6.jpg', 6);
-INSERT INTO files VALUES (files_seq.nextval, 'image7.jpg', 'sys_image7.jpg', 7);
-INSERT INTO files VALUES (files_seq.nextval, 'image8.jpg', 'sys_image8.jpg', 8);
-INSERT INTO files VALUES (files_seq.nextval, 'image9.jpg', 'sys_image9.jpg', 9);
-INSERT INTO files VALUES (files_seq.nextval, 'image10.jpg', 'sys_image10.jpg', 10);
-
 -- service table dummy data
 INSERT INTO service VALUES (0, '서비스 중지');
 INSERT INTO service VALUES (1, '서비스 진행 중');
