@@ -115,11 +115,11 @@
                     data: formData,
                     success: function(data) {
                         if (data === 'true') {
-                            $('#Result').text('이메일 전송 성공!!');
+                            
                             $('#passwordChangeForm').show();
                             $('#email').prop('disabled', true); // 이메일 입력 필드 비활성화
                         } else {
-                            $('#Result').text('아이디와 이메일이 일치하지 않습니다.');
+                            alert('아이디와 이메일이 일치하지 않습니다.');
                         }
                     },
                     error: function(xhr, status, error) {
@@ -137,10 +137,10 @@
                     data: formData,
                     success: function(data) {
                         if (data === 'true') {
-                            $('#Result').text('인증 성공!');
+                            alert('인증에 성공하였습니다.');
                             $('#changePasswordBtn').show();
                         } else {
-                            $('#Result').text('인증 실패!');
+                            alert('인증에 실패하였습니다.')
                         }
                     },
                     error: function(xhr, status, error) {

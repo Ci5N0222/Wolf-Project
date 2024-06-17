@@ -313,6 +313,7 @@ body {
 	z-index: 1;
 	box-sizing: border-box;
 	
+	
 }
 
 
@@ -327,7 +328,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 	label{
 		flex:1;
@@ -449,7 +450,7 @@ button {
 				src="/images/bg3.png" alt="" class="img_bg bgs"> <img
 				src="/images/bg3.png" alt="" class="img_bg bgs">
 			<!-- nav -->
-
+		<%@ include file="/views/include/header.jsp"%>
 			<div id="signupcontainer">
 				<div id="membership">회원가입</div>
 				<form action="/signup.members" id="joinform">
@@ -461,7 +462,7 @@ button {
 					</div>
 					<div id="msg"></div>
 
-					<label for="pw">비밀번호</label>
+					<label for="pw" id="pw1">비밀번호</label>
 					<div class="form-group">
 						<input type="password" class="form-control" id="pw" name="pw"
 							placeholder="비밀번호">
@@ -485,7 +486,7 @@ button {
 							name="nickname" placeholder="닉네임">
 						<button type="button" id="nicknameCheck">중복 확인</button>
 					</div>
-					<label for="phone">전화번호</label>
+					<label for="phone" id="phone1">전화번호</label>
 					<div class="form-group">
 						<input type="text" class="form-control" id="phone" name="phone"
 							placeholder="전화번호">
@@ -514,7 +515,7 @@ button {
 						</div>
 					</div>
 
-					<label for="birth">생년월일</label>
+					<label for="birth" id="birth1">생년월일</label>
 					<div class="form-group">
 						<input type="text" class="form-control" id="birth" name="birth"
 							placeholder="YYMMDD">
