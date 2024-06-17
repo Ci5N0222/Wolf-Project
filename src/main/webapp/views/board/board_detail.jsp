@@ -288,7 +288,7 @@
         </c:forEach>
        
 
-   
+       
 
         <script> //reply_child_script
             let reply_child_btn=$(".reply_child_btn");
@@ -433,7 +433,6 @@
             }
         </script>
     </div>
-
 
     <script>
         let btn1 = $("#delete");
@@ -623,6 +622,49 @@
                  //force_br_newlines : true,
                  //force_p_newlines : false,
                 //content_css: false,
+                file_picker_callback: function (callback, value, meta) {
+                    if (meta.filetype === 'image') {
+                        let input = document.createElement('input');
+                        input.setAttribute('type', 'file');
+                        input.setAttribute('accept', 'image/*');
+                        input.onchange = function () {
+                        let file = this.files[0];
+                        let formData = new FormData();
+                        formData.append('image', file);
+                        $.ajax({
+                            url:"/upload_images.board?board_seq=${board_dto.seq}",
+                            type:"post",
+                            dataType:"json",
+                            processData: false,
+                            contentType: false,
+                            data:formData
+                        }).done(function(resp){ //서버에서 저장해서 데이터 보내줌
+                            let imageData = {
+                                url:resp.url,
+                                width:  resp.width,
+                                height: resp.height
+                            };
+                        callback(resp.url, imageData);
+                        //console.log($("body").find(".tox-textfield"));
+                            $("body").find(".tox-textfield").eq(2).val(resp.width);
+                            $("body").find(".tox-textfield").eq(3).val(resp.height);
+                            $("body").find(".tox-button").eq(4).on("click",function(){
+                                $.ajax({
+                                    url:"/upload_images.board?board_seq=${board_dto.seq}&check=true",
+                                    type:"post",
+                                     dataType:"json",
+                                    processData: false,
+                                    contentType: false,
+                                    data:formData
+                                 })
+                            });
+                            
+                        })
+                    
+                        };
+                    input.click();
+                    }
+                },
                 setup: function (editor) {
                     editor.ui.registry.addButton('fileupload', {
                     text: '파일 업로드: 선택된 파일없음',
@@ -634,7 +676,10 @@
                         //myButton.setText("aa");
                             
                     },         
-                });   
+                }),
+                editor.on('change', function () {
+                    localStorage.setItem('editorContent', editor.getContent());
+                }); 
                 $('#upload').on('change', function() {
                      var fileName = $(this).val().split('\\').pop();
                      console.log(fileName);
@@ -647,12 +692,17 @@
                      }
                      
                 });   
-                editor.on('change', function () {
-                    localStorage.setItem('editorContent', editor.getContent());
-                });
+                
+                
+                
+
             }
         });
         })
+
+   
+
+
 
         btn5.on("click", function () {//cancel
             
