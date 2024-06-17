@@ -75,7 +75,7 @@ create table service(
     service_state varchar(20) not null
 );
 
-create table image(
+create table images(
     seq number primary key,
     oriname varchar(1000) not null,
     sysname varchar(1000) not null,
@@ -116,7 +116,7 @@ increment by 1
 nomaxvalue
 nocache;
 
-create sequence image_seq
+create sequence images_seq
 start with 1
 increment by 1
 nomaxvalue

@@ -328,7 +328,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 10px;
+    margin-bottom: 2px;
 }
 	label{
 		flex:1;
@@ -479,7 +479,7 @@ button {
 						<input type="text" class="form-control" id="name" name="name"
 							placeholder="이름">
 					</div>
-					<div id="msg1"></div>
+					
 					<label for="nickname" id="nickname1">닉네임</label>
 					<div class="form-group">
 						<input type="text" class="form-control" id="nickname"
@@ -491,13 +491,13 @@ button {
 						<input type="text" class="form-control" id="phone" name="phone"
 							placeholder="전화번호">
 					</div>
-					<div id="message1"></div>
+					
 					<label for="email" id="email1">이메일</label>
 					<div class="form-group">
 						<input type="email" class="form-control" id="email" name="email"
 							placeholder="이메일">
 					</div>
-					<div id="msg3"></div>
+					
 
 					<div class="form-group">
 
@@ -733,32 +733,7 @@ button {
 														}
 													});
 
-									$("#email")
-											.on(
-													"keyup",
-													function() {
-														let email = $("#email")
-																.val();
-														let msg3 = $("#msg3");
-														let regex = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-														let result = regex
-																.test(email);
-														if (result) {
-															msg3
-																	.text(
-																			"올바른 입력")
-																	.css(
-																			"color",
-																			"dodgerblue");
-														} else {
-															msg3
-																	.text(
-																			"이메일 다시 입력")
-																	.css(
-																			"color",
-																			"red");
-														}
-													});
+
 
 									$("#joinform")
 											.on(
@@ -855,10 +830,20 @@ button {
 															return false;
 
 														}
+	
+												
+														
+												        let phone = $("#phone").val();
+												        let regex = /^01[0,1,7]-?[\d]{4}-?[\d]{4}$/;
+												        let result = regex.test(phone);
+												        if (!result) {
+												            alert("올바르지 않은 형식의 전화번호입니다.");
+												            return false;
+												        }
 
-														this.submit();
-													});
-								});
+												        this.submit();
+												    });
+												});
 			</script>
 			<script src="/js/main.js"></script>
 </body>

@@ -33,11 +33,11 @@
 			<div class="admin-game-form">
 				<form action="/game_insert.admin" method="post" id="admin_game_insert" enctype="multipart/form-data">
 					<div class="preview">
-						<img id="imagePreview" src="" alt="이미지 미리보기" width="500" style="display: none;">
+						<img id="imagePreview" src="" alt="이미지 미리보기" width="300" style="display: none;">
 					</div>
 					<div class="file-btn">
 						<input type="file" id="admin_game_thumbnail" name="game_image" accept="image/*">
-						<button type="button" id="imagePreviewBtn" onclick="previewImageDelete()" style="display: none;">X</button>
+						<button type="button" id="imagePreviewBtn" onclick="previewImageDelete(false, null)" style="display: none;">X</button>
 					</div>
 					
 					<div class="admin-game-insert-title">
