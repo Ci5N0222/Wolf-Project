@@ -261,8 +261,8 @@ public class BoardController extends HttpServlet {
 					    
 				        
 		        }
-				   	String str1=boardDAO.board_contents(87);
-				   	System.out.println(str1);
+				   	String str1=boardDAO.board_contents(11);
+				   	//System.out.println(str1);
 			        ArrayList<String> result = boardDAO.findDeletedTags(str1);
 			        for (String string : result) {
 			        	System.out.println("Result: " + string); 

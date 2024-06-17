@@ -373,7 +373,7 @@ private static BoardDAO instance;
 	    for (Element imgTag : imgTags) {
 	        String src = imgTag.attr("src");
 	        System.out.println(src);
-	        String regex = "^/(.+)\\$"; // 여기에 적절한 정규 표현식을 넣어야 합니다.
+	        String regex = "upload_images/(.+)"; // 여기에 적절한 정규 표현식을 넣어야 합니다.
 	        Pattern pattern = Pattern.compile(regex);
 	        Matcher matcher = pattern.matcher(src);
 
@@ -396,7 +396,7 @@ private static BoardDAO instance;
 			pstat.setInt(1, seq);
 			try (ResultSet rs=pstat.executeQuery()){
 				rs.next();
-				contents=rs.getString(3);
+				contents=rs.getString(1);
 				
 			} catch (Exception e) {
 				// TODO: handle exception
