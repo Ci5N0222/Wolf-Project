@@ -76,6 +76,20 @@ create table service(
     service_state varchar(20) not null
 );
 
+create table image(
+    seq number primary key,
+    oriname varchar(1000) not null,
+    sysname varchar(1000) not null,
+    image_code number not null,
+    parent_seq number,
+    member_id varchar(20)
+);
+
+create table image_code(
+    image_code number primary key,
+    sortaion varchar(30) 
+);
+
 create sequence board_seq
 start with 1
 increment by 1
@@ -220,5 +234,10 @@ INSERT INTO files VALUES (files_seq.nextval, 'image10.jpg', 'sys_image10.jpg', 1
 -- service table dummy data
 INSERT INTO service VALUES (0, '서비스 중지');
 INSERT INTO service VALUES (1, '서비스 진행 중');
+
+-- image_code table dummy data
+insert into image_code values(1,'board');
+insert into image_code values(2,'members');
+insert into image_code values(3,'thumbnails');
 
 COMMIT;
