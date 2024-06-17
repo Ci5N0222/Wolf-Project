@@ -75,7 +75,7 @@ create table service(
     service_state varchar(20) not null
 );
 
-create table image(
+create table images(
     seq number primary key,
     oriname varchar(1000) not null,
     sysname varchar(1000) not null,

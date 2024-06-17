@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -380,15 +379,17 @@ body {
         <form id="passwordChangeForm" action="/changePassword.members" method="post">
             <label for="CertificationCode" id="code" >인증번호</label>
             <input type="text" id="CertificationCode" name="CertificationCode"  placeholder="인증번호를 입력해주세요">
-            <label for="newPassword" id="newpw">새 비밀번호</label>
-            <input type="password" id="newPassword" name="newPassword" placeholder="새 비밀번호를 입력해주세요">
-            <label for="confirmNewPassword" class="pwcheck">새 비밀번호 확인  </label>
-            <input type="password" id="confirmNewPassword" name="confirmNewPassword" placeholder="새 비밀번호를 확인해주세요.">
-            <div id="passwordMismatch" style="display: none; color: red;">
-                비밀번호가 일치하지 않습니다!
-            </div>
             <button id="CertificationCodeBtn" type="button">인증번호 확인</button>
-            <button id="changePasswordBtn" type="button" name="changePasswordBtn" style="display: none;">비밀번호 변경</button>
+            <div id="passwordFields" style="display: none;">
+                <label for="newPassword" id="newpw">새 비밀번호</label>
+                <input type="password" id="newPassword" name="newPassword" placeholder="새 비밀번호를 입력해주세요">
+                <label for="confirmNewPassword" class="pwcheck">새 비밀번호 확인  </label>
+                <input type="password" id="confirmNewPassword" name="confirmNewPassword" placeholder="새 비밀번호를 확인해주세요.">
+                <div id="passwordMismatch" style="display: none; color: red;">
+                    비밀번호가 일치하지 않습니다!
+                </div>
+                <button id="changePasswordBtn" type="button" name="changePasswordBtn">비밀번호 변경</button>
+            </div>
         </form>
     </div>
     	<div class="sun"></div>
@@ -415,8 +416,8 @@ body {
                     data: formData,
                     success: function(data) {
                         if (data === 'true') {
-                            
                             $('#passwordChangeForm').show();
+                            $('#sendEmailForm').hide();
                             $('#email').prop('disabled', true); // 이메일 입력 필드 비활성화
                         } else {
                             alert('아이디와 이메일이 일치하지 않습니다.');
@@ -438,7 +439,9 @@ body {
                     success: function(data) {
                         if (data === 'true') {
                             alert('인증에 성공하였습니다.');
-                            $('#changePasswordBtn').show();
+                            $('#passwordFields').show();
+                            $('#CertificationCodeBtn').hide();
+                            $('#CertificationCode').prop('disabled', true); // 인증번호 입력 필드 비활성화
                         } else {
                             alert('인증에 실패하였습니다.')
                         }
