@@ -133,6 +133,17 @@ public class MypageController extends HttpServlet {
 				request.getRequestDispatcher("/views/mypage/myGameList.jsp").forward(request, response);
 
 				
+				/* 마이페이지 게임 점수 업데이트 */
+			} else if(cmd.equals("/updateGameScore.mypage")) {
+
+				String id = (String)session.getAttribute("WolfID");
+				int score = 8000;
+				int game_seq = 1;
+				
+				gDAO.updateGameScore(score, id, game_seq);
+				response.sendRedirect("/mypageGameList.mypage");
+				
+				
 				/* 문의내역 조회 */
 			} else if(cmd.equals("/myPost.mypage")) {
 				

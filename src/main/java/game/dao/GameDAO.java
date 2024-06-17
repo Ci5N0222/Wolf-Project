@@ -106,13 +106,14 @@ public class GameDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	public int update(String member_id, int game_seq) throws Exception {
+	public int updateGameScore(int score, String member_id, int game_seq) throws Exception {
 		String sql = "update game_score set score=? where member_id=? and game_seq =?";
 		
 		try (Connection con = DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
 
-			pstat.setString(1, member_id);
-			pstat.setInt(2, game_seq);
+			pstat.setInt(1, score);
+			pstat.setString(2, member_id);
+			pstat.setInt(3, game_seq);
 			
 			return pstat.executeUpdate();
 		}
