@@ -37,6 +37,8 @@ public class AdminController extends HttpServlet {
 			adminSession = (boolean)request.getSession().getAttribute("WolfAdmin");
 		}
 		
+		int image_code = 3;
+		
 		try {
 			
 			/** 메인 **/
@@ -170,20 +172,17 @@ public class AdminController extends HttpServlet {
 				if(!adminSession) response.sendRedirect("/page_login.admin");
 				else {
 					
-					String filePath = request.getServletContext().getRealPath("thumbnails");
-					
 					String seq = request.getParameter("seq");
 					GameDTO game = dao.getGameInfo(Integer.parseInt(seq));
+					request.setAttribute("beforeThumbnail", game.getThumbnail());
 					
-					String sysname = dao.getThumbnailName(Integer.parseInt(seq), 3);
-					System.out.println("sysname === " + sysname);
+					String sysname = dao.getThumbnailName(Integer.parseInt(seq), image_code);
 					
 					if(sysname.equals("none")) {
 						game.setThumbnail(sysname);
 					} else {
-						game.setThumbnail(filePath + "/" + sysname);
+						game.setThumbnail("thumbnails/" + sysname);
 					}
-					System.out.println("sysname === " + game.getThumbnail());
 					
 					request.setAttribute("game", game);
 					request.getRequestDispatcher("/views/admin/admin_game_detail.jsp").forward(request, response);
@@ -218,7 +217,7 @@ public class AdminController extends HttpServlet {
 					
 					int seq = dao.adminGameInsert(title, discription, contents, oriname);
 					if(seq > 0) {
-						dao.adminGameThumbnailInsert(oriname, sysname, 3, seq);
+						dao.adminGameThumbnailInsert(oriname, sysname, image_code, seq);
 						response.sendRedirect("/game_list.admin");
 					}
 				}
@@ -230,6 +229,42 @@ public class AdminController extends HttpServlet {
 				if(!adminSession) response.sendRedirect("/page_login.admin");
 				else {
 					
+					int maxSize = 1024 * 1024 * 10;
+					String realPath = request.getServletContext().getRealPath("thumbnails");
+					File uploadPath = new File(realPath);
+					
+					if(!uploadPath.exists()) {
+						uploadPath.mkdir();
+					}
+
+					MultipartRequest multi = new MultipartRequest(request, realPath, maxSize, "UTF8", new DefaultFileRenamePolicy());
+					
+					String seq = multi.getParameter("game_seq");
+					String title = multi.getParameter("game_title");
+					String discription = multi.getParameter("game_discription");
+					String contents = multi.getParameter("game_contents");
+					
+					String oriname = multi.getOriginalFileName("game_image");
+					String sysname = multi.getFilesystemName("game_image");
+
+					int result = dao.adminGameUpdate(Integer.parseInt(seq), title, discription, contents, oriname);
+					if(result > 0) {
+						dao.adminGameThumbnailInsert(oriname, sysname, image_code, Integer.parseInt(seq));
+					}
+					
+					// 서버에 저장된 이미지 삭제
+					if(sysname != null) {
+						String beforSysname = multi.getParameter("before_thumbnail");
+						String[] beforeArr = beforSysname.split("/");
+						String before = beforeArr[beforeArr.length-1];
+
+						File fileToDelete = new File(uploadPath, before);
+						if(fileToDelete.exists()) {
+							fileToDelete.delete();
+						}
+					}
+					
+					response.sendRedirect("/game_list.admin");
 				}
 			}
 			

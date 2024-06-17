@@ -32,36 +32,52 @@
         	<h1 class="admin-main-title">Game Info</h1>
         	<div class="admin-game-form">
         	
-        		<c:choose>
-        			<c:when test="${game.thumbnail != 'none'}">
-        				<img src="/${game.thumbnail}" width="500" alt="게임 섬네일 이미지">
-        			</c:when>
-        			<c:otherwise>
-        				<img src="/images/default-game.png" width="500" alt="게임 섬네일 이미지">	
-        			</c:otherwise>
-        		</c:choose>
-   				
-   				<p>${game.title}</p>
-   				
-   				<div class="admin-game-discription">
-   					${game.discription}
-   				</div>
-   				<div class="admin-game-contents">
-   					${game.contents}
-   				</div>
-   				
-	        	<div class="admin-game-btn">
-	        		<button onclick="adminGameEdit()">수정</button>
-			        <button onclick="adminGameDelete(${game.seq})">삭제</button>
-			        <button onclick="location.href='/game_list.admin'">목록</button>
-	        	</div>
-	        	<div class="admin-game-update-btn">
-	        		<button onclick="amdinGameUpdate()">확인</button>
-			        <button onclick="location.reload()">취소</button>
-	        	</div>
-		        
+	        	<form action="/game_update.admin" method="post" id="admin_game_update" enctype="multipart/form-data">
+		        	<div class="game-update-preview">
+						<c:choose>
+		        			<c:when test="${game.thumbnail != 'none'}">
+		        				<img id="imagePreview" src="/${game.thumbnail}" alt="게임 섬네일 이미지">
+		        			</c:when>
+		        			<c:otherwise>
+		        				<img id="imagePreview" src="/images/default-game.png" alt="게임 섬네일 이미지">	
+		        			</c:otherwise>
+		        		</c:choose>
+					</div>
+					<div class="file-btn">
+						<input type="file" id="admin_game_thumbnail" class="admin_game_update_thumbnail" name="game_image" accept="image/*">
+						<button type="button" id="imagePreviewBtn" onclick="previewImageDelete(true, '${game.thumbnail}')" style="display: none;">X</button>
+					</div>
+					<div class="admin-game-insert-title">
+						<input type="text" id="game_title" name="game_title" value="${game.title}" readonly>
+					</div>
+					
+					<div class="admin-game-insert-discription">
+						<div id="div_game_discription" contenteditable="true">${game.discription}</div>
+					</div>
+					
+					<div class="admin-game-insert-contents">
+						<div id="div_game_contents" contenteditable="true">${game.contents}</div>
+					</div>
+					
+					<input type="hidden" name="game_seq" value="${game.seq}">
+					<input type="hidden" name="game_discription" id="game_discription">
+					<input type="hidden" name="game_contents" id="game_contents">
+					<input type="hidden" name="before_thumbnail_name" value="${beforeThumbnail}">
+					<input type="hidden" name="before_thumbnail" id="before_thumbnail" value="${game.thumbnail}">
+					
+					
+		        	<div class="admin-game-btn">
+		        		<button type="button" onclick="adminGameEdit()">수정</button>
+				        <button type="button" onclick="adminGameDelete(${game.seq})">삭제</button>
+				        <button type="button" onclick="location.href='/game_list.admin'">목록</button>
+		        	</div>
+		        	<div class="admin-game-update-btn">
+		        		<button type="submit">확인</button>
+				        <button type="button" onclick="location.reload()">취소</button>
+		        	</div>
+	        	</form>
+        	
         	</div>
-
         </section>
 
     </main>

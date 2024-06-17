@@ -352,6 +352,41 @@ public class AdminDAO {
 	
 	
 	/**
+	 * 게임 정보를 업데이트하는 메서드
+	 * @param seq
+	 * @param title
+	 * @param discription
+	 * @param contents
+	 * @param oriname
+	 * @return
+	 * @throws Exception
+	 */
+	public int adminGameUpdate(int seq, String title, String discription, String contents, String oriname) throws Exception {
+		String sql = "";
+		if(oriname != null) {
+			sql = "update game set title = ?, discription =?, contents = ?, thumbnail = ? where seq = ?";
+		} else {
+			sql = "update game set title = ?, discription =?, contents = ? where seq = ?";
+		}
+		
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, title);
+			pstat.setString(2, discription);
+			pstat.setString(3, contents);
+			if(oriname != null) {
+				pstat.setString(4, oriname);
+				pstat.setInt(5, seq);
+			} else {
+				pstat.setInt(4, seq);
+			}
+			
+			return pstat.executeUpdate();
+		}
+	}
+	
+	
+	/**
 	 * 게임을 삭제하는 메서드
 	 * @param seq
 	 * @return
