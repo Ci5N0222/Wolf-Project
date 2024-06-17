@@ -208,7 +208,15 @@ td {
 	padding: 10px;
 	font-size: 16px;
 	height: 100%;
-	min-height: 200px;
+	min-height: 50px;
+}
+
+
+.admin-game-form > .admin-game-contents {
+	padding: 10px;
+	font-size: 16px;
+	height: 100%;
+	min-height: 50px;
 }
 
 .admin-game-form > .admin-game-btn {

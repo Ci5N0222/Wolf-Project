@@ -205,7 +205,7 @@ public class AdminController extends HttpServlet {
 					
 					int seq = dao.adminGameInsert(title, discription, contents, oriname);
 					System.out.println("admin game insert seq === "+ seq);
-					dao.adminGameThumbnailInsert("thumbnails", oriname, sysname, seq);
+					dao.adminGameThumbnailInsert(3, oriname, sysname, seq);
 					response.sendRedirect("/game_list.admin");
 					
 				}

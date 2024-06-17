@@ -296,12 +296,12 @@ public class AdminDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	public int adminGameThumbnailInsert(String path, String oriName, String sysName, int seq) throws Exception {
+	public int adminGameThumbnailInsert(int path, String oriName, String sysName, int seq) throws Exception {
 		String sql = "insert into image values(image_seq.nextval, ?, ?, ?, ?)";
 		
 		try(Connection con = DBConfig.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql, new String[] {"seq"})){
-			pstat.setString(1, path);
+			pstat.setInt(1, path);
 			pstat.setString(2, oriName);
 			pstat.setString(3, sysName);
 			pstat.setInt(4, seq);
