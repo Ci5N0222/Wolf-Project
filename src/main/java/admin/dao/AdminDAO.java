@@ -223,10 +223,12 @@ public class AdminDAO {
 				while(rs.next()) {
 					int seq = rs.getInt("seq");
 					String title = rs.getString("title");
+					String discription = rs.getString("discription");
 					String contents = rs.getString("contents");
 					String thumbnail = rs.getString("thumbnail");
+					int service_code = rs.getInt("service_code");
 					
-					list.add(new GameDTO(seq, title, contents, thumbnail));
+					list.add(new GameDTO(seq, title, discription, contents, thumbnail, service_code));
 				}
 				
 				return list;
@@ -252,10 +254,12 @@ public class AdminDAO {
 				
 				int seq = rs.getInt("seq");
 				String title = rs.getString("title");
+				String discription = rs.getString("discription");
 				String contents = rs.getString("contents");
 				String thumbnail = rs.getString("thumbnail");
+				int service_code = rs.getInt("service_code");
 				
-				return new GameDTO(seq, title, contents, thumbnail);
+				return new GameDTO(seq, title, discription, contents, thumbnail, service_code);
 					
 			}
 		}
@@ -306,14 +310,14 @@ public class AdminDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	public int adminGameThumbnailInsert(int path, String oriName, String sysName, int seq) throws Exception {
-		String sql = "insert into image values(image_seq.nextval, ?, ?, ?, ?)";
+	public int adminGameThumbnailInsert(String oriName, String sysName, int path, int seq) throws Exception {
+		String sql = "insert into image values(image_seq.nextval, ?, ?, ?, ?, null)";
 		
 		try(Connection con = DBConfig.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql)){
-			pstat.setInt(1, path);
-			pstat.setString(2, oriName);
-			pstat.setString(3, sysName);
+			pstat.setString(1, oriName);
+			pstat.setString(2, sysName);
+			pstat.setInt(3, path);
 			pstat.setInt(4, seq);
 			
 			return pstat.executeUpdate();

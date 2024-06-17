@@ -204,13 +204,10 @@ public class AdminController extends HttpServlet {
 					String sysname = multi.getFilesystemName("game_image");
 					
 					int seq = dao.adminGameInsert(title, discription, contents, oriname);
-					System.out.println("admin game insert seq === "+ seq);
 					if(seq > 0) {
-						dao.adminGameThumbnailInsert(3, oriname, sysname, seq);
+						dao.adminGameThumbnailInsert(oriname, sysname, 3, seq);
 						response.sendRedirect("/game_list.admin");
 					}
-					
-					
 				}
 			}
 			

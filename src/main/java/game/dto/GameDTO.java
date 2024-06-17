@@ -3,19 +3,11 @@ package game.dto;
 public class GameDTO {
 	private int seq;
 	private String title;
+	private String discription;
 	private String contents;
 	private String thumbnail;
+	private int service_code;
 	
-	public GameDTO() {
-		super();
-	}
-	public GameDTO(int seq, String title, String contents, String thumbnail) {
-		super();
-		this.seq = seq;
-		this.title = title;
-		this.contents = contents;
-		this.thumbnail = thumbnail;
-	}
 	public int getSeq() {
 		return seq;
 	}
@@ -28,6 +20,12 @@ public class GameDTO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	public String getDiscription() {
+		return discription;
+	}
+	public void setDiscription(String discription) {
+		this.discription = discription;
+	}
 	public String getContents() {
 		return contents;
 	}
@@ -39,6 +37,25 @@ public class GameDTO {
 	}
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
+	}
+	public int getService_code() {
+		return service_code;
+	}
+	public void setService_code(int service_code) {
+		this.service_code = service_code;
+	}
+	
+	public GameDTO(int seq, String title, String discription, String contents, String thumbnail, int service_code) {
+		super();
+		this.seq = seq;
+		this.title = title;
+		this.discription = discription;
+		this.contents = contents;
+		this.thumbnail = thumbnail;
+		this.service_code = service_code;
+	}
+	public GameDTO() {
+		
 	}
 	
 	
