@@ -53,7 +53,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         background-color: var(--bg-dark);
         color: var(--bg-black);
         color: var(--color-black);
-        overflow: hidden;
+        overflow: auto;
         /* 폰트 */
         font-family: "Noto Sans KR", sans-serif;
         font-family: "Luckiest Guy", cursive;
