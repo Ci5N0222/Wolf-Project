@@ -37,7 +37,6 @@ public class BoardController extends HttpServlet {
 		FilesDAO filesDAO= FilesDAO.getInstance();
 		ReplyDAO replyDAO= ReplyDAO.getInstance();
 		Reply_childDAO reply_childDAO= Reply_childDAO.getInstance();
-		List<BoardDTO> list = new ArrayList<>();
 		
 		try {
 			if(cmd.equals("/list.board")) {
@@ -61,7 +60,6 @@ public class BoardController extends HttpServlet {
 				}
 				else {
 					boardList = boardDAO.selectType( PageConfig.recordCountPerPage, cpage,PageConfig.board,target,keyword);
-					System.out.println(	((List<BoardDTO>)boardList[0]).size());
 					request.setAttribute("record_total_count", boardDAO.getRecordCount(target,keyword));
 				}
 			
@@ -137,8 +135,9 @@ public class BoardController extends HttpServlet {
 				
 			} else if(cmd.equals("/delete.board")) {
 				int seq=Integer.parseInt(request.getParameter("seq"));
-				replyDAO.delete(seq);
-				filesDAO.deleteAll(seq);
+				reply_childDAO.deleteBoard_seq(seq);
+				replyDAO.deleteBoard_seq(seq);
+				filesDAO.deleteBoard_seq(seq);
 				boardDAO.delete(seq,PageConfig.board);
 				response.sendRedirect("/list.board");
 				
@@ -181,37 +180,26 @@ public class BoardController extends HttpServlet {
 				
 				response.sendRedirect("/detail.board?seq="+seq);
 				
-			} else if(cmd.equals("/serch.board")) {
-				
-				
-				Object boardList[]=new Object[2];
-				String traget=request.getParameter("target");
-				String keyword=request.getParameter("keyword");
-
-				String pcpage=request.getParameter("cpage");
-				if(pcpage==null) pcpage="1";
-				int cpage=Integer.parseInt(pcpage);
-				
-				if(keyword.equals("")||traget.equals("")) {
-					boardList = boardDAO.selectAll( PageConfig.recordCountPerPage, cpage,PageConfig.board);
-					request.setAttribute("record_total_count", boardDAO.getRecordCount("",""));
+			} else if(cmd.equals("/upload_images.board")) {
+				int maxSize = 1024 * 1024 * 10; // 10mb
+				String realPath = "src/main/webapp/upload_images";
+				File uploadPath = new File(realPath);
+				if (!uploadPath.exists()) {
+					uploadPath.mkdir();// 메이크 디렉토리
 				}
-				else {
-					boardList = boardDAO.selectType( PageConfig.recordCountPerPage, cpage,PageConfig.board,traget,keyword);
-					System.out.println(	((List<BoardDTO>)boardList[0]).size());
-					request.setAttribute("record_total_count", boardDAO.getRecordCount(traget,keyword));
-				}
-				
-				
-				request.setAttribute("list", boardList[0]);
-				request.setAttribute("board_nickname_list", boardList[1]);//boardList[1]
-				request.setAttribute("cpage", cpage);
-				request.setAttribute("record_count_per_page", PageConfig.recordCountPerPage);
-				request.setAttribute("navi_count_per_page", PageConfig.naviCountPerPage);
-				request.getRequestDispatcher("/views/board/board_view.jsp").forward(request, response);
-				
-				
-				
+				MultipartRequest multi = new MultipartRequest(request, realPath, maxSize, "UTF8",
+						new DefaultFileRenamePolicy());
+				Enumeration<String> names = multi.getFileNames();
+				 while(names.hasMoreElements()) {
+		               String name = names.nextElement();
+		               String oriname = multi.getOriginalFileName(name);
+		               String sysname = multi.getFilesystemName(name);
+		               System.out.println(name);
+		               
+		               if(oriname != null) {
+		            	 
+		               }
+		        }	
 				
 			}
 			

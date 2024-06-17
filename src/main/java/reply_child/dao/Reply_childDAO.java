@@ -125,6 +125,17 @@ public class Reply_childDAO {
 			// TODO: handle exception
 		}
 	}
+	public void deleteBoard_seq(int Board_seq) {
+		String sql="delete from (select r_c.*,r.board_seq from reply_child r_c join reply r on r_c.reply_seq=r.seq) where board_seq=?";
+		try (Connection con=DBConfig.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)){
+			pstat.setInt(1, Board_seq);
+			pstat.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
 	
 	public String cancel(int seq) {
 		String sql="select contents from reply_child where seq=?";

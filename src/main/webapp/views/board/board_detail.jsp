@@ -623,6 +623,38 @@
                  //force_br_newlines : true,
                  //force_p_newlines : false,
                 //content_css: false,
+                file_picker_callback: function (callback, value, meta) {
+                    if (meta.filetype === 'image') {
+                        var input = document.createElement('input');
+                        input.setAttribute('type', 'file');
+                        input.setAttribute('accept', 'image/*');
+                        
+                        input.onchange = function () {
+                        var file = this.files[0];
+                        var formData = new FormData();
+                        formData.append('image', file);
+                        $.ajax({
+                            url:"/upload_images.board",
+                            type:"get",
+                            dataType:"json",
+                            processData: false,
+                            contentType: false,
+                            data:formData
+                        }).done(function(resp){ //서버에서 저장해서 데이터 보내줌
+                            let url=resp[3];
+                            var imageData = {
+                                title: resp[0],
+                                width:  resp[1],
+                                height: resp[2]
+                            };
+                            callback(url, imageData);
+                        })
+
+                            
+                        };
+                    input.click();
+                    }
+                },
                 setup: function (editor) {
                     editor.ui.registry.addButton('fileupload', {
                     text: '파일 업로드: 선택된 파일없음',
@@ -634,7 +666,10 @@
                         //myButton.setText("aa");
                             
                     },         
-                });   
+                }),
+                editor.on('change', function () {
+                    localStorage.setItem('editorContent', editor.getContent());
+                }); 
                 $('#upload').on('change', function() {
                      var fileName = $(this).val().split('\\').pop();
                      console.log(fileName);
@@ -647,9 +682,10 @@
                      }
                      
                 });   
-                editor.on('change', function () {
-                    localStorage.setItem('editorContent', editor.getContent());
-                });
+              
+                
+                
+
             }
         });
         })

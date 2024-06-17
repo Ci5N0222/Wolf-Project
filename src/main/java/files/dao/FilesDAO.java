@@ -38,7 +38,7 @@ public class FilesDAO {
 		
 	}
 	
-	public void deleteAll(int board_seq) {
+	public void deleteBoard_seq(int board_seq) {
 		String sql="delete from files where board_seq=?";
 		try(Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)) {
