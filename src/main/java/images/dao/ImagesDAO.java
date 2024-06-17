@@ -33,11 +33,23 @@ public class ImagesDAO {
 		}
 	}
 	
-	public void delete(int seq) {
-		String sql="delete from images where seq=?";
+	public void delete(int parent_seq, String[] sysnames) {
+		String sql="delete from images where sysname not in (";
+		  for (int i = 0; i < sysnames.length; i++) {
+	            sql += "?";  // placeholder 추가
+	            if (i < sysnames.length - 1) {
+	                sql += ", ";
+	            }
+	        }
+	        
+	        sql += ") and parent_seq = ?";
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
-			pstat.setInt(1, seq);
+			 for (int i = 0; i < sysnames.length; i++) {
+	                pstat.setString(i + 1, sysnames[i]);
+	            }
+			 pstat.setInt(sysnames.length + 1, parent_seq);
+
 			pstat.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception

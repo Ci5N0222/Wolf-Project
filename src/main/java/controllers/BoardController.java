@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -260,11 +261,13 @@ public class BoardController extends HttpServlet {
 					    
 				        
 		        }
-				   String str1 = "<p><img src=\\\"upload_images/board_background18.png\\\" alt=\\\"\\\" width=\\\"230\\\" height=\\\"204\\\"><img src=\\\"upload_images/board_body_background.jpg\\\" alt=\\\"\\\" width=\\\"201\\\" height=\\\"113\\\"></p>\\n<p>애들아 안녕...asdasd</p>";
-			        String str2 = "<p><img src=\\\"upload_images/board_background18.png\\\" alt=\\\"\\\" width=\\\"230\\\" height=\\\"204\\\"></p>\\n<p>애들아 안녕...asdasd</p>";
-
-			        String result = boardDAO.findDeletedTags(str1, str2);
-			        System.out.println("Result: " + result); // 출력: apple cherry orange
+				   	String str1=boardDAO.board_contents(87);
+				   	System.out.println(str1);
+			        ArrayList<String> result = boardDAO.findDeletedTags(str1);
+			        for (String string : result) {
+			        	System.out.println("Result: " + string); 
+					}	
+			        
 				 			
 			}
 			

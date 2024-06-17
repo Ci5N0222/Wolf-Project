@@ -362,46 +362,50 @@ private static BoardDAO instance;
 		}
 	}
 	
-	public  String findDeletedTags(String originalHtml, String modifiedHtml) {
-		Document doc1 = Jsoup.parse(originalHtml);
-        Document doc2 = Jsoup.parse(modifiedHtml);
+	public  ArrayList<String> findDeletedTags(String originalHtml) {
+		Document doc = Jsoup.parse(originalHtml);
+   
 
-        // 첫 번째 HTML 문서의 모든 태그를 가져옵니다.
-        Elements elements1 = doc1.getAllElements();
-        // 두 번째 HTML 문서의 모든 태그를 가져옵니다.
-        Elements elements2 = doc2.getAllElements();
+	    Elements imgTags = doc.select("img");
+	    ArrayList<String> sysnames=new ArrayList<>();
 
-        StringBuilder deletedTagsBuilder = new StringBuilder();
+	    // img 태그들에 대해 처리합니다.
+	    for (Element imgTag : imgTags) {
+	        String src = imgTag.attr("src");
+	        System.out.println(src);
+	        String regex = "^/(.+)\\$"; // 여기에 적절한 정규 표현식을 넣어야 합니다.
+	        Pattern pattern = Pattern.compile(regex);
+	        Matcher matcher = pattern.matcher(src);
 
-        // 첫 번째 HTML 문서의 각 태그에 대해 확인합니다.
-        for (Element element1 : elements1) {
-            boolean found = false;
-            // 두 번째 HTML 문서에서 같은 태그를 찾습니다.
-            for (Element element2 : elements2) {
-                if (element1.tagName().equals(element2.tagName()) &&
-                    element1.attributes().equals(element2.attributes())) {
-                    found = true;
-                    break;
-                }
-            }
-            // 두 번째 HTML 문서에 태그가 없으면 삭제된 것으로 판단합니다.
-            if (!found) {
-                //deletedTagsBuilder.append(element1.outerHtml()).append("\n");
-            	String input = element1.attr("src");
-                String regex = "/.+\\"; // 
-                Pattern pattern = Pattern.compile(regex);
-                Matcher matcher = pattern.matcher(input);
-                
-                if (matcher.find()) {
-                    // 매칭된 문자열이 있을 때 처리
-                    String matchedString = matcher.group();
-                    System.out.println("매칭된 문자열: " + matchedString);
-                    deletedTagsBuilder.append(matchedString).append(" ");
-                }
-     
-            }
-        }
+	        if (matcher.find()) {
+	            String matchedString = matcher.group(1);
+	            System.out.println("매칭된 문자열: " + matchedString);
+	            sysnames.add(matchedString);
+	        }
+	    }
 
-        return deletedTagsBuilder.toString().trim();
+	    return sysnames;
 	}
+	
+	
+	public String board_contents(int seq) {
+		String sql="select contents from board where seq=?";
+		String contents="";
+		try (Connection con=DBConfig.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)){
+			pstat.setInt(1, seq);
+			try (ResultSet rs=pstat.executeQuery()){
+				rs.next();
+				contents=rs.getString(3);
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return contents;
+	}
+	
 }
