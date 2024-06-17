@@ -1,11 +1,13 @@
 package controllers;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 import java.util.Enumeration;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
@@ -22,6 +26,8 @@ import board.dto.BoardDTO;
 import commons.PageConfig;
 import files.dao.FilesDAO;
 import files.dto.FilesDTO;
+import images.dao.ImagesDAO;
+import images.dto.ImagesDTO;
 import reply.dao.ReplyDAO;
 import reply_child.dao.Reply_childDAO;
 
@@ -30,13 +36,18 @@ public class BoardController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("UTF-8");
 		HttpSession session= request.getSession();
 		String cmd = request.getRequestURI();
+		PrintWriter pw= response.getWriter();
+		Gson g= new Gson();
 		
 		BoardDAO boardDAO= BoardDAO.getInstance();
 		FilesDAO filesDAO= FilesDAO.getInstance();
 		ReplyDAO replyDAO= ReplyDAO.getInstance();
 		Reply_childDAO reply_childDAO= Reply_childDAO.getInstance();
+		ImagesDAO imagesDAO = ImagesDAO.getInstance();
+		
 		
 		try {
 			if(cmd.equals("/list.board")) {
@@ -182,7 +193,9 @@ public class BoardController extends HttpServlet {
 				
 			} else if(cmd.equals("/upload_images.board")) {
 				int maxSize = 1024 * 1024 * 10; // 10mb
-				String realPath = "src/main/webapp/upload_images";
+				String Path = "/upload_images";
+				String realPath = getServletContext().getRealPath(Path);
+				System.out.println(realPath);
 				File uploadPath = new File(realPath);
 				if (!uploadPath.exists()) {
 					uploadPath.mkdir();// 메이크 디렉토리
@@ -190,17 +203,69 @@ public class BoardController extends HttpServlet {
 				MultipartRequest multi = new MultipartRequest(request, realPath, maxSize, "UTF8",
 						new DefaultFileRenamePolicy());
 				Enumeration<String> names = multi.getFileNames();
+				int parent_seq = Integer.parseInt(multi.getParameter("board_seq"));
+				String member_id= (String)session.getAttribute("WolfID");
 				 while(names.hasMoreElements()) {
 		               String name = names.nextElement();
 		               String oriname = multi.getOriginalFileName(name);
 		               String sysname = multi.getFilesystemName(name);
-		               System.out.println(name);
+		               //System.out.println(oriname);
 		               
-		               if(oriname != null) {
-		            	 
+		             
+		               File imageFile = new File(realPath + "/" + sysname);
+				       BufferedImage image = null;
+				       int width=0;
+				       int height=0;
+				        try {
+				            image = ImageIO.read(imageFile);
+				        } catch (IOException e) {
+				            e.printStackTrace();
+				        }
+
+				        if (image != null) {
+				            width = image.getWidth();
+				            height = image.getHeight();
+				            //System.out.println(width );
+				            //System.out.println(height );
+
+				       
+				        }
+				        JsonObject obj =new JsonObject();
+						obj.addProperty("width", width);
+						obj.addProperty("height", height);
+						obj.addProperty("url", "/upload_images/"+sysname);
+						
+						//JsonArray jsonArray = new JsonArray();
+				        //jsonArray.add(obj);
+						pw.append(obj.toString());
+						pw.flush(); // 버퍼에 남아있는 데이터 출력
+					    pw.close(); // PrintWriter 닫기
+					
+					   String check=multi.getParameter("check");
+					  if(oriname != null && check!=null) {
+		            	   imagesDAO.insert(new ImagesDTO(0,oriname,sysname,PageConfig.board,parent_seq,member_id));
 		               }
-		        }	
-				
+					  else {
+						  // 파일 삭제
+						   if (imageFile.exists()) {
+							   if (imageFile.delete()) {
+						         System.out.println("파일 삭제 성공");
+							   } else {
+						         System.out.println("파일 삭제 실패");
+							   }
+						    } else {
+						    	System.out.println("파일이 존재하지 않습니다.");
+						 	}
+					  }
+					    
+				        
+		        }
+				   String str1 = "<p><img src=\\\"upload_images/board_background18.png\\\" alt=\\\"\\\" width=\\\"230\\\" height=\\\"204\\\"><img src=\\\"upload_images/board_body_background.jpg\\\" alt=\\\"\\\" width=\\\"201\\\" height=\\\"113\\\"></p>\\n<p>애들아 안녕...asdasd</p>";
+			        String str2 = "<p><img src=\\\"upload_images/board_background18.png\\\" alt=\\\"\\\" width=\\\"230\\\" height=\\\"204\\\"></p>\\n<p>애들아 안녕...asdasd</p>";
+
+			        String result = boardDAO.findDeletedTags(str1, str2);
+			        System.out.println("Result: " + result); // 출력: apple cherry orange
+				 			
 			}
 			
 		} catch (Exception e) {

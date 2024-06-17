@@ -288,7 +288,7 @@
         </c:forEach>
        
 
-   
+       
 
         <script> //reply_child_script
             let reply_child_btn=$(".reply_child_btn");
@@ -433,7 +433,6 @@
             }
         </script>
     </div>
-
 
     <script>
         let btn1 = $("#delete");
@@ -625,32 +624,43 @@
                 //content_css: false,
                 file_picker_callback: function (callback, value, meta) {
                     if (meta.filetype === 'image') {
-                        var input = document.createElement('input');
+                        let input = document.createElement('input');
                         input.setAttribute('type', 'file');
                         input.setAttribute('accept', 'image/*');
-                        
                         input.onchange = function () {
-                        var file = this.files[0];
-                        var formData = new FormData();
+                        let file = this.files[0];
+                        let formData = new FormData();
                         formData.append('image', file);
                         $.ajax({
-                            url:"/upload_images.board",
-                            type:"get",
+                            url:"/upload_images.board?board_seq=${board_dto.seq}",
+                            type:"post",
                             dataType:"json",
                             processData: false,
                             contentType: false,
                             data:formData
                         }).done(function(resp){ //서버에서 저장해서 데이터 보내줌
-                            let url=resp[3];
-                            var imageData = {
-                                title: resp[0],
-                                width:  resp[1],
-                                height: resp[2]
+                            let imageData = {
+                                url:resp.url,
+                                width:  resp.width,
+                                height: resp.height
                             };
-                            callback(url, imageData);
-                        })
-
+                        callback(resp.url, imageData);
+                        //console.log($("body").find(".tox-textfield"));
+                            $("body").find(".tox-textfield").eq(2).val(resp.width);
+                            $("body").find(".tox-textfield").eq(3).val(resp.height);
+                            $("body").find(".tox-button").eq(4).on("click",function(){
+                                $.ajax({
+                                    url:"/upload_images.board?board_seq=${board_dto.seq}&check=true",
+                                    type:"post",
+                                     dataType:"json",
+                                    processData: false,
+                                    contentType: false,
+                                    data:formData
+                                 })
+                            });
                             
+                        })
+                    
                         };
                     input.click();
                     }
@@ -682,13 +692,17 @@
                      }
                      
                 });   
-              
+                
                 
                 
 
             }
         });
         })
+
+   
+
+
 
         btn5.on("click", function () {//cancel
             

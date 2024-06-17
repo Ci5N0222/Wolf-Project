@@ -6,6 +6,13 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import board.dto.BoardDTO;
 import commons.DBConfig;
@@ -353,5 +360,48 @@ private static BoardDAO instance;
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+	}
+	
+	public  String findDeletedTags(String originalHtml, String modifiedHtml) {
+		Document doc1 = Jsoup.parse(originalHtml);
+        Document doc2 = Jsoup.parse(modifiedHtml);
+
+        // 첫 번째 HTML 문서의 모든 태그를 가져옵니다.
+        Elements elements1 = doc1.getAllElements();
+        // 두 번째 HTML 문서의 모든 태그를 가져옵니다.
+        Elements elements2 = doc2.getAllElements();
+
+        StringBuilder deletedTagsBuilder = new StringBuilder();
+
+        // 첫 번째 HTML 문서의 각 태그에 대해 확인합니다.
+        for (Element element1 : elements1) {
+            boolean found = false;
+            // 두 번째 HTML 문서에서 같은 태그를 찾습니다.
+            for (Element element2 : elements2) {
+                if (element1.tagName().equals(element2.tagName()) &&
+                    element1.attributes().equals(element2.attributes())) {
+                    found = true;
+                    break;
+                }
+            }
+            // 두 번째 HTML 문서에 태그가 없으면 삭제된 것으로 판단합니다.
+            if (!found) {
+                //deletedTagsBuilder.append(element1.outerHtml()).append("\n");
+            	String input = element1.attr("src");
+                String regex = "/.+\\"; // 
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(input);
+                
+                if (matcher.find()) {
+                    // 매칭된 문자열이 있을 때 처리
+                    String matchedString = matcher.group();
+                    System.out.println("매칭된 문자열: " + matchedString);
+                    deletedTagsBuilder.append(matchedString).append(" ");
+                }
+     
+            }
+        }
+
+        return deletedTagsBuilder.toString().trim();
 	}
 }
