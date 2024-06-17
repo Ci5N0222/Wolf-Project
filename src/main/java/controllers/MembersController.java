@@ -72,7 +72,7 @@ public class MembersController extends HttpServlet {
 			        int grade = dao.selectGrade(id);
 			        if (grade == 3) {
 			            // 등급이 3일 경우
-			        	response.getWriter().write("{\"success\": false, \"message\": \"등급이 3인 회원은 로그인할 수 없습니다.\"}");
+			        	response.getWriter().write("{\"success\": false, \"message\": \"블랙리스트 회원은 로그인을 하실 수 없습니다.\"}");
 			        } else {
 			            // 로그인 성공 시 세션에 정보 설정
 			            session.setAttribute("WolfID", result[0]);
@@ -102,99 +102,7 @@ public class MembersController extends HttpServlet {
 		        }else if(cmd.equals("/logout.members")) {
 				session.invalidate();
 				response.sendRedirect("/index.jsp");
-            }
-				/* 내 정보 */
-			 else if (cmd.equals("/select.members")) {
 
-				String loginID = (String)session.getAttribute("WolfID");
-				MembersDTO dto = dao.selectMember(loginID);
-				
-				request.setAttribute("member", dto);
-				request.getRequestDispatcher("/views/mypage/updateInfo.jsp").forward(request, response);
-
-				
-				/* 내 정보 수정 */
-			} else if (cmd.equals("/update.members")) {
-
-				//--- 파일 업로드
-				int maxSize = 1024 * 1024 * 10; // 10MB 사이즈 제한
-				String realPath = request.getServletContext().getRealPath("files"); // 파일이 저장될 위치
-				File uploadPath = new File(realPath); // 저장 위치 폴더를 파일 인스턴스로 생성
-
-				if (!uploadPath.exists()) { // 파일 업로드 할 폴더가 존재하지 않는다면
-					uploadPath.mkdir(); // 폴더를 만들겠다.
-				}
-				MultipartRequest multi = new MultipartRequest(request, realPath, maxSize, "UTF8",
-						new DefaultFileRenamePolicy());
-				
-				Enumeration<String> names = multi.getFileNames();
-				String sysName="";
-				String oriName="";
-				oriName = new String(oriName.getBytes("UTF8"), "ISO-8859-1");
-				while(names.hasMoreElements()) {
-					
-					String name = names.nextElement();
-					 oriName= multi.getOriginalFileName(name); // 원본 파일 이름
-					sysName = multi.getFilesystemName(name); // 서버에 저장된 파일의 이름
-
-					System.out.println(sysName);
-				}
-				
-				response.reset(); // 기존에 response가 가지고 있는 내용을 리셋하는 작업
-				response.setHeader("Content-Disposition", "attachment;filename=\""+oriName+"\"");
-				
-				String id = (String)session.getAttribute("WolfID");
-				String name = multi.getParameter("name");
-				String nickname = multi.getParameter("nickname");
-				String phone = multi.getParameter("phone");
-				String email = multi.getParameter("email");
-				String avatar = realPath + "/" + sysName;
-
-				MembersDTO dto = new MembersDTO(id, null, name, nickname, phone, email, null, null, 0, avatar, null);
-
-				dao.edit(dto);
-
-				response.sendRedirect("/select.members");
-
-				/* 비밀번호 변경 */
-			} else if(cmd.equals("/pwUpdate.members")){
-
-				String id = (String)session.getAttribute("WolfID");
-				
-				String current_password = EncryptionUitls.getSHA512(request.getParameter("current_password"));
-				
-				boolean result = dao.isPWExist(id, current_password);
-				
-				response.setContentType("text/html; charset=UTF-8");			
-
-				PrintWriter pw = response.getWriter();
-				
-				if(result) { // db에 pw있다면 변경
-					id = (String)session.getAttribute("WolfID");
-					String new_password = EncryptionUitls.getSHA512(request.getParameter("new_password"));
-					String confirm_password = EncryptionUitls.getSHA512(request.getParameter("confirm_password"));
-					
-					if(new_password.equals(confirm_password)) {
-						dao.updatePW(id, new_password);
-						pw.append("true");
-						
-					} else {
-						System.out.println("확인 비밀번호 불일치");
-						pw.append("false1");
-					}
-					
-				} else {
-					pw.append("false2");
-					System.out.println("현재 비밀번호 오류");
-				}				
-				
-				/* 문의내역 조회 */
-			} else if(cmd.equals("/myPost.members")) {
-				
-				
-				/* 회원 탈퇴 */
-			} else if(cmd.equals("/delete.members")) {
-			
 				/* 이메일 전송 */
 			}else    if (cmd.equals("/sendEmail.members")) {
                 String email = request.getParameter("email");
@@ -228,7 +136,7 @@ public class MembersController extends HttpServlet {
                 }
                 /* 인증번호가 맞을 시 비밀번호 변경 */
             } else if (cmd.equals("/changePassword.members")) {
-                String email = request.getParameter("email"); // 이메일 받아오기
+                String id = request.getParameter("id"); // 이메일 받아오기
                 String newPassword = EncryptionUitls.getSHA512(request.getParameter("newPassword")); // 새 비밀번호 받아오기
                 String userEnteredCode = request.getParameter("CertificationCode"); // 인증 코드 받아오기
 
@@ -237,7 +145,7 @@ public class MembersController extends HttpServlet {
                 if (CertificationCode != null && CertificationCode.equals(userEnteredCode)) { // 인증 코드 확인
                     int result = 0;
                     try {
-                        result = dao.updatePassword(email, newPassword); // 비밀번호 업데이트
+                        result = dao.updatePassword(id, newPassword); // 비밀번호 업데이트
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -258,9 +166,11 @@ public class MembersController extends HttpServlet {
                 String name = request.getParameter("name");
                 String email = request.getParameter("email");
                 String userId = dao.selectID(name, email);
-                
-                response.getWriter().write(userId != null ? userId : "아이디가 존재하지 않습니다.");
-
+                if(userId != null) {
+                	response.getWriter().write("회원님의 아이디는 : " + userId);
+                }else if(userId == null) {
+                response.getWriter().write("존재하는 아이디가 없습니다.");
+                }
                 
             }
 			

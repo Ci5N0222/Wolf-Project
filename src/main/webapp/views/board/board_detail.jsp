@@ -592,7 +592,7 @@
 
         })
         btn2.on("click", function () { //list
-            location.href = "/list.board";
+            location.href = "/list.board?target=${target}&keyword=${keyword}";
 
         })
         btn3.on("click", function () { //update

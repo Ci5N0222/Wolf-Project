@@ -3,7 +3,7 @@ $(() => {
 	var pathname = window.location.pathname;
 	
 	// 이미지 미리보기
-	if(pathname === "/page_game_insert.admin"){
+	if(pathname === "/page_game_insert.admin" || pathname === "/game_detail.admin"){
         $("#admin_game_thumbnail").on("change", (e) => {
             const file = e.target.files[0];
             if(file){
@@ -15,13 +15,66 @@ $(() => {
                 }
                 reader.readAsDataURL(file);
             } else {
-                $("#imagePreview").attr("src", "");
+				if(pathname === "/game_detail.admin"){
+					$("#imagePreview").attr("src", $("#before_thumbnail").val());
+				} else{
+					$("#imagePreview").attr("src", "");	
+				}
                 $("#imagePreview").hide();
                 $("#imagePreviewBtn").hide();
 			}
         });
-        
     }
+    
+    
+    // Game Insert Validation
+    $("#admin_game_insert").on("submit", () => {
+		$("#game_discription").val($("#div_game_discription").html().trim());
+		$("#game_contents").val($("#div_game_contents").html().trim());
+		
+		if($("#admin_game_thumbnail").val() === ""){
+			alert("thumbnail 이미지 없음!");
+			return false;
+		}
+		
+		if($("#game_title").val() === ""){
+			alert("제목을 입력하세요");
+			return false;
+		}
+		
+		if($("#game_discription").val() === ""){
+			alert("요약 내용을 입력하세요");
+			return false;
+		}
+		
+		if($("#game_contents").val() === ""){
+			alert("상세 내용을 입력하세요.");
+			return false;
+		}
+	});
+	
+	// Game Update Validation
+	$("#admin_game_update").on("submit", () => {
+		$("#game_discription").val($("#div_game_discription").html().trim());
+		$("#game_contents").val($("#div_game_contents").html().trim());
+		
+		if($("#game_title").val() === ""){
+			alert("제목을 입력하세요");
+			return false;
+		}
+		
+		if($("#game_discription").val() === ""){
+			alert("요약 내용을 입력하세요");
+			return false;
+		}
+		
+		if($("#game_contents").val() === ""){
+			alert("상세 내용을 입력하세요.");
+			return false;
+		}
+		
+	});
+	 
 });
 
 
@@ -63,11 +116,19 @@ const adminMemberUpdate = (id) => {
 
 // ====================================== [ 게 임 ] ===========================================
 
-const previewImageDelete = () => {
-	$("#admin_game_thumbnail").val("");
-	$("#imagePreview").attr("src", "");
-	$("#imagePreview").hide();
-	$("#imagePreviewBtn").hide();
+// Game insert preview image delete
+const previewImageDelete = (image, url) => {
+	if(image){
+		$("#admin_game_thumbnail").val("");
+		$("#imagePreview").attr("src", url);
+		$("#imagePreviewBtn").hide();	
+	} else {
+		$("#admin_game_thumbnail").val("");
+		$("#imagePreview").attr("src", "");
+		$("#imagePreview").hide();
+		$("#imagePreviewBtn").hide();	
+	}
+	
 }
 
 
@@ -79,21 +140,9 @@ const adminGameEdit = () => {
 		"justify-content": "space-evenly", 
 		"align-items": "center"
 	});
-
-}
-
-// Game 정보를 수정하는 함수
-const amdinGameUpdate = () => {
-	$.ajax({
-		url: "/game_update.admin",
-		method: "psot",
-		data: {
-			
-		}
-	})
-	.done((res) => {
-		console.log("res ==== ", res);
-	});
+	
+	$(".admin_game_update_thumbnail").show()
+	
 }
 
 // Game정보를 삭제하는 함수
@@ -139,23 +188,23 @@ const pagenation = (cpage, recordTotalCount, recordCountPerPage, naviCountPerPag
 	if(endNavi == pageTotalCount) needNext = false;
 	
 	if(needPrev){
-		let prev = `<a href='${url}?cpage=" + (startNavi - 1) + "'>" + "< </a>`;
-		$('#navi').append(prev);
+		let prev = `<a href='${url}?cpage=${(startNavi - 1)}'> < </a>`;
+		$('.page-navigation').append(prev);
 	}
 	
 	for(let i = startNavi; i <= endNavi; i++){
 		if(cpage === i){
-			let items = `<a href='${url}?cpage=" + i + "'>" + i + "</a> `;
-    		$('#navi').append(items);
+			let items = `<a href='${url}?cpage=${i}'> ${i} </a>`;
+    		$('.page-navigation').append(items);
 		} else {
-			let items = `<a href='${url}?cpage=" + i + "'>" + i + "</a> `;
-    		$('#navi').append(items);	
+			let items = `<a href='${url}?cpage=${i}'> ${i} </a>`;
+    		$('.page-navigation').append(items);	
 		}
 	}
 	
 	if(needNext) {
-		let next = `<a href='${url}?cpage=" + (endNavi + 1) + "'>></a>`;
-		$('#navi').append(next);
+		let next = `<a href='${url}?cpage=${(endNavi + 1)}'> > </a>`;
+		$('.page-navigation').append(next);
 	}
 	
 }

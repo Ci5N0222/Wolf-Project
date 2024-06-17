@@ -223,10 +223,12 @@ public class AdminDAO {
 				while(rs.next()) {
 					int seq = rs.getInt("seq");
 					String title = rs.getString("title");
+					String discription = rs.getString("discription");
 					String contents = rs.getString("contents");
 					String thumbnail = rs.getString("thumbnail");
+					int service_code = rs.getInt("service_code");
 					
-					list.add(new GameDTO(seq, title, contents, thumbnail));
+					list.add(new GameDTO(seq, title, discription, contents, thumbnail, service_code));
 				}
 				
 				return list;
@@ -252,12 +254,134 @@ public class AdminDAO {
 				
 				int seq = rs.getInt("seq");
 				String title = rs.getString("title");
+				String discription = rs.getString("discription");
 				String contents = rs.getString("contents");
 				String thumbnail = rs.getString("thumbnail");
+				int service_code = rs.getInt("service_code");
 				
-				return new GameDTO(seq, title, contents, thumbnail);
+				return new GameDTO(seq, title, discription, contents, thumbnail, service_code);
 					
 			}
+		}
+	}
+	
+	/**
+	 * 서버에 저장된 이미지의 이름을 찾는 메서드
+	 * @param parent_seq
+	 * @param imageCode
+	 * @return
+	 * @throws Exception
+	 */
+	public String getThumbnailName(int parent_seq, int imageCode) throws Exception {
+		String sql = "select * from images where image_code = ? and parent_seq = ?";
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setInt(1, imageCode);
+			pstat.setInt(2, parent_seq);
+			try (ResultSet rs = pstat.executeQuery()){
+					
+				if(rs.next()) {
+					return rs.getString("sysname");	
+				} else {
+					return "none";
+				}
+				
+				
+			}
+		}
+	}
+	
+	
+	/**
+	 * 게임을 추가하는 메서드
+	 * @param title
+	 * @param discription
+	 * @param contents
+	 * @param thumbnail
+	 * @return
+	 * @throws Exception
+	 */
+	public int adminGameInsert(String title, String discription, String contents, String thumbnail) throws Exception {
+		String sql = "insert into game values(game_seq.nextval, ?, ?, ?, ?, 0)";
+		
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql, new String[] {"seq"})){
+			pstat.setString(1, title);
+			pstat.setString(2, discription);
+			pstat.setString(3, contents);
+			pstat.setString(4, thumbnail);
+			
+			pstat.executeQuery();
+			
+			try(ResultSet rs = pstat.getGeneratedKeys()){
+				if(rs.next()) {
+					return rs.getInt(1);
+				} else {
+					return 0;
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+	
+	/**
+	 * 게임 추가시 섬네일을 저장하는 메서드
+	 * @param path
+	 * @param oriName
+	 * @param sysName
+	 * @param seq
+	 * @return
+	 * @throws Exception
+	 */
+	public int adminGameThumbnailInsert(String oriName, String sysName, int path, int seq) throws Exception {
+		String sql = "insert into images values(images_seq.nextval, ?, ?, ?, ?, null)";
+		
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, oriName);
+			pstat.setString(2, sysName);
+			pstat.setInt(3, path);
+			pstat.setInt(4, seq);
+			
+			return pstat.executeUpdate();
+		}
+	}
+	
+	
+	/**
+	 * 게임 정보를 업데이트하는 메서드
+	 * @param seq
+	 * @param title
+	 * @param discription
+	 * @param contents
+	 * @param oriname
+	 * @return
+	 * @throws Exception
+	 */
+	public int adminGameUpdate(int seq, String title, String discription, String contents, String oriname) throws Exception {
+		String sql = "";
+		if(oriname != null) {
+			sql = "update game set title = ?, discription =?, contents = ?, thumbnail = ? where seq = ?";
+		} else {
+			sql = "update game set title = ?, discription =?, contents = ? where seq = ?";
+		}
+		
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, title);
+			pstat.setString(2, discription);
+			pstat.setString(3, contents);
+			if(oriname != null) {
+				pstat.setString(4, oriname);
+				pstat.setInt(5, seq);
+			} else {
+				pstat.setInt(4, seq);
+			}
+			
+			return pstat.executeUpdate();
 		}
 	}
 	

@@ -40,16 +40,25 @@
              				<th>ID</th>
              				<th>title</th>
              				<th>thumbnail</th>
+             				<th>service</th>
              			</tr>
 	             		<c:forEach var="games" items="${gameList}">
 	             			<tr>
 	             				<td>${games.seq}</td>
 	             				<td><a href="game_detail.admin?seq=${games.seq}">${games.title}</a></td>
 	             				<td>${games.thumbnail}</td>
+	             				<c:choose>
+	             					<c:when test="${games.service_code eq 1}">
+	             						<td>서비스 중</td>
+	             					</c:when>
+	             					<c:otherwise>
+	             						<td>서비스 정지</td>
+	             					</c:otherwise>
+	             				</c:choose>
 	             			</tr>
 	             		</c:forEach>
              		</table>
-             		<!-- 페이징 -->
+             		<div class="page-navigation"></div>
              		<script>
              			pagenation(${cpage}, ${recode_total_count}, ${recode_count_per_page}, ${navi_count_per_page}, "/game_list.admin");
              		</script>

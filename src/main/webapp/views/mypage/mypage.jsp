@@ -27,86 +27,86 @@
 
      <style>
       @charset "UTF-8";@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Noto+Sans+KR:wght@100..900&display=swap');
-:root {
-    --bg-light: #ffd449;
-    --bg-dark: #14213D;
-    --bg-transparent: transparent;
+      :root {
+          --bg-light: #ffd449;
+          --bg-dark: #14213D;
+          --bg-transparent: transparent;
 
-    --color-white: #eeeeee;
-    --color-black: #14213D;
-    --bg-nav: #f9a620;
-    --color-nav-icon: #14213D;
-    --color-nav-bg: #f9a620;
-    font-size: 16px;
-}
-html,
-body {
-    height: 100%;
-    margin: 0;
-    background-color: var(--bg-dark);
-    color: var(--bg-black);
-    color: var(--color-black);
-    overflow: hidden;
-    /* 폰트 */
-    font-family: "Noto Sans KR", sans-serif;
-    font-family: "Luckiest Guy", cursive;
-}
-body.light {
-    background-color: var(--bg-light);
-    color: var(--bg-black);
-}
-/* 모드 변경시 부드럽게 넘어가는 효과 */
-.sun,
-.navi {
-    transition: background-color 0.5s ease, box-shadow 0.5s ease;
-}
-/* img */
-.img_bg{position: absolute;top: -60%;left: 0; width: 100%; object-fit: cover;}
-.bgs{animation:bg 1s ease-in Infinite Alternate; transition: all ease-in 0.2s; width: 50px;}
-.bgs:nth-child(1){top: 15%;left: 80%;}
-.bgs:nth-child(2){top: 20%; left: 80%; width: 40px;}
-.bgs:nth-child(3){top: 15%; left: 20%;}
-.bgs:nth-child(4){top: 27%; left: 70%; width: 20px;}
-.bgs:nth-child(5){top: 12%; left: 50%;}
-.bgs:nth-child(6){top: 12%; left: 80%; width: 20px;}
-@keyframes bg {
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
-}
+          --color-white: #eeeeee;
+          --color-black: #14213D;
+          --bg-nav: #f9a620;
+          --color-nav-icon: #14213D;
+          --color-nav-bg: #f9a620;
+          font-size: 16px;
+      }
+      html,
+      body {
+          height: 100%;
+          margin: 0;
+          background-color: var(--bg-dark);
+          color: var(--bg-black);
+          color: var(--color-black);
+          overflow: hidden;
+          /* 폰트 */
+          font-family: "Noto Sans KR", sans-serif;
+          font-family: "Luckiest Guy", cursive;
+      }
+      body.light {
+          background-color: var(--bg-light);
+          color: var(--bg-black);
+      }
+      /* 모드 변경시 부드럽게 넘어가는 효과 */
+      .sun,
+      .navi {
+          transition: background-color 0.5s ease, box-shadow 0.5s ease;
+      }
+      /* img */
+      .img_bg{position: absolute;top: -60%;left: 0; width: 100%; object-fit: cover;}
+      .bgs{animation:bg 1s ease-in Infinite Alternate; transition: all ease-in 0.2s; width: 50px;}
+      .bgs:nth-child(1){top: 15%;left: 80%;}
+      .bgs:nth-child(2){top: 20%; left: 80%; width: 40px;}
+      .bgs:nth-child(3){top: 15%; left: 20%;}
+      .bgs:nth-child(4){top: 27%; left: 70%; width: 20px;}
+      .bgs:nth-child(5){top: 12%; left: 50%;}
+      .bgs:nth-child(6){top: 12%; left: 80%; width: 20px;}
+      @keyframes bg {
+          0% {
+              opacity: 1;
+          }
+          100% {
+              opacity: 0;
+          }
+      }
 
-.container-fluid,
-.container,
-.main {
-    height: 100%;
-}
-/* 메뉴 */
-.navi {
-    z-index: 5;
-    height: 10%;
-    display: flex;
-    align-items: center;
-    background-color: var(--bg-nav);
-    padding: 0 3%;
-    font-size: 20px;
-    color: var(--color-white);
-    text-shadow: 1px 1px 1px gray;
-    letter-spacing: 1px;
+      .container-fluid,
+      .container,
+      .main {
+          height: 100%;
+      }
+      /* 메뉴 */
+      .navi {
+          z-index: 5;
+          height: 10%;
+          display: flex;
+          align-items: center;
+          background-color: var(--bg-nav);
+          padding: 0 3%;
+          font-size: 20px;
+          color: var(--color-white);
+          text-shadow: 1px 1px 1px gray;
+          letter-spacing: 1px;
 
-    border-radius: 40px 80px / 80px 40px;
-}
-.navi i {font-size: 22px;}
-    .navi > div {margin-top: 0;}
-    .navi > div:nth-child(2) #wolfLogo{width: 100px;height: 100px;}
-    /* 로고 */
-    .navi #wolfLogo > img {object-fit: cover; width: 100%;height: 100%;}
-    /* 메뉴 버튼 */
-    .naviBtn{cursor: pointer; transition: all 0.3s ease-in-out;}
-    .naviBtn:hover{opacity: 0.5;}
-/* -- main과 동일 -- */
+          border-radius: 40px 80px / 80px 40px;
+      }
+      .navi i {font-size: 22px;}
+      .navi > div {margin-top: 0;}
+      .navi > div:nth-child(2) #wolfLogo{width: 100px;height: 100px;}
+      /* 로고 */
+      .navi #wolfLogo > img {object-fit: cover; width: 100%;height: 100%;}
+      /* 메뉴 버튼 */ 
+      .naviBtn{cursor: pointer; transition: all 0.3s ease-in-out;}
+      .naviBtn:hover{opacity: 0.5;}
+      /* -- main과 동일 -- */
 
       * {
         box-sizing: border-box;
@@ -124,7 +124,7 @@ body.light {
         min-width: 200px;
         /* height: 100%; */
         background-color: #f0f0f0;
-        margin-left: 50px;
+        margin-left: 30px;
         margin-top: 200px;
         border-radius: 10px;
         display: flex;
@@ -293,22 +293,40 @@ body.light {
       }
 
       /* 사이드바 반응형 */
-       @media (max-width: 1100px) {
+      @media (max-width: 1400px) {
         .mypage-side-menu {
-          display: none;
+          margin-left: 0px;
+        }
+        .mypage-main-form{
+          margin-left: 20px;
         }
       }
       
+      @media (max-width: 1100px) {
+        .mypage-side-menu {
+          display: none;
+        }
+        .mypage-main-form{
+          margin: 0px;
+        }
+      }
+
       /* 메인 반응형 */
        @media (max-width: 880px) {
+        .mypage-main-form{
+          margin: 0px;
+        }
         .mypage-dashboard {
           display: flex;
           flex-direction: column;
           gap: 20px 0;
           margin: 0px;
           padding: 0 20px;
-          overflow-y: scroll;
         }
+        body{
+          overflow-y: auto;
+        }
+
         /* 내 정보 */
         .mypage-dashboard > div:first-child {
           gap: 20px 0;
@@ -411,15 +429,15 @@ body.light {
 
             <!-- main -->
             <main class="mypage-container">
-        <aside class="mypage-side-menu">
-          <p onclick="location.href='/views/mypage/mypage.jsp'">내정보 홈</p>
-          <p onclick="location.href='/select.members'">개인정보관리</p>
-          <p onclick="location.href='/views/mypage/updatePW.jsp'">비밀번호 변경</p>
-          <p onclick="location.href='/mypageGameList.mypage'">게임플레이 정보</p>
-          <p onclick="location.href='/'">문의내역</p>
-          <p onclick="location.href='/'">회원탈퇴</p>
-          <p onclick="location.href='/logout.members'">로그아웃</p>
-        </aside>
+              <aside class="mypage-side-menu">
+                <p onclick="location.href='/views/mypage/mypage.jsp'">내정보 홈</p>
+                <p onclick="location.href='/select.members'">개인정보관리</p>
+                <p onclick="location.href='/views/mypage/updatePW.jsp'">비밀번호 변경</p>
+                <p onclick="location.href='/mypageGameList.mypage'">게임플레이 정보</p>
+                <p onclick="location.href='/'">문의내역</p>
+                <p onclick="location.href='/'">회원탈퇴</p>
+                <p onclick="location.href='/logout.members'">로그아웃</p>
+              </aside>
 
         <section class="mypage-main-form">
           <h1 class="mypage-main-title">마이페이지</h1>
@@ -435,7 +453,7 @@ body.light {
                     </div>
                   </div>
                   <div>
-                    <button class="mypage_btn" onclick="location.href='/select.members'">내 정보</button>
+                    <button class="mypage_btn" onclick="location.href='/selectMember.mypage'">내 정보</button>
                   </div>
                 </div>
               </div>

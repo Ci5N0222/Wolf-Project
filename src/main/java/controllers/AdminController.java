@@ -1,6 +1,8 @@
 package controllers;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -8,11 +10,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.plaf.synth.SynthOptionPaneUI;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import admin.dao.AdminDAO;
-import commons.PageConfig;
 import commons.EncryptionUitls;
+import commons.PageConfig;
 import game.dto.GameDTO;
 import members.dto.MembersDTO;
 
@@ -32,6 +36,8 @@ public class AdminController extends HttpServlet {
 		if(request.getSession().getAttribute("WolfAdmin") != null) {
 			adminSession = (boolean)request.getSession().getAttribute("WolfAdmin");
 		}
+		
+		int image_code = 3;
 		
 		try {
 			
@@ -165,8 +171,18 @@ public class AdminController extends HttpServlet {
 			else if(cmd.equals("/game_detail.admin")) {
 				if(!adminSession) response.sendRedirect("/page_login.admin");
 				else {
+					
 					String seq = request.getParameter("seq");
 					GameDTO game = dao.getGameInfo(Integer.parseInt(seq));
+					request.setAttribute("beforeThumbnail", game.getThumbnail());
+					
+					String sysname = dao.getThumbnailName(Integer.parseInt(seq), image_code);
+					
+					if(sysname.equals("none")) {
+						game.setThumbnail(sysname);
+					} else {
+						game.setThumbnail("thumbnails/" + sysname);
+					}
 					
 					request.setAttribute("game", game);
 					request.getRequestDispatcher("/views/admin/admin_game_detail.jsp").forward(request, response);
@@ -182,10 +198,28 @@ public class AdminController extends HttpServlet {
 			else if(cmd.equals("/game_insert.admin")) {
 				if(!adminSession) response.sendRedirect("/page_login.admin");
 				else {
-					// 멀티파트로 썸네일 이미지 받아야 됨
-					String title = request.getParameter("title");
-					String contents = request.getParameter("contents");
 					
+					int maxSize = 1024 * 1024 * 10;
+					String realPath = request.getServletContext().getRealPath("thumbnails");
+					File uploadPath = new File(realPath);
+					
+					if(!uploadPath.exists()) {
+						uploadPath.mkdir();
+					}
+					
+					MultipartRequest multi = new MultipartRequest(request, realPath, maxSize, "UTF8", new DefaultFileRenamePolicy());
+
+					String title = multi.getParameter("game_title");
+					String discription = multi.getParameter("game_discription");
+					String contents = multi.getParameter("game_contents");
+					String oriname = multi.getOriginalFileName("game_image");
+					String sysname = multi.getFilesystemName("game_image");
+					
+					int seq = dao.adminGameInsert(title, discription, contents, oriname);
+					if(seq > 0) {
+						dao.adminGameThumbnailInsert(oriname, sysname, image_code, seq);
+						response.sendRedirect("/game_list.admin");
+					}
 				}
 			}
 			
@@ -195,6 +229,42 @@ public class AdminController extends HttpServlet {
 				if(!adminSession) response.sendRedirect("/page_login.admin");
 				else {
 					
+					int maxSize = 1024 * 1024 * 10;
+					String realPath = request.getServletContext().getRealPath("thumbnails");
+					File uploadPath = new File(realPath);
+					
+					if(!uploadPath.exists()) {
+						uploadPath.mkdir();
+					}
+
+					MultipartRequest multi = new MultipartRequest(request, realPath, maxSize, "UTF8", new DefaultFileRenamePolicy());
+					
+					String seq = multi.getParameter("game_seq");
+					String title = multi.getParameter("game_title");
+					String discription = multi.getParameter("game_discription");
+					String contents = multi.getParameter("game_contents");
+					
+					String oriname = multi.getOriginalFileName("game_image");
+					String sysname = multi.getFilesystemName("game_image");
+
+					int result = dao.adminGameUpdate(Integer.parseInt(seq), title, discription, contents, oriname);
+					if(result > 0) {
+						dao.adminGameThumbnailInsert(oriname, sysname, image_code, Integer.parseInt(seq));
+					}
+					
+					// 서버에 저장된 이미지 삭제
+					if(sysname != null) {
+						String beforSysname = multi.getParameter("before_thumbnail");
+						String[] beforeArr = beforSysname.split("/");
+						String before = beforeArr[beforeArr.length-1];
+
+						File fileToDelete = new File(uploadPath, before);
+						if(fileToDelete.exists()) {
+							fileToDelete.delete();
+						}
+					}
+					
+					response.sendRedirect("/game_list.admin");
 				}
 			}
 			

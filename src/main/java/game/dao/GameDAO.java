@@ -28,20 +28,22 @@ public class GameDAO {
 	};
 
 	public List<GameDTO> getList() throws Exception {
-		String sql = "select * from game";
+		String sql = "select * from game where service_code = 1";
 
 		try (Connection con = DBConfig.getConnection();
-				PreparedStatement ps = con.prepareStatement(sql);
-				ResultSet rs = ps.executeQuery();) {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();) {
 			System.out.println("test!!!");
 			List<GameDTO> list = new ArrayList<>();
 			while (rs.next()) {
 				int seq = rs.getInt(1);
 				String title = rs.getString(2);
-				String contents = rs.getString(3);
-				String thumbnail = rs.getString(4);
+				String discription = rs.getString(3);
+				String contents = rs.getString(4);
+				String thumbnail = rs.getString(5);
+				int service_code = rs.getInt(6);
 				System.out.println(title + "@");
-				list.add(new GameDTO(seq, title, contents, thumbnail));
+				list.add(new GameDTO(seq, title, discription, contents, thumbnail, service_code));
 			}
 			System.out.println("getList: " + list);
 			return list;
@@ -58,9 +60,11 @@ public class GameDAO {
 				while (rs.next()) {
 					int seq = rs.getInt(1);
 					String title = rs.getString(2);
-					String contents = rs.getString(3);
-					String thumbnail = rs.getString(4);
-					dto = new GameDTO(seq, title, contents, thumbnail);
+					String discription = rs.getString(3);
+					String contents = rs.getString(4);
+					String thumbnail = rs.getString(5);
+					int service_code = rs.getInt(6);
+					dto = new GameDTO(seq, title, discription, contents, thumbnail, service_code);
 				}
 				return dto;
 			}
