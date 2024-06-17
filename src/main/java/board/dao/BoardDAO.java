@@ -80,7 +80,7 @@ private static BoardDAO instance;
 		List<BoardDTO> list=new ArrayList<>();
 		Object [] boardList=new Object[2];
 		ArrayList<String> nickname=new ArrayList<>();
-		try (Connection con=DBConfig.getConnection();
+		try (Connection con=DBConfig.getConnection(); 
 				PreparedStatement pstat=con.prepareStatement(sql);){
 			
 			pstat.setInt(1, cpage*recordCountPerPage - (recordCountPerPage-1));
@@ -121,14 +121,14 @@ private static BoardDAO instance;
 		ArrayList<String> nickname=new ArrayList<>();
 		
 		if(target.equals("title")) {
-			String sql="	SELECT * FROM (SELECT c.*, ROW_NUMBER() OVER (ORDER BY seq DESC) AS rown FROM (SELECT * FROM (select b.*,m.nickname from board b join members m on b.member_id =m.id where b.title like ?))c)a WHERE rown between ? and ? and a.board_code=?";
+			String sql="	SELECT * FROM (SELECT c.*, ROW_NUMBER() OVER (ORDER BY seq DESC) AS rown FROM (SELECT * FROM (select b.*,m.nickname from board b join members m on b.member_id =m.id where REGEXP_REPLACE(b.contents, '<[^>]+>', '') like ?))c)a WHERE rown between ? and ? and a.board_code=?";
 			try (Connection con=DBConfig.getConnection();
 					PreparedStatement pstat=con.prepareStatement(sql);){
 				pstat.setString(1, "%" + keyword + "%");
 				pstat.setInt(2, cpage*recordCountPerPage - (recordCountPerPage-1));
 				pstat.setInt(3, cpage*recordCountPerPage);
 				pstat.setInt(4, board_code);
-		
+				
 				try(ResultSet rs=pstat.executeQuery()) {
 					for (int i = 0; i < recordCountPerPage; i++) {
 						rs.next();
@@ -138,14 +138,15 @@ private static BoardDAO instance;
 						int count =rs.getInt(4);
 						String member_id=rs.getString(5);
 						Timestamp write_date=rs.getTimestamp(7);
-						nickname.add(rs.getString(8));
+						nickname.add(rs.getString(8));		
 						BoardDTO dto=new BoardDTO(seq,title,contents,count,member_id,board_code,write_date);
 						list.add(dto);
+						
 					}
 				} catch (Exception e) {}
 			} catch (Exception e) {}
 		} else if(target.equals("contents")) {
-			String sql="SELECT * FROM (SELECT c.*, ROW_NUMBER() OVER (ORDER BY seq DESC) AS rown FROM (SELECT * FROM (select b.*,m.nickname from board b join members m on b.member_id =m.id where b.contents like ?))c)a WHERE rown between ? and ? and a.board_code=?";
+			String sql="SELECT * FROM (SELECT c.*, ROW_NUMBER() OVER (ORDER BY seq DESC) AS rown FROM (SELECT * FROM (select b.*,m.nickname from board b join members m on b.member_id =m.id where REGEXP_REPLACE(b.contents, '<[^>]+>', '') like ?))c)a WHERE rown between ? and ? and a.board_code=?";
 			try (Connection con=DBConfig.getConnection();
 					PreparedStatement pstat=con.prepareStatement(sql);){
 				pstat.setString(1, "%" + keyword + "%");
@@ -163,6 +164,7 @@ private static BoardDAO instance;
 						String member_id=rs.getString(5);
 						Timestamp write_date=rs.getTimestamp(7);
 						nickname.add(rs.getString(8));
+				
 						BoardDTO dto=new BoardDTO(seq,title,contents,count,member_id,board_code,write_date);
 						list.add(dto);
 					}
