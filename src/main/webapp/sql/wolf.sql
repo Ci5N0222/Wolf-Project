@@ -117,6 +117,11 @@ increment by 1
 nomaxvalue
 nocache;
 
+create sequence image_seq
+start with 1
+increment by 1
+nomaxvalue
+nocache;
 
 -- members table dummy data
 INSERT INTO members VALUES ('user001', 'password1', 'Alice', 'alice01', '01012345678', 'alice@example.com', 'F', '750101', 1, null, sysdate);
