@@ -232,8 +232,39 @@ body.light {
 }
 
 
+/* 테블릿 가로, 테블릿 세로 (해상도 768px ~ 1023px)*/
+@media all and (min-width:768px) and (max-width: 1023px){}
 
+/* 모바일 */
+@media all and (max-width: 767px) {
+	.main {height: 90%;}
+	.container-fluid {
+		padding: 0;
+	}
 
+	.navi {
+		z-index: 5;
+		height: 10%;
+		display: flex;
+		align-items: center;
+		background-color: var(--bg-nav);
+		font-size: 1rem;
+		color: var(--color-white);
+		text-shadow: 1px 1px 1px gray;
+		letter-spacing: 1px;
+
+		border-radius: 0;
+	}
+
+	.navi i {
+		font-size: 1rem;
+	}
+
+	.navi>div {
+		margin-top: 0;
+		height: 100%;
+	}
+}
 
 
 /* -- main과 동일 -- */
