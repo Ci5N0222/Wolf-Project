@@ -318,13 +318,13 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     <div class="container-fluid d-flex flex-column">
       <!-- nav -->
       <div class="container text-center flex-grow-1 d-flex flex-column">
-        <img src="images/bg1.png" alt="" class="img_bg" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="/images/bg1.png" alt="" class="img_bg" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
 
         <!-- nav -->
         <%@ include file="/views/include/header.jsp" %>
@@ -442,6 +442,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         location.href = "/views/mypage/mypage.jsp";
       });
     </script>
-    <script src="js/main.js"></script>
+    <script src="/js/main.js"></script>
   </body>
 </html>
