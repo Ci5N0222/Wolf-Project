@@ -262,18 +262,62 @@ public class AdminDAO {
 	}
 	
 	
+	/**
+	 * 게임을 추가하는 메서드
+	 * @param title
+	 * @param discription
+	 * @param contents
+	 * @param thumbnail
+	 * @return
+	 * @throws Exception
+	 */
 	public int adminGameInsert(String title, String discription, String contents, String thumbnail) throws Exception {
-		String sql = "insert into game values(game_seq.nextval, ?, ?, ?, ?)";
+		String sql = "insert into game values(game_seq.nextval, ?, ?, ?, ?, 0)";
+		
 		try(Connection con = DBConfig.getConnection();
-			PreparedStatement pstat = con.prepareStatement(sql)){
+			PreparedStatement pstat = con.prepareStatement(sql, new String[] {"seq"})){
 			pstat.setString(1, title);
 			pstat.setString(2, discription);
 			pstat.setString(3, contents);
 			pstat.setString(4, thumbnail);
 			
-			return pstat.executeUpdate();
+			pstat.executeQuery();
+			
+			try(ResultSet rs = pstat.getGeneratedKeys()){
+				if(rs.next()) {
+					return rs.getInt(1);
+				} else {
+					return 0;
+				}
+				
+			}
+			
 		}
 		
+	}
+	
+	
+	/**
+	 * 게임 추가시 섬네일을 저장하는 메서드
+	 * @param path
+	 * @param oriName
+	 * @param sysName
+	 * @param seq
+	 * @return
+	 * @throws Exception
+	 */
+	public int adminGameThumbnailInsert(int path, String oriName, String sysName, int seq) throws Exception {
+		String sql = "insert into image values(image_seq.nextval, ?, ?, ?, ?)";
+		
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setInt(1, path);
+			pstat.setString(2, oriName);
+			pstat.setString(3, sysName);
+			pstat.setInt(4, seq);
+			
+			return pstat.executeUpdate();
+		}
 	}
 	
 	

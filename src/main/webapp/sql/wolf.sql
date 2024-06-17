@@ -51,11 +51,10 @@ create table reply_child(
 create table game(
     seq number primary key,
     title varchar(50) not null,
+    discription varchar(1000) not NULL,
     contents varchar(4000) not null,
     thumbnail varchar(500) not null,
-    service_code number not null,
-    discription varchar(1000) not null
-	
+    service_code number not null
 );
 
 create table game_score(
@@ -74,6 +73,20 @@ create table files(
 create table service(
     service_code number primary key,
     service_state varchar(20) not null
+);
+
+create table image(
+    seq number primary key,
+    oriname varchar(1000) not null,
+    sysname varchar(1000) not null,
+    image_code number not null,
+    parent_seq number,
+    member_id varchar(20)
+);
+
+create table image_code(
+    image_code number primary key,
+    sortaion varchar(30) 
 );
 
 create sequence board_seq
@@ -103,6 +116,11 @@ increment by 1
 nomaxvalue
 nocache;
 
+create sequence image_seq
+start with 1
+increment by 1
+nomaxvalue
+nocache;
 
 -- members table dummy data
 INSERT INTO members VALUES ('user001', 'password1', 'Alice', 'alice01', '01012345678', 'alice@example.com', 'F', '750101', 1, null, sysdate);
@@ -186,11 +204,12 @@ INSERT INTO reply_child VALUES(14, 'user014', '열네 번째 댓글의 답글입
 INSERT INTO reply_child VALUES(15, 'user015', '열다섯 번째 댓글의 답글입니다.', 8,sysdate);
 
 -- game table dummy data
-INSERT INTO game VALUES(game_seq.nextval, '게임1', '게임1에 대한 내용입니다.', 'thumbnail1.jpg', 1,'게임1요약');
-INSERT INTO game VALUES(game_seq.nextval, '게임2', '게임2에 대한 내용입니다.', 'thumbnail2.jpg', 1,'게임2요약');
-INSERT INTO game VALUES(game_seq.nextval, '게임3', '게임3에 대한 내용입니다.', 'thumbnail3.jpg', 1,'게임3요약');
-INSERT INTO game VALUES(game_seq.nextval, '게임4', '게임4에 대한 내용입니다.', 'thumbnail4.jpg', 0,'게임4요약');
-INSERT INTO game VALUES(game_seq.nextval, '게임5', '게임5에 대한 내용입니다.', 'thumbnail5.jpg', 1,'게임5요약');
+INSERT INTO game VALUES(game_seq.nextval, '게임1', '게임1요약', '게임1에 대한 내용입니다.', 'thumbnail1.jpg', 1);
+INSERT INTO game VALUES(game_seq.nextval, '게임2', '게임2요약', '게임2에 대한 내용입니다.', 'thumbnail1.jpg', 1);
+INSERT INTO game VALUES(game_seq.nextval, '게임3', '게임3요약', '게임3에 대한 내용입니다.', 'thumbnail1.jpg', 1);
+INSERT INTO game VALUES(game_seq.nextval, '게임4', '게임4요약', '게임4에 대한 내용입니다.', 'thumbnail1.jpg', 1);
+INSERT INTO game VALUES(game_seq.nextval, '게임5', '게임5요약', '게임5에 대한 내용입니다.', 'thumbnail1.jpg', 1);
+INSERT INTO game VALUES(game_seq.nextval, '게임6', '게임6요약', '게임6에 대한 내용입니다.', 'thumbnail1.jpg', 0);
 
 -- game_score table dummy data
 INSERT INTO game_score VALUES(95, 'user001', 1);
@@ -220,5 +239,10 @@ INSERT INTO files VALUES (files_seq.nextval, 'image10.jpg', 'sys_image10.jpg', 1
 -- service table dummy data
 INSERT INTO service VALUES (0, '서비스 중지');
 INSERT INTO service VALUES (1, '서비스 진행 중');
+
+-- image_code table dummy data
+insert into image_code values(1,'board');
+insert into image_code values(2,'members');
+insert into image_code values(3,'thumbnails');
 
 COMMIT;

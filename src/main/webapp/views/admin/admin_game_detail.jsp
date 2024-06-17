@@ -49,6 +49,10 @@
    				<div class="admin-game-discription">
    					${game.contents}
    				</div>
+   				<div class="admin-game-contents">
+   					${game.contents}
+   				</div>
+   				
 	        	<div class="admin-game-btn">
 	        		<button onclick="adminGameEdit()">수정</button>
 			        <button onclick="adminGameDelete(${game.seq})">삭제</button>
