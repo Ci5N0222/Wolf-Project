@@ -157,53 +157,66 @@ body.light {
 /* main */
 .main {
 	height: 90%;
-}
-
-.main .row {
-	height: 100%;
 	display: flex;
-	justify-content: center;
-	align-items: center
-}
-
-.main .row>div {
-	display: flex;
+	align-items: center;
 	justify-content: center;
 }
 
-.card {
-	height: 300px;
+.main>div {
+	display: flex;
+	width: 1200px;
+	height: 500px;
+	border: 1px solid wheat;
 }
 
-/* 이미지가 카드를 넘어가면 잘림 */
-.card>div:first-child {
-	height: 200px;
-	background-color: var(--color-nav-bg);
-}
-
-/* 이미지가 가로로 꽉 차게 설정 */
-.card>div:first-child>img {
+.main>div .game {
+	width: 1000px;
 	height: 100%;
-	object-fit: cover;
+	background-color: #ccc;
 }
 
-/* 이미지가 가로로 꽉 차게 설정 */
-.card>div:last-child {
+.main>div .ranking {
+	width: 200px;
+	height: 100%;
+	background-color: var(--bg-nav);
+}
+
+.main>div .ranking>div:first-child {
+	height: 50px;
+	line-height: 50px;
+	letter-spacing: 5px;
+}
+
+.main>div .ranking>div:last-child {
+	height: 450px;
+	display: flex;
+	flex-direction: column;
+}
+
+.main>div .ranking>div:last-child>div {
+	flex: 1;
+	background-color: #eeeeee;
+	height: 150px;
+}
+
+.main>div .ranking>div:last-child>div>div:nth-child(1) {
 	height: 100px;
+	border-top: 1px solid #f9a620;
 }
 
-@media (max-width: 1000px) {
-	#wolfLogo {
-		display: none;
-	}
+.main>div .ranking>div:last-child>div>div:nth-child(2) {
+	height: 25px;
+	border-top: 1px solid #f9a620;
+}
 
-	body {
-		overflow-y: scroll;
-	}
+.main>div .ranking>div:last-child>div>div:nth-child(3) {
+	height: 25px;
+}
 
-	.main {
-		padding-top: 3%;
-	}
+.main>div .ranking>div:last-child>div>div img {
+	width: 100px;
+	height: 100px;
+	object-fit: contain;
 }
 
 

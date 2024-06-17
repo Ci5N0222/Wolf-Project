@@ -58,8 +58,8 @@
 						<button type="submit">작성</button>
 						<button type="button" onclick="location.href='/game_list.admin'">취소</button>
 					</div>
-					<input type="text" id="game_discription" name="game_discription">
-					<input type="text" id="game_contents" name="game_contents">
+					<input type="hidden" id="game_discription" name="game_discription">
+					<input type="hidden" id="game_contents" name="game_contents">
 				</form>
 			</div>
 	        

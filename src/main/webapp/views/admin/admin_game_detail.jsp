@@ -33,11 +33,8 @@
         	<div class="admin-game-form">
         	
         		<c:choose>
-        			<c:when test="${game.thumbnail != null}">
-        			<div>
-        			</div>
-        				<!-- <img src="/${game.thumbnail}" width="500" alt="게임 섬네일 이미지"> -->
-        				<img src="/images/default-game.png" width="500" alt="게임 섬네일 이미지">
+        			<c:when test="${game.thumbnail != 'none'}">
+        				<img src="/${game.thumbnail}" width="500" alt="게임 섬네일 이미지">
         			</c:when>
         			<c:otherwise>
         				<img src="/images/default-game.png" width="500" alt="게임 섬네일 이미지">	
@@ -47,8 +44,12 @@
    				<p>${game.title}</p>
    				
    				<div class="admin-game-discription">
+   					${game.discription}
+   				</div>
+   				<div class="admin-game-contents">
    					${game.contents}
    				</div>
+   				
 	        	<div class="admin-game-btn">
 	        		<button onclick="adminGameEdit()">수정</button>
 			        <button onclick="adminGameDelete(${game.seq})">삭제</button>
