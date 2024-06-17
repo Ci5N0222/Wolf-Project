@@ -262,8 +262,18 @@ public class AdminDAO {
 	}
 	
 	
+	/**
+	 * 게임을 추가하는 메서드
+	 * @param title
+	 * @param discription
+	 * @param contents
+	 * @param thumbnail
+	 * @return
+	 * @throws Exception
+	 */
 	public int adminGameInsert(String title, String discription, String contents, String thumbnail) throws Exception {
 		String sql = "insert into game values(game_seq.nextval, ?, ?, ?, ?)";
+		
 		try(Connection con = DBConfig.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql)){
 			pstat.setString(1, title);
@@ -274,6 +284,33 @@ public class AdminDAO {
 			return pstat.executeUpdate();
 		}
 		
+	}
+	
+	
+	/**
+	 * 게임 추가시 섬네일을 저장하는 메서드
+	 * @param path
+	 * @param oriName
+	 * @param sysName
+	 * @param seq
+	 * @return
+	 * @throws Exception
+	 */
+	public int adminGameThumbnailInsert(String path, String oriName, String sysName, int seq) throws Exception {
+		String sql = "insert into image values(image_seq.nextval, ?, ?, ?, ?)";
+		
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql, new String[] {"seq"})){
+			pstat.setString(1, path);
+			pstat.setString(2, oriName);
+			pstat.setString(3, sysName);
+			pstat.setInt(4, seq);
+			
+			try(ResultSet rs = pstat.getGeneratedKeys()){
+				rs.next();
+				return rs.getInt(1);
+			}
+		}
 	}
 	
 	
