@@ -379,6 +379,7 @@ body {
         <form id="passwordChangeForm" action="/changePassword.members" method="post">
             <label for="CertificationCode" id="code" >인증번호</label>
             <input type="text" id="CertificationCode" name="CertificationCode"  placeholder="인증번호를 입력해주세요">
+            <div id="timer"></div>
             <button id="CertificationCodeBtn" type="button">인증번호 확인</button>
             <div id="passwordFields" style="display: none;">
                 <label for="newPassword" id="newpw">새 비밀번호</label>
@@ -401,90 +402,122 @@ body {
 
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#sendEmailForm').submit(function(e) {
-                e.preventDefault();
-                
-                var formData = {
-                        id: $('#id').val(),
-                        email: $('#email').val()
-                    };
-                
-                $.ajax({
-                    url: '/sendEmail.members',
-                    type: 'POST',
-                    data: formData,
-                    success: function(data) {
-                        if (data === 'true') {
-                            $('#passwordChangeForm').show();
-                            $('#sendEmailForm').hide();
-                            $('#email').prop('disabled', true); // 이메일 입력 필드 비활성화
-                        } else {
-                            alert('아이디와 이메일이 일치하지 않습니다.');
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error:', error);
-                    }
-                });
-            });
+    $(document).ready(function() {
+        var timerInterval; // 타이머를 저장할 변수
 
-            $('#CertificationCodeBtn').click(function() {
-                var formData = $('#passwordChangeForm').serialize();
-                
-                $.ajax({
-                    url: '/CertificationCode.members',
-                    type: 'POST',
-                    data: formData,
-                    success: function(data) {
-                        if (data === 'true') {
-                            alert('인증에 성공하였습니다.');
-                            $('#passwordFields').show();
-                            $('#CertificationCodeBtn').hide();
-                            $('#CertificationCode').prop('disabled', true); // 인증번호 입력 필드 비활성화
-                        } else {
-                            alert('인증에 실패하였습니다.')
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error:', error);
-                    }
-                });
-            });
+        $('#sendEmailForm').submit(function(e) {
+            e.preventDefault();
+            
+            var formData = {
+                id: $('#id').val(),
+                email: $('#email').val()
+            };
 
-            $('#changePasswordBtn').click(function() {
-                var newPassword = $('#newPassword').val();
-                var confirmPassword = $('#confirmNewPassword').val();
-                var id = $('#id').val();
-                var CertificationCode = $('#CertificationCode').val(); // 인증 코드 가져오기
-                
-                if (newPassword !== confirmPassword) {
-                    $('#passwordMismatch').show();
-                    return;
-                } else {
-                    $('#passwordMismatch').hide();
+            $.ajax({
+                url: '/sendEmail.members',
+                type: 'POST',
+                data: formData,
+                success: function(data) {
+                    if (data === 'true') {
+                        startTimer(); // 인증 코드 발송 성공 시 타이머 시작
+                        $('#passwordChangeForm').show();
+                        $('#sendEmailForm').hide();
+                        $('#email').prop('disabled', true); // 이메일 입력 필드 비활성화
+                    } else {
+                        alert('아이디와 이메일이 일치하지 않습니다.');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
                 }
-
-                var formData = {
-                    id: id,
-                    newPassword: newPassword,
-                    CertificationCode: CertificationCode
-                };
-
-                $.ajax({
-                    url: '/changePassword.members',
-                    type: 'POST',
-                    data: formData,
-                    success: function(data) {
-                    	alert("비밀번호가 성공적으로 변경 되었습니다.")
-                    	location.href = '/views/members/login.jsp';
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error:', error);
-                    }
-                });
             });
         });
+
+        $('#CertificationCodeBtn').click(function() {
+            var formData = $('#passwordChangeForm').serialize();
+            
+            $.ajax({
+                url: '/CertificationCode.members',
+                type: 'POST',
+                data: formData,
+                success: function(data) {
+                    if (data === 'true') {
+                        alert('인증에 성공하였습니다.');
+                        $('#passwordFields').show();
+                        $('#CertificationCodeBtn').hide();
+                        $('#CertificationCode').prop('disabled', true); // 인증번호 입력 필드 비활성화
+                    } else {
+                        alert('인증에 실패하였습니다.')
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+
+        $('#changePasswordBtn').click(function() {
+            var newPassword = $('#newPassword').val();
+            var confirmPassword = $('#confirmNewPassword').val();
+            var id = $('#id').val();
+            var CertificationCode = $('#CertificationCode').val(); // 인증 코드 가져오기
+            
+            if (newPassword !== confirmPassword) {
+                $('#passwordMismatch').show();
+                return;
+            } else {
+                $('#passwordMismatch').hide();
+            }
+
+            var formData = {
+                id: id,
+                newPassword: newPassword,
+                CertificationCode: CertificationCode
+            };
+
+            $.ajax({
+                url: '/changePassword.members',
+                type: 'POST',
+                data: formData,
+                success: function(data) {
+                    alert("비밀번호가 성공적으로 변경 되었습니다.")
+                    location.href = '/views/members/login.jsp';
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+
+        // 타이머 시작 함수
+        function startTimer() {
+            var duration = 180; // 3분을 초 단위로 설정 (3 * 60)
+
+            var timerElement = $('#timer'); // 타이머가 표시될 요소
+
+            var startTime = Math.floor(Date.now() / 1000); // 현재 시간을 초로 변환
+
+            timerInterval = setInterval(function() {
+                var currentTime = Math.floor(Date.now() / 1000); // 현재 시간을 초로 변환
+                var elapsedSeconds = currentTime - startTime;
+                var remainingSeconds = duration - elapsedSeconds;
+
+                if (remainingSeconds <= 0) {
+                    clearInterval(timerInterval); // 타이머 중지
+                    timerElement.text("시간 초과");
+                    $('#passwordChangeForm').hide();
+                    $('#sendEmailForm').show();
+                    $('#email').prop('disabled', false); // 이메일 입력 필드 활성화
+                } else {
+                    var minutes = Math.floor(remainingSeconds / 60);
+                    var seconds = remainingSeconds % 60;
+                    var timerText = ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2);
+                    timerElement.text(timerText);
+                }
+            }, 1000);
+        }
+    });
+
     </script>
         <script src="/js/main.js"></script>
 </body>
