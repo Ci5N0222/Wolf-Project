@@ -116,7 +116,7 @@ increment by 1
 nomaxvalue
 nocache;
 
-create sequence image_seq
+create sequence images_seq
 start with 1
 increment by 1
 nomaxvalue

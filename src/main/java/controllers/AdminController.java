@@ -169,8 +169,21 @@ public class AdminController extends HttpServlet {
 			else if(cmd.equals("/game_detail.admin")) {
 				if(!adminSession) response.sendRedirect("/page_login.admin");
 				else {
+					
+					String filePath = request.getServletContext().getRealPath("thumbnails");
+					
 					String seq = request.getParameter("seq");
 					GameDTO game = dao.getGameInfo(Integer.parseInt(seq));
+					
+					String sysname = dao.getThumbnailName(Integer.parseInt(seq), 3);
+					System.out.println("sysname === " + sysname);
+					
+					if(sysname.equals("none")) {
+						game.setThumbnail(sysname);
+					} else {
+						game.setThumbnail(filePath + "/" + sysname);
+					}
+					System.out.println("sysname === " + game.getThumbnail());
 					
 					request.setAttribute("game", game);
 					request.getRequestDispatcher("/views/admin/admin_game_detail.jsp").forward(request, response);
