@@ -318,7 +318,7 @@ body {
         }
         button {
             
-            width: 35%;
+            width: 70%;
             padding: 10px;
             background: #f9a620;
             color: #fff;
@@ -329,11 +329,21 @@ body {
         button:hover {
             background: #f9a620;
         }
-        #message {
-            margin-top: 10px;
-            text-align: center;
-            color: red;
-        }
+		.container .links {
+		text-align: center;
+		margin-top: 20px;
+		
+		}
+		.container .links a {
+		margin-right: 10px;
+		color: #f9a620;
+		text-decoration: none;
+		}
+		.container .links span {
+		margin-right: 5px;
+		color: #f9a620;
+		text-decoration: none;
+		}
     </style>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
@@ -357,9 +367,13 @@ body {
             <input type="text" id="name" name="name" required>
             <label for="email">이메일:</label>
             <input type="text" id="email" name="email" required>
-            <button type="button" id="Certification">확인</button>
-            <button type="button" id="back">돌아가기</button>
-            <p id="message"></p>
+            <button type="button" id="Certification">아이디 찾기</button><br>
+
+            <div class="links">
+							 <a	href="/views/members/login.jsp">로그인</a> <span>|</span> 
+							<a href="/views/members/signup.jsp">회원가입</a> <span>|</span>
+							 <a	href="/views/members/findpw.jsp">비밀번호찾기</a>
+						</div>
         </form>
     </div>
 			<div class="sun"></div>
