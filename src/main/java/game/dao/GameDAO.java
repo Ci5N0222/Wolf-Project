@@ -6,10 +6,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
-
 import commons.DBConfig;
 import game.dto.GameDTO;
 import mypage.dto.GameScoreDTO;
@@ -72,7 +68,7 @@ public class GameDAO {
 	}
 
 	/**
-	 * 게임 플레이 정보 출력
+	 * 마이페이지 게임 플레이 정보 출력
 	 * 
 	 * @param id
 	 * @return
@@ -103,10 +99,24 @@ public class GameDAO {
 
 	}
 
-	public void update(int score, String member_id) {
-		String sql = "update game_score set score=? where member_id=? and score<?";
+	/**
+	 * 마이페이지 게임 점수 업데이트
+	 * @param member_id
+	 * @param game_seq
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateGameScore(int score, String member_id, int game_seq) throws Exception {
+		String sql = "update game_score set score=? where member_id=? and game_seq =?";
 		
-	
+		try (Connection con = DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+
+			pstat.setInt(1, score);
+			pstat.setString(2, member_id);
+			pstat.setInt(3, game_seq);
+			
+			return pstat.executeUpdate();
+		}
 	}
 	
 	
