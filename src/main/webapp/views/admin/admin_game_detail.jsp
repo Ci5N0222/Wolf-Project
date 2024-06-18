@@ -47,16 +47,22 @@
 						<input type="file" id="admin_game_thumbnail" class="admin_game_update_thumbnail" name="game_image" accept="image/*">
 						<button type="button" id="imagePreviewBtn" onclick="previewImageDelete(true, '${game.thumbnail}')" style="display: none;">X</button>
 					</div>
+					
+					<select id="sevice_select" name="sevice_select">
+				        <option value="0">서비스 정지</option>
+				        <option value="1">서비스 진행중</option>
+				    </select>
+					
 					<div class="admin-game-insert-title">
 						<input type="text" id="game_title" name="game_title" value="${game.title}" readonly>
 					</div>
 					
 					<div class="admin-game-insert-discription">
-						<div id="div_game_discription" contenteditable="true">${game.discription}</div>
+						<div id="div_game_discription" contenteditable="false">${game.discription}</div>
 					</div>
 					
 					<div class="admin-game-insert-contents">
-						<div id="div_game_contents" contenteditable="true">${game.contents}</div>
+						<div id="div_game_contents" contenteditable="false">${game.contents}</div>
 					</div>
 					
 					<input type="hidden" name="game_seq" value="${game.seq}">
@@ -67,7 +73,7 @@
 					
 					
 		        	<div class="admin-game-btn">
-		        		<button type="button" onclick="adminGameEdit()">수정</button>
+		        		<button type="button" onclick="adminGameEdit(${game.service_code})">수정</button>
 				        <button type="button" onclick="adminGameDelete(${game.seq})">삭제</button>
 				        <button type="button" onclick="location.href='/game_list.admin'">목록</button>
 		        	</div>

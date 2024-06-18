@@ -285,6 +285,24 @@ asdasdasda
 
 	}
 	
+	/**
+	 * 회원 탈퇴
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteMember(String id) throws Exception {
+		
+		String sql = "delete from members where id = ?";
+		
+		try (Connection con=DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+
+			pstat.setString(1, id);
+			
+			return pstat.executeUpdate();
+		}
+	}
+	
 	
 	
 

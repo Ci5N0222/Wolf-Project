@@ -6,6 +6,13 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import board.dto.BoardDTO;
 import commons.DBConfig;
@@ -354,4 +361,51 @@ private static BoardDAO instance;
 			// TODO: handle exception
 		}
 	}
+	
+	public  ArrayList<String> findDeletedTags(String originalHtml) {
+		Document doc = Jsoup.parse(originalHtml);
+   
+
+	    Elements imgTags = doc.select("img");
+	    ArrayList<String> sysnames=new ArrayList<>();
+
+	    // img 태그들에 대해 처리합니다.
+	    for (Element imgTag : imgTags) {
+	        String src = imgTag.attr("src");
+	        System.out.println(src);
+	        String regex = "upload_images/(.+)"; // 여기에 적절한 정규 표현식을 넣어야 합니다.
+	        Pattern pattern = Pattern.compile(regex);
+	        Matcher matcher = pattern.matcher(src);
+
+	        if (matcher.find()) {
+	            String matchedString = matcher.group(1);
+	            System.out.println("매칭된 문자열: " + matchedString);
+	            sysnames.add(matchedString);
+	        }
+	    }
+
+	    return sysnames;
+	}
+	
+	
+	public String board_contents(int seq) {
+		String sql="select contents from board where seq=?";
+		String contents="";
+		try (Connection con=DBConfig.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)){
+			pstat.setInt(1, seq);
+			try (ResultSet rs=pstat.executeQuery()){
+				rs.next();
+				contents=rs.getString(1);
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return contents;
+	}
+	
 }

@@ -90,7 +90,7 @@ public class GameDAO {
 					int score = rs.getInt("score");
 					String member_id = rs.getString("member_id");
 					int game_seq = rs.getInt("game_seq");
-
+					
 					list.add(new GameScoreDTO(title, score, member_id, game_seq));
 				}
 				return list;
