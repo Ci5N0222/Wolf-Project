@@ -180,10 +180,7 @@ public class AdminController extends HttpServlet {
 					request.setAttribute("beforeThumbnail", game.getThumbnail());
 					
 					String sysname = imagesDAO.getImageName(Integer.parseInt(seq), image_code);
-					
-					if(sysname.equals("none")) {
-						game.setThumbnail(sysname);
-					} else {
+					if(!sysname.equals("none")) {
 						game.setThumbnail("thumbnails/" + sysname);
 					}
 					
