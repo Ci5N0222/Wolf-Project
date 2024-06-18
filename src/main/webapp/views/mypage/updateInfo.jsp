@@ -221,14 +221,15 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
       .select-board {
         width: 100%;
-        max-width: 950px;
-        height: 1100px;
+        min-width: 800px;
+        /* height: 1100px; */
         padding: 30px;
       }
 
       .select-board .select-board-list {
         width: 100%;
-        height: 90%;
+        /* height: 90%; */
+        min-height: 800px;
         display: flex;
         flex-direction: column;
         padding: 20px;

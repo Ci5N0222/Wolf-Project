@@ -18,17 +18,15 @@ class GameOver extends Phaser.Scene {
 
         console.log('Data received in GameOver:', data);
 
-        let gameoverImg = this.add.image(this.cameras.main.width / 2, 230, 'gameoverImg');
+        let gameoverImg = this.add.image(this.cameras.main.width / 2, 180, 'gameoverImg');
         gameoverImg.setOrigin(0.5);
-        gameoverImg.setScale(1.2);
 
         // "score : " 문구 추가
-        this.add.text(this.cameras.main.width / 2, 530, `Score   :   ${data.score}`, {
+        this.add.text(this.cameras.main.width / 2, 400, `Score    ${data.score}`, {
             fontFamily: 'Lilita One',
-            fontSize: '80px',
+            fontSize: '65px',
             fill: '#f0f8ff'
         }).setOrigin(0.5);
-
 
 
         // reStart 버튼 추가
@@ -50,7 +48,7 @@ class GameOver extends Phaser.Scene {
 
 
         // exit 버튼 추가
-        let exitBtn = this.add.sprite(960, 60, 'exitBtn').setInteractive();
+        let exitBtn = this.add.sprite(740, 60, 'exitBtn').setInteractive();
         exitBtn.setScale(0.5);
 
         exitBtn.on('pointerdown', () => {
@@ -66,7 +64,6 @@ class GameOver extends Phaser.Scene {
             this.game.canvas.style.cursor = "default";
         });
 
-
     }
 
     update() {
@@ -74,5 +71,4 @@ class GameOver extends Phaser.Scene {
     }
 
 }
-
 
