@@ -103,6 +103,13 @@ nomaxvalue
 nocache
 ;
 
+create sequence reply_child_seq
+start with 1
+increment by 1
+nomaxvalue
+nocache;
+commit;
+
 create sequence game_seq
 start with 1
 increment by 1
