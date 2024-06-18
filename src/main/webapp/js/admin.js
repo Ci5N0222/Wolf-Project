@@ -74,6 +74,21 @@ $(() => {
 		}
 		
 	});
+	
+	$("#game-service-select").on("change", () => {
+		console.log($("#game-service-select").val());
+		
+		if($("#game-service-select").val() === 1){
+			$(".admin-game-list-service-ing").parent().show();
+			$(".admin-game-list-service-stop").parent().show();
+		} else if ($("#game-service-select").val() === 2){
+			$(".admin-game-list-service-ing").parent().show();
+			$(".admin-game-list-service-stop").parent().hide();
+		} else {
+			$(".admin-game-list-service-ing").parent().hide();
+			$(".admin-game-list-service-stop").parent().show();
+		}
+	});
 	 
 });
 
@@ -127,9 +142,8 @@ const previewImageDelete = (image, url) => {
 		$("#imagePreview").attr("src", "");
 		$("#imagePreview").hide();
 		$("#imagePreviewBtn").hide();	
-	}
-	
-}
+	}	
+} 
 
 
 // Game 정보를 수정할 수 있게 폼을 바꾸는 함수
@@ -149,7 +163,6 @@ const adminGameEdit = (defaultValue) => {
 	$("#div_game_discription").attr("contenteditable", "true");
 	$("#div_game_contents").attr("contenteditable", "true");
 	$("#game_title").focus();
-	
 }
 
 // Game정보를 삭제하는 함수
