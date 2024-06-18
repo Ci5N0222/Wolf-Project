@@ -49,6 +49,8 @@ html,
             margin: auto;
             flex-direction: column;
             background-color: white;
+            z-index: 100;
+            position: relative;
            
         }
         .navi {
@@ -86,6 +88,8 @@ html,
             border: 1px solid black;
             background-color: white;
             flex-direction: column;
+            z-index: 100;
+            position: relative;
         }
 
         #reply_contents {
@@ -97,6 +101,9 @@ html,
             align-items: center;
             margin: auto;
             background-color: white;
+      
+           
+            
         }
 
         .title {
@@ -116,6 +123,8 @@ html,
             height: auto;
             margin: 20px;
             flex-direction: column;
+            z-index: 100;
+            position: relative;
            
         }
 
@@ -200,10 +209,73 @@ html,
         overflow-wrap: break-word; 
         overflow: auto;
     }
+
+    
+</style>
+<style>
+        /* img */
+.img_bg {
+	position: absolute;
+	top: 0%;
+	left: 0;
+	width: 100%;
+	object-fit: cover;
+}
+
+.bgs {
+	animation: bg 1s ease-in Infinite Alternate;
+	transition: all ease-in 0.2s;
+	width: 50px;
+}
+
+.bgs:nth-child(1) {
+	top: 20%;
+	background-color: #eee;
+	left: 80%;
+}
+
+.bgs:nth-child(2) {
+	top: 20%;
+	left: 80%;
+	width: 40px;
+}
+
+.bgs:nth-child(3) {
+	top: 15%;
+	left: 20%;
+}
+
+.bgs:nth-child(4) {
+	top: 20%;
+	left: 40%;
+	width: 30px;
+}
+
+.bgs:nth-child(5) {
+	top: 12%;
+	left: 50%;
+}
+
+.bgs:nth-child(6) {
+	top: 12%;
+	left: 80%;
+	width: 20px;
+}
+
+@keyframes bg {
+	0% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
 </style>
 </head>
 
 <body>
+
     <div class="container">
         <div class="navi">
             <div style="flex: 2;">
@@ -423,7 +495,13 @@ html,
                 
         </div>
        
-
+        <img  src="/images/bg1.png" alt="" class="img_bg"> 
+        <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
+        <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
+        <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
+        <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
+        <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
+        <img  src="/images/bg3.png" alt="" class="img_bg bgs">
         <script> //reply_child_script
             let reply_child_btn=$(".reply_child_btn");
             let reply_child_close=$(".reply_child_close");
