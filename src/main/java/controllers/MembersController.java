@@ -95,7 +95,7 @@ public class MembersController extends HttpServlet {
 			        response.getWriter().write("{\"success\": true}");
 			    } else {
 			        // 로그인 실패 시
-			        response.getWriter().write("{\"success\": false, \"error\": true}");
+			        response.getWriter().write("{\"success\": false}");
 			    }
             
 		         
