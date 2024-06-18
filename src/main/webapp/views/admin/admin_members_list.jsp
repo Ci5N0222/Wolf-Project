@@ -31,6 +31,21 @@
         <section class="admin-main-form">
 	        <h1 class="admin-main-title">Members List</h1>
 			<div class="admin-members-list">
+				<div class="admin-game-insert-btn">
+					<select id="members-id-select">
+						<option value="0">전체회원</option>
+				        <option value="1">일반회원</option>
+				        <option value="2">휴면계정</option>
+				        <option value="3">블랙리스트</option>
+				        <option value="98">서브관리자</option>
+				        <option value="99">메인관리자</option>
+					</select>
+					<div class="member-search-box">
+						<input type="text" id="member_search_text" placeholder="검색할 ID를 입력하세요">
+						<button onclick="adminMemberSearch()">search</button>
+					</div>
+				</div>
+				
 				<c:if test="${membersList.size() > 0}">
 					<table>
 						<tr>
@@ -46,19 +61,19 @@
 				 				<td>${members.nickname}</td>
 				 				<c:choose>
 							   		<c:when test="${ members.grade eq 1 }">
-							   			<td>일반 회원</td>
+							   			<td class="member-select-noraml">일반 회원</td>
 							   		</c:when>
 							   		<c:when test="${ members.grade eq 2 }">
-							   			<td>휴면 회원</td>
+							   			<td class="member-select-dormant">휴면 회원</td>
 							   		</c:when>
 							   		<c:when test="${ members.grade eq 3 }">
-							   			<td>블랙 회원</td>
+							   			<td class="member-select-black">블랙 회원</td>
 							   		</c:when>
 							   		<c:when test="${ members.grade eq 98 }">
-							   			<td>서브 관리자</td>
+							   			<td class="member-select-sub-manager">서브 관리자</td>
 							   		</c:when>
 							   		<c:when test="${members.grade eq 99 }">
-							   			<td>메인 관리자</td>
+							   			<td class="member-select-main-manager">메인 관리자</td>
 							   		</c:when>
 							   	</c:choose>
 				 			</tr>

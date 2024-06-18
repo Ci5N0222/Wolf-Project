@@ -30,6 +30,7 @@
         
         <section class="admin-main-form">
         <h1 class="admin-main-title">Game List</h1>
+        <div class="admin-members-list">
         	<div class="admin-game-insert-btn">
         		<button onclick="location.href='/page_game_insert.admin'">게임 추가</button>
         		<select id="game-service-select">
@@ -49,6 +50,7 @@
              			</tr>
 	             		<c:forEach var="games" items="${gameList}">
 	             			<tr>
+	             			
 	             				<td><span class="admin-game-list-title">${games.seq}</span></td>
 	             				<td><span class="admin-game-list-title"><a href="game_detail.admin?seq=${games.seq}">${games.title}</a></span></td>
 	             				<c:choose>
@@ -62,12 +64,13 @@
 	             				
 	             				<c:choose>
 	             					<c:when test="${games.service_code eq 1}">
-	             						<td class="admin-game-list-service-ing">서비스 중</td>
+	             						<td class="admin-game-list-service-ing" style="color:green; font-weight:800">서비스 중</td>
 	             					</c:when>
 	             					<c:otherwise>
-	             						<td class="admin-game-list-service-stop">서비스 정지</td>
+	             						<td class="admin-game-list-service-stop" style="color:red; font-weight:800">서비스 정지</td>
 	             					</c:otherwise>
 	             				</c:choose>
+	             				
 	             			</tr>
 	             		</c:forEach>
              		</table>
@@ -77,6 +80,8 @@
              		</script>
              	</c:if>
              </div>
+        </div>
+        	
              <!-- 멤버 검색 -->
         </section>
 
