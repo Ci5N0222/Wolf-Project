@@ -15,8 +15,8 @@ const gameConfig = (seq) => {
 			break;
 		case 8 :
 			config = {
-				width: 1024,
-				height: 640,
+				width: 800,
+				height: 500,
 				scene: [Exam03, GameOver]
 			}
 			
