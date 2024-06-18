@@ -156,6 +156,12 @@ public class AdminController extends HttpServlet {
 					List<GameDTO> gameList = dao.getGameList(
 							cpage * PageConfig.recordCountPerPage - (PageConfig.recordCountPerPage - 1),
 							cpage * PageConfig.recordCountPerPage);
+					for(GameDTO dto: gameList) {
+						String sysname = imagesDAO.getImageName(dto.getSeq(), image_code);
+						if(!sysname.equals("none")) {
+							dto.setThumbnail("thumbnails/" + sysname);
+						}	
+					}
 					
 					request.setAttribute("gameList", gameList);
 					
