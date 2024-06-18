@@ -177,11 +177,29 @@ public class MembersController extends HttpServlet {
                 response.getWriter().write("존재하는 아이디가 없습니다.");
                 }
                 
+            }else if (cmd.equals("/emailSend.members")) {
+                String email = request.getParameter("email");
+                
+             
+                try {
+                    boolean result = dao.selectMemberByEmail(email);
+                    if (!result) { // 이메일이 중복되지 않았을 경우
+                        String CertificationCode = generateRandomCode();
+                        System.out.println(CertificationCode);
+                        session.setAttribute("CertificationCode", CertificationCode);
+                        EmailSender.sendEmail(email, "이메일 전송", "인증번호 : " + CertificationCode);
+                        response.getWriter().append("true");
+                    } else {
+                        response.getWriter().append("false");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    response.getWriter().append("false");
+                }
+			
+			
             }
-			
-			
-			
-		}catch (Exception e) {
+            }catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
