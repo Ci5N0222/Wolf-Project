@@ -22,11 +22,11 @@
         }
 
         .container {
-            width: 600px;
-            height: 600px;
+            width: 1000px;
+            height: 950px;
             margin: auto;
             flex-direction: column;
-            border: 1px solid black;
+           
         }
 
         .center {
@@ -36,7 +36,7 @@
 
         .reply {
             margin-top: 20px;
-            width: 600px;
+            width: 950px;
             height: 80px;
             margin-bottom: auto;
             margin-left: auto;
@@ -45,7 +45,7 @@
         }
 
         #reply_contents {
-            width: 600px;
+            width: 950px;
             height: auto;
             display: flex;
             flex-direction: column;
@@ -161,7 +161,7 @@
                 </c:otherwise>
             </c:choose>
         </div>
-    </div>
+    </div> <!--contaier 끝-->
     <form action="/insert.reply" method="get" id="replyform">
     <div class="reply">
         <div style="flex: 4; border: 1px solid black; margin: 15px; word-break: break-all; overflow: auto;" contenteditable="true"
@@ -609,9 +609,8 @@
             tinymce.init({
                 selector: 'div#board_contents',
                 plugins:'wordcount anchor image inlinecss ',
-                //toolbar:'image',
                 images_file_types:'jpg,svg,webp',
-                 file_picker_types: 'file image media',
+                file_picker_types: 'file image media',
                  //plugins: 'inlinecss  autolink charmap codesample emoticons image link lists media searchreplace table visualblocks  checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate mentions tableofcontents footnotes mergetags typography',
                 toolbar: ' fileupload | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags  | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat ',
                 max_width: 600,
@@ -632,7 +631,7 @@
                         let formData = new FormData();
                         formData.append('image', file);
                         $.ajax({
-                            url:"/upload_images.board?board_seq=${board_dto.seq}",
+                            url:"/upload.images?board_seq=${board_dto.seq}",
                             type:"post",
                             dataType:"json",
                             processData: false,
@@ -650,7 +649,7 @@
                             $("body").find(".tox-textfield").eq(3).val(resp.height);
                             $("body").find(".tox-button").eq(4).on("click",function(){
                                 $.ajax({
-                                    url:"/upload_images.board?board_seq=${board_dto.seq}&check=true",
+                                    url:"/upload.images?board_seq=${board_dto.seq}&check=true",
                                     type:"post",
                                      dataType:"json",
                                     processData: false,

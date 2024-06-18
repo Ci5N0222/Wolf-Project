@@ -36,6 +36,20 @@ public class ImagesDAO {
 		}
 	}
 	
+	public boolean delete() {
+		String sql="delete from images where parent_seq=999999";
+		boolean result=false;
+		try (Connection con=DBConfig.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)){
+			if(pstat.executeUpdate()>0)result=true;
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return result;
+	}
+	
 	public ArrayList<String> delete(int parent_seq,int image_code ,String[] sysnames) {
 	
 		ArrayList<String> sysnameList= new ArrayList<>();
@@ -103,6 +117,20 @@ public class ImagesDAO {
 			    } else {
 			    	System.out.println("파일이 존재하지 않습니다.");
 			 	}
+		}
+		
+	}
+	
+
+	public void updateTemp(int board_seq) {
+		String sql="update images set parent_seq=? where parent_seq=999999";
+		try (Connection con=DBConfig.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)){
+			pstat.setInt(1, board_seq);
+			pstat.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 		
 	}
