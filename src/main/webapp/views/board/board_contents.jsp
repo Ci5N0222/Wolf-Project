@@ -69,6 +69,7 @@
       resize: true,
       height:600,
       language: 'ko_KR',
+      statusbar: false,
       forced_root_block : false,
       file_picker_callback: function (callback, value, meta) {
                     if (meta.filetype === 'image') {

@@ -14,10 +14,7 @@
     <script src="https://cdn.tiny.cloud/1/9bewfouem96jjnfvuu236yinb3kp53xruh2gkkz3pkfnkw6c/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="https://kit.fontawesome.com/1ee4acc8d4.js" crossorigin="anonymous"></script>
 
-<!-- bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"></script>
+
 
 <style>
         * {
@@ -31,14 +28,12 @@
         :root {
     --bg-light: #ffd449;
     --bg-dark: #14213D;
-    --bg-transparent: transparent;
-
     --color-white: #eeeeee;
     --color-black: #14213D;
     --bg-nav: #f9a620;
     --color-nav-icon: #14213D;
     --color-nav-bg: #f9a620;
-    font-size: 16px;
+   
 }
 html,
     body {
@@ -84,7 +79,7 @@ html,
         .reply {
             margin-top: 20px;
             width: 1000px;
-            height: 150px;
+            height: 300px;
             margin-bottom: auto;
             margin-left: auto;
             margin-right: auto;
@@ -183,7 +178,7 @@ html,
         cursor: pointer;
         color: rgb(6, 14, 249);
     }
-    button{
+    .button_css{
     	height: 30px;
     	line-height: 30px;
     	font-size: 15px !important;
@@ -193,12 +188,17 @@ html,
     	border-radius: 5px;
     	cursor: pointer;
     }
-    button:hover{
+    .button_css:hover{
         transform: scale(1.2);
         text-decoration: underline;
     }
     .no-hover:hover{
         transform: scale(1) !important;
+    }
+    .div_input{
+        word-break: break-all;
+        overflow-wrap: break-word; 
+        overflow: auto;
     }
 </style>
 </head>
@@ -257,19 +257,19 @@ html,
                     <c:forEach var="files_dto" items="${files_list}">
                         <div class="files_div">
                            <span class="files_seq">${files_dto.seq }</span>.&nbsp<a href="/download.files?sysname=${files_dto.sysname }&oriname=${files_dto.oriname}">${files_dto.oriname}</a>
-                            <button class="files_delete" style="width: 50px; height: 50px; display: none;" >삭제</button> <!--onclick="filesDelete(${files_dto.seq })"-->
+                            <button class="files_delete button_css" style="display: none;" >삭제</button> <!--onclick="filesDelete(${files_dto.seq })"-->
                         </div>
                     </c:forEach>
                 </div>
             </div>
-            <div style="flex: 5;" class="dto" id="board_contents">${board_dto.contents}</div>
+            <div style="flex: 5; flex-direction: column;" class="dto" id="board_contents" >${board_dto.contents}</div>
             <div style="flex: 0.5;">
                 <c:choose>
                     <c:when test="${WolfID eq board_dto.member_id}">
                         <div style="display: flex; justify-content:flex-end; flex: 1;" id="div1">
-                            <div><button type="button" id="update">글수정</button></div>&nbsp&nbsp
-                            <div><button type="button" id="delete">글삭제</button></div>&nbsp&nbsp
-                            <div><button type="button" id="list">목록보기</button></div>&nbsp&nbsp
+                            <div><button type="button" id="update" class="button_css">글수정</button></div>&nbsp&nbsp
+                            <div><button type="button" id="delete" class="button_css">글삭제</button></div>&nbsp&nbsp
+                            <div><button type="button" id="list" class="button_css">목록보기</button></div>&nbsp&nbsp
                         </div>
                         <div style="border: 0; display: none; flex: 1; justify-content:flex-end;" id="div2">
                             <form action="/update.board" method="post" id="joinform" enctype="multipart/form-data">
@@ -279,13 +279,15 @@ html,
                                 <input type="hidden" name="count" value="${board_dto.count}">
                                 <div style="display: none;"><input type="file" name="file" id="upload"></div>
                                 <input type="hidden" name="seq" value="${board_dto.seq}" class="notuse">
-                                <button type="submit" id="confirm">확인</button>
-                                <button type="button" id="cancel">취소</button>
+                                <button type="submit" id="confirm" class="button_css">확인</button>
+                                <button type="button" id="cancel" class="button_css">취소</button>
                             </form>
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <button id="list">목록으로</button>
+                        <div style="flex: 1; justify-content: flex-end;">
+                            <button id="list" class="button_css">목록으로</button>
+                        </div>
                     </c:otherwise>
                 </c:choose>
             </div>
@@ -296,13 +298,13 @@ html,
     <div class="reply">
         <div style="flex: 1; margin-left: 15px;"> <p style="font-family: 'Courier New', Courier, monospace; font-size:small;">${WolfNickname}(${WolfID.substring(0, 4)}****) </p></div>
         <div style="flex: 5;">
-            <div style="flex: 5; border: 1px solid black; margin: 15px; word-break: break-all; overflow: auto;" contenteditable="true" class="dto" id="reply_insert_div"></div>
+            <div style="flex: 5; border: 1px solid black; margin: 15px; word-break: break-all; overflow: auto; max-height: 183px;" contenteditable="true" class="dto" id="reply_insert_div" onkeydown="handleKeyPress(this,event)"></div>
             <input type="hidden" name="contents" id="reply_insert_contents">
             <input type="hidden" name="member_id" value="${WolfID}"class="notuse">
             <input type="hidden" name="board_seq" value="${board_dto.seq}" class="notuse">
         </div>
         <div style="flex: 1; justify-content: flex-end; align-items: center;">
-            <button id="reply_btn" style="width: 15% !important; height: 100% !important; background-color: #00c73c !important; color: white !important;" class="no-hover">등록</button>
+            <button id="reply_btn" style="width: 15% !important; height: 100% !important; background-color: #00c73c !important; color: white !important;" class="no-hover button_css">등록</button>
         </div>
     </div>
     </form>
@@ -316,20 +318,20 @@ html,
                     </div>
                     <div style="flex: 1; font-size: x-small; justify-content: flex-end; align-items: flex-end;">
                         <div style="flex: 1;"> 
-                            <button  class="reply_child_btn">답글</button>
+                            <button  class="reply_child_btn button_css">답글</button>
                         </div>
                         <div id="check" style="flex: 1; justify-content: flex-end;">
                             <div stylse=" display: flex; width: 110px;" class="reply_div1">
-                                <button  class="reply_update">수정</button>&nbsp&nbsp
-                                <button  class="reply_delete">삭제</button>&nbsp&nbsp
+                                <button  class="reply_update button_css">수정</button>&nbsp&nbsp
+                                <button  class="reply_delete button_css">삭제</button>&nbsp&nbsp
                             </div>
                             <div style="display: none; width: 110px;" class="reply_div2">
                                 <form action="/update.reply" method="post" class="reply_update_form">
                                     <input type="hidden" name="contents" class="reply_input">
                                     <input type="hidden" name="seq" value="${reply_dto.seq}" class="reply_seq">
                                      <input type="hidden" name="board_seq" value="${board_dto.seq}" class="notuse">
-                                    <button  type="button" class="reply_confirm">확인</button>&nbsp&nbsp
-                                    <button  type="button" class="reply_cancel">취소</button>&nbsp&nbsp
+                                    <button  type="button" class="reply_confirm button_css">확인</button>&nbsp&nbsp
+                                    <button  type="button" class="reply_cancel button_css">취소</button>&nbsp&nbsp
                                 </form>
                             </div>
                         </div>
@@ -366,13 +368,13 @@ html,
                                 </div>
                             <c:if test="${WolfID==reply_child_dto.member_id}">
                                 <div style="justify-content: flex-end;" class="reply_child_div1">
-                                    <button  onclick="reply_child_update(this)">수정</button>&nbsp&nbsp
-                                    <button  onclick="reply_child_delete(this)">삭제</button>&nbsp&nbsp
+                                    <button  onclick="reply_child_update(this)" class="button_css">수정</button>&nbsp&nbsp
+                                    <button  onclick="reply_child_delete(this)" class="button_css">삭제</button>&nbsp&nbsp
                                     <input type="hidden" value="${reply_child_dto.seq}" class="reply_child_seq">
                                 </div>
                                 <div style="justify-content: flex-end; display: none;" class="reply_child_div2">
-                                    <button  onclick="reply_child_confirm(this)">확인</button>&nbsp&nbsp
-                                    <button  onclick="reply_child_cancel(this)">취소</button>&nbsp&nbsp     
+                                    <button  onclick="reply_child_confirm(this)" class="button_css">확인</button>&nbsp&nbsp
+                                    <button  onclick="reply_child_cancel(this)" class="button_css">취소</button>&nbsp&nbsp     
                                 </div>
                             </c:if>
                             </div>
@@ -389,30 +391,28 @@ html,
                             </div>
                         </div>
                         <div style="justify-content: flex-end;" class="reply_child_div1">
-                            <button style="width: 50px; height: 30px;" onclick="reply_child_update(this)">수정</button>&nbsp&nbsp
-                            <button style="width: 50px; height: 30px;" onclick="reply_child_delete(this)">삭제</button>&nbsp&nbsp
+                            <button style="width: 50px; height: 30px;" onclick="reply_child_update(this)" class="button_css">수정</button>&nbsp&nbsp
+                            <button style="width: 50px; height: 30px;" onclick="reply_child_delete(this)" class="button_css">삭제</button>&nbsp&nbsp
                             <input type="hidden" class="reply_child_seq">
                         </div>
                         <div style="justify-content: flex-end; display: none;" class="reply_child_div2">
-                            <button style="width: 50px; height: 30px;" onclick="reply_child_confirm(this)">확인</button>&nbsp&nbsp
-                            <button style="width: 50px; height: 30px;" onclick="reply_child_cancel(this)">취소</button>&nbsp&nbsp      
+                            <button style="width: 50px; height: 30px;" onclick="reply_child_confirm(this)" class="button_css">확인</button>&nbsp&nbsp
+                            <button style="width: 50px; height: 30px;" onclick="reply_child_cancel(this)" class="button_css">취소</button>&nbsp&nbsp      
                         </div>
                     </div>
                     <!---->
-                        <div class="reply_child_div"  style="width: 90%; height: 150px; flex-direction: column; margin-bottom: 10px;">
+                        <div class="reply_child_div"  style="width: 90%; height: 300px; flex-direction: column; margin-bottom: 10px;">
                             <div class="reply_child_contents" style="flex-direction: column; flex: 6.5;">
                                 <div style="flex: 1;">
                                     <p style="font-family: 'Courier New', Courier, monospace; font-size:small;">${WolfNickname}(${WolfID.substring(0, 4)}****) </p>
                                 </div>
-                                <div style="flex: 3; border: 1px solid gray; word-break: break-all; overflow: auto; max-height: 60px;" class="reply_child_input">
-                                    <label id="reply_child_label" style="font-size: small; color: gray;">주제와 무관한 댓글이나 스포일러, 악플은 경고조치 없이 삭제되며 징계 대상이 될 수 있습니다.</label>
-                                </div>
+                                <div style="flex: 3; border: 1px solid gray; width: 100%; max-height: 155px;" class="reply_child_input div_input" onkeydown="handleKeyPress(this,event)"><label id="reply_child_label" style="font-size: 20px; color: gray;">주제와 무관한 댓글이나 스포일러, 악플은 경고조치 없이 삭제되며 징계 대상이 될 수 있습니다.</label></div>
                                 <div style="flex: 1; justify-content: flex-end;">
-                                        <button class="reply_child_insert no-hover" style="color: #00c73c !important; background-color: whitesmoke !important; height: 100% !important; width: 18% !important;">등록</button>
+                                        <button class="reply_child_insert no-hover button_css" style="color: #00c73c !important; background-color: whitesmoke !important; height: 100% !important; width: 18% !important;">등록</button>
                                 </div>         
                             </div>
                             <div style="flex: 1; justify-content: center; align-items: center;">
-                                <button style="text-align: center;" class="reply_child_close">답글 접기△</button>
+                                <button style="text-align: center;" class="reply_child_close button_css">답글 접기△</button>
                             </div>
                         </div>
                 </div>
@@ -436,7 +436,7 @@ html,
                 let btn=$(this);
                 let main=btn.parents(".reply_contents").find(".reply_child_div_main");
                 let label=main.find(".reply_child_input");
-                console.log(label);
+                console.log(label.html());
                 if(reply_check){
                     main.css({
                     display:"flex"
@@ -569,6 +569,25 @@ html,
                 }).done(function(){
                     parent.remove();
                 })
+            }
+
+             function handleKeyPress(a,event) {
+                // 엔터 키 코드는 13입니다.
+                if (event.keyCode === 13) {
+                    for(let i=0;i<2;i++){
+                        event.preventDefault(); // 기본 동작 막기
+                        // 새로운 줄을 추가하기 위해 <br> 태그 삽입
+                        let br=$("<br>");
+                        $(a).append(br);
+                        // 커서를 새로 삽입된 br 바로 뒤로 이동
+                        let range = document.createRange();
+                        range.setStartAfter(br[0]);
+                        range.collapse(true);
+                        let sel = window.getSelection();
+                        sel.removeAllRanges();
+                        sel.addRange(range);   
+                    }       
+                }
             }
         </script>
     </div>
@@ -750,6 +769,7 @@ html,
                 plugins:'wordcount anchor image inlinecss ',
                 images_file_types:'jpg,svg,webp',
                 file_picker_types: 'file image media',
+                statusbar: false,
                  //plugins: 'inlinecss  autolink charmap codesample emoticons image link lists media searchreplace table visualblocks  checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate mentions tableofcontents footnotes mergetags typography',
                 toolbar: ' fileupload | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags  | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat ',
                 max_width: 600,
