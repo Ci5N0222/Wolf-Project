@@ -79,13 +79,14 @@ $(() => {
 	$("#game-service-select").on("change", () => {
 		if($("#game-service-select").val() === "1"){
 			$(".admin-game-list-service-ing").parent().show();
-			$(".admin-game-list-service-stop").parent().show();
-		} else if ($("#game-service-select").val() === "2"){
-			$(".admin-game-list-service-ing").parent().show();
 			$(".admin-game-list-service-stop").parent().hide();
-		} else {
+			
+		} else if ($("#game-service-select").val() === "2"){
 			$(".admin-game-list-service-ing").parent().hide();
 			$(".admin-game-list-service-stop").parent().show();
+		} else {
+			location.href="/game_list.admin";
+			
 		}
 	});
 	
@@ -122,11 +123,7 @@ $(() => {
 			$(".member-select-sub-manager").parent().hide();
 			$(".member-select-main-manager").parent().show();
 		} else {
-			$(".member-select-noraml").parent().show();
-			$(".member-select-dormant").parent().show();
-			$(".member-select-black").parent().show();
-			$(".member-select-sub-manager").parent().show();
-			$(".member-select-main-manager").parent().show();
+			location.href="/members_list.admin";
 		}
 	});
 	 

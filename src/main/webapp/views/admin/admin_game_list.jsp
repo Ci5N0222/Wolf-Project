@@ -34,9 +34,9 @@
         	<div class="admin-game-insert-btn">
         		<button onclick="location.href='/page_game_insert.admin'">게임 추가</button>
         		<select id="game-service-select">
-        			<option value="1">전체 목록</option>
-        			<option value="2">서비 중 </option>
-        			<option value="3">서비스 정지</option>
+        			<option value="0">전체 목록</option>
+        			<option value="1">서비 중 </option>
+        			<option value="2">서비스 정지</option>
         		</select>
         	</div>
              <div class="admin-members-list">
