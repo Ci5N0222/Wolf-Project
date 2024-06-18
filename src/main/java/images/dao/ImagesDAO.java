@@ -1,7 +1,10 @@
 package images.dao;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import commons.DBConfig;
 import images.dto.ImagesDTO;
@@ -33,7 +36,37 @@ public class ImagesDAO {
 		}
 	}
 	
-	public void delete(int parent_seq, String[] sysnames) {
+	public ArrayList<String> delete(int parent_seq,int image_code ,String[] sysnames) {
+	
+		ArrayList<String> sysnameList= new ArrayList<>();
+		String selectsql="select sysname from images where sysname not in (";
+		  for (int i = 0; i < sysnames.length; i++) {
+			  selectsql += "?";  // placeholder 추가
+	            if (i < sysnames.length - 1) {
+	            	selectsql += ", ";
+	            }
+	        }
+	        
+		  selectsql += ") and parent_seq = ? and image_code=?";
+		try (Connection con=DBConfig.getConnection();
+				PreparedStatement pstat=con.prepareStatement(selectsql)){
+			 for (int i = 0; i < sysnames.length; i++) {
+	                pstat.setString(i + 1, sysnames[i]);
+	            }
+			 pstat.setInt(sysnames.length + 1, parent_seq);
+			 pstat.setInt(sysnames.length + 2, image_code);
+			 try (ResultSet rs= pstat.executeQuery()){
+				while(rs.next()) {
+					sysnameList.add(rs.getString(1));
+				}
+			} catch (Exception e) {
+				
+			}
+		} catch (Exception e) {
+			
+		}
+		
+		//
 		String sql="delete from images where sysname not in (";
 		  for (int i = 0; i < sysnames.length; i++) {
 	            sql += "?";  // placeholder 추가
@@ -42,18 +75,36 @@ public class ImagesDAO {
 	            }
 	        }
 	        
-	        sql += ") and parent_seq = ?";
+	        sql += ") and parent_seq = ? and image_code=?";
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
 			 for (int i = 0; i < sysnames.length; i++) {
 	                pstat.setString(i + 1, sysnames[i]);
 	            }
 			 pstat.setInt(sysnames.length + 1, parent_seq);
-
+			 pstat.setInt(sysnames.length + 2, image_code);
 			pstat.executeUpdate();
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 		}
+		
+		return sysnameList;
+	}
+	
+	public void deleteImageFile(String realPath, ArrayList<String> sysnames) {
+		for (String sysname : sysnames) {
+			 File imageFile = new File(realPath + "/" + sysname);
+			 if (imageFile.exists()) {
+				   if (imageFile.delete()) {
+			         System.out.println("파일 삭제 성공");
+				   } else {
+			         System.out.println("파일 삭제 실패");
+				   }
+			    } else {
+			    	System.out.println("파일이 존재하지 않습니다.");
+			 	}
+		}
+		
 	}
 	
 }
