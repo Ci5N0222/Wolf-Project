@@ -40,8 +40,8 @@
             <div style="display: flex; flex: 1; font-size: xx-large; justify-content: center">
                 자유 게시판 글 작성하기
             </div>
-            <div style="flex: 1;">
-                <input type="text" placeholder="글 제목을 입력하세요" style="width: 100%;" name="title">
+            <div style="flex: 2;">
+                <input type="text" placeholder="글 제목을 입력하세요" style="width: 100%; height: 75px; font-size:30px;" name="title">
             </div>
             <div style="flex: 8;"  id="contents"></div>
             <div style="display: flex; flex: 1; justify-content: flex-end;">        
@@ -63,10 +63,53 @@
       file_picker_types: 'file image media',
       //plugins: 'inlinecss  autolink charmap codesample emoticons image link lists media searchreplace table visualblocks  checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate mentions tableofcontents footnotes mergetags typography',
       toolbar: ' fileupload | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags  | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat ',
-      resize: false,
-      height:800,
+      resize: true,
+      height:600,
       language: 'ko_KR',
       forced_root_block : false,
+      file_picker_callback: function (callback, value, meta) {
+                    if (meta.filetype === 'image') {
+                        let input = document.createElement('input');
+                        input.setAttribute('type', 'file');
+                        input.setAttribute('accept', 'image/*');
+                        input.onchange = function () {
+                        let file = this.files[0];
+                        let formData = new FormData();
+                        formData.append('image', file);
+                        $.ajax({
+                            url:"/upload_images.board?board_seq=999999",
+                            type:"post",
+                            dataType:"json",
+                            processData: false,
+                            contentType: false,
+                            data:formData
+                        }).done(function(resp){ //서버에서 저장해서 데이터 보내줌
+                            let imageData = {
+                                url:resp.url,
+                                width:  resp.width,
+                                height: resp.height
+                            };
+                        callback(resp.url, imageData);
+                        //console.log($("body").find(".tox-textfield"));
+                            $("body").find(".tox-textfield").eq(2).val(resp.width);
+                            $("body").find(".tox-textfield").eq(3).val(resp.height);
+                            $("body").find(".tox-button").eq(4).on("click",function(){
+                                $.ajax({
+                                    url:"/upload_images.board?board_seq=999999&check=true",
+                                    type:"post",
+                                     dataType:"json",
+                                    processData: false,
+                                    contentType: false,
+                                    data:formData
+                                 })
+                            });
+                            
+                        })
+                    
+                    };
+                input.click();
+            }
+        },
       //force_br_newlines : true,
       //force_p_newlines : false,
       //content_css: false,
@@ -90,7 +133,6 @@
                         input.on('change', function() {
                                 var fileName = $(this).val().split('\\').pop();
                                 console.log(fileName);
-                                
                                 temp.html('파일 업로드: ' + fileName);
                                 temp.append(button);
                                 files.append(temp);
@@ -105,19 +147,6 @@
                             
                     },         
                 }); 
-                /*  
-                $('#upload').on('change', function() {
-                     var fileName = $(this).val().split('\\').pop();
-                     console.log(fileName);
-                     if(fileName===""){
-                        myButton.setText('파일 업로드: 선택된 파일없음');
-                        
-                     }
-                     else{
-                        myButton.setText('파일 업로드: ' + fileName);
-                     }
-                     
-                });  */ 
                 editor.on('change', function () {
                     localStorage.setItem('editorContent', editor.getContent());
                 });

@@ -609,9 +609,8 @@
             tinymce.init({
                 selector: 'div#board_contents',
                 plugins:'wordcount anchor image inlinecss ',
-                //toolbar:'image',
                 images_file_types:'jpg,svg,webp',
-                 file_picker_types: 'file image media',
+                file_picker_types: 'file image media',
                  //plugins: 'inlinecss  autolink charmap codesample emoticons image link lists media searchreplace table visualblocks  checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate mentions tableofcontents footnotes mergetags typography',
                 toolbar: ' fileupload | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags  | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat ',
                 max_width: 600,

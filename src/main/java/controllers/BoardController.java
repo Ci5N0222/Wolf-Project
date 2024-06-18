@@ -142,7 +142,14 @@ public class BoardController extends HttpServlet {
 		               if(oriname != null) {
 		            	   filesDAO.insert(new FilesDTO(0, oriname, sysname, board_seq));
 		               }
-		        }		
+		        }
+		        imagesDAO.updateTemp(board_seq);
+		        String new_contents=boardDAO.board_contents(board_seq);
+		        System.out.println(new_contents);
+		        String[] sysnames=boardDAO.findDeletedTags(new_contents);
+		        ArrayList<String> fileList= imagesDAO.delete(board_seq, PageConfig.board, sysnames);
+		        imagesDAO.deleteImageFile(request.getServletContext().getRealPath("upload_images"), fileList);
+		        
 				response.sendRedirect("/list.board");
 				
 			} else if(cmd.equals("/delete.board")) {

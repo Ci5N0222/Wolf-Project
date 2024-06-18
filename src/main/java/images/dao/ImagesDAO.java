@@ -36,6 +36,17 @@ public class ImagesDAO {
 		}
 	}
 	
+	public void delete() {
+		String sql="delete from images board_seq=999999";
+		try (Connection con=DBConfig.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)){
+			pstat.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
 	public ArrayList<String> delete(int parent_seq,int image_code ,String[] sysnames) {
 	
 		ArrayList<String> sysnameList= new ArrayList<>();
@@ -106,5 +117,19 @@ public class ImagesDAO {
 		}
 		
 	}
+	
+	public void updateTemp(int board_seq) {
+		String sql="update images set board_seq=? where board_seq=999999";
+		try (Connection con=DBConfig.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)){
+			pstat.setInt(1, board_seq);
+			pstat.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+	
 	
 }
