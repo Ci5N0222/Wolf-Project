@@ -491,7 +491,7 @@ body {
 
         // 타이머 시작 함수
         function startTimer() {
-            var duration = 180; // 3분을 초 단위로 설정 (3 * 60)
+            var duration = 300; // 5분을 초 단위로 설정 (3 * 60)
 
             var timerElement = $('#timer'); // 타이머가 표시될 요소
 
