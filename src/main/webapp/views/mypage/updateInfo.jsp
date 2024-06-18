@@ -172,20 +172,35 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
       .mypage-select-container {
         display: flex;
+        flex-direction: column;
         height: 100vh;
         width: 100%;
       }
 
+      .mypage-select-title {
+        margin: 50px 0;
+        font-size: 50px;
+        color: white;
+        height: 10%;
+        width: 100%;
+      }
+
+      .aside-section-form {
+        display: flex;
+      }
+
       .mypage-side-menu {
+        flex: 2;
         min-width: 200px;
         height: 600px;
         background-color: #f0f0f0;
         margin-left: 30px;
-        margin-top: 200px;
+        margin-top: 0;
         border-radius: 10px;
         display: flex;
         flex-direction: column;
         padding: 15px;
+        width: 30%;
       }
 
       .mypage-side-menu > p:hover {
@@ -206,17 +221,10 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       }
 
       .mypage-select-form {
-        /* background-color: #0a5479; */
         flex: 13;
         display: flex;
         flex-direction: column;
         align-items: center;
-      }
-
-      .mypage-select-title {
-        margin: 50px 0;
-        font-size: 50px;
-        color: #f9a620;
       }
 
       .select-board {
@@ -224,6 +232,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         min-width: 800px;
         /* height: 1100px; */
         padding: 30px;
+        padding-top: 0;
       }
 
       .select-board .select-board-list {
@@ -347,92 +356,96 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
         <!-- main -->
         <main class="mypage-select-container">
-          <aside class="mypage-side-menu">
-            <p onclick="location.href='/views/mypage/mypage.jsp'">내정보 홈</p>
-            <p onclick="location.href='/selectMember.mypage'">개인정보관리</p>
-            <p onclick="location.href='/views/mypage/updatePW.jsp'">
-              비밀번호 변경
-            </p>
-            <p onclick="location.href='/mypageGameList.mypage'">
-              게임플레이 정보
-            </p>
-            <p onclick="location.href='/'">문의내역</p>
-            <p onclick="location.href='/views/mypage/deleteMember.jsp'">
-              회원탈퇴
-            </p>
-            <p
-              class="logout"
-              onclick="if(confirm('로그아웃을 하시겠습니까?')) { location.href='/logout.members'; }"
-            >
-              로그아웃
-            </p>
-          </aside>
+          <div class="mypage-select-title">내 정보</div>
+          <div class="aside-section-form" style="display: flex">
+            <aside class="mypage-side-menu">
+              <p onclick="location.href='/views/mypage/mypage.jsp'">
+                내정보 홈
+              </p>
+              <p onclick="location.href='/selectMember.mypage'">개인정보관리</p>
+              <p onclick="location.href='/views/mypage/updatePW.jsp'">
+                비밀번호 변경
+              </p>
+              <p onclick="location.href='/mypageGameList.mypage'">
+                게임플레이 정보
+              </p>
+              <p onclick="location.href='/'">문의내역</p>
+              <p onclick="location.href='/views/mypage/deleteMember.jsp'">
+                회원탈퇴
+              </p>
+              <p
+                class="logout"
+                onclick="if(confirm('로그아웃을 하시겠습니까?')) { location.href='/logout.members'; }"
+              >
+                로그아웃
+              </p>
+            </aside>
 
-          <section class="mypage-select-form">
-            <h1 class="mypage-select-title">내 정보</h1>
-
-            <form
-              action="/update.mypage"
-              method="post"
-              enctype="multipart/form-data"
-            >
-              <div class="select-board">
-                <div class="select-board-list">
-                  <div class="row">
-                    <div class="txt">ID</div>
-                    <div class="content" id="id" name="id">${member.id}</div>
-                  </div>
-                  <div class="row">
-                    <div class="txt">Name</div>
-                    <div class="content" id="name">${member.name}</div>
-                  </div>
-                  <div class="correct">
-                    <div class="correct_left"></div>
-                    <div class="correct_right correct_name"></div>
-                  </div>
-
-                  <div class="row">
-                    <div class="txt">NickName</div>
-                    <div class="content" id="nickname">${member.nickname}</div>
-                  </div>
-                  <div class="correct">
-                    <div class="correct_left"></div>
-                    <div class="correct_right correct_nickname"></div>
-                  </div>
-
-                  <div class="row">
-                    <div class="txt">Phone</div>
-                    <div class="content" id="phone">${member.phone}</div>
-                  </div>
-                  <div class="correct">
-                    <div class="correct_left"></div>
-                    <div class="correct_right correct_phone"></div>
-                  </div>
-
-                  <div class="row">
-                    <div class="txt">Email</div>
-                    <div class="content" id="email">${member.email}</div>
-                  </div>
-                  <div class="correct">
-                    <div class="correct_left"></div>
-                    <div class="correct_right correct_email"></div>
-                  </div>
-
-                  <div class="row">
-                    <div class="txt">Gender</div>
-                    <div class="content" id="gender">${member.gender}</div>
-                  </div>
-                  <div class="row">
-                    <div class="txt">Birth</div>
-                    <div class="content" id="birth">${member.birth}</div>
-                  </div>
-                  <div class="row">
-                    <div class="txt">Grade</div>
-                    <div class="content" id="grade">
-                      <span>${member.grade}</span>
+            <section class="mypage-select-form">
+              <form
+                action="/update.mypage"
+                method="post"
+                enctype="multipart/form-data"
+              >
+                <div class="select-board">
+                  <div class="select-board-list">
+                    <div class="row">
+                      <div class="txt">ID</div>
+                      <div class="content" id="id" name="id">${member.id}</div>
                     </div>
-                  </div>
-                  <!-- <div class="row">
+                    <div class="row">
+                      <div class="txt">Name</div>
+                      <div class="content" id="name">${member.name}</div>
+                    </div>
+                    <div class="correct">
+                      <div class="correct_left"></div>
+                      <div class="correct_right correct_name"></div>
+                    </div>
+
+                    <div class="row">
+                      <div class="txt">NickName</div>
+                      <div class="content" id="nickname">
+                        ${member.nickname}
+                      </div>
+                    </div>
+                    <div class="correct">
+                      <div class="correct_left"></div>
+                      <div class="correct_right correct_nickname"></div>
+                    </div>
+
+                    <div class="row">
+                      <div class="txt">Phone</div>
+                      <div class="content" id="phone">${member.phone}</div>
+                    </div>
+                    <div class="correct">
+                      <div class="correct_left"></div>
+                      <div class="correct_right correct_phone"></div>
+                    </div>
+
+                    <div class="row">
+                      <div class="txt">Email</div>
+                      <div class="content" id="email">${member.email}</div>
+                    </div>
+                    <div class="correct">
+                      <div class="correct_left"></div>
+                      <div class="correct_right correct_email"></div>
+                    </div>
+
+                    <div class="row">
+                      <div class="txt">Gender</div>
+                      <div class="content" id="gender">${member.gender}</div>
+                    </div>
+                    <div class="row">
+                      <div class="txt">Birth</div>
+                      <div class="content" id="birth">${member.birth}</div>
+                    </div>
+                    <div class="row">
+                      <div class="txt">Grade</div>
+                      <div class="content" id="grade">
+                        <span>${member.grade}</span>
+                      </div>
+                    </div>
+                    <!-- <div class="row">
                     <div class="txt">Avatar</div>
                     <div class="content" id="avatar">
                       <input type="file" name="file" />
@@ -444,61 +457,62 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                       />
                     </div>
                   </div> -->
-                  <div class="row">
-                    <div class="txt">Join Date</div>
-                    <div class="content" id="join_date">
-                      <fmt:formatDate
-                        value="${member.join_date}"
-                        pattern="yyyy.MM.dd"
-                      />
+                    <div class="row">
+                      <div class="txt">Join Date</div>
+                      <div class="content" id="join_date">
+                        <fmt:formatDate
+                          value="${member.join_date}"
+                          pattern="yyyy.MM.dd"
+                        />
+                      </div>
                     </div>
+                  </div>
+
+                  <div class="footer">
+                    <button type="button" id="edit">수정하기</button>
+                    <button type="button" id="home">홈으로</button>
+                    <button type="submit" id="complete" style="display: none">
+                      완료
+                    </button>
+                    <button type="button" id="cancel" style="display: none">
+                      취소
+                    </button>
                   </div>
                 </div>
 
-                <div class="footer">
-                  <button type="button" id="edit">수정하기</button>
-                  <button type="button" id="home">홈으로</button>
-                  <button type="submit" id="complete" style="display: none">
-                    완료
-                  </button>
-                  <button type="button" id="cancel" style="display: none">
-                    취소
-                  </button>
-                </div>
-              </div>
-
-              <input
-                type="hidden"
-                name="name"
-                id="hidden_name"
-                value="${member.name}"
-              />
-              <input
-                type="hidden"
-                name="nickname"
-                id="hidden_nickname"
-                value="${member.nickname}"
-              />
-              <input
-                type="hidden"
-                name="phone"
-                id="hidden_phone"
-                value="${member.phone}"
-              />
-              <input
-                type="hidden"
-                name="email"
-                id="hidden_email"
-                value="${member.email}"
-              />
-              <!-- <input
+                <input
+                  type="hidden"
+                  name="name"
+                  id="hidden_name"
+                  value="${member.name}"
+                />
+                <input
+                  type="hidden"
+                  name="nickname"
+                  id="hidden_nickname"
+                  value="${member.nickname}"
+                />
+                <input
+                  type="hidden"
+                  name="phone"
+                  id="hidden_phone"
+                  value="${member.phone}"
+                />
+                <input
+                  type="hidden"
+                  name="email"
+                  id="hidden_email"
+                  value="${member.email}"
+                />
+                <!-- <input
                 type="hidden"
                 name="avatar"
                 id="hidden_avatar"
                 value="${member.avatar}"
               /> -->
-            </form>
-          </section>
+              </form>
+            </section>
+          </div>
         </main>
       </div>
 

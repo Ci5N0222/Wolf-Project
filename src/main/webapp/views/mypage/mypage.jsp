@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
+pageEncoding="UTF-8"%>
+
 <!-- JSTL Core -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>First-Project</title>
+  <head>
+    <meta charset="UTF-8" />
+    <title>First-Project</title>
     <!-- 부트스트랩 -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -176,20 +176,35 @@
 
       .mypage-container {
         display: flex;
+        flex-direction: column;
         height: 100vh;
         width: 100%;
       }
 
+      .mypage-main-title {
+        margin: 50px 0;
+        font-size: 50px;
+        color: white;
+        height: 10%;
+        width: 100%;
+      }
+
+      .aside-section-form {
+        display: flex;
+      }
+
       .mypage-side-menu {
+        flex: 2;
         min-width: 200px;
         height: 600px;
         background-color: #f0f0f0;
         margin-left: 30px;
-        margin-top: 200px;
+        margin-top: 0;
         border-radius: 10px;
         display: flex;
         flex-direction: column;
         padding: 15px;
+        width: 30%;
       }
 
       .mypage-side-menu > p:hover {
@@ -210,17 +225,10 @@
       }
 
       .mypage-main-form {
-        /* background-color: #0a5479; */
         flex: 13;
         display: flex;
         flex-direction: column;
         align-items: center;
-      }
-
-      .mypage-main-title {
-        margin: 50px 0;
-        font-size: 50px;
-        color: white;
       }
 
       .mypage-dashboard {
@@ -229,7 +237,6 @@
         max-width: 950px;
         height: auto;
         min-height: 560px;
-        margin-top: 50px;
       }
       .mypage-dashboard div {
         border-radius: 10px;
@@ -258,7 +265,7 @@
         flex-direction: column;
         padding: 15px;
       }
-      
+
       .dashboard-inner_box > div:first-child {
         flex: 4;
         background-color: white;
@@ -317,7 +324,6 @@
         border-radius: 25px;
       }
 
-
       .mypage-dashboard > div:first-child > div:last-child {
         flex: 1;
         display: flex;
@@ -359,23 +365,23 @@
         .mypage-side-menu {
           margin-left: 0px;
         }
-        .mypage-main-form{
+        .mypage-main-form {
           margin-left: 20px;
         }
       }
-      
+
       @media (max-width: 1100px) {
         .mypage-side-menu {
           display: none;
         }
-        .mypage-main-form{
+        .mypage-main-form {
           margin: 0px;
         }
       }
 
       /* 메인 반응형 */
-       @media (max-width: 880px) {
-        .mypage-main-form{
+      @media (max-width: 880px) {
+        .mypage-main-form {
           margin: 0px;
         }
         .mypage-dashboard {
@@ -385,7 +391,7 @@
           margin: 0px;
           padding: 0 20px;
         }
-        body{
+        body {
           overflow-y: auto;
         }
 
@@ -414,7 +420,7 @@
         }
 
         /* 비밀번호 변경, 회원탈퇴 */
-        .mypage-dashboard > div:last-child{
+        .mypage-dashboard > div:last-child {
           gap: 20px 0;
         }
         .mypage-dashboard > div:last-child > div:first-child {
@@ -424,7 +430,6 @@
           margin: 0px;
           /* gap: 20px 0; */
         }
-
       }
       /* -- main과 동일 -- */
       /* 라이트 다크 mode */
@@ -468,97 +473,136 @@
         color: var(--color-nav-bg);
       }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- container -->
     <div class="container-fluid d-flex flex-column">
       <!-- nav -->
       <div class="container text-center flex-grow-1 d-flex flex-column">
-        <img src="images/bg1.png" alt="" class="img_bg">
-        <img src="images/bg3.png" alt="" class="img_bg bgs">
-        <img src="images/bg3.png" alt="" class="img_bg bgs">
-        <img src="images/bg3.png" alt="" class="img_bg bgs">
-        <img src="images/bg3.png" alt="" class="img_bg bgs">
-        <img src="images/bg3.png" alt="" class="img_bg bgs">
-        <img src="images/bg3.png" alt="" class="img_bg bgs">
+        <img src="images/bg1.png" alt="" class="img_bg" />
+        <img src="images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="images/bg3.png" alt="" class="img_bg bgs" />
 
         <!-- nav -->
         <%@ include file="/views/include/header.jsp" %>
 
         <!-- main -->
         <main class="mypage-container">
-          <aside class="mypage-side-menu">
-            <p onclick="location.href='/views/mypage/mypage.jsp'">내정보 홈</p>
-            <p onclick="location.href='/selectMember.mypage'">개인정보관리</p>
-            <p onclick="location.href='/views/mypage/updatePW.jsp'">비밀번호 변경</p>
-            <p onclick="location.href='/mypageGameList.mypage'">게임플레이 정보</p>
-            <p onclick="location.href='/'">문의내역</p>
-            <p onclick="location.href='/views/mypage/deleteMember.jsp'">회원탈퇴</p>
-            <p class="logout" onclick="if(confirm('로그아웃을 하시겠습니까?')) { location.href='/logout.members'; }">로그아웃</p>
-          </aside>
+          <div class="mypage-main-title">마이페이지</div>
+          <div class="aside-section-form" style="display: flex">
+            <aside class="mypage-side-menu">
+              <p onclick="location.href='/views/mypage/mypage.jsp'">
+                내정보 홈
+              </p>
+              <p onclick="location.href='/selectMember.mypage'">개인정보관리</p>
+              <p onclick="location.href='/views/mypage/updatePW.jsp'">
+                비밀번호 변경
+              </p>
+              <p onclick="location.href='/mypageGameList.mypage'">
+                게임플레이 정보
+              </p>
+              <p onclick="location.href='/'">문의내역</p>
+              <p onclick="location.href='/views/mypage/deleteMember.jsp'">
+                회원탈퇴
+              </p>
+              <p
+                class="logout"
+                onclick="if(confirm('로그아웃을 하시겠습니까?')) { location.href='/logout.members'; }"
+              >
+                로그아웃
+              </p>
+            </aside>
 
-        <section class="mypage-main-form">
-          <h1 class="mypage-main-title">마이페이지</h1>
-
-          <div class="mypage-dashboard">
-            <div>
-              <div>
-                <div class="dashboard-inner_box">
+            <section class="mypage-main-form">
+              <div class="mypage-dashboard">
+                <div>
                   <div>
-                    <div></div>
-                    <div>
-                      <p>${WolfNickname} 님 환영합니다.</p>
+                    <div class="dashboard-inner_box">
+                      <div>
+                        <div></div>
+                        <div>
+                          <p>롱초 님 환영합니다.</p>
+                        </div>
+                      </div>
+                      <div>
+                        <button
+                          class="mypage_btn"
+                          onclick="location.href='/selectMember.mypage'"
+                        >
+                          내 정보
+                        </button>
+                      </div>
                     </div>
                   </div>
                   <div>
-                    <button class="mypage_btn" onclick="location.href='/selectMember.mypage'">내 정보</button>
+                    <div>
+                      <div class="dashboard-inner_box">
+                        <div><p>게임플레이 정보</p></div>
+                        <div>
+                          <button
+                            onclick="location.href='/mypageGameList.mypage'"
+                          >
+                            바로가기
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="dashboard-inner_box">
+                        <div><p>문의내역</p></div>
+                        <div><button>바로가기</button></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div>
                 <div>
-                  <div class="dashboard-inner_box">
-                    <div><p>게임플레이 정보</p></div>
-                    <div><button onclick="location.href='/mypageGameList.mypage'">바로가기</button></div>
+                  <div>
+                    <div class="dashboard-inner_box">
+                      <div><p>비밀번호 변경</p></div>
+                      <div>
+                        <button
+                          onclick="location.href='/views/mypage/updatePW.jsp'"
+                        >
+                          바로가기
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div>
-                  <div class="dashboard-inner_box">
-                    <div><p>문의내역</p></div>
-                    <div><button>바로가기</button></div>
+                  <div>
+                    <div class="dashboard-inner_box">
+                      <div><p>회원탈퇴</p></div>
+                      <div>
+                        <button
+                          onclick="location.href='/views/mypage/deleteMember.jsp'"
+                        >
+                          바로가기
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div>
-              <div>
-                <div class="dashboard-inner_box">
-                  <div><p>비밀번호 변경</p></div>
-                    <div><button onclick="location.href='/views/mypage/updatePW.jsp'">바로가기</button></div>
-                </div>
-              </div>
-              <div>
-                <div class="dashboard-inner_box">
-                  <div><p>회원탈퇴</p></div>
-                    <div><button onclick="location.href='/views/mypage/deleteMember.jsp'">바로가기</button></div>
-                </div>
-            </div>
+            </section>
           </div>
-        </section>
-      </main>
-            
+        </main>
       </div>
       <!-- mode -->
       <div id="mode">
-          <i class="fa-regular fa-lightbulb" style="display: none;"></i>
-          <i class="fa-solid fa-lightbulb"></i>
+        <i class="fa-regular fa-lightbulb" style="display: none"></i>
+        <i class="fa-solid fa-lightbulb"></i>
       </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
     <script src="js/main.js"></script>
-</body>
+  </body>
 </html>

@@ -174,20 +174,35 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
       .mypage-select-container {
         display: flex;
+        flex-direction: column;
         height: 100vh;
         width: 100%;
       }
 
+      .mypage-updatePW-title {
+        margin: 50px 0;
+        font-size: 50px;
+        color: white;
+        height: 10%;
+        width: 100%;
+      }
+
+      .aside-section-form {
+        display: flex;
+      }
+
       .mypage-side-menu {
+        flex: 2;
         min-width: 200px;
         height: 600px;
         background-color: #f0f0f0;
         margin-left: 30px;
-        margin-top: 200px;
+        margin-top: 0;
         border-radius: 10px;
         display: flex;
         flex-direction: column;
         padding: 15px;
+        width: 30%;
       }
 
       .mypage-side-menu > p:hover {
@@ -208,23 +223,20 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       }
 
       .mypage-updatePW-form {
-        /* background-color: #0a5479; */
         flex: 13;
         display: flex;
         flex-direction: column;
-        align-items: center;
-      }
-
-      .mypage-updatePW-title {
-        margin: 50px 0;
-        font-size: 50px;
-        color: #fab74b;
+        align-items: flex-start;
       }
 
       .updatePW-warning-text {
         font-size: large;
         padding-bottom: 30px;
         color: #ffd449;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 150px;
       }
 
       .updatePW-board {
@@ -333,77 +345,80 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
         <!-- main -->
         <main class="mypage-select-container">
-          <aside class="mypage-side-menu">
-            <p onclick="location.href='/views/mypage/mypage.jsp'">내정보 홈</p>
-            <p onclick="location.href='/selectMember.mypage'">개인정보관리</p>
-            <p onclick="location.href='/views/mypage/updatePW.jsp'">
-              비밀번호 변경
-            </p>
-            <p onclick="location.href='/mypageGameList.mypage'">
-              게임플레이 정보
-            </p>
-            <p onclick="location.href='/'">문의내역</p>
-            <p onclick="location.href='/views/mypage/deleteMember.jsp'">
-              회원탈퇴
-            </p>
-            <p
-              class="logout"
-              onclick="if(confirm('로그아웃을 하시겠습니까?')) { location.href='/logout.members'; }"
-            >
-              로그아웃
-            </p>
-          </aside>
-
-          <section class="mypage-updatePW-form">
-            <h1 class="mypage-updatePW-title">비밀번호 변경</h1>
-
-            <div class="updatePW-warning-text">
-              <p class="warning">
-                * 다른 아이디/사이트에서 사용한 적 없는 비밀번호
+          <div class="mypage-updatePW-title">내 정보</div>
+          <div class="aside-section-form" style="display: flex">
+            <aside class="mypage-side-menu">
+              <p onclick="location.href='/views/mypage/mypage.jsp'">
+                내정보 홈
               </p>
-              <p class="warning">
-                * 이전에 사용한 적 없는 비밀번호가 안전합니다.
+              <p onclick="location.href='/selectMember.mypage'">개인정보관리</p>
+              <p onclick="location.href='/views/mypage/updatePW.jsp'">
+                비밀번호 변경
               </p>
-            </div>
+              <p onclick="location.href='/mypageGameList.mypage'">
+                게임플레이 정보
+              </p>
+              <p onclick="location.href='/'">문의내역</p>
+              <p onclick="location.href='/views/mypage/deleteMember.jsp'">
+                회원탈퇴
+              </p>
+              <p
+                class="logout"
+                onclick="if(confirm('로그아웃을 하시겠습니까?')) { location.href='/logout.members'; }"
+              >
+                로그아웃
+              </p>
+            </aside>
 
-            <div class="updatePW-board">
-              <div class="current_password">
-                <label for="current_password">현재 비밀번호</label>
-                <input
-                  type="password"
-                  id="current_password"
-                  name="current_password"
-                  required
-                />
+            <section class="mypage-updatePW-form">
+              <div class="updatePW-warning-text">
+                <p class="warning">
+                  * 다른 아이디/사이트에서 사용한 적 없는 비밀번호
+                </p>
+                <p class="warning">
+                  * 이전에 사용한 적 없는 비밀번호가 안전합니다.
+                </p>
               </div>
 
-              <div class="update">
-                <div class="new_password">
-                  <label for="new_password">새 비밀번호</label>
+              <div class="updatePW-board">
+                <div class="current_password">
+                  <label for="current_password">현재 비밀번호</label>
                   <input
                     type="password"
-                    id="new_password"
-                    name="new_password"
+                    id="current_password"
+                    name="current_password"
                     required
                   />
                 </div>
 
-                <div class="confirm_password">
-                  <label for="confirm_password">새 비밀번호 확인</label>
-                  <input
-                    type="password"
-                    id="confirm_password"
-                    name="confirm_password"
-                    required
-                  />
+                <div class="update">
+                  <div class="new_password">
+                    <label for="new_password">새 비밀번호</label>
+                    <input
+                      type="password"
+                      id="new_password"
+                      name="new_password"
+                      required
+                    />
+                  </div>
+
+                  <div class="confirm_password">
+                    <label for="confirm_password">새 비밀번호 확인</label>
+                    <input
+                      type="password"
+                      id="confirm_password"
+                      name="confirm_password"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="buttons">
+                  <button type="button" id="confirm">확인</button>
+                  <button type="button" id="cancel">취소</button>
                 </div>
               </div>
-              <div class="buttons">
-                <button type="button" id="confirm">확인</button>
-                <button type="button" id="cancel">취소</button>
-              </div>
-            </div>
-          </section>
+            </section>
+          </div>
         </main>
       </div>
 
