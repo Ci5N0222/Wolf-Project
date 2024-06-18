@@ -107,4 +107,53 @@ public class ImagesDAO {
 		
 	}
 	
+	
+	/**
+	 * 서버에 저장된 이미지의 이름을 찾는 메서드
+	 * @param parent_seq
+	 * @param imageCode
+	 * @return
+	 * @throws Exception
+	 */
+	public String getImageName(int parent_seq, int imageCode) throws Exception {
+		String sql = "select * from images where image_code = ? and parent_seq = ?";
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setInt(1, imageCode);
+			pstat.setInt(2, parent_seq);
+			try (ResultSet rs = pstat.executeQuery()){
+					
+				if(rs.next()) {
+					return rs.getString("sysname");	
+				} else {
+					return "none";
+				}
+			}
+		}
+	}
+	
+	
+	/**
+	 * 게임 추가시 섬네일을 저장하는 메서드
+	 * @param path
+	 * @param oriName
+	 * @param sysName
+	 * @param seq
+	 * @return
+	 * @throws Exception
+	 */
+	public int adminGameThumbnailInsert(String oriName, String sysName, int path, int seq) throws Exception {
+		String sql = "insert into images values(images_seq.nextval, ?, ?, ?, ?, null)";
+		
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, oriName);
+			pstat.setString(2, sysName);
+			pstat.setInt(3, path);
+			pstat.setInt(4, seq);
+			
+			return pstat.executeUpdate();
+		}
+	}
+	
 }

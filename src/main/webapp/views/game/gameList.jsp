@@ -49,7 +49,14 @@
 						<div class="col-lg-4 col-md-6 mb-4">
 							<div class="card" style="width: 18rem;">
 								<div>
-									<img src="${l.thumbnail}" class="card-img-top" alt="...">
+									<c:choose>
+					        			<c:when test="${l.thumbnail != 'none'}">
+					        				<img class="card-img-top" src="/${l.thumbnail}" alt="게임 섬네일 이미지">
+					        			</c:when>
+					        			<c:otherwise>
+					        				<img class="card-img-top" src="/images/default-game.png" alt="게임 섬네일 이미지">	
+					        			</c:otherwise>
+					        		</c:choose>
 								</div>
 								<form action='/detail.game' method='post'>
 									<input type="hidden" name="seq" value="${l.seq}">
