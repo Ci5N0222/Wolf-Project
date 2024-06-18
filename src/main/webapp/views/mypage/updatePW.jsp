@@ -204,6 +204,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         display: flex;
         flex: 1;
         justify-content: center;
+        align-items: center;
       }
 
       .mypage-updatePW-form {
@@ -223,6 +224,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       .updatePW-warning-text {
         font-size: large;
         padding-bottom: 30px;
+        color: #ffd449;
       }
 
       .updatePW-board {
@@ -333,7 +335,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         <main class="mypage-select-container">
           <aside class="mypage-side-menu">
             <p onclick="location.href='/views/mypage/mypage.jsp'">내정보 홈</p>
-            <p onclick="location.href='/select.members'">개인정보관리</p>
+            <p onclick="location.href='/selectMember.mypage'">개인정보관리</p>
             <p onclick="location.href='/views/mypage/updatePW.jsp'">
               비밀번호 변경
             </p>
@@ -341,8 +343,15 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
               게임플레이 정보
             </p>
             <p onclick="location.href='/'">문의내역</p>
-            <p onclick="location.href='/'">회원탈퇴</p>
-            <p onclick="location.href='/logout.members'">로그아웃</p>
+            <p onclick="location.href='/views/mypage/deleteMember.jsp'">
+              회원탈퇴
+            </p>
+            <p
+              class="logout"
+              onclick="if(confirm('로그아웃을 하시겠습니까?')) { location.href='/logout.members'; }"
+            >
+              로그아웃
+            </p>
           </aside>
 
           <section class="mypage-updatePW-form">

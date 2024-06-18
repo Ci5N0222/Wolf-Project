@@ -1,14 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
-
-<!-- JSTL Core -->
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+pageEncoding="UTF-8"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core"
+prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>First-Project</title>
+    <title>회원탈퇴</title>
     <!-- 부트스트랩 -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -53,6 +50,7 @@ pageEncoding="UTF-8"%>
         height: 100%;
         margin: 0;
         background-color: var(--bg-dark);
+        /* background-color: azure; */
         color: var(--bg-black);
         color: var(--color-black);
         overflow: hidden;
@@ -61,7 +59,8 @@ pageEncoding="UTF-8"%>
         font-family: "Luckiest Guy", cursive;
       }
       body.light {
-        background-color: var(--bg-light);
+        /* background-color: var(--bg-light); */
+        background-color: white;
         color: var(--bg-black);
       }
       /* 모드 변경시 부드럽게 넘어가는 효과 */
@@ -162,20 +161,19 @@ pageEncoding="UTF-8"%>
       .naviBtn:hover {
         opacity: 0.5;
       }
-      /* -- main과 동일 -- */
 
+      /* main */
       * {
         box-sizing: border-box;
-        margin: 0;
-        padding: 0;
       }
+
       /* div {
-        border: 1px solid #67ffd1;
+        border: 1px solid aqua;
       } */
 
-      .mypage-container {
+      .mypage-delete-container {
         display: flex;
-        /* height: 100vh; */
+        height: 100vh;
         width: 100%;
       }
 
@@ -208,66 +206,31 @@ pageEncoding="UTF-8"%>
         align-items: center;
       }
 
-      .mypage-myGame-form {
-        /* background-color: #bab58b; */
+      .mypage-delete-form {
+        /* background-color: #0a5479; */
         flex: 13;
         display: flex;
         flex-direction: column;
         align-items: center;
       }
 
-      .mypage-myGame-title {
+      .mypage-delete-title {
         margin: 50px 0;
         font-size: 50px;
-        color: #f8faff;
+        color: #fab74b;
       }
 
-      .mypage-myGameList {
-        background-color: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+      .mypage-delete-board {
         width: 100%;
         max-width: 950px;
-        height: auto;
-        min-height: 800px;
-        border-radius: 30px;
+        height: 1100px;
+        padding: 0 140px;
+        position: relative;
+        z-index: 5;
       }
 
-      .mypage-myGameList > div {
-        width: 80%;
-        height: 80%;
-        display: flex;
-        flex-direction: column;
-      }
-      .mypage-myGameList > div > div {
-        width: 100%;
-        height: 15%;
-        display: flex;
-      }
-      .mypage-myGameList .title {
-        flex: 3;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: larger;
-      }
-      .mypage-myGameList .score {
-        flex: 8;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: larger;
-      }
-      .mypage-myGameList .score .score_txt {
-        font-weight: bolder;
-        font-size: xx-large;
-      }
-
-      @media (max-width: 1100px) {
-        .mypage-side-menu {
-          display: none;
-        }
+      button {
+        cursor: pointer;
       }
 
       /* -- main과 동일 -- */
@@ -318,19 +281,19 @@ pageEncoding="UTF-8"%>
     <div class="container-fluid d-flex flex-column">
       <!-- nav -->
       <div class="container text-center flex-grow-1 d-flex flex-column">
-        <img src="images/bg1.png" alt="" class="img_bg" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="/images/bg1.png" alt="" class="img_bg" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
 
         <!-- nav -->
         <%@ include file="/views/include/header.jsp" %>
 
         <!-- main -->
-        <main class="mypage-container">
+        <main class="mypage-delete-container">
           <aside class="mypage-side-menu">
             <p onclick="location.href='/views/mypage/mypage.jsp'">내정보 홈</p>
             <p onclick="location.href='/selectMember.mypage'">개인정보관리</p>
@@ -352,42 +315,43 @@ pageEncoding="UTF-8"%>
             </p>
           </aside>
 
-          <section class="mypage-myGame-form">
-            <h1 class="mypage-myGame-title">게임 플레이 정보</h1>
+          <section class="mypage-delete-form">
+            <h1 class="mypage-delete-title">회원탈퇴</h1>
+            <form action="/delete.mypage">
+              <div class="mypage-delete-board">
+                <input
+                  type="text"
+                  placeholder="ID를 입력해주세요"
+                  class="inputID"
+                />
+                <input
+                  type="password"
+                  placeholder="PW를 입력해주세요"
+                  class="inputPW"
+                />
 
-            <div class="mypage-myGameList">
-              <c:if test="${result == null}"> 플레이 한 게임이 없습니다. </c:if>
-              <c:if test="${result != null}">
-                <div>
-                  <c:forEach var="i" items="${result}">
-                    <div>
-                      <div class="title"><p>${i.title}</p></div>
-                      <div class="score">
-                        <p>
-                          최고점수 :
-                          <p class="score_txt">${i.score}</p>
-                          점
-                        </p>
-                      </div>
-                    </div>
-                  </c:forEach>
-                </div>
-              </c:if>
-            </div>
+                <button type="submit" class="deleteBtn">탈퇴하기</button>
+                <button type="button" class="cancelBtn">취소</button>
+              </div>
+            </form>
           </section>
         </main>
       </div>
+
       <!-- mode -->
       <div id="mode">
         <i class="fa-regular fa-lightbulb" style="display: none"></i>
         <i class="fa-solid fa-lightbulb"></i>
       </div>
     </div>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
-    <script src="js/main.js"></script>
+
+    <script>
+      $(".cancelBtn").on("click", function () {
+        $(".inputID").val("");
+        $(".inputPW").val("");
+      });
+    </script>
+
+    <script src="/js/main.js"></script>
   </body>
 </html>
