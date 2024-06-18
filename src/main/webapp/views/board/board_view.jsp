@@ -8,17 +8,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
         
  
 <!-- icon -->
 <script src="https://kit.fontawesome.com/1ee4acc8d4.js" crossorigin="anonymous"></script>
 
-<!-- bootstrap -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"></script>
         
 <!-- Project local -->
 
@@ -37,12 +32,9 @@
 }
 html,
 body {
-    height: 100%;
     margin: 0;
     background-color: var(--bg-dark);
-    color: var(--bg-black);
     color: var(--color-black);
-    overflow: hidden;
     /* 폰트 */
     font-family: "Noto Sans KR", sans-serif;
     font-family: "Luckiest Guy", cursive;
@@ -79,8 +71,6 @@ body {
     #wolfLog{
         width: 100px;height: 100px;
     }
-   
-
     *{
         box-sizing: border-box;
     }
@@ -172,7 +162,6 @@ body {
 </style>
 </head>
 <body>
-    
     <div class="container">
         <div class="navi">
             <div style="flex: 2;">
@@ -258,12 +247,10 @@ body {
                 </div>
             </div>
         </div>
-       
-        <div class="footer" style="flex: 1;">
-                
-        </div>
     </div>
-
+    <div class="footer" style="flex: 1;">
+                
+    </div>
 
     <script>
         //
