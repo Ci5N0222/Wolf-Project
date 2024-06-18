@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -380,6 +379,8 @@ private static BoardDAO instance;
 	
 	public  String[] findDeletedTags(String originalHtml) {
 		Document doc = Jsoup.parse(originalHtml);
+   
+
 	    Elements imgTags = doc.select("img");
 	    ArrayList<String> sysnames=new ArrayList<>();
 
@@ -429,7 +430,5 @@ private static BoardDAO instance;
 		}
 		return contents;
 	}
-	
-
 	
 }

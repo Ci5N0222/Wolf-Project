@@ -154,7 +154,7 @@ public class MypageController extends HttpServlet {
 				String id = (String)session.getAttribute("WolfID");
 				
 				mDAO.deleteMember(id);
-				response.sendRedirect("/index.jsp");
+				response.sendRedirect("/logout.members");
 				
 			}
 			
