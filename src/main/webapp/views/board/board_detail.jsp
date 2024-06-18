@@ -22,11 +22,11 @@
         }
 
         .container {
-            width: auto;
-            height: 600px;
+            width: 1000px;
+            height: 950px;
             margin: auto;
             flex-direction: column;
-            border: 1px solid black;
+           
         }
 
         .center {
@@ -36,7 +36,7 @@
 
         .reply {
             margin-top: 20px;
-            width: 600px;
+            width: 950px;
             height: 80px;
             margin-bottom: auto;
             margin-left: auto;
@@ -45,7 +45,7 @@
         }
 
         #reply_contents {
-            width: 600px;
+            width: 950px;
             height: auto;
             display: flex;
             flex-direction: column;

@@ -14,6 +14,8 @@
     .container{
         display: flex;
         flex-direction: column;
+        max-width: 1000px;
+        margin: auto;
     }
     .btn{
     	height: 30px;
