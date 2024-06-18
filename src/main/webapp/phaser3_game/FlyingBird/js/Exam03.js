@@ -14,14 +14,14 @@ class Exam03 extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('background', '/images/background4.jpg');
-        this.load.spritesheet('bird', '/images/bird.png', { frameWidth: 135, frameHeight: 123 });
-        this.load.image('cookie', '/images/cookie.png');
-        this.load.spritesheet('eagle', '/images/eagle.png', { frameWidth: 360, frameHeight: 86.625 }); // 스프라이트 시트 로드
-        this.load.image('startBtn', '/images/startbtn.png');
-        this.load.image('startImg', '/images/start.png');
-        this.load.image('score', '/images/score.png');
-        this.load.image('timer', '/images/timer.png');
+        this.load.image('background', '/phaser3_game/FlyingBird/images/background4.jpg');
+        this.load.spritesheet('bird', '/phaser3_game/FlyingBird/images/bird.png', { frameWidth: 135, frameHeight: 123 });
+        this.load.image('cookie', '/phaser3_game/FlyingBird/images/cookie.png');
+        this.load.spritesheet('eagle', '/phaser3_game/FlyingBird/images/eagle.png', { frameWidth: 360, frameHeight: 86.625 }); // 스프라이트 시트 로드
+        this.load.image('startBtn', '/phaser3_game/FlyingBird/images/startbtn.png');
+        this.load.image('startImg', '/phaser3_game/FlyingBird/images/start.png');
+        this.load.image('score', '/phaser3_game/FlyingBird/images/score.png');
+        this.load.image('timer', '/phaser3_game/FlyingBird/images/timer.png');
     }
     init() {
         this.cookies = [];
@@ -40,8 +40,8 @@ class Exam03 extends Phaser.Scene {
         this.anims.create({
             key: "run",
             frames: this.anims.generateFrameNumbers('bird', { start: 0, end: 13 }),
-            frameRate: 10, // 숫자 높아질수록 빠르게 움직임
-            repeat: -1 // 무한반복
+            frameRate: 10, 
+            repeat: -1 
         });
         this.anims.create({
             key: "jump",
@@ -54,8 +54,8 @@ class Exam03 extends Phaser.Scene {
         this.anims.create({
             key: "come",
             frames: this.anims.generateFrameNumbers('eagle', { start: 0, end: 7 }),
-            frameRate: 10, // 숫자 높아질수록 빠르게 움직임
-            repeat: -1 // 무한반복
+            frameRate: 10, 
+            repeat: -1 
         });
 
         // 배경
@@ -83,10 +83,10 @@ class Exam03 extends Phaser.Scene {
         this.player = this.physics.add.sprite(90, 320, 'bird');
         this.player.setCollideWorldBounds(true);
         this.player.anims.play({ key: 'run' });
-        this.player.setData("onFloor", true); // => request.setAttribute
+        this.player.setData("onFloor", true); 
 
 
-        let scaleFactor = 80 / 135; // 원하는 사이즈 / 원본이미지 사이즈
+        let scaleFactor = 80 / 135;
         this.player.setScale(scaleFactor);
         this.player.setSize(20 / scaleFactor, 25 / scaleFactor);
 
@@ -104,11 +104,6 @@ class Exam03 extends Phaser.Scene {
             cookie.destroy();
             this.cookies.splice(this.cookies.indexOf(cookie), 1);
         });
-
-        // 독수리와 충돌 시 게임 오버 처리
-        // this.physics.add.collider(this.player, this.eagles, (player, eagle) => {
-        //     this.scene.start('GameOver', { score: this.score }); // GameOver 씬으로 점수와 함께 전환
-        // });
 
         this.physics.add.collider(this.player, this.eagles, (player, eagle) => {
             console.log('Game over triggered, score:', this.score); // 점수 로그 출력
@@ -141,12 +136,9 @@ class Exam03 extends Phaser.Scene {
         this.cursor = this.input.keyboard.createCursorKeys();
 
         this.cameras.main.setBackgroundColor("#ffffff");
-        // 투명한 회색 배경을 추가합니다.
         let startBackgroud = this.add.rectangle(0, 0, this.cameras.main.width, this.cameras.main.height, 0x000000, 0.5).setOrigin(0);
 
         let startImg = this.add.sprite(this.cameras.main.width / 2, this.cameras.main.height / 2 - 70, 'startImg').setInteractive();
-        // startImg.setScale(0.9);
-
 
         // Start 버튼 추가
         let startButton = this.add.sprite(this.cameras.main.width / 2, this.cameras.main.height / 2 + 160, 'startBtn').setInteractive();
@@ -175,16 +167,11 @@ class Exam03 extends Phaser.Scene {
         if (this.isStart) {
             this.player.setGravity(0, 700);
 
-            // 테두리 충돌 감지
-            // if (this.player.y <= 0 || this.player.y >= this.cameras.main.height || this.player.x <= 0 || this.player.x >= this.cameras.main.width) {
-            //     this.scene.start('GameOver'); // 게임 오버 씬으로 전환
-            // }
-
             // 타일 속도 조정
             if (this.timer > 20) {
-                this.tileSpeed = 5; // 15초 후에 배경 속도 증가
+                this.tileSpeed = 5; 
             } else if (this.timer > 10) {
-                this.tileSpeed = 4; // 10초 후에 배경 속도 증가
+                this.tileSpeed = 4; 
             }
 
             this.background.tilePositionX += this.tileSpeed;
@@ -286,5 +273,3 @@ class Exam03 extends Phaser.Scene {
     }
 
 }
-
-// export default Exam03;

@@ -8,11 +8,10 @@ class GameOver extends Phaser.Scene {
 
 
     preload() {
-        this.load.image('gameoverImg', '/images/gameover2.png');
-        this.load.image('scoreImg', '/images/score.png');
-        this.load.image('restartBtn', '/images/restart.png');
-        this.load.image('exitBtn', '/images/exit.png');
-        // this.load.font('Lilita One', '/font/LilitaOne-Regular.ttf');
+        this.load.image('gameoverImg', '/phaser3_game/FlyingBird/images/gameover2.png');
+        this.load.image('scoreImg', '/phaser3_game/FlyingBird/images/score.png');
+        this.load.image('restartBtn', '/phaser3_game/FlyingBird/images/restart.png');
+        this.load.image('exitBtn', '/phaser3_game/FlyingBird/images/exit.png');
     }
 
     create(data) {
@@ -22,22 +21,6 @@ class GameOver extends Phaser.Scene {
         let gameoverImg = this.add.image(this.cameras.main.width / 2, 230, 'gameoverImg');
         gameoverImg.setOrigin(0.5);
         gameoverImg.setScale(1.2);
-
-        // let scoreImg = this.add.image(this.cameras.main.width / 2 - 130, 530, 'scoreImg');
-        // scoreImg.setOrigin(0.5);
-        // scoreImg.setScale(0.3);
-
-        // this.timerText = this.add.text(520, 20, '0', {
-        //     fontSize: '32px',
-        //     fill: '#FF0000'
-        // });
-
-        // 얻은 점수 표시
-        // this.add.text(this.cameras.main.width / 2 + 80, 530, `Score: ${data.score}`, {
-        //     fontFamily: 'Lilita One',
-        //     fontSize: '40px',
-        //     fill: '#000000'
-        // }).setOrigin(0.5);
 
         // "score : " 문구 추가
         this.add.text(this.cameras.main.width / 2, 530, `Score   :   ${data.score}`, {
@@ -84,7 +67,6 @@ class GameOver extends Phaser.Scene {
         });
 
 
-
     }
 
     update() {
@@ -92,10 +74,5 @@ class GameOver extends Phaser.Scene {
     }
 
 }
-
-
-
-
-
 
 
