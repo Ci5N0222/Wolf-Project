@@ -349,7 +349,7 @@ body {
 		margin-right: 330px;
 	}
 
-    .form-group input[type="text"]{
+    .form-group input[type="text"], .form-group input[type="email"]{
 		width: 50%;
         padding: 10px;
         border: 1px solid #ccc;
@@ -357,8 +357,8 @@ body {
         font-size: 16px;
     }
 	
-    .form-group input[type="password"],
-    .form-group input[type="email"]{
+    .form-group input[type="password"]
+   {
         width: 65%;
         padding: 10px;
         border: 1px solid #ccc;
@@ -384,7 +384,7 @@ body {
         cursor: pointer;
     }
 
-#idCheck, #nicknameCheck {
+#idCheck, #nicknameCheck,#emailCode {
 	
 	padding: 10px 10px;
 	margin: 10px 0 ;
@@ -496,6 +496,7 @@ button {
 					<div class="form-group">
 						<input type="email" class="form-control" id="email" name="email"
 							placeholder="이메일">
+							<button type="button" id="emailCode">인증 하기</button>
 					</div>
 					
 
@@ -537,7 +538,7 @@ button {
 								function() {
 									let didIdCheck = false;
 									let didnicknameCheck = false;
-
+									let didemailCheck = false;
 									$("#male").on("click", function() {
 										$("#female").prop("checked", false);
 									});
@@ -545,8 +546,39 @@ button {
 									$("#female").on("click", function() {
 										$("#male").prop("checked", false);
 									});
+									$("#emailCode").on("click", function() {
+										if ($("#email").val() == "") {
+											alert("이메일을 먼저 입력해주세요.");
+											return;
+										}
+										let email = $("#email").val();
+										
 
+									    let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+										let result = regex.test(email);
+										if (!result) {
+											alert("사용할 수 없는 형식의 이메일입니다");
+											return false;
+										}
+										$.ajax({
+											url : "/emailcheck.members",
+											data : {
+												email : $("#email").val()
+											}
+										}).done(function(resp) {
+											if (resp == "true") {
+												alert("이미 사용중인 이메일 입니다.");
+											} else {
+												
+											}
+										});
+									});
+									
 									$("#idCheck").on("click", function() {
+										if ($("#id").val() == "") {
+											alert("ID를 먼저 입력해주세요.");
+											return;
+										}
 										let id = $("#id").val();
 										let msg = $("#msg");
 										let regex = /^[a-z0-9_]{8,}$/;
@@ -554,10 +586,6 @@ button {
 										if (!result) {
 											alert("사용할 수 없는 형식의 ID입니다");
 											return false;
-										}
-										if ($("#id").val() == "") {
-											alert("ID를 먼저 입력해주세요.");
-											return;
 										}
 										$.ajax({
 											url : "/idcheck.members",
@@ -593,6 +621,7 @@ button {
 											}
 										});
 									});
+								
 									$("#nickname").on("keyup", function() {
 										nicknameCheckFlag = false;
 									});
