@@ -21,14 +21,53 @@
             display: flex;
         }
 
+        :root {
+    --bg-light: #ffd449;
+    --bg-dark: #14213D;
+    --bg-transparent: transparent;
+
+    --color-white: #eeeeee;
+    --color-black: #14213D;
+    --bg-nav: #f9a620;
+    --color-nav-icon: #14213D;
+    --color-nav-bg: #f9a620;
+    font-size: 16px;
+}
+html,
+    body {
+         background-color: var(--bg-dark);
+        color: var(--color-black);
+       
+      }   
+
         .container {
             width: 1000px;
             height: 950px;
             margin: auto;
             flex-direction: column;
+            background-color: white;
            
         }
+        .navi {
+        display: flex;
+        flex: 1;
+        background-color:#f9a620;
+        font-size: 20px;
+        color: white;
+        text-shadow: 1px 1px 1px gray;
+        letter-spacing: 1px;
+        border-radius: 40px 80px / 80px 40px;
+        justify-content: center;
+        align-items: center;
+        transition: background-color 0.5s ease, box-shadow 0.5s ease;
+        overflow: hidden;
+    }
+         .navi i {font-size: 22px;}
 
+         /* 로고 */
+          /* 메뉴 버튼 */
+         .naviBtn{cursor: pointer; transition: all 0.3s ease-in-out;}
+         .naviBtn:hover{opacity: 0.5;}
         .center {
             justify-content: center;
             align-items: center;
@@ -36,22 +75,24 @@
 
         .reply {
             margin-top: 20px;
-            width: 950px;
+            width: 1000px;
             height: 80px;
             margin-bottom: auto;
             margin-left: auto;
             margin-right: auto;
             border: 1px solid black;
+            background-color: white;
         }
 
         #reply_contents {
-            width: 950px;
+            width: 1000px;
             height: auto;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             margin: auto;
+            background-color: white;
         }
 
         .title {
@@ -115,51 +156,68 @@
 
 <body>
     <div class="container">
-        <div style="flex: 1;" class="center dto title" id="board_title">${board_dto.title}</div>
-        <div style="flex: 1;" class="center">${board_nickname}(${board_dto.member_id.substring(0, 4)}****)</div>
-        <div style="flex: 1; color: gray;">
-            <div style="flex: 1;">
-                <p>
-                    <fmt:formatDate value="${board_dto.write_date}" pattern="yyyy.MM.dd HH:mm" />
-                    조회 ${board_dto.count}
-                </p>
+        <div class="navi">
+            <div style="flex: 2;">
+                <div class="naviBtn center" onclick="location.href='/list.game'" style="flex: 1;">Game</div>
+                <div class="naviBtn center" onclick="location.href='/list.board'" style="flex: 1;">Board</div>
+                <div class="naviBtn center" style="flex: 1;">About</div>
             </div>
-            <div style="flex: 1; flex-direction: column;">
-                <c:forEach var="files_dto" items="${files_list}">
-                    <div class="files_div">
-                       <span class="files_seq">${files_dto.seq }</span>.&nbsp<a href="/download.files?sysname=${files_dto.sysname }&oriname=${files_dto.oriname}">${files_dto.oriname}</a>
-                        <button class="files_delete" style="width: 50px; height: 50px; display: none;" >삭제</button> <!--onclick="filesDelete(${files_dto.seq })"-->
-                    </div>
-                </c:forEach>
+            <div style="flex: 4; justify-content: center; align-items: center; overflow: hidden; height: 100%; width: 100%; " id="wolfLogo" onclick="location.href='/index.jsp'">
+                <img src="/images/wolfLogo.png" alt="" style=" max-width: 100%; max-height: 100%; height: auto; width: auto; ">
+            </div>
+            <div style="flex: 2; justify-content: flex-end;">
+                <div class="naviBtn" onclick="location.href ='/views/mypage/mypage.jsp'">
+                    <img src="/images/default-avatar.png" width="50" >
+                </div> 
             </div>
         </div>
-        <div style="border: 1px solid black; align-items: center; justify-content: center;"></div>
-        <div style="flex: 5;" class="dto" id="board_contents">${board_dto.contents}</div>
-        <div style="flex: 1; justify-content: flex-end;">
-            <c:choose>
-                <c:when test="${WolfID eq board_dto.member_id}">
-                    <div style="border: 0; display: flex;" id="div1">
-                        <button type="button" id="update">수정하기</button>
-                        <button type="button" id="delete">삭제하기</button>
-                        <button type="button" id="list">목록으로</button>
-                    </div>
-                    <div style="border: 0; display: none;" id="div2">
-                        <form action="/update.board" method="post" id="joinform" enctype="multipart/form-data">
-                            <input type="hidden" id="arrayField" name="array">
-                            <input type="hidden" name="title" class="update_input" id="board_title_input"> 
-                            <input type="hidden" name="contents" class="update_input" id="board_contents_input"> 
-                            <input type="hidden" name="count" value="${board_dto.count}">
-                            <div style="display: none;"><input type="file" name="file" id="upload"></div>
-                            <input type="hidden" name="seq" value="${board_dto.seq}" class="notuse">
-                            <button type="submit" id="confirm">확인</button>
-                            <button type="button" id="cancel">취소</button>
-                        </form>
-                    </div>
-                </c:when>
-                <c:otherwise>
-                    <button id="list">목록으로</button>
-                </c:otherwise>
-            </c:choose>
+        <div style="flex-direction: column; flex: 8;">
+            <div style="flex: 1;" class="center dto title" id="board_title">${board_dto.title}</div>
+            <div style="flex: 1;" class="center">${board_nickname}(${board_dto.member_id.substring(0, 4)}****)</div>
+            <div style="flex: 1; color: gray;">
+                <div style="flex: 1;">
+                    <p>
+                        <fmt:formatDate value="${board_dto.write_date}" pattern="yyyy.MM.dd HH:mm" />
+                        조회 ${board_dto.count}
+                    </p>
+                </div>
+                <div style="flex: 1; flex-direction: column;">
+                    <c:forEach var="files_dto" items="${files_list}">
+                        <div class="files_div">
+                           <span class="files_seq">${files_dto.seq }</span>.&nbsp<a href="/download.files?sysname=${files_dto.sysname }&oriname=${files_dto.oriname}">${files_dto.oriname}</a>
+                            <button class="files_delete" style="width: 50px; height: 50px; display: none;" >삭제</button> <!--onclick="filesDelete(${files_dto.seq })"-->
+                        </div>
+                    </c:forEach>
+                </div>
+            </div>
+            <div style="border: 1px solid black; align-items: center; justify-content: center;"></div>
+            <div style="flex: 5;" class="dto" id="board_contents">${board_dto.contents}</div>
+            <div style="flex: 1; justify-content: flex-end;">
+                <c:choose>
+                    <c:when test="${WolfID eq board_dto.member_id}">
+                        <div style="border: 0; display: flex;" id="div1">
+                            <button type="button" id="update">수정하기</button>
+                            <button type="button" id="delete">삭제하기</button>
+                            <button type="button" id="list">목록으로</button>
+                        </div>
+                        <div style="border: 0; display: none;" id="div2">
+                            <form action="/update.board" method="post" id="joinform" enctype="multipart/form-data">
+                                <input type="hidden" id="arrayField" name="array">
+                                <input type="hidden" name="title" class="update_input" id="board_title_input"> 
+                                <input type="hidden" name="contents" class="update_input" id="board_contents_input"> 
+                                <input type="hidden" name="count" value="${board_dto.count}">
+                                <div style="display: none;"><input type="file" name="file" id="upload"></div>
+                                <input type="hidden" name="seq" value="${board_dto.seq}" class="notuse">
+                                <button type="submit" id="confirm">확인</button>
+                                <button type="button" id="cancel">취소</button>
+                            </form>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <button id="list">목록으로</button>
+                    </c:otherwise>
+                </c:choose>
+            </div>
         </div>
     </div> <!--contaier 끝-->
     <form action="/insert.reply" method="get" id="replyform">

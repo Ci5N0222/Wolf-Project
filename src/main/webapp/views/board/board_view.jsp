@@ -190,7 +190,7 @@ body {
             </div>
         </div>
         <div style="display: flex; flex: 8;">
-            <div class="menu" style="flex: 1;">
+            <div class="menu" style="flex: 1.5;">
                 <div style="flex: 1; flex-direction: column;">
                     <div style="flex: 1;" class="center menu_title" id="board_1">
                         자유 게시판
@@ -210,10 +210,10 @@ body {
                         })
                     </script>
                 </div>
-                <div style="flex: 1;">
+                <div style="flex: 1; background-color: white;">
     
                 </div>
-            </div>
+            </div>    
             <div class="board">
                 <div class="center" style="flex: 1; font-family: 'Luckiest Guy', cursive; font-size: 30px;">
                     자유게시판
