@@ -52,17 +52,20 @@
 							<div class="card" style="width: 18rem;">
 								<div>
 									<c:choose>
-					        			<c:when test="${l.thumbnail != 'none'}">
-					        				<img class="card-img-top" src="/${l.thumbnail}" alt="게임 섬네일 이미지">
-					        			</c:when>
-					        			<c:otherwise>
-					        				<img class="card-img-top" src="/images/default-game.png" alt="게임 섬네일 이미지">	
-					        			</c:otherwise>
-					        		</c:choose>
+										<c:when test="${l.thumbnail != 'none'}">
+											<img class="card-img-top" src="/${l.thumbnail}"
+												alt="게임 섬네일 이미지">
+										</c:when>
+										<c:otherwise>
+											<img class="card-img-top" src="/images/default-game.png"
+												alt="게임 섬네일 이미지">
+										</c:otherwise>
+									</c:choose>
 								</div>
 								<form action='/detail.game' method='post'>
 									<input type="hidden" name="seq" value="${l.seq}">
 									<button class='btn btn-primary'>${l.title}</button>
+									<div class="discription">${l.discription}</div>
 								</form>
 							</div>
 						</div>
@@ -78,5 +81,18 @@
 		</div>
 	</div>
 	<script src="js/main.js"></script>
+	<script>
+	 document.addEventListener('DOMContentLoaded', function() {
+		    const divs = document.querySelectorAll('.discription');
+		  
+		    divs.forEach(div => {
+		      const text = div.innerText;
+		      
+		      if (text.length > 10) {
+		        div.innerText = text.substring(0, 10) + ' ...';
+		      }
+		    });
+	});
+	</script>
 </body>
 </html>

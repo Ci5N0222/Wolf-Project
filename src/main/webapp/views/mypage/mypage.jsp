@@ -229,6 +229,7 @@
         max-width: 950px;
         height: auto;
         min-height: 560px;
+        margin-top: 50px;
       }
       .mypage-dashboard div {
         border-radius: 10px;

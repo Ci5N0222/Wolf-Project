@@ -201,17 +201,18 @@ body.light {
 }
 
 /* 이미지가 카드를 넘어가면 잘림 */
-.card>div:first-child {
+.card>div {
 	height: 200px;
-	background-color: var(--color-nav-bg);
 }
 
 /* 이미지가 가로로 꽉 차게 설정 */
-.card>div:first-child>img {
+.card>div img {
 	height: 100%;
 	object-fit: cover;
 }
-
+.card>form{height: 100px;background-color: #f9a620; height: 100px;}
+.card>form button {height: 50px;}
+.card>form div {height: 50px; line-height: 50px;}
 /* 이미지가 가로로 꽉 차게 설정 */
 .card>div:last-child {
 	height: 100px;
