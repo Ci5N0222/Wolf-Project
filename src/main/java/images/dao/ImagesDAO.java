@@ -36,15 +36,18 @@ public class ImagesDAO {
 		}
 	}
 	
-	public void delete() {
-		String sql="delete from images board_seq=999999";
+	public boolean delete() {
+		String sql="delete from images where parent_seq=999999";
+		boolean result=false;
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
-			pstat.executeUpdate();
+			if(pstat.executeUpdate()>0)result=true;
 			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+		
+		return result;
 	}
 	
 	public ArrayList<String> delete(int parent_seq,int image_code ,String[] sysnames) {
@@ -119,7 +122,7 @@ public class ImagesDAO {
 	}
 	
 	public void updateTemp(int board_seq) {
-		String sql="update images set board_seq=? where board_seq=999999";
+		String sql="update images set parent_seq=? where parent_seq=999999";
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
 			pstat.setInt(1, board_seq);

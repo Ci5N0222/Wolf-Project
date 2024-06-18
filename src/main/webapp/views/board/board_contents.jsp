@@ -77,7 +77,7 @@
                         let formData = new FormData();
                         formData.append('image', file);
                         $.ajax({
-                            url:"/upload_images.board?board_seq=999999",
+                            url:"/upload.images?board_seq=999999",
                             type:"post",
                             dataType:"json",
                             processData: false,
@@ -95,7 +95,7 @@
                             $("body").find(".tox-textfield").eq(3).val(resp.height);
                             $("body").find(".tox-button").eq(4).on("click",function(){
                                 $.ajax({
-                                    url:"/upload_images.board?board_seq=999999&check=true",
+                                    url:"/upload.images?board_seq=999999&check=true",
                                     type:"post",
                                      dataType:"json",
                                     processData: false,
@@ -121,7 +121,6 @@
                     },
                     onAction: function() {
                         let files=$("#files");
-
                         let div=$("<div style='display: none;''>");
                         let input=$("<input type='file'class='upload'>");
                         input.attr("name","files"+index++);
@@ -137,7 +136,6 @@
                                 temp.append(button);
                                 files.append(temp);
                                 
-                     
                           });   
                         button.on("click",function(){
                             input.remove();
@@ -155,7 +153,13 @@
 </script>
 <script>
 		$("#list").on("click",function(){
-			location.href="/list.board";
+            $.ajax({
+                url:"/delete.images"
+            }).done(function(resp){
+               // alert(resp);
+                location.href="/list.board";
+            })
+			
 		})
 </script>
 </body>

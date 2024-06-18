@@ -22,7 +22,7 @@
         }
 
         .container {
-            width: 600px;
+            width: auto;
             height: 600px;
             margin: auto;
             flex-direction: column;
@@ -161,7 +161,7 @@
                 </c:otherwise>
             </c:choose>
         </div>
-    </div>
+    </div> <!--contaier 끝-->
     <form action="/insert.reply" method="get" id="replyform">
     <div class="reply">
         <div style="flex: 4; border: 1px solid black; margin: 15px; word-break: break-all; overflow: auto;" contenteditable="true"
@@ -631,7 +631,7 @@
                         let formData = new FormData();
                         formData.append('image', file);
                         $.ajax({
-                            url:"/upload_images.board?board_seq=${board_dto.seq}",
+                            url:"/upload.images?board_seq=${board_dto.seq}",
                             type:"post",
                             dataType:"json",
                             processData: false,
@@ -649,7 +649,7 @@
                             $("body").find(".tox-textfield").eq(3).val(resp.height);
                             $("body").find(".tox-button").eq(4).on("click",function(){
                                 $.ajax({
-                                    url:"/upload_images.board?board_seq=${board_dto.seq}&check=true",
+                                    url:"/upload.images?board_seq=${board_dto.seq}&check=true",
                                     type:"post",
                                      dataType:"json",
                                     processData: false,
