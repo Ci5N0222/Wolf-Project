@@ -73,7 +73,6 @@ public class GameController extends HttpServlet {
 			    
 			}else if(cmd.equals("/gameview.game")) {
 				String game_seq= request.getParameter("seq");
-				System.out.println(game_seq + ": test!!!");
 				
 				List <ScoreDTO> list= scoreDAO.gameList(Integer.parseInt(game_seq));
 				request.setAttribute("list", list);

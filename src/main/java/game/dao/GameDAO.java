@@ -29,7 +29,6 @@ public class GameDAO {
 		try (Connection con = DBConfig.getConnection();
 			PreparedStatement ps = con.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();) {
-			System.out.println("test!!!");
 			List<GameDTO> list = new ArrayList<>();
 			while (rs.next()) {
 				int seq = rs.getInt(1);
@@ -38,10 +37,8 @@ public class GameDAO {
 				String contents = rs.getString(4);
 				String thumbnail = rs.getString(5);
 				int service_code = rs.getInt(6);
-				System.out.println(title + "@");
 				list.add(new GameDTO(seq, title, discription, contents, thumbnail, service_code));
 			}
-			System.out.println("getList: " + list);
 			return list;
 		}
 	}

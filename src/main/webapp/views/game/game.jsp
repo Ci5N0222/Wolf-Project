@@ -7,7 +7,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Game</title>
+<!--  MDN에 나와있는 모바일 최적화된 사이트들이 포함하고 있다는 코드 -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>First-Project</title>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <!-- 부트스트랩 -->
 <link
