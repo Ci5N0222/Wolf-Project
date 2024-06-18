@@ -74,7 +74,9 @@ public class GameController extends HttpServlet {
 			}else if(cmd.equals("/gameview.game")) {
 				String game_seq= request.getParameter("seq");
 				
-				List <ScoreDTO> list= scoreDAO.gameList(Integer.parseInt(game_seq));
+				List <ScoreDTO> list= scoreDAO.getThisGameRank(Integer.parseInt(game_seq));
+				
+				request.setAttribute("seq", Integer.parseInt(game_seq));
 				request.setAttribute("list", list);
 				request.getRequestDispatcher("/views/game/game.jsp").forward(request, response);
 				

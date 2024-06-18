@@ -26,11 +26,23 @@
 
 	<!-- Project local -->
 	<link rel="stylesheet" href="/css/score.css">
+	<script src="/js/game.js"></script>
 	
-	<script src="/phaser3_game/among_run/js/AmongStart.js"></script>
-	<script src="/phaser3_game/among_run/js/AmongRun.js"></script>
-	<script src="/phaser3_game/among_run/js/AmongBent.js"></script>
-	<script src="/phaser3_game/among_run/js/AmongEnd.js"></script>
+	<c:choose>
+		<c:when test="${seq == 6 }">
+			<script src="/phaser3_game/among_run/js/AmongStart.js"></script>
+			<script src="/phaser3_game/among_run/js/AmongRun.js"></script>
+			<script src="/phaser3_game/among_run/js/AmongBent.js"></script>
+			<script src="/phaser3_game/among_run/js/AmongEnd.js"></script>
+		</c:when>
+		<c:when test="${seq == 8 }">
+			<script src="/phaser3_game/among_run/js/AmongStart.js"></script>
+			<script src="/phaser3_game/among_run/js/AmongRun.js"></script>
+			<script src="/phaser3_game/among_run/js/AmongBent.js"></script>
+			<script src="/phaser3_game/among_run/js/AmongEnd.js"></script>
+		</c:when>
+	</c:choose>
+	
 
 </head>
 <body>
@@ -49,33 +61,12 @@
 
 			<!-- nav -->
 			<%@ include file="/views/include/header.jsp"%>
-
+			
 			<!-- main -->
 			<main class="main">
 				<div>
 					<div class="game" id="game_play_form">
-						게임 화면
-						Score : <span id="score">0</span> <br />
-    					Timer : <span id="timer">0</span>
-						<div id="gamebox"></div>
-					    <script>
-					        let config = {
-					            type: Phaser.AUTO,
-					            parent: "gamebox",
-					            width: 700,
-					            height: 400,
-					            physics: {
-					                default: "arcade",
-					                arcade:{
-					                    // gravity: {y:1000}
-					                    // debug: true
-					                }
-					            },
-					            scene: [AmongStart, AmongRun, AmongEnd, AmongBent]
-					        }
-					
-					        let game = new Phaser.Game(config);
-					    </script>
+						게임 화면${seq}<br />
 					</div>
 					<div class="ranking">
 						<div>ranking</div>
@@ -98,8 +89,8 @@
 								<div>
 									<img src="/images/wolfLogo.png">
 								</div>
-								<div>${list[2].member_id}</div>
-								<div>${list[2].score}</div>
+								<div>${list.get(0).member_id}</div>
+								<div>${list.get(0).score}</div>
 							</div>
 						</div>
 					</div>
@@ -115,5 +106,8 @@
 	</div>
 	</form>
 	<script src="/js/main.js"></script>
+	<script>
+		gameCanvars(${seq});
+	</script>
 </body>
 </html>
