@@ -6,8 +6,8 @@ let loginInfo = localStorage.getItem(idKey);
 
 if (loginInfo != null) {
     idInput.value = loginInfo;
-    rememberid.checked = true;
     console.log('저장된 아이디값 불러옴');
+    rememberid.checked = true;
 }
 
 function checkRemeberLoginInfo() {

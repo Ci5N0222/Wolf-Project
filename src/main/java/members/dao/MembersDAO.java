@@ -62,6 +62,15 @@ public class MembersDAO {
 			}
 		}
 	}
+	public boolean CheckByEmail(String email) throws Exception{
+		String sql = "select * from members where email = ? ";
+		try (Connection con=DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+			pstat.setString(1, email);
+			try(ResultSet rs = pstat.executeQuery()){
+				return rs.next();
+			}
+		}
+	}
 
 	public String[] login(String id, String pw) throws Exception {
 		String sql = "select * from members where id = ? and pw = ?";
