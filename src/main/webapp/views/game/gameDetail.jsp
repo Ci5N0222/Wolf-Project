@@ -50,7 +50,15 @@
 				<div class="datail">
 					<div>
 						<div>
-							<img src="${dto.thumbnail}">
+							<c:choose>
+								<c:when test="${dto.thumbnail != 'none'}">
+									<img src="/${dto.thumbnail}">
+								</c:when>
+
+								<c:otherwise>
+									<img src="/images/default-game.png" alt="기본 이미지">
+								</c:otherwise>
+							</c:choose>
 						</div>
 						<form action='/gameview.game' method='post'>
 							<div>
