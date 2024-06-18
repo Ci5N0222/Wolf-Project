@@ -130,6 +130,64 @@ public class AdminDAO {
 		}
 	}
 	
+	/**
+	 * 검색한 회원수를 반환하는 메서드
+	 * @return
+	 * @throws Exception
+	 */
+	public int getMemberSearchCount(String memberId) throws Exception {
+		String sql ="select count(*) from members where id = ?";
+		
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, memberId);
+			
+			try(ResultSet rs = pstat.executeQuery()){
+				rs.next();
+				
+				return rs.getInt(1);
+			}
+		}
+	}
+	
+	/**
+	 * 검색한 멤버의 목록을 반환하는 메서드
+	 * @param start
+	 * @param end
+	 * @param memberId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<MembersDTO> getMemberSearch(int start, int end, String memberId) throws Exception {
+		String sql = "select * from (select members.*, row_number() over(order by join_date desc) rown from members) where id like ? and rown between ? and ?";
+		
+		try(Connection con = DBConfig.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql)){
+				pstat.setString(1, "%" + memberId + "%");	
+				pstat.setInt(2, start);
+				pstat.setInt(3, end);
+				
+				try (ResultSet rs = pstat.executeQuery()){
+					List<MembersDTO> list = new ArrayList<>();
+					
+					while(rs.next()) {
+						String id = rs.getString("id");
+						String name = rs.getString("name");
+						String nickname = rs.getString("nickname");
+						String phone = rs.getString("phone");
+						String email = rs.getString("email");
+						String gender = rs.getString("gender");
+						String birth = rs.getString("birth");
+						int grade = rs.getInt("grade");
+						Timestamp join_date = rs.getTimestamp("join_date");
+						
+						list.add(new MembersDTO(id, null, name, nickname, phone, email,gender, birth, grade, null, join_date));
+					}
+					
+					return list;
+				}
+			}
+	}
 	
 	/**
 	 * 선택된 멤버의 정보를 반환하는 메서드

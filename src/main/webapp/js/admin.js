@@ -75,18 +75,55 @@ $(() => {
 		
 	});
 	
+	// Game list select bar
 	$("#game-service-select").on("change", () => {
-		console.log($("#game-service-select").val());
-		
-		if($("#game-service-select").val() === 1){
-			$(".admin-game-list-service-ing").parent().show();
-			$(".admin-game-list-service-stop").parent().show();
-		} else if ($("#game-service-select").val() === 2){
+		if($("#game-service-select").val() === "1"){
 			$(".admin-game-list-service-ing").parent().show();
 			$(".admin-game-list-service-stop").parent().hide();
-		} else {
+			
+		} else if ($("#game-service-select").val() === "2"){
 			$(".admin-game-list-service-ing").parent().hide();
 			$(".admin-game-list-service-stop").parent().show();
+		} else {
+			location.href="/game_list.admin";
+			
+		}
+	});
+	
+	// Memeber list select bar
+	$("#members-id-select").on("change", () => {
+		if($("#members-id-select").val() === "1"){
+			$(".member-select-noraml").parent().show();
+			$(".member-select-dormant").parent().hide();
+			$(".member-select-black").parent().hide();
+			$(".member-select-sub-manager").parent().hide();
+			$(".member-select-main-manager").parent().hide();
+		} else if($("#members-id-select").val() === "2"){
+			$(".member-select-noraml").parent().hide();
+			$(".member-select-dormant").parent().show();
+			$(".member-select-black").parent().hide();
+			$(".member-select-sub-manager").parent().hide();
+			$(".member-select-main-manager").parent().hide();
+		} else if($("#members-id-select").val() === "3"){
+			$(".member-select-noraml").parent().hide();
+			$(".member-select-dormant").parent().hide();
+			$(".member-select-black").parent().show();
+			$(".member-select-sub-manager").parent().hide();
+			$(".member-select-main-manager").parent().hide();
+		} else if($("#members-id-select").val() === "98"){
+			$(".member-select-noraml").parent().hide();
+			$(".member-select-dormant").parent().hide();
+			$(".member-select-black").parent().hide();
+			$(".member-select-sub-manager").parent().show();
+			$(".member-select-main-manager").parent().hide();
+		} else if($("#members-id-select").val() === "99"){
+			$(".member-select-noraml").parent().hide();
+			$(".member-select-dormant").parent().hide();
+			$(".member-select-black").parent().hide();
+			$(".member-select-sub-manager").parent().hide();
+			$(".member-select-main-manager").parent().show();
+		} else {
+			location.href="/members_list.admin";
 		}
 	});
 	 
@@ -127,6 +164,11 @@ const adminMemberUpdate = (id) => {
 			location.href = `members_detail.admin?id=${id}`;
 		}
 	});
+}
+
+// 검색한 멤버 리스트를 요청하는 함수
+const adminMemberSearch = () => {
+	location.href="/members_search.admin?id="+$("#member_search_text").val();
 }
 
 // ====================================== [ 게 임 ] ===========================================

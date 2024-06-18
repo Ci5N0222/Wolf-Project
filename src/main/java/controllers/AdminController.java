@@ -113,6 +113,36 @@ public class AdminController extends HttpServlet {
 			}
 			
 			
+			/** 특정 멤버 검색하기 **/
+			else if(cmd.equals("/members_search.admin")) {
+				if(!adminSession) response.sendRedirect("/page_login.admin");
+				else {
+					
+					String id = request.getParameter("id");
+					System.out.println("id ===" + id);
+					
+					String pcpage = request.getParameter("cpage");
+					if(pcpage == null) pcpage = "1";
+					int cpage = Integer.parseInt(pcpage);
+					
+					List<MembersDTO> membersList = dao.getMemberSearch(
+							cpage * PageConfig.recordCountPerPage - (PageConfig.recordCountPerPage - 1),
+							cpage * PageConfig.recordCountPerPage,
+							id);
+					
+					request.setAttribute("membersList", membersList);
+					
+					/** 페이징 **/
+					request.setAttribute("cpage", cpage);
+					request.setAttribute("recode_total_count", dao.getMemberSearchCount(id));
+					request.setAttribute("recode_count_per_page", PageConfig.recordCountPerPage);
+					request.setAttribute("navi_count_per_page", PageConfig.naviCountPerPage);
+					
+					request.getRequestDispatcher("views/admin/admin_members_list.jsp").forward(request, response);
+				}
+			}
+			
+			
 			/** 멤버 정보 디테일 **/
 			else if(cmd.equals("/members_detail.admin")) {
 				if(!adminSession) response.sendRedirect("/page_login.admin");

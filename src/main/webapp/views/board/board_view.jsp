@@ -38,14 +38,19 @@ body {
     /* 폰트 */
     font-family: "Noto Sans KR", sans-serif;
     font-family: "Luckiest Guy", cursive;
+    overflow: auto;
+
 }
 
     .container{
+        max-width: 1000px;
         width: 1000px;
         height: 950px;
         margin: auto;
         flex-direction: column;
         background-color: white ;
+        position:relative;
+        z-index: 100;
     }
       /* 메뉴 */
     .navi {
@@ -158,10 +163,79 @@ body {
     .page-number:hover {
             background-color: #f0f0f0;
     }
+    /* img */
+.img_bg {
+	position: absolute;
+	top: 0%;
+	left: 0;
+	width: 100%;
+	object-fit: cover;
+}
+
+.bgs {
+	animation: bg 1s ease-in Infinite Alternate;
+	transition: all ease-in 0.2s;
+	width: 50px;
+}
+
+.bgs:nth-child(1) {
+	top: 20%;
+	background-color: #eee;
+	left: 80%;
+}
+
+.bgs:nth-child(2) {
+	top: 20%;
+	left: 80%;
+	width: 40px;
+}
+
+.bgs:nth-child(3) {
+	top: 15%;
+	left: 20%;
+}
+
+.bgs:nth-child(4) {
+	top: 20%;
+	left: 40%;
+	width: 30px;
+}
+
+.bgs:nth-child(5) {
+	top: 12%;
+	left: 50%;
+}
+
+.bgs:nth-child(6) {
+	top: 12%;
+	left: 80%;
+	width: 20px;
+}
+
+@keyframes bg {
+	0% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
     
 </style>
 </head>
 <body>
+    <div>
+        <img src="/images/bg1.png" alt="" class="img_bg"> 
+        <img src="/images/bg3.png" alt="" class="img_bg bgs"> 
+        <img src="/images/bg3.png" alt="" class="img_bg bgs"> 
+        <img src="/images/bg3.png" alt="" class="img_bg bgs"> 
+        <img src="/images/bg3.png" alt="" class="img_bg bgs"> 
+        <img src="/images/bg3.png" alt="" class="img_bg bgs"> 
+        <img src="/images/bg3.png" alt="" class="img_bg bgs">
+    </div>
+  
+
     <div class="container">
         <div class="navi">
             <div style="flex: 2;">

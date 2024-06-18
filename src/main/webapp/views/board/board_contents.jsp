@@ -60,7 +60,7 @@
     let index=0;
     tinymce.init({
       selector: 'div#contents',
-      plugins:'wordcount anchor image inlinecss ',
+      plugins:'wordcount anchor image',
       //toolbar:'image',
       images_file_types:'jpg,svg,webp',
       file_picker_types: 'file image media',
@@ -69,6 +69,7 @@
       resize: true,
       height:600,
       language: 'ko_KR',
+      statusbar: false,
       forced_root_block : false,
       file_picker_callback: function (callback, value, meta) {
                     if (meta.filetype === 'image') {
