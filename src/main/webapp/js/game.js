@@ -14,6 +14,11 @@ const gameConfig = (seq) => {
 			}
 			break;
 		case 8 :
+			config = {
+				width: 1024,
+				height: 640,
+				scene: [Exam03, GameOver]
+			}
 			
 			break;
 	}
@@ -24,11 +29,10 @@ const gameConfig = (seq) => {
 const gameCanvars = (seq) => {
 	let gameInfo= gameConfig(seq);
 	let item = `
-        <div>
-            Score : <span id="score">0</span> <br />
-            Timer : <span id="timer">0</span>
-            <div id="gamebox"></div>
-        </div>`;
+        <div id="gamebox">
+	      <div id="timer" style="display: none"></div>
+	      <div id="score" style="display: none"></div>
+	    </div>`;
         
     $(".game").append(item);
     
