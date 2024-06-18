@@ -2,31 +2,36 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<!--  MDN에 나와있는 모바일 최적화된 사이트들이 포함하고 있다는 코드 -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>First-Project</title>
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<!-- 부트스트랩 -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-	crossorigin="anonymous">
-<!-- 아이콘 -->
-<script src="https://kit.fontawesome.com/1ee4acc8d4.js"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-	crossorigin="anonymous"></script>
+<title>Game</title>
+	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+	<!-- phaser3 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.80.1/phaser.min.js"></script>
+	<!-- 부트스트랩 -->
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+		rel="stylesheet"
+		integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+		crossorigin="anonymous">
+	<!-- 아이콘 -->
+	<script src="https://kit.fontawesome.com/1ee4acc8d4.js"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+		crossorigin="anonymous"></script>
 
-<!-- Project local -->
-<link rel="stylesheet" href="/css/score.css">
+	<!-- Project local -->
+	<link rel="stylesheet" href="/css/score.css">
+	
+	<script src="/phaser3_game/among_run/js/AmongStart.js"></script>
+	<script src="/phaser3_game/among_run/js/AmongRun.js"></script>
+	<script src="/phaser3_game/among_run/js/AmongBent.js"></script>
+	<script src="/phaser3_game/among_run/js/AmongEnd.js"></script>
+
 </head>
 <body>
 	<!-- container -->
@@ -48,7 +53,30 @@
 			<!-- main -->
 			<main class="main">
 				<div>
-					<div class="game">게임 화면</div>
+					<div class="game" id="game_play_form">
+						게임 화면
+						Score : <span id="score">0</span> <br />
+    					Timer : <span id="timer">0</span>
+						<div id="gamebox"></div>
+					    <script>
+					        let config = {
+					            type: Phaser.AUTO,
+					            parent: "gamebox",
+					            width: 700,
+					            height: 400,
+					            physics: {
+					                default: "arcade",
+					                arcade:{
+					                    // gravity: {y:1000}
+					                    // debug: true
+					                }
+					            },
+					            scene: [AmongStart, AmongRun, AmongEnd, AmongBent]
+					        }
+					
+					        let game = new Phaser.Game(config);
+					    </script>
+					</div>
 					<div class="ranking">
 						<div>ranking</div>
 						<div>

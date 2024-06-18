@@ -36,17 +36,17 @@ class AmongRun extends Phaser.Scene {
     preload(){
         
         // Background preload
-        this.load.image("background", "images/am-bg.png");
+        this.load.image("background", "/phaser3_game/among_run/images/am-bg.png");
         
         // player charactor preload
-        this.load.spritesheet("amongRun", "images/amongRun.png", {frameWidth: 237/8, frameHeight: 29});
-        this.load.spritesheet("amongJump", "images/amongJump.png", {frameWidth: 316/10, frameHeight: 29});
+        this.load.spritesheet("amongRun", "/phaser3_game/among_run/images/amongRun.png", {frameWidth: 237/8, frameHeight: 29});
+        this.load.spritesheet("amongJump", "/phaser3_game/among_run/images/amongJump.png", {frameWidth: 316/10, frameHeight: 29});
         
         // item preload
-        this.load.image("item", "images/item.png");
+        this.load.image("item", "/phaser3_game/among_run/images/item.png");
 
         // bent preload
-        this.load.image("bent", "images/bent.png");
+        this.load.image("bent", "/phaser3_game/among_run/images/bent.png");
     }
 
     create(){
@@ -162,7 +162,7 @@ class AmongRun extends Phaser.Scene {
             this.player.setCollideWorldBounds(false);
 
             setTimeout(()=>{
-                this.scene.start("BentOver");
+                this.scene.start("AmongBent");
             }, 1000);
 
         });
@@ -231,6 +231,7 @@ class AmongRun extends Phaser.Scene {
                 }
             } else {
                 // 게임 오버 화면으로 이동
+                this.scene.start("AmongEnd");
             }
         }
 

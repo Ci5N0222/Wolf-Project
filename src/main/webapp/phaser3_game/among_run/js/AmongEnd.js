@@ -5,7 +5,7 @@ class AmongEnd extends Phaser.Scene {
     }
 
     preload(){
-        this.load.image("game-over", "images/game-over.png");
+        this.load.image("game-over", "/phaser3_game/among_run/images/game-over.png");
     }
 
     create(){

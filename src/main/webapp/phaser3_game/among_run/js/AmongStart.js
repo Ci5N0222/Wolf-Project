@@ -4,7 +4,7 @@ class AmongStart extends Phaser.Scene {
     }
 
     preload(){
-        this.load.image("start-bg", "images/start-bg.png");
+        this.load.image("start-bg", "/phaser3_game/among_run/images/start-bg.png");
     }
 
     create(){

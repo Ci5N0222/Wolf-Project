@@ -12,8 +12,8 @@ class AmongBent extends Phaser.Scene {
     }
 
     preload(){
-        this.load.image("bent-end", "images/bent-end.jpg");
-        this.load.spritesheet("bent-among", "images/amongJump.png", {frameWidth: 316/10, frameHeight: 29});
+        this.load.image("bent-end", "/phaser3_game/among_run/images/bent-end.jpg");
+        this.load.spritesheet("bent-among", "/phaser3_game/among_run/images/amongJump.png", {frameWidth: 316/10, frameHeight: 29});
     }
 
     create(){
@@ -64,7 +64,7 @@ class AmongBent extends Phaser.Scene {
         }
 
         if(this.timer === 6){
-            this.scene.start("GameOver");
+            this.scene.start("AmongEnd");
         }
 
     }
