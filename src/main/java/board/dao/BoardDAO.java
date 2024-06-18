@@ -6,6 +6,13 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import board.dto.BoardDTO;
 import commons.DBConfig;
@@ -76,16 +83,16 @@ private static BoardDAO instance;
 		
 	}
 	public Object[] selectAll(int recordCountPerPage,int cpage,int board_code){
-		String sql="SELECT a.*,m.nickname FROM (SELECT  board.*, ROW_NUMBER() OVER (ORDER BY seq DESC) AS rown FROM board)a join members m on m.id=a.member_id WHERE rown between ? and ? and board_code=?";
+		String sql="SELECT a.*,m.nickname FROM (SELECT  board.*, ROW_NUMBER() OVER (ORDER BY seq DESC) AS rown FROM board where board_code=?)a join members m on m.id=a.member_id WHERE rown between ? and ? ";
 		List<BoardDTO> list=new ArrayList<>();
 		Object [] boardList=new Object[2];
 		ArrayList<String> nickname=new ArrayList<>();
 		try (Connection con=DBConfig.getConnection(); 
 				PreparedStatement pstat=con.prepareStatement(sql);){
-			
-			pstat.setInt(1, cpage*recordCountPerPage - (recordCountPerPage-1));
-			pstat.setInt(2, cpage*recordCountPerPage);
-			pstat.setInt(3, board_code);
+			pstat.setInt(1, board_code);
+			pstat.setInt(2, cpage*recordCountPerPage - (recordCountPerPage-1));
+			pstat.setInt(3, cpage*recordCountPerPage);
+		
 			try(ResultSet rs=pstat.executeQuery()) {
 				for (int i = 0; i < recordCountPerPage; i++) {
 					rs.next();
@@ -121,13 +128,14 @@ private static BoardDAO instance;
 		ArrayList<String> nickname=new ArrayList<>();
 		
 		if(target.equals("title")) {
-			String sql="	SELECT * FROM (SELECT c.*, ROW_NUMBER() OVER (ORDER BY seq DESC) AS rown FROM (SELECT * FROM (select b.*,m.nickname from board b join members m on b.member_id =m.id where REGEXP_REPLACE(b.contents, '<[^>]+>', '') like ?))c)a WHERE rown between ? and ? and a.board_code=?";
+			String sql="	SELECT * FROM (SELECT c.*, ROW_NUMBER() OVER (ORDER BY seq DESC) AS rown FROM (SELECT * FROM (select b.*,m.nickname from board b join members m on b.member_id =m.id where REGEXP_REPLACE(b.title, '<[^>]+>', '') like ?))c where board_code=?)a WHERE rown between ? and ?";
 			try (Connection con=DBConfig.getConnection();
 					PreparedStatement pstat=con.prepareStatement(sql);){
 				pstat.setString(1, "%" + keyword + "%");
-				pstat.setInt(2, cpage*recordCountPerPage - (recordCountPerPage-1));
-				pstat.setInt(3, cpage*recordCountPerPage);
-				pstat.setInt(4, board_code);
+				pstat.setInt(2, board_code);
+				pstat.setInt(3, cpage*recordCountPerPage - (recordCountPerPage-1));
+				pstat.setInt(4, cpage*recordCountPerPage);
+				
 				
 				try(ResultSet rs=pstat.executeQuery()) {
 					for (int i = 0; i < recordCountPerPage; i++) {
@@ -146,13 +154,14 @@ private static BoardDAO instance;
 				} catch (Exception e) {}
 			} catch (Exception e) {}
 		} else if(target.equals("contents")) {
-			String sql="SELECT * FROM (SELECT c.*, ROW_NUMBER() OVER (ORDER BY seq DESC) AS rown FROM (SELECT * FROM (select b.*,m.nickname from board b join members m on b.member_id =m.id where REGEXP_REPLACE(b.contents, '<[^>]+>', '') like ?))c)a WHERE rown between ? and ? and a.board_code=?";
+			String sql="SELECT * FROM (SELECT c.*, ROW_NUMBER() OVER (ORDER BY seq DESC) AS rown FROM (SELECT * FROM (select b.*,m.nickname from board b join members m on b.member_id =m.id where REGEXP_REPLACE(b.contents, '<[^>]+>', '') like ?))c where board_code=? )a WHERE rown between ? and ? ";
 			try (Connection con=DBConfig.getConnection();
 					PreparedStatement pstat=con.prepareStatement(sql);){
 				pstat.setString(1, "%" + keyword + "%");
-				pstat.setInt(2, cpage*recordCountPerPage - (recordCountPerPage-1));
-				pstat.setInt(3, cpage*recordCountPerPage);
-				pstat.setInt(4, board_code);
+				pstat.setInt(2, board_code);
+				pstat.setInt(3, cpage*recordCountPerPage - (recordCountPerPage-1));
+				pstat.setInt(4, cpage*recordCountPerPage);
+				
 			
 				try(ResultSet rs=pstat.executeQuery()) {
 					for (int i = 0; i < recordCountPerPage; i++) {
@@ -172,13 +181,14 @@ private static BoardDAO instance;
 			} catch (Exception e) {}
 			
 		} else if(target.equals("nickname")) {
-			String sql="SELECT * FROM (SELECT c.*, ROW_NUMBER() OVER (ORDER BY seq DESC) AS rown FROM (SELECT * FROM (select b.*,m.nickname from board b join members m on b.member_id =m.id where m.nickname=?))c)a WHERE rown between ? and ? and a.board_code=?";
+			String sql="SELECT * FROM (SELECT c.*, ROW_NUMBER() OVER (ORDER BY seq DESC) AS rown FROM (SELECT * FROM (select b.*,m.nickname from board b join members m on b.member_id =m.id where m.nickname=?))c where board_code=?)a WHERE rown between ? and ?";
 			try (Connection con=DBConfig.getConnection();
 					PreparedStatement pstat=con.prepareStatement(sql);){
 				pstat.setString(1, keyword);
-				pstat.setInt(2, cpage*recordCountPerPage - (recordCountPerPage-1));
-				pstat.setInt(3, cpage*recordCountPerPage);
-				pstat.setInt(4, board_code);
+				pstat.setInt(2, board_code);
+				pstat.setInt(3, cpage*recordCountPerPage - (recordCountPerPage-1));
+				pstat.setInt(4, cpage*recordCountPerPage);
+				
 			
 				try(ResultSet rs=pstat.executeQuery()) {
 					for (int i = 0; i < recordCountPerPage; i++) {
@@ -256,40 +266,49 @@ private static BoardDAO instance;
 		}
 	}
 	
-	public void update(BoardDTO dto) {
-		String sql="update board set title=?,contents=? , write_date=sysdate where seq=?";
+	public void update(BoardDTO dto,int board_code) {
+		String sql="update board set title=?,contents=? , write_date=sysdate where seq=? and board_code=?";
 		
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
 			pstat.setString(1, dto.getTitle());
 			pstat.setString(2, dto.getContents());
 			pstat.setInt(3, dto.getSeq());
+			pstat.setInt(4, board_code);
 			pstat.executeUpdate();
+			
 			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		
+		
 	}
 	
-	public int getRecordCount(String type,String keyword) {
+	public int getRecordCount(String type,String keyword,int board_code) {
 		int recordTotalCount=0;
 		if(type.equals("")) {
-			String sql="select count(*) from board";
+			String sql="select count(*) from board where board_code=?";
 			try (Connection con=DBConfig.getConnection();
-					PreparedStatement pstat=con.prepareStatement(sql);
-					ResultSet rs=pstat.executeQuery()){
-				rs.next();
-				recordTotalCount=rs.getInt(1);	
+					PreparedStatement pstat=con.prepareStatement(sql);){
+				pstat.setInt(1, board_code);
+				try (ResultSet rs=pstat.executeQuery()){
+					rs.next();
+					recordTotalCount=rs.getInt(1);	
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
 		}
 		else if(type.equals("title")) {
-			String sql="select count(*) from board where title like ?";
+			String sql="select count(*) from board where title like ? and board_code=?";
 			try (Connection con=DBConfig.getConnection();
 					PreparedStatement pstat=con.prepareStatement(sql);){
 				pstat.setString(1, "%" + keyword + "%");
+				pstat.setInt(2, board_code);
 				try (ResultSet rs=pstat.executeQuery()){
 					rs.next();
 					recordTotalCount=rs.getInt(1);	
@@ -303,10 +322,11 @@ private static BoardDAO instance;
 			}
 			
 		} else if(type.equals("contents")) {
-			String sql="select count(*) from board where contents like ?";
+			String sql="select count(*) from board where contents like ? and board_code=?";
 			try (Connection con=DBConfig.getConnection();
 					PreparedStatement pstat=con.prepareStatement(sql);){
 				pstat.setString(1, "%" + keyword + "%");
+				pstat.setInt(2, board_code);
 				try (ResultSet rs=pstat.executeQuery()){
 					rs.next();
 					recordTotalCount=rs.getInt(1);	
@@ -320,13 +340,15 @@ private static BoardDAO instance;
 			}
 			
 		} else if(type.equals("nickname")) {
-			String sql="select count(*) from board b join members m on b.member_id =m.id where m.nickname=?";
+			String sql="select count(*) from board b join members m on b.member_id =m.id where m.nickname=? and board_code=?";
 			try (Connection con=DBConfig.getConnection();
 					PreparedStatement pstat=con.prepareStatement(sql);){
 				pstat.setString(1, keyword);
+				pstat.setInt(2, board_code);
 				try (ResultSet rs=pstat.executeQuery()){
 					rs.next();
 					recordTotalCount=rs.getInt(1);	
+					
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
@@ -354,4 +376,59 @@ private static BoardDAO instance;
 			// TODO: handle exception
 		}
 	}
+	
+	public  String[] findDeletedTags(String originalHtml) {
+		Document doc = Jsoup.parse(originalHtml);
+   
+
+	    Elements imgTags = doc.select("img");
+	    ArrayList<String> sysnames=new ArrayList<>();
+
+	    // img 태그들에 대해 처리합니다.
+	    for (Element imgTag : imgTags) {
+	        String src = imgTag.attr("src");
+	        //System.out.println(src);
+	        String regex = "upload_images/(.+)"; // 여기에 적절한 정규 표현식을 넣어야 합니다.
+	        Pattern pattern = Pattern.compile(regex);
+	        Matcher matcher = pattern.matcher(src);
+
+	        if (matcher.find()) {
+	            String matchedString = matcher.group(1);
+	            //System.out.println("매칭된 문자열: " + matchedString);
+	            sysnames.add(matchedString);
+	        }
+	    }
+	    if(sysnames.size()==0) {
+	    	sysnames.add("0");
+	    }
+	    String[] result=new String[sysnames.size()];
+	    int i=0;
+	    for (String string : sysnames) {
+			result[i++]=string;
+		}
+
+	    return result;
+	}
+	
+	
+	public String board_contents(int seq) {
+		String sql="select contents from board where seq=?";
+		String contents="";
+		try (Connection con=DBConfig.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)){
+			pstat.setInt(1, seq);
+			try (ResultSet rs=pstat.executeQuery()){
+				rs.next();
+				contents=rs.getString(1);
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return contents;
+	}
+	
 }

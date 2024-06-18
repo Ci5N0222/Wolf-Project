@@ -52,6 +52,18 @@ public class ReplyDAO {
 		
 	}
 	
+	public void deleteBoard_seq(int board_seq) {
+		String sql="delete from reply where board_seq=?";
+		try (Connection con=DBConfig.getConnection();
+				PreparedStatement pstat= con.prepareStatement(sql)){
+			pstat.setInt(1, board_seq);
+			pstat.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
 	public void update(ReplyDTO dto) {
 		String sql="update reply set contents=?, write_date=sysdate where seq=?";
 		try (Connection con=DBConfig.getConnection();

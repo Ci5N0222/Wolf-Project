@@ -361,12 +361,12 @@ public class AdminDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	public int adminGameUpdate(int seq, String title, String discription, String contents, String oriname) throws Exception {
+	public int adminGameUpdate(int seq, String title, String discription, String contents, String oriname, String service) throws Exception {
 		String sql = "";
 		if(oriname != null) {
-			sql = "update game set title = ?, discription =?, contents = ?, thumbnail = ? where seq = ?";
+			sql = "update game set title = ?, discription =?, contents = ?, thumbnail = ?, service_code = ? where seq = ?";
 		} else {
-			sql = "update game set title = ?, discription =?, contents = ? where seq = ?";
+			sql = "update game set title = ?, discription =?, contents = ?, service_code = ? where seq = ?";
 		}
 		
 		try(Connection con = DBConfig.getConnection();
@@ -376,9 +376,11 @@ public class AdminDAO {
 			pstat.setString(3, contents);
 			if(oriname != null) {
 				pstat.setString(4, oriname);
-				pstat.setInt(5, seq);
+				pstat.setString(5, service);
+				pstat.setInt(6, seq);
 			} else {
-				pstat.setInt(4, seq);
+				pstat.setString(4, service);
+				pstat.setInt(5, seq);
 			}
 			
 			return pstat.executeUpdate();

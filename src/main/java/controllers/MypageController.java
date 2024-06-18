@@ -89,7 +89,7 @@ public class MypageController extends HttpServlet {
 
 				mDAO.edit(dto);
 
-				response.sendRedirect("/select.members");
+				response.sendRedirect("/selectMember.mypage");
 
 				/* 비밀번호 변경 */
 			} else if(cmd.equals("/pwUpdate.mypage")){
@@ -126,6 +126,7 @@ public class MypageController extends HttpServlet {
 			} else if(cmd.equals("/mypageGameList.mypage")) {
 				String id = (String)session.getAttribute("WolfID");
 				
+				System.out.println(id);
 				List<GameScoreDTO> result = gDAO.gameList(id);
 				System.out.println(result.size());
 				
@@ -133,13 +134,27 @@ public class MypageController extends HttpServlet {
 				request.getRequestDispatcher("/views/mypage/myGameList.jsp").forward(request, response);
 
 				
+				/* 마이페이지 게임 점수 업데이트 */
+			} else if(cmd.equals("/updateGameScore.mypage")) {
+
+				String id = (String)session.getAttribute("WolfID");
+				int score = 7130;
+				int game_seq = 2;
+				
+				gDAO.updateGameScore(score, id, game_seq);
+				response.sendRedirect("/mypageGameList.mypage");
+				
+				
 				/* 문의내역 조회 */
 			} else if(cmd.equals("/myPost.mypage")) {
 				
 				
 				/* 회원 탈퇴 */
 			} else if(cmd.equals("/delete.mypage")) {
+				String id = (String)session.getAttribute("WolfID");
 				
+				mDAO.deleteMember(id);
+				response.sendRedirect("/index.jsp");
 				
 			}
 			

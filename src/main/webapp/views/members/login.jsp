@@ -308,13 +308,13 @@ body, html {
 	align-items: center;
 }
 
-                .password-toggle {
+                  .password-toggle {
                     display: flex;
                     align-items: center;
                     color: white;
                     font-weight: bold;
                     margin-top: 10px;
-                    width: 150px;
+                    width: 300px;
                 }
 
                 .password-toggle input[type="checkbox"] {
@@ -322,7 +322,9 @@ body, html {
                     margin-bottom : 10px;
                     /* 체크박스 왼쪽 여백 */
                 }
-
+					.form-check-label{
+					margin-left:20px;
+				}
 
 .input-group input {
 	width: calc(100% - 30px);
@@ -346,7 +348,7 @@ body, html {
 	background: rgba(255, 255, 255, 0.3);
 }
 
-#togglePassword {
+#togglePassword,#rememberid{
 	color: white;
 	display: block;
 	margin-top: 10px;
@@ -443,7 +445,8 @@ button:hover {
                                         <input type="password" placeholder="비밀번호를 입력하세요." name="pw" id="pw">
                                     </div>
                                     <div class="password-toggle">
-                                        비밀번호 표시 <input type="checkbox" id="togglePassword">
+                                       <label class="form-check-label" for="rememberid">아이디 저장</label> <input type="checkbox" id="rememberid">
+                                       <label class="form-check-label" for="togglePassword">비밀번호 표시</label>  <input type="checkbox" id="togglePassword">
                                     </div>
 						<div class="login-buttons">
 							<button type="submit" id="login">로그인</button>
@@ -454,7 +457,7 @@ button:hover {
 							 <a	href="/views/members/findpw.jsp">비밀번호찾기</a>
 						</div>
 					</div>
-
+				
 				</form>
 			</div>
 			<div class="sun"></div>
@@ -463,7 +466,7 @@ button:hover {
 				<i class="fa-regular fa-lightbulb" style="display: none;"></i> <i
 					class="fa-solid fa-lightbulb"></i>
 			</div>
-
+	
 
 			<script>
 				$(document)
@@ -511,12 +514,13 @@ button:hover {
 																						.val(
 																								""); // 비밀번호 입력 필드 초기화
 																			} else {
-																				alert("아이디 또는 비밀번호가 잘못되었습니다. 다시 확인해 주세요.");
+																				alert("서버와의 통신에 실패하였습니다. 잠시 후 다시 시도해주세요.");
 																			}
 																		}
 																	},
 																	error : function() {
-																		alert("서버와의 통신에 실패하였습니다. 잠시 후 다시 시도해주세요.");
+																		alert("아이디 또는 비밀번호가 잘못되었습니다. 다시 확인해 주세요.");
+																		
 																	}
 																});
 													});
@@ -534,6 +538,8 @@ button:hover {
 													});
 								});
 			</script>
+			<script src="/js/rememberid.js"></script>
 			<script src="/js/main.js"></script>
+			
 </body>
 </html>
