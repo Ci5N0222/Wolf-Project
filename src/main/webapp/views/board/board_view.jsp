@@ -48,15 +48,17 @@ body {
     font-family: "Luckiest Guy", cursive;
 }
 
+    .container{
+        width: 1000px;
+        height: 950px;
+        margin: auto;
+        flex-direction: column;
+        background-color: white ;
+    }
       /* 메뉴 */
-      .navi {
-        transition: background-color 0.5s ease, box-shadow 0.5s ease;
-        }
-      .navi {
-        z-index: 5;
-        height: 85px;
+    .navi {
         display: flex;
-        align-items: center;
+        flex: 1;
         background-color:#f9a620;
         font-size: 20px;
         color: white;
@@ -65,15 +67,19 @@ body {
         border-radius: 40px 80px / 80px 40px;
         justify-content: center;
         align-items: center;
-        }
+        transition: background-color 0.5s ease, box-shadow 0.5s ease;
+        overflow: hidden;
+    }
     .navi i {font-size: 22px;}
-    .navi > div {margin-top: 0;}
-    .navi > div:nth-child(2) #wolfLogo{width: 100px;height: 100px;}
+
     /* 로고 */
-    .navi #wolfLogo > img {object-fit: cover; width: 100%;height: 100%;}
     /* 메뉴 버튼 */
     .naviBtn{cursor: pointer; transition: all 0.3s ease-in-out;}
     .naviBtn:hover{opacity: 0.5;}
+    #wolfLog{
+        width: 100px;height: 100px;
+    }
+   
 
     *{
         box-sizing: border-box;
@@ -83,14 +89,8 @@ body {
         display: flex;
     }
     
-    .container1{
-        width: 850px;
-        height: 850px;
-        margin: auto;
-        flex-direction: column;
-        background-color: white ;
-        
-    } 
+ 
+    
     .title{
         flex: 1;
         
@@ -173,32 +173,23 @@ body {
 </head>
 <body>
     
-    <div class="container1">
-        <div style="flex: 1; ">
-            <div class="navi" style="width: 850px !important;">
-                <div class="col-4 d-flex justify-content-start">
-                    <div class="d-flex" style="justify-content: center; align-items: center; display: flex; width: 650px !important;">
-                        <div class="me-3 naviBtn" onclick="location.href='/list.game'">Game</div>
-                        <div class="me-3 naviBtn" onclick="location.href='/list.board'">Board</div>
-                        <div class="naviBtn">About</div>
-                    </div>
-                </div>
-                <div class="col-4 d-flex justify-content-center align-items-center">
-                        <div id="wolfLogo" onclick="location.href='/index.jsp'">
-                            <img src="/images/wolf_1.png" alt="">
-                        </div>
-                </div>
-                <div class="col-4 d-flex justify-content-end">
-                    <div class="d-flex flex-row">
-                        
-                            <div class="naviBtn" onclick="location.href ='/views/mypage/mypage.jsp'">                  
-                                        <img src="/images/default-avatar.png" width="50" alt="">
-                            </div>
-                    </div>
-                </div>
+    <div class="container">
+        <div class="navi">
+            <div style="flex: 2;">
+                <div class="naviBtn center" onclick="location.href='/list.game'" style="flex: 1;">Game</div>
+                <div class="naviBtn center" onclick="location.href='/list.board'" style="flex: 1;">Board</div>
+                <div class="naviBtn center" style="flex: 1;">About</div>
+            </div>
+            <div style="flex: 4; justify-content: center; align-items: center; overflow: hidden; height: 100%; width: 100%; " id="wolfLogo" onclick="location.href='/index.jsp'">
+                <img src="/images/wolfLogo.png" alt="" style=" max-width: 100%; max-height: 100%; height: auto; width: auto; ">
+            </div>
+            <div style="flex: 2; justify-content: flex-end;">
+                <div class="naviBtn" onclick="location.href ='/views/mypage/mypage.jsp'">
+                    <img src="/images/default-avatar.png" width="50" >
+                </div> 
             </div>
         </div>
-        <div>
+        <div style="display: flex; flex: 8;">
             <div class="menu" style="flex: 1;">
                 <div style="flex: 1; flex-direction: column;">
                     <div style="flex: 1;" class="center menu_title" id="board_1">

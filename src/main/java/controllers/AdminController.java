@@ -18,6 +18,7 @@ import admin.dao.AdminDAO;
 import commons.EncryptionUitls;
 import commons.PageConfig;
 import game.dto.GameDTO;
+import images.dao.ImagesDAO;
 import members.dto.MembersDTO;
 
 @WebServlet("*.admin")
@@ -30,6 +31,8 @@ public class AdminController extends HttpServlet {
 		String cmd = request.getRequestURI();
 		
 		AdminDAO dao = AdminDAO.getInstance();
+		
+		ImagesDAO imagesDAO = ImagesDAO.getInstance();
 		
 		/** Admin login check **/ 
 		boolean adminSession = false;
@@ -176,11 +179,8 @@ public class AdminController extends HttpServlet {
 					GameDTO game = dao.getGameInfo(Integer.parseInt(seq));
 					request.setAttribute("beforeThumbnail", game.getThumbnail());
 					
-					String sysname = dao.getThumbnailName(Integer.parseInt(seq), image_code);
-					
-					if(sysname.equals("none")) {
-						game.setThumbnail(sysname);
-					} else {
+					String sysname = imagesDAO.getImageName(Integer.parseInt(seq), image_code);
+					if(!sysname.equals("none")) {
 						game.setThumbnail("thumbnails/" + sysname);
 					}
 					
@@ -217,7 +217,7 @@ public class AdminController extends HttpServlet {
 					
 					int seq = dao.adminGameInsert(title, discription, contents, oriname);
 					if(seq > 0) {
-						dao.adminGameThumbnailInsert(oriname, sysname, image_code, seq);
+						imagesDAO.adminGameThumbnailInsert(oriname, sysname, image_code, seq);
 						response.sendRedirect("/game_list.admin");
 					}
 				}
@@ -253,7 +253,7 @@ public class AdminController extends HttpServlet {
 					int result = dao.adminGameUpdate(Integer.parseInt(seq), title, discription, contents, oriname, service);
 					if(result > 0) {
 						if(sysname != null) {
-							dao.adminGameThumbnailInsert(oriname, sysname, image_code, Integer.parseInt(seq));
+							imagesDAO.adminGameThumbnailInsert(oriname, sysname, image_code, Integer.parseInt(seq));
 						}
 					}
 					

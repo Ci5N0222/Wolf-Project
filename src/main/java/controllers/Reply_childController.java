@@ -62,7 +62,7 @@ public class Reply_childController extends HttpServlet {
 			    String formattedDateTime = localDateTime.format(formatter);
 				reply_child_dto[1]=formattedDateTime;
 				String result=g.toJson(reply_child_dto);
-				System.out.println(result);
+				//System.out.println(result);
 				pw.append(result);
 			}
 			else if(cmd.equals("/delete.reply_child")) {
