@@ -50,9 +50,10 @@
                     <button type="button"  class="btn" id="list">목록으로</button>&nbsp&nbsp
                     <button class="btn">작성완료</button>
             </div>
+            <div id="files">
+            </div>
         </div>
-        <div id="files">
-        </div>
+       
     </form>
 <script>
     var  myButton;
