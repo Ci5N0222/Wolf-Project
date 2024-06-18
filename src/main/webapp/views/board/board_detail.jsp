@@ -766,7 +766,7 @@ html,
 
             tinymce.init({
                 selector: 'div#board_contents',
-                plugins:'wordcount anchor image inlinecss ',
+                plugins:'wordcount anchor image',
                 images_file_types:'jpg,svg,webp',
                 file_picker_types: 'file image media',
                 statusbar: false,
