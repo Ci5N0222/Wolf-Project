@@ -1,5 +1,6 @@
 package game.dao;
 
+import java.io.Console;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -59,6 +60,7 @@ public class GameDAO {
 					int service_code = rs.getInt(6);
 					dto = new GameDTO(seq, title, discription, contents, thumbnail, service_code);
 				}
+				System.out.println(dto.getThumbnail());
 				return dto;
 			}
 		}
