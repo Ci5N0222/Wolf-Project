@@ -67,12 +67,12 @@ public class BoardController extends HttpServlet {
 		
 				if(target==null||keyword.equals("")||target.equals("")) {
 					boardList = boardDAO.selectAll( PageConfig.recordCountPerPage, cpage,PageConfig.board);
-					request.setAttribute("record_total_count", boardDAO.getRecordCount("",""));
+					request.setAttribute("record_total_count", boardDAO.getRecordCount("","",PageConfig.board));
 					
 				}
 				else {
 					boardList = boardDAO.selectType( PageConfig.recordCountPerPage, cpage,PageConfig.board,target,keyword);
-					request.setAttribute("record_total_count", boardDAO.getRecordCount(target,keyword));
+					request.setAttribute("record_total_count", boardDAO.getRecordCount(target,keyword,PageConfig.board));
 				}
 			
 				
@@ -176,7 +176,7 @@ public class BoardController extends HttpServlet {
 				String contents=multi.getParameter("contents");
 				String member_id= (String)session.getAttribute("WolfID");
 				int count =Integer.parseInt(multi.getParameter("count"));
-				boardDAO.update(new BoardDTO(seq,title,contents,count,member_id,PageConfig.board,null));
+				boardDAO.update(new BoardDTO(seq,title,contents,count,member_id,PageConfig.board,null),PageConfig.board);
 				Enumeration<String> names = multi.getFileNames();
 		        while(names.hasMoreElements()) {
 		               String name = names.nextElement();
@@ -188,13 +188,16 @@ public class BoardController extends HttpServlet {
 		            	   filesDAO.insert(new FilesDTO(0, oriname, sysname, seq));
 		               }
 		        }
-				
-				
+		        String new_contents=boardDAO.board_contents(seq);
+		        System.out.println(new_contents);
+		        String[] sysnames=boardDAO.findDeletedTags(new_contents);
+		        ArrayList<String> fileList= imagesDAO.delete(seq, PageConfig.board, sysnames);
+		        imagesDAO.deleteImageFile(request.getServletContext().getRealPath("upload_images"), fileList);
 				response.sendRedirect("/detail.board?seq="+seq);
 				
 			} else if(cmd.equals("/upload_images.board")) {
 				int maxSize = 1024 * 1024 * 10; // 10mb
-				String Path = "/upload_images";
+				String Path = "upload_images";
 				String realPath = getServletContext().getRealPath(Path);
 				System.out.println(realPath);
 				File uploadPath = new File(realPath);
@@ -261,12 +264,8 @@ public class BoardController extends HttpServlet {
 					    
 				        
 		        }
-				   	String str1=boardDAO.board_contents(11);
-				   	//System.out.println(str1);
-			        ArrayList<String> result = boardDAO.findDeletedTags(str1);
-			        for (String string : result) {
-			        	System.out.println("Result: " + string); 
-					}	
+				  
+				
 			        
 				 			
 			}
