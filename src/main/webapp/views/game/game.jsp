@@ -36,10 +36,8 @@
 			<script src="/phaser3_game/among_run/js/AmongEnd.js"></script>
 		</c:when>
 		<c:when test="${seq == 8 }">
-			<script src="/phaser3_game/among_run/js/AmongStart.js"></script>
-			<script src="/phaser3_game/among_run/js/AmongRun.js"></script>
-			<script src="/phaser3_game/among_run/js/AmongBent.js"></script>
-			<script src="/phaser3_game/among_run/js/AmongEnd.js"></script>
+			<script src="/phaser3_game/FlyingBird/js/Exam03.js"></script>
+			<script src="/phaser3_game/FlyingBird/js/GameOver.js"></script>
 		</c:when>
 	</c:choose>
 	

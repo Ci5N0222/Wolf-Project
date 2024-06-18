@@ -431,7 +431,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                       <span>${member.grade}</span>
                     </div>
                   </div>
-                  <div class="row">
+                  <!-- <div class="row">
                     <div class="txt">Avatar</div>
                     <div class="content" id="avatar">
                       <input type="file" name="file" />
@@ -442,7 +442,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                         id="img"
                       />
                     </div>
-                  </div>
+                  </div> -->
                   <div class="row">
                     <div class="txt">Join Date</div>
                     <div class="content" id="join_date">
@@ -490,12 +490,12 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                 id="hidden_email"
                 value="${member.email}"
               />
-              <input
+              <!-- <input
                 type="hidden"
                 name="avatar"
                 id="hidden_avatar"
                 value="${member.avatar}"
-              />
+              /> -->
             </form>
           </section>
         </main>

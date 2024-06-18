@@ -49,3 +49,5 @@ const gameCanvars = (seq) => {
 	
 	let game = new Phaser.Game(config);
 }
+
+
