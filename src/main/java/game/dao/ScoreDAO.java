@@ -22,9 +22,9 @@ public class ScoreDAO {
 		
 	};
 	
-	public List <ScoreDTO> gameList (int game_seq) throws Exception{
+	public List <ScoreDTO> getThisGameRank (int game_seq) throws Exception{
 		String sql = "SELECT * FROM (SELECT * FROM game_score WHERE game_seq = ? ORDER BY score DESC) WHERE ROWNUM <= 3";
-		List <ScoreDTO> dto = new ArrayList();
+		List <ScoreDTO> dto = new ArrayList<>();
 		try(
 				Connection con= DBConfig.getConnection();
 				PreparedStatement ps= con.prepareStatement(sql);

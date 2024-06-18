@@ -36,6 +36,20 @@ public class ImagesDAO {
 		}
 	}
 	
+	public boolean delete() {
+		String sql="delete from images where parent_seq=999999";
+		boolean result=false;
+		try (Connection con=DBConfig.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)){
+			if(pstat.executeUpdate()>0)result=true;
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return result;
+	}
+	
 	public ArrayList<String> delete(int parent_seq,int image_code ,String[] sysnames) {
 	
 		ArrayList<String> sysnameList= new ArrayList<>();
@@ -105,6 +119,69 @@ public class ImagesDAO {
 			 	}
 		}
 		
+	}
+	
+
+	public void updateTemp(int board_seq) {
+		String sql="update images set parent_seq=? where parent_seq=999999";
+		try (Connection con=DBConfig.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)){
+			pstat.setInt(1, board_seq);
+			pstat.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+	
+	
+	/**
+	 * 서버에 저장된 이미지의 이름을 찾는 메서드
+	 * @param parent_seq
+	 * @param imageCode
+	 * @return
+	 * @throws Exception
+	 */
+	public String getImageName(int parent_seq, int imageCode) throws Exception {
+		String sql = "select * from images where image_code = ? and parent_seq = ?";
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setInt(1, imageCode);
+			pstat.setInt(2, parent_seq);
+			try (ResultSet rs = pstat.executeQuery()){
+					
+				if(rs.next()) {
+					return rs.getString("sysname");	
+				} else {
+					return "none";
+				}
+			}
+		}
+	}
+	
+	
+	/**
+	 * 게임 추가시 섬네일을 저장하는 메서드
+	 * @param path
+	 * @param oriName
+	 * @param sysName
+	 * @param seq
+	 * @return
+	 * @throws Exception
+	 */
+	public int adminGameThumbnailInsert(String oriName, String sysName, int path, int seq) throws Exception {
+		String sql = "insert into images values(images_seq.nextval, ?, ?, ?, ?, null)";
+		
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, oriName);
+			pstat.setString(2, sysName);
+			pstat.setInt(3, path);
+			pstat.setInt(4, seq);
+			
+			return pstat.executeUpdate();
+		}
 	}
 	
 }

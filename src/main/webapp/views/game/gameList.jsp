@@ -7,7 +7,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Game</title>
+<!--  MDN에 나와있는 모바일 최적화된 사이트들이 포함하고 있다는 코드 -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>First-Project</title>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <!-- 부트스트랩 -->
 <link
@@ -49,7 +51,14 @@
 						<div class="col-lg-4 col-md-6 mb-4">
 							<div class="card" style="width: 18rem;">
 								<div>
-									<img src="${l.thumbnail}" class="card-img-top" alt="...">
+									<c:choose>
+					        			<c:when test="${l.thumbnail != 'none'}">
+					        				<img class="card-img-top" src="/${l.thumbnail}" alt="게임 섬네일 이미지">
+					        			</c:when>
+					        			<c:otherwise>
+					        				<img class="card-img-top" src="/images/default-game.png" alt="게임 섬네일 이미지">	
+					        			</c:otherwise>
+					        		</c:choose>
 								</div>
 								<form action='/detail.game' method='post'>
 									<input type="hidden" name="seq" value="${l.seq}">

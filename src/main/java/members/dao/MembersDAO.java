@@ -62,6 +62,15 @@ public class MembersDAO {
 			}
 		}
 	}
+	public boolean CheckByEmail(String email) throws Exception{
+		String sql = "select * from members where email = ? ";
+		try (Connection con=DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+			pstat.setString(1, email);
+			try(ResultSet rs = pstat.executeQuery()){
+				return rs.next();
+			}
+		}
+	}
 
 	public String[] login(String id, String pw) throws Exception {
 		String sql = "select * from members where id = ? and pw = ?";
@@ -167,7 +176,24 @@ public class MembersDAO {
 		return false;
         	
         }
-     
+    public boolean selectMemberByEmail(String email) throws Exception{
+        
+        String sql = "SELECT * FROM members WHERE email=?";
+        try (Connection con=DBConfig.getConnection();
+   	         PreparedStatement pstmt = con.prepareStatement(sql)){
+        	
+        	pstmt.setString(1, email);
+        		try(ResultSet rs = pstmt.executeQuery()){
+        			if(rs.next()) {
+        				
+        				rs.getString("email");
+        				return true;
+        			}
+        		}
+        }
+		return false;
+        	
+        }
  
 	
 	
