@@ -54,7 +54,7 @@ class Exam03 extends Phaser.Scene {
         this.anims.create({
             key: "come",
             frames: this.anims.generateFrameNumbers('eagle', { start: 0, end: 7 }),
-            frameRate: 10, 
+            frameRate: 7, 
             repeat: -1 
         });
 
@@ -63,7 +63,7 @@ class Exam03 extends Phaser.Scene {
         this.background.setOrigin(0, 0);
 
         // 바닥선
-        let floor = this.add.rectangle(0, 530, this.cameras.main.width, 5, "#000000", 0);
+        let floor = this.add.rectangle(0, 410, this.cameras.main.width, 5, "#000000", 0);
         floor.setOrigin(0, 0);
 
         // 왼쪽 바깥선
@@ -80,13 +80,13 @@ class Exam03 extends Phaser.Scene {
         });
 
         // 사용자
-        this.player = this.physics.add.sprite(90, 320, 'bird');
+        this.player = this.physics.add.sprite(80, 250, 'bird');
         this.player.setCollideWorldBounds(true);
         this.player.anims.play({ key: 'run' });
         this.player.setData("onFloor", true); 
 
 
-        let scaleFactor = 80 / 135;
+        let scaleFactor = 75 / 135; 
         this.player.setScale(scaleFactor);
         this.player.setSize(20 / scaleFactor, 25 / scaleFactor);
 
@@ -106,29 +106,29 @@ class Exam03 extends Phaser.Scene {
         });
 
         this.physics.add.collider(this.player, this.eagles, (player, eagle) => {
-            console.log('Game over triggered, score:', this.score); // 점수 로그 출력
-            this.scene.start('GameOver', { score: this.score }); // 점수를 전달하면서 GameOver 씬으로 전환
+            console.log('Game over triggered, score:', this.score); 
+            this.scene.start('GameOver', { score: this.score }); 
         });
 
         // 타이머
         // 타이머 이미지
         let timerImg = this.add.image(60, 50, 'timer');
-        timerImg.setScale(0.13);
+        timerImg.setScale(0.1);
         // 타이머 텍스트
         this.timerText = this.add.text(120, 40, '0', {
             fontFamily: 'Lilita One',
-            fontSize: '30px',
+            fontSize: '25px',
             fill: '#000000'
         });
 
         // 점수
         // 점수 이미지
-        let scoreImg = this.add.image(820, 53, 'score');
-        scoreImg.setScale(0.2);
+        let scoreImg = this.add.image(600, 53, 'score');
+        scoreImg.setScale(0.17);
         // 점수 텍스트
-        this.scoreText = this.add.text(925, 35, '0', {
+        this.scoreText = this.add.text(700, 35, '0', {
             fontFamily: 'Lilita One',
-            fontSize: '30px',
+            fontSize: '25px',
             fill: '#000000',
 
         });
@@ -138,25 +138,27 @@ class Exam03 extends Phaser.Scene {
         this.cameras.main.setBackgroundColor("#ffffff");
         let startBackgroud = this.add.rectangle(0, 0, this.cameras.main.width, this.cameras.main.height, 0x000000, 0.5).setOrigin(0);
 
-        let startImg = this.add.sprite(this.cameras.main.width / 2, this.cameras.main.height / 2 - 70, 'startImg').setInteractive();
+        let startImg = this.add.sprite(this.cameras.main.width / 2, this.cameras.main.height / 2 - 50, 'startImg').setInteractive();
+        startImg.setScale(0.8);
+
 
         // Start 버튼 추가
-        let startButton = this.add.sprite(this.cameras.main.width / 2, this.cameras.main.height / 2 + 160, 'startBtn').setInteractive();
-        startButton.setScale(0.7);
+        let startButton = this.add.sprite(this.cameras.main.width / 2, this.cameras.main.height / 2 + 140, 'startBtn').setInteractive();
+        startButton.setScale(0.5);
 
         startButton.on('pointerdown', () => {
             this.isStart = true;
-            startImg.destroy(); // Start 이미지 제거
-            startButton.destroy(); // Start 버튼 제거
+            startImg.destroy(); 
+            startButton.destroy(); 
             startBackgroud.destroy();
         });
         // 버튼에 마우스 올릴 시 크기조절 및 효과
         startButton.on("pointerover", () => {
-            startButton.setScale(0.8);
+            startButton.setScale(0.55);
             this.game.canvas.style.cursor = "pointer";
         });
         startButton.on("pointerout", () => {
-            startButton.setScale(0.7);
+            startButton.setScale(0.5);
             this.game.canvas.style.cursor = "default";
         });
 
@@ -169,17 +171,16 @@ class Exam03 extends Phaser.Scene {
 
             // 타일 속도 조정
             if (this.timer > 20) {
-                this.tileSpeed = 5; 
+                this.tileSpeed = 5;
             } else if (this.timer > 10) {
-                this.tileSpeed = 4; 
+                this.tileSpeed = 4;
             }
 
             this.background.tilePositionX += this.tileSpeed;
             this.frame++;
 
-            // JustDown : 키 입력을 한번만 감지 (누르고 있는 행동을 무시)
             if (Phaser.Input.Keyboard.JustDown(this.cursor.space)) {
-                this.player.setVelocityY(-300); //중력 거스르는 작용
+                this.player.setVelocityY(-300); 
                 this.player.play("jump");
                 this.player.setData("onFloor", false);
                 this.jumpCount++;
@@ -191,7 +192,7 @@ class Exam03 extends Phaser.Scene {
             } else if (this.cursor.right.isDown) {
                 this.player.setVelocityX(200);
             } else {
-                this.player.setVelocityX(0); // 손 떼는 순간 속도 0
+                this.player.setVelocityX(0); 
             }
 
             // 플레이어가 바닥에 있고 뛰는 애니메이션이 아닌 경우
@@ -215,22 +216,21 @@ class Exam03 extends Phaser.Scene {
                 if (this.timer < 10) {
                     if (rand1 < 0.4) {
                         // 쿠키 생성
-                        let cookie = this.physics.add.sprite(1010, Math.random() * (480 - 50 + 1) + 50, "cookie");
-                        cookie.setVelocityX(Math.random() * (200 - 250 + 1) - 200);
+                        let cookie = this.physics.add.sprite(790, Math.random() * (410 - 60 + 1) + 60, "cookie");
+                        cookie.setVelocityX(Math.random() * (200 - 240 + 1) - 200);
 
-                        let cookie_scaleFactor = 35 / 512;
+                        let cookie_scaleFactor = 27 / 512;
                         cookie.setScale(cookie_scaleFactor);
                         cookie.setSize(15 / cookie_scaleFactor, 15 / cookie_scaleFactor);
                         this.cookies.push(cookie);
 
-                    } else if (rand2 > 0.6) {
+                    } else if (rand2 >= 0.4) {
                         // 독수리 생성
-                        // let eagleY = Math.random() * (480 - 150) + 75;
-                        let eagleY = Math.random() * (530 - 150 + 1) + 150;
-                        let eagle = this.physics.add.sprite(1010, eagleY, 'eagle').setOrigin(0.5, 1);
+                        let eagleY = Math.random() * (490 - 60 + 1) + 60;
+                        let eagle = this.physics.add.sprite(790, eagleY, 'eagle').setOrigin(0.5, 1);
 
-                        let eagle_scaleFactorX = 230 / 360;
-                        let eagle_scaleFactorY = 70 / 86.625;
+                        let eagle_scaleFactorX = 220 / 360;
+                        let eagle_scaleFactorY = 60 / 86.625;
                         eagle.setScale(eagle_scaleFactorX, eagle_scaleFactorY);
                         eagle.setSize(40 / eagle_scaleFactorX, 20 / eagle_scaleFactorY);
 
@@ -243,24 +243,24 @@ class Exam03 extends Phaser.Scene {
 
                     if (rand1 < 0.4) {
                         // 쿠키 생성
-                        let cookie = this.physics.add.sprite(1010, Math.random() * (480 - 50 + 1) + 50, "cookie");
-                        cookie.setVelocityX(Math.random() * (250 - 280 + 1) - 250 * (this.tileSpeed / 2));
+                        let cookie = this.physics.add.sprite(1010, Math.random() * (410 - 60 + 1) + 60, "cookie");
+                        cookie.setVelocityX(Math.random() * (220 - 250 + 1) - 220 * (this.tileSpeed / 2));
 
-                        let cookie_scaleFactor = 35 / 512;
+                        let cookie_scaleFactor = 27 / 512;
                         cookie.setScale(cookie_scaleFactor);
                         cookie.setSize(15 / cookie_scaleFactor, 15 / cookie_scaleFactor);
                         this.cookies.push(cookie);
-                    } else if (rand2 > 0.6) {
+                    } else if (rand2 >= 0.4) {
                         // 독수리 생성
-                        let eagleY = Math.random() * (480 - 150) + 75;
+                        let eagleY = Math.random() * (490 - 60 + 1) + 60;
                         let eagle = this.physics.add.sprite(1010, eagleY, 'eagle').setOrigin(0.5, 1);
 
-                        let eagle_scaleFactorX = 230 / 360;
-                        let eagle_scaleFactorY = 70 / 86.625;
+                        let eagle_scaleFactorX = 220 / 360;
+                        let eagle_scaleFactorY = 60 / 86.625;
                         eagle.setScale(eagle_scaleFactorX, eagle_scaleFactorY);
                         eagle.setSize(40 / eagle_scaleFactorX, 20 / eagle_scaleFactorY);
 
-                        eagle.setVelocityX(Math.random() * (270 - 300 + 1) - 270 * (this.tileSpeed / 2));
+                        eagle.setVelocityX(Math.random() * (230 - 270 + 1) - 230 * (this.tileSpeed / 2));
                         eagle.anims.play('come');
                         this.eagles.push(eagle);
                     }
