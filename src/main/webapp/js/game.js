@@ -35,6 +35,13 @@ const gameConfig = (seq) => {
 				scene:[ Project,GameOver]
 			}
 			break;
+		case 11:
+			config = {
+				width: 800,
+				height:500,
+				scene:[ StartScene, Game,GameOver]
+			}
+			break;
 	}
 	
 	return config;	

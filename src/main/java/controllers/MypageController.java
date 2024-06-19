@@ -40,9 +40,14 @@ public class MypageController extends HttpServlet {
 		System.out.println("확인중 :" + cmd);
 		
 		try {
+			/* 마이페이지 메인 화면 */
+			if(cmd.equals("/main.mypage")) {
+				String nickName = (String)session.getAttribute("WolfNickname");
+				
+				request.getRequestDispatcher("/views/mypage/mypage.jsp").forward(request, response);				
 			
-			/* 마이페이지 내 정보 조회 */
-			if(cmd.equals("/selectMember.mypage")) {
+				/* 마이페이지 내 정보 조회 */
+			} else if(cmd.equals("/selectMember.mypage")) {
 				String loginID = (String)session.getAttribute("WolfID");
 				MembersDTO dto = mDAO.selectMember(loginID);
 				
@@ -88,7 +93,7 @@ public class MypageController extends HttpServlet {
 				MembersDTO dto = new MembersDTO(id, null, name, nickname, phone, email, null, null, 0, avatar, null);
 
 				mDAO.edit(dto);
-
+				request.getSession().setAttribute("WolfNickname", nickname);
 				response.sendRedirect("/selectMember.mypage");
 
 				/* 비밀번호 변경 */
@@ -146,8 +151,10 @@ public class MypageController extends HttpServlet {
 				
 				
 				/* 문의내역 조회 */
-			} else if(cmd.equals("/myPost.mypage")) {
+			} else if(cmd.equals("/myList.mypage")) {
 				
+				
+				request.getRequestDispatcher("/views/mypage/myList.jsp").forward(request, response);
 				
 				/* 회원 탈퇴 */
 			} else if(cmd.equals("/delete.mypage")) {

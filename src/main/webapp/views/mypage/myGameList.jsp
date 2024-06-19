@@ -8,7 +8,7 @@ pageEncoding="UTF-8"%>
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>First-Project</title>
+    <title>게임플레이 정보</title>
     <!-- 부트스트랩 -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -55,7 +55,7 @@ pageEncoding="UTF-8"%>
         background-color: var(--bg-dark);
         color: var(--bg-black);
         color: var(--color-black);
-        overflow: hidden;
+        overflow: auto;
         /* 폰트 */
         font-family: "Noto Sans KR", sans-serif;
         font-family: "Luckiest Guy", cursive;
@@ -229,6 +229,8 @@ pageEncoding="UTF-8"%>
         display: flex;
         flex-direction: column;
         align-items: center;
+        padding: 30px;
+        padding-top: 0;
       }
 
       .mypage-myGameList {
@@ -253,8 +255,12 @@ pageEncoding="UTF-8"%>
         width: 100%;
         height: 15%;
         display: flex;
+        align-items: center;
       }
 
+      .mypage-myGameList .title {
+        flex: 3;
+      }
       .mypage-myGameList .score {
         flex: 8;
         display: flex;
@@ -347,7 +353,7 @@ pageEncoding="UTF-8"%>
               <p onclick="location.href='/mypageGameList.mypage'">
                 게임플레이 정보
               </p>
-              <p onclick="location.href='/'">문의내역</p>
+              <p onclick="location.href='/myList.mypage'">문의내역</p>
               <p onclick="location.href='/views/mypage/deleteMember.jsp'">
                 회원탈퇴
               </p>

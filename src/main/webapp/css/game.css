@@ -104,6 +104,10 @@ body.light {
 }
 
 /* 메뉴 */
+.wolf {
+	display: none;
+}
+
 .navi {
 	z-index: 5;
 	height: 10%;
@@ -210,9 +214,22 @@ body.light {
 	height: 100%;
 	object-fit: cover;
 }
-.card>form{height: 100px;background-color: #f9a620; height: 100px;}
-.card>form button {height: 50px;}
-.card>form div {height: 50px; line-height: 50px;}
+
+.card>form {
+	height: 100px;
+	background-color: #f9a620;
+	height: 100px;
+}
+
+.card>form button {
+	height: 50px;
+}
+
+.card>form div {
+	height: 50px;
+	line-height: 50px;
+}
+
 /* 이미지가 가로로 꽉 차게 설정 */
 .card>div:last-child {
 	height: 100px;
@@ -234,27 +251,58 @@ body.light {
 
 
 /* 테블릿 가로, 테블릿 세로 (해상도 768px ~ 1023px)*/
-@media all and (min-width:768px) and (max-width: 1023px){}
+@media all and (min-width:768px) and (max-width: 1023px) {}
 
 /* 모바일 */
 @media all and (max-width: 767px) {
-	.main {height: 90%;}
+	body {
+		overflow-y: overlay;
+	}
+
+	body::-webkit-scrollbar {
+
+		width: 1vw;
+
+	}
+
+	body::-webkit-scrollbar-thumb {
+
+		background-color: hsla(0, 0%, 42%, 0.49);
+		border-radius: 100px;
+
+	}
+
+	.main {
+		height: 90%;
+	}
+
+	.main .row {
+		padding: 20px;
+	}
+
+	/* 메뉴 */
 	.container-fluid {
 		padding: 0;
 	}
 
+	.container {
+		padding: 0
+	}
+
 	.navi {
-		z-index: 5;
-		height: 10%;
 		display: flex;
 		align-items: center;
 		background-color: var(--bg-nav);
+		padding: 0 3%;
 		font-size: 1rem;
 		color: var(--color-white);
 		text-shadow: 1px 1px 1px gray;
 		letter-spacing: 1px;
-
+		margin: 0;
 		border-radius: 0;
+		height: 10%;
+		width: 100%;
+		overflow: hidden;
 	}
 
 	.navi i {
@@ -263,7 +311,38 @@ body.light {
 
 	.navi>div {
 		margin-top: 0;
+
+	}
+
+	.navi>div:nth-child(1) {
+		width: 70%;
+		padding-right: 0;
+	}
+
+	.navi>div:nth-child(2) {
+		width: 20%;
 		height: 100%;
+		padding: 0;
+	}
+
+	.navi>div:nth-child(2) #wolfLogo,
+	.navi>div:nth-child(2) #wolf {
+		display: flex;
+		flex-direction: column;
+		align-items: start;
+		justify-content: center;
+	}
+
+	.navi>div:nth-child(2) #wolfLogo img {
+		display: none;
+	}
+
+	.navi .wolf {
+		display: block;
+	}
+
+	.navi>div:nth-child(3) {
+		width: 10%;
 	}
 }
 

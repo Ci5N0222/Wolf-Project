@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>First-Project</title>
+<title>Wolf</title>
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
@@ -29,7 +29,7 @@
         <%@ include file="/views/include/admin_side.jsp" %>
         
         <section class="admin-main-form">
-	        <h1 class="admin-main-title">Members List</h1>
+	        <h1 class="admin-main-title">회원 관리</h1>
 			<div class="admin-members-list">
 				<div class="admin-game-insert-btn">
 					<select id="members-id-select">

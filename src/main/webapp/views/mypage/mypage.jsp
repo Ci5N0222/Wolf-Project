@@ -297,8 +297,9 @@ pageEncoding="UTF-8"%>
       }
       .dashboard-inner_box > div:first-child > div:last-child > p {
         font-size: x-large;
-        line-height: 130px;
-        margin-left: 20px;
+        line-height: 150px;
+        display: flex;
+        margin-left: 50px;
       }
 
       /* 카테고리 박스 안 버튼 */
@@ -370,7 +371,7 @@ pageEncoding="UTF-8"%>
         }
       }
 
-      @media (max-width: 1100px) {
+      @media (max-width: 1200px) {
         .mypage-side-menu {
           display: none;
         }
@@ -380,7 +381,7 @@ pageEncoding="UTF-8"%>
       }
 
       /* 메인 반응형 */
-      @media (max-width: 880px) {
+      @media (max-width: 991px) {
         .mypage-main-form {
           margin: 0px;
         }
@@ -506,7 +507,7 @@ pageEncoding="UTF-8"%>
               <p onclick="location.href='/mypageGameList.mypage'">
                 게임플레이 정보
               </p>
-              <p onclick="location.href='/'">문의내역</p>
+              <p onclick="location.href='/myList.mypage'">문의내역</p>
               <p onclick="location.href='/views/mypage/deleteMember.jsp'">
                 회원탈퇴
               </p>
@@ -526,7 +527,7 @@ pageEncoding="UTF-8"%>
                       <div>
                         <div></div>
                         <div>
-                          <p>롱초 님 환영합니다.</p>
+                          <p>${WolfNickname} 님 환영합니다.</p>
                         </div>
                       </div>
                       <div>
@@ -555,7 +556,7 @@ pageEncoding="UTF-8"%>
                     <div>
                       <div class="dashboard-inner_box">
                         <div><p>문의내역</p></div>
-                        <div><button>바로가기</button></div>
+                        <div><button onclick="location.href='/myList.mypage'">바로가기</button></div>
                       </div>
                     </div>
                   </div>
