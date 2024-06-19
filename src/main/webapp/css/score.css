@@ -101,8 +101,8 @@ body.light {
 .main {
 	height: 100%;
 }
-
 /* 메뉴 */
+.wolf {display: none;}
 .navi {
 	z-index: 5;
 	height: 10%;
@@ -124,18 +124,42 @@ body.light {
 
 .navi>div {
 	margin-top: 0;
+	height: 100%;
+}
+
+/* 메뉴 */
+.navi>div:nth-child(1),
+.navi>div:nth-child(3) {
+	width: 30%;
+}
+
+.navi>div:nth-child(2) {
+	width: 40%;
+}
+
+.navi>div:nth-child(1)>div {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: left;
 }
 
 .navi>div:nth-child(2) #wolfLogo {
-	width: 100px;
-	height: 100px;
-}
-
-/* 로고 */
-.navi #wolfLogo>img {
-	object-fit: cover;
 	width: 100%;
 	height: 100%;
+}
+
+.navi>div:nth-child(2) #wolfLogo img {
+	width: initial;
+	height: 130%;
+	object-fit: contain;
+}
+
+.navi>div:nth-child(3)>div {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: right;
 }
 
 /* 메뉴 버튼 */
@@ -147,7 +171,6 @@ body.light {
 .naviBtn:hover {
 	opacity: 0.5;
 }
-
 /* -- main과 동일 -- */
 
 
