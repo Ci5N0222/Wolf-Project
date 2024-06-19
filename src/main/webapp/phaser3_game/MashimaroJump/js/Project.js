@@ -26,6 +26,7 @@ class Project extends Phaser.Scene{
         this.load.image('background', '/phaser3_game/MashimaroJump/images/bg_layer1.png');
 		this.load.image('platform', '/phaser3_game/MashimaroJump/images/ground_grass.png');
 		this.load.image('bunny-stand', '/phaser3_game/MashimaroJump/images/bunny1_stand.png');
+        this.load.image('bunny-stand-reverse', '/phaser3_game/MashimaroJump/images/bunny1_stand_reverse.png');
 		this.load.image('bunny-jump', '/phaser3_game/MashimaroJump/images/bunny1_jump.png');
         this.load.image('bunny-jump-reverse', '/phaser3_game/MashimaroJump/images/bunny1_jump_reverse.png');
 		this.load.image('carrot', '/phaser3_game/MashimaroJump/images/carrot.png');
@@ -90,9 +91,13 @@ class Project extends Phaser.Scene{
     
             if(this.cursor.left.isDown){
                 //this.player.x-=10;
+                this.player.setTexture('bunny-stand-reverse').setScale(0.3);
+                this.player.setSize(0, 0);
                 this.player.setVelocityX(-200); //속도단위
             }
             else if(this.cursor.right.isDown){
+                this.player.setTexture('bunny-stand').setScale(0.3);
+                this.player.setSize(0, 0);
                 this.player.setVelocityX(+200);
             } else{
                 this.player.setVelocityX(0);
