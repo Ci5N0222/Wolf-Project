@@ -37,11 +37,12 @@ body.light {
 .navi {
 	transition: background-color 0.5s ease, box-shadow 0.5s ease;
 }
+.wolf {display: none;}
 
 /* img */
 .img_bg {
 	position: absolute;
-	top: -60%;
+	top: 0%;
 	left: 0;
 	width: 100%;
 	object-fit: cover;
@@ -54,7 +55,8 @@ body.light {
 }
 
 .bgs:nth-child(1) {
-	top: 15%;
+	top: 20%;
+	background-color: #eee;
 	left: 80%;
 }
 
@@ -70,9 +72,9 @@ body.light {
 }
 
 .bgs:nth-child(4) {
-	top: 27%;
-	left: 70%;
-	width: 20px;
+	top: 20%;
+	left: 40%;
+	width: 30px;
 }
 
 .bgs:nth-child(5) {
@@ -101,8 +103,11 @@ body.light {
 .main {
 	height: 100%;
 }
+
 /* 메뉴 */
-.wolf {display: none;}
+.wolf {
+	display: none;
+}
 .navi {
 	z-index: 5;
 	height: 10%;
@@ -171,6 +176,7 @@ body.light {
 .naviBtn:hover {
 	opacity: 0.5;
 }
+
 /* -- main과 동일 -- */
 
 
@@ -179,6 +185,8 @@ body.light {
 
 /* main */
 .main {
+	position: relative;
+	z-index: 50;
 	height: 90%;
 	display: flex;
 	align-items: center;
@@ -245,7 +253,73 @@ body.light {
 }
 
 
+/* 모바일 */
+@media all and (max-width: 767px) {
+		/* 메뉴 */
+	.container-fluid {
+		padding: 0;
+	}
 
+	.container {
+		padding: 0
+	}
+
+	.navi {
+		display: flex;
+		align-items: center;
+		background-color: var(--bg-nav);
+		padding: 0 3%;
+		font-size: 1rem;
+		color: var(--color-white);
+		text-shadow: 1px 1px 1px gray;
+		letter-spacing: 1px;
+		margin: 0;
+		border-radius: 0;
+		height: 10%;
+		width: 100%;
+		overflow: hidden;
+	}
+
+	.navi i {
+		font-size: 1rem;
+	}
+
+	.navi>div {
+		margin-top: 0;
+
+	}
+
+	.navi>div:nth-child(1) {
+		width: 70%;
+		padding-right: 0;
+	}
+
+	.navi>div:nth-child(2) {
+		width: 20%;
+		height: 100%;
+		padding: 0;
+	}
+
+	.navi>div:nth-child(2) #wolfLogo,
+	.navi>div:nth-child(2) #wolf {
+		display: flex;
+		flex-direction: column;
+		align-items: start;
+		justify-content: center;
+	}
+
+	.navi>div:nth-child(2) #wolfLogo img {
+		display: none;
+	}
+
+	.navi .wolf {
+		display: block;
+	}
+
+	.navi>div:nth-child(3) {
+		width: 10%;
+	}
+}
 
 
 
