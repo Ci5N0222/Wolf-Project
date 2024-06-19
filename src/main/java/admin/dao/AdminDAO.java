@@ -7,10 +7,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
-
 import commons.DBConfig;
 import game.dto.GameDTO;
 import members.dto.MembersDTO;
@@ -41,6 +37,10 @@ public class AdminDAO {
 			
 			return new int[]{rs.getInt("total"), rs.getInt("man")};
 		}
+	}
+	
+	public void membersBirthCount() throws Exception {
+		String sql = "";
 	}
 	
 	
