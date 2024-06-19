@@ -1,22 +1,38 @@
 /** 페이지 로드 이후 동작해야 할 스크립트 **/
 $(() => {
+	// 현재 페이지 주소
 	var pathname = window.location.pathname;
 	
-	// Admin members list select bar
+	// ================================ [ Members ] ================================
+	
+	// Admin members list select bar default
 	if(pathname === "/members_list.admin"){
 		const searchParams = new URLSearchParams(window.location.search);
     	const grade = searchParams.get('grade');
     	if(grade !== null) $("#members-id-select").val(grade);
 	}
 	
-	// Admin game list select bar
+	// Admin memeber list select bar change
+	$("#members-id-select").on("change", () => {
+		location.href="/members_list.admin?grade=" + $("#members-id-select").val();
+	});
+	
+	// ================================ [ Game ] ================================
+	
+	// Admin game list select bar default
 	if(pathname === "/game_list.admin"){
 		const searchParams = new URLSearchParams(window.location.search);
     	const service = searchParams.get('service');
     	if(service !== null) $("#game-service-select").val(service);
 	}
 	
-	// Admin game insert, detail 이미지 미리보기
+	//  Admin Game list select bar change
+	$("#game-service-select").on("change", () => {
+		
+		location.href="/game_list.admin?service=" + $("#game-service-select").val();
+	});
+	
+	// Admin game insert, detail image preview
 	if(pathname === "/page_game_insert.admin" || pathname === "/game_detail.admin"){
         $("#admin_game_thumbnail").on("change", (e) => {
             const file = e.target.files[0];
@@ -85,26 +101,14 @@ $(() => {
 			alert("상세 내용을 입력하세요.");
 			return false;
 		}
-		
 	});
 	
-	// Game list select bar
-	$("#game-service-select").on("change", () => {
-		
-		location.href="/game_list.admin?service=" + $("#game-service-select").val();
-	});
-	
-	// Memeber list select bar
-	$("#members-id-select").on("change", () => {
-		location.href="/members_list.admin?grade=" + $("#members-id-select").val();
-	});
-	 
 });
 
 
 // ====================================== [ 멤버 ] ===========================================
 
-// Member 정보를 수정할 수 있게 폼을 바꾸는 함수
+// Member info update form change
 const adminMemberEdit = (defaultValue) => {
 	$('#grade_select').val(defaultValue); 
 	$('#grade_select').css({"display": "inline-block"});
@@ -115,7 +119,7 @@ const adminMemberEdit = (defaultValue) => {
 	$(".btn-box2").css({"display": "flex", "justify-content": "space-evenly", "align-items": "center"});
 }
 
-// Member의 등급을 수정하는 함수
+// Members grade update
 const adminMemberUpdate = (id) => {
 	if($("#grade_select").val() === "99" || $("#grade_select").val() === "98"){
 		if(confirm("정말 관리자로 변경하시겠습니까?")){
@@ -138,7 +142,7 @@ const adminMemberUpdate = (id) => {
 	});
 }
 
-// 검색한 멤버 리스트를 요청하는 함수
+// Search member list
 const adminMemberSearch = () => {
 	location.href="/members_search.admin?id="+$("#member_search_text").val();
 }
@@ -157,10 +161,9 @@ const previewImageDelete = (image, url) => {
 		$("#imagePreview").hide();
 		$("#imagePreviewBtn").hide();	
 	}	
-} 
+}
 
-
-// Game 정보를 수정할 수 있게 폼을 바꾸는 함수
+// Game info update form change
 const adminGameEdit = (defaultValue) => {
 	$(".admin-game-btn").css({"display": "none"});
 	$(".admin-game-update-btn").css({
@@ -179,7 +182,7 @@ const adminGameEdit = (defaultValue) => {
 	$("#game_title").focus();
 }
 
-// Game정보를 삭제하는 함수
+// Game info delete
 const adminGameDelete = (seq) => {
 	if(confirm("정말로 삭제하시겠습니까?")){
 		$.ajax({
@@ -199,18 +202,18 @@ const adminGameDelete = (seq) => {
 
 // ====================================== [ 공 통 ] ===========================================
 
-/** 페이지 네비게이션 함수 **/
+/** page navigation **/
 const pagenation = (cpage, recordTotalCount, recordCountPerPage, naviCountPerPage, url, wpageName, wpage) => {
 	
-	// 총 페이지 수
+	// total page count
 	let pageTotalCount = 0;
 	if(recordTotalCount % recordCountPerPage > 0) pageTotalCount = recordTotalCount / recordCountPerPage + 1;
 	else pageTotalCount = recordTotalCount / recordCountPerPage;
 	
-	// 네비게이터의 시작 번호
+	// navigator start number
 	let startNavi = Math.floor((cpage - 1) / naviCountPerPage) * naviCountPerPage + 1
 	
-	// 네비게이터의 마지막 번호
+	// navigator end number
 	let endNavi = startNavi + naviCountPerPage - 1;
 	
 	if(endNavi > pageTotalCount) endNavi = pageTotalCount;

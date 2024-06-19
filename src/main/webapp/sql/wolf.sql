@@ -6,7 +6,7 @@ create table members(
     phone varchar(11) ,
     email varchar(100) not null,
     gender varchar(1) not null,
-    birth varchar(6),
+    birth varchar(8),
     grade number default 1,
     avatar varchar(500) default null,
     join_date timestamp default sysdate
@@ -130,26 +130,26 @@ nomaxvalue
 nocache;
 
 -- members table dummy data
-INSERT INTO members VALUES ('user001', 'password1', 'Alice', 'alice01', '01012345678', 'alice@example.com', 'F', '750101', 1, null, sysdate);
-INSERT INTO members VALUES ('user002', 'password2', 'Bob', 'bobster', '01023456789', 'bob@example.com', 'M', '800202', 1, null, sysdate);
-INSERT INTO members VALUES ('user003', 'password3', 'Charlie', 'charlie33', '01034567890', 'charlie@example.com', 'M', '850303', 1, null, sysdate);
-INSERT INTO members VALUES ('user004', 'password4', 'Diana', 'didi', '01045678901', 'diana@example.com', 'F', '700404', 1, null, sysdate);
-INSERT INTO members VALUES ('user005', 'password5', 'Edward', 'ed_ward', '01056789012', 'edward@example.com', 'M', '900505', 1, null, sysdate);
-INSERT INTO members VALUES ('user006', 'password6', 'Fiona', 'fifi', '01067890123', 'fiona@example.com', 'F', '920606', 1, null, sysdate);
-INSERT INTO members VALUES ('user007', 'password7', 'George', 'geo88', '01078901234', 'george@example.com', 'M', '940707', 1, null, sysdate);
-INSERT INTO members VALUES ('user008', 'password8', 'Hannah', 'hannah_b', '01089012345', 'hannah@example.com', 'F', '980808', 1, null, sysdate);
-INSERT INTO members VALUES ('user009', 'password9', 'Ian', 'ian_ian', '01090123456', 'ian@example.com', 'M', '850909', 1, null, sysdate);
-INSERT INTO members VALUES ('user010', 'password10', 'Jill', 'jill_j', '01001234567', 'jill@example.com', 'F', '760910', 1, null, sysdate);
-INSERT INTO members VALUES ('user011', 'password11', 'Kevin', 'kev', '01012345067', 'kevin@example.com', 'M', '820101', 1, null, sysdate);
-INSERT INTO members VALUES ('user012', 'password12', 'Laura', 'laura_l', '01023456078', 'laura@example.com', 'F', '000202', 1, null, sysdate);
-INSERT INTO members VALUES ('user013', 'password13', 'Mike', 'mike_m', '01034567089', 'mike@example.com', 'M', '050303', 1, null, sysdate);
-INSERT INTO members VALUES ('user014', 'password14', 'Nina', 'nina_n', '01045678090', 'nina@example.com', 'F', '880404', 1, null, sysdate);
-INSERT INTO members VALUES ('user015', 'password15', 'Oscar', 'oscar_o', '01056789001', 'oscar@example.com', 'M', '930505', 1, null, sysdate);
-INSERT INTO members VALUES ('user016', 'password16', 'Paul', 'paul_p', '01067890012', 'paul@example.com', 'M', '920606', 1, null, sysdate);
-INSERT INTO members VALUES ('user017', 'password17', 'Quinn', 'quinn_q', '01078900123', 'quinn@example.com', 'F', '970707', 1, null, sysdate);
-INSERT INTO members VALUES ('user018', 'password18', 'Rachel', 'rachel_r', '01089001234', 'rachel@example.com', 'F', '990808', 1, null, sysdate);
-INSERT INTO members VALUES ('user019', 'password19', 'Steve', 'steve_s', '01090102345', 'steve@example.com', 'M', '860909', 1, null, sysdate);
-INSERT INTO members VALUES ('user020', 'password20', 'Tina', 'tina_t', '01001203456', 'tina@example.com', 'F', '010101', 1, null, sysdate);
+INSERT INTO members VALUES ('user001', 'password1', 'Alice', 'alice01', '01012345678', 'alice@example.com', 'F', '19750101', 1, null, sysdate);
+INSERT INTO members VALUES ('user002', 'password2', 'Bob', 'bobster', '01023456789', 'bob@example.com', 'M', '19800202', 1, null, sysdate);
+INSERT INTO members VALUES ('user003', 'password3', 'Charlie', 'charlie33', '01034567890', 'charlie@example.com', 'M', '19850303', 1, null, sysdate);
+INSERT INTO members VALUES ('user004', 'password4', 'Diana', 'didi', '01045678901', 'diana@example.com', 'F', '19700404', 1, null, sysdate);
+INSERT INTO members VALUES ('user005', 'password5', 'Edward', 'ed_ward', '01056789012', 'edward@example.com', 'M', '19900505', 1, null, sysdate);
+INSERT INTO members VALUES ('user006', 'password6', 'Fiona', 'fifi', '01067890123', 'fiona@example.com', 'F', '19920606', 1, null, sysdate);
+INSERT INTO members VALUES ('user007', 'password7', 'George', 'geo88', '01078901234', 'george@example.com', 'M', '19940707', 1, null, sysdate);
+INSERT INTO members VALUES ('user008', 'password8', 'Hannah', 'hannah_b', '01089012345', 'hannah@example.com', 'F', '19980808', 1, null, sysdate);
+INSERT INTO members VALUES ('user009', 'password9', 'Ian', 'ian_ian', '01090123456', 'ian@example.com', 'M', '19850909', 1, null, sysdate);
+INSERT INTO members VALUES ('user010', 'password10', 'Jill', 'jill_j', '01001234567', 'jill@example.com', 'F', '19760910', 1, null, sysdate);
+INSERT INTO members VALUES ('user011', 'password11', 'Kevin', 'kev', '01012345067', 'kevin@example.com', 'M', '19820101', 1, null, sysdate);
+INSERT INTO members VALUES ('user012', 'password12', 'Laura', 'laura_l', '01023456078', 'laura@example.com', 'F', '20000202', 1, null, sysdate);
+INSERT INTO members VALUES ('user013', 'password13', 'Mike', 'mike_m', '01034567089', 'mike@example.com', 'M', '20050303', 1, null, sysdate);
+INSERT INTO members VALUES ('user014', 'password14', 'Nina', 'nina_n', '01045678090', 'nina@example.com', 'F', '19880404', 1, null, sysdate);
+INSERT INTO members VALUES ('user015', 'password15', 'Oscar', 'oscar_o', '01056789001', 'oscar@example.com', 'M', '19930505', 1, null, sysdate);
+INSERT INTO members VALUES ('user016', 'password16', 'Paul', 'paul_p', '01067890012', 'paul@example.com', 'M', '19920606', 1, null, sysdate);
+INSERT INTO members VALUES ('user017', 'password17', 'Quinn', 'quinn_q', '01078900123', 'quinn@example.com', 'F', '19970707', 1, null, sysdate);
+INSERT INTO members VALUES ('user018', 'password18', 'Rachel', 'rachel_r', '01089001234', 'rachel@example.com', 'F', '19990808', 1, null, sysdate);
+INSERT INTO members VALUES ('user019', 'password19', 'Steve', 'steve_s', '01090102345', 'steve@example.com', 'M', '19860909', 1, null, sysdate);
+INSERT INTO members VALUES ('user020', 'password20', 'Tina', 'tina_t', '01001203456', 'tina@example.com', 'F', '20010101', 1, null, sysdate);
 
 -- grade table data
 INSERT INTO grade (seq, name) VALUES (1, '일반회원');
