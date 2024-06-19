@@ -391,7 +391,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                   <div class="select-board-list">
                     <div class="row">
                       <div class="txt">ID</div>
-                      <div class="content" id="id" name="id">${member.id}</div>
+                      <div class="content" id="id" name="id">아이디${member.id}</div>
                     </div>
                     <div class="row">
                       <div class="txt">Name</div>

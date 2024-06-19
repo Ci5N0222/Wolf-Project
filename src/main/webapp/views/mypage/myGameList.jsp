@@ -229,6 +229,8 @@ pageEncoding="UTF-8"%>
         display: flex;
         flex-direction: column;
         align-items: center;
+        padding: 30px;
+        padding-top: 0;
       }
 
       .mypage-myGameList {

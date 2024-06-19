@@ -40,13 +40,18 @@ public class MypageController extends HttpServlet {
 		System.out.println("확인중 :" + cmd);
 		
 		try {
-			
-			/* 마이페이지 내 정보 조회 */
-			if(cmd.equals("/selectMember.mypage")) {
+			/* 마이페이지 메인 화면 */
+			if(cmd.equals("/main.mypage")) {
 				String loginID = (String)session.getAttribute("WolfID");
 				MembersDTO dto = mDAO.selectMember(loginID);
 				
 				request.setAttribute("member", dto);
+				request.getRequestDispatcher("/views/mypage/mypage.jsp").forward(request, response);				
+			
+				/* 마이페이지 내 정보 조회 */
+			} else if(cmd.equals("/selectMember.mypage")) {
+				String nickName = (String)session.getAttribute("WolfNickname");
+	
 				request.getRequestDispatcher("/views/mypage/updateInfo.jsp").forward(request, response);
 
 				/* 내 정보 수정 */

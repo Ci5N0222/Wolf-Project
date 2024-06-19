@@ -297,8 +297,9 @@ pageEncoding="UTF-8"%>
       }
       .dashboard-inner_box > div:first-child > div:last-child > p {
         font-size: x-large;
-        line-height: 130px;
-        margin-left: 20px;
+        line-height: 150px;
+        display: flex;
+        margin-left: 50px;
       }
 
       /* 카테고리 박스 안 버튼 */
@@ -526,7 +527,7 @@ pageEncoding="UTF-8"%>
                       <div>
                         <div></div>
                         <div>
-                          <p>롱초 님 환영합니다.</p>
+                          <p>${WolfNickname} 님 환영합니다.</p>
                         </div>
                       </div>
                       <div>
