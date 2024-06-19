@@ -104,7 +104,7 @@ class Project extends Phaser.Scene{
         this.player.body.checkCollision.up = false;
 		//this.player.body.checkCollision.left = false;
 		//this.player.body.checkCollision.right = false;
-        this.player.setGravityY(300);
+        this.player.setGravityY(500);
 		this.cameras.main.startFollow(this.player);
 		this.cameras.main.setDeadzone(this.scale.width * 1.5);
 
@@ -175,7 +175,7 @@ class Project extends Phaser.Scene{
                 this.count=0;
             }
             if(Phaser.Input.Keyboard.JustDown(this.cursor.space)&&this.count<2){
-                this.player.setVelocityY(-300);
+                this.player.setVelocityY(-400);
                 this.count++;
             }
 
