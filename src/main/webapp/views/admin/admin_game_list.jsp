@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>First-Project</title>
+<title>Wolf</title>
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
@@ -33,8 +33,8 @@
         <div class="admin-members-list">
         	<div class="admin-game-insert-btn">
 	        	<select id="game-service-select">
-        			<option value="9">전체 목록</option>
-        			<option value="1">서비스 중 </option>
+        			<option value="9">전체 서비스</option>
+        			<option value="1">서비스 활성</option>
         			<option value="0">서비스 정지</option>
         		</select>
         		<button onclick="location.href='/page_game_insert.admin'">게임 추가</button>
@@ -46,7 +46,7 @@
              				<th>ID</th>
              				<th>대표이미지</th>
              				<th>제목</th>
-             				<th>서비스 유무</th>
+             				<th>서비스</th>
              			</tr>
 	             		<c:forEach var="games" items="${gameList}">
 	             			<tr>
@@ -62,10 +62,10 @@
 	             				<td><span class="admin-game-list-title"><a href="game_detail.admin?seq=${games.seq}">${games.title}</a></span></td>
 	             				<c:choose>
 	             					<c:when test="${games.service_code eq 1}">
-	             						<td class="admin-game-list-service-ing" style="color:green; font-weight:800">서비스 중</td>
+	             						<td class="admin-game-list-service-ing" style="color:green; font-weight:800">활성</td>
 	             					</c:when>
 	             					<c:otherwise>
-	             						<td class="admin-game-list-service-stop" style="color:red; font-weight:800">서비스 정지</td>
+	             						<td class="admin-game-list-service-stop" style="color:red; font-weight:800">정지</td>
 	             					</c:otherwise>
 	             				</c:choose>
 	             				
