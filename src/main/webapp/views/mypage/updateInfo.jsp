@@ -294,6 +294,12 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         font-size: larger;
       }
 
+      @media (max-width: 1100px) {
+        .mypage-side-menu {
+          display: none;
+        }
+      }
+
       /* -- main과 동일 -- */
       /* 라이트 다크 mode */
       #mode {
