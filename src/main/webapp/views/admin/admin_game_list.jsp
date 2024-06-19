@@ -29,7 +29,7 @@
         <%@ include file="/views/include/admin_side.jsp" %>
         
         <section class="admin-main-form">
-        <h1 class="admin-main-title">Game List</h1>
+        <h1 class="admin-main-title">게임 관리</h1>
         <div class="admin-members-list">
         	<div class="admin-game-insert-btn">
 	        	<select id="game-service-select">
