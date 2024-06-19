@@ -42,16 +42,16 @@ public class MypageController extends HttpServlet {
 		try {
 			/* 마이페이지 메인 화면 */
 			if(cmd.equals("/main.mypage")) {
-				String loginID = (String)session.getAttribute("WolfID");
-				MembersDTO dto = mDAO.selectMember(loginID);
+				String nickName = (String)session.getAttribute("WolfNickname");
 				
-				request.setAttribute("member", dto);
 				request.getRequestDispatcher("/views/mypage/mypage.jsp").forward(request, response);				
 			
 				/* 마이페이지 내 정보 조회 */
 			} else if(cmd.equals("/selectMember.mypage")) {
-				String nickName = (String)session.getAttribute("WolfNickname");
-	
+				String loginID = (String)session.getAttribute("WolfID");
+				MembersDTO dto = mDAO.selectMember(loginID);
+				
+				request.setAttribute("member", dto);
 				request.getRequestDispatcher("/views/mypage/updateInfo.jsp").forward(request, response);
 
 				/* 내 정보 수정 */
@@ -93,7 +93,7 @@ public class MypageController extends HttpServlet {
 				MembersDTO dto = new MembersDTO(id, null, name, nickname, phone, email, null, null, 0, avatar, null);
 
 				mDAO.edit(dto);
-
+				request.getSession().setAttribute("WolfNickname", nickname);
 				response.sendRedirect("/selectMember.mypage");
 
 				/* 비밀번호 변경 */

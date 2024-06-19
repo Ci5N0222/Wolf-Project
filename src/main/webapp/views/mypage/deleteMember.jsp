@@ -173,20 +173,35 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
       .mypage-delete-container {
         display: flex;
+        flex-direction: column;
         height: 100vh;
         width: 100%;
       }
 
+      .mypage-delete-title {
+        margin: 50px 0;
+        font-size: 50px;
+        color: #fab74b;
+        height: 10%;
+        width: 100%;
+      }
+
+      .aside-section-form {
+        display: flex;
+      }
+
       .mypage-side-menu {
+        flex: 2;
         min-width: 200px;
         height: 600px;
         background-color: #f0f0f0;
         margin-left: 30px;
-        margin-top: 200px;
+        margin-top: 0;
         border-radius: 10px;
         display: flex;
         flex-direction: column;
         padding: 15px;
+        width: 30%;
       }
 
       .mypage-side-menu > p:hover {
@@ -214,23 +229,75 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         align-items: center;
       }
 
-      .mypage-delete-title {
-        margin: 50px 0;
-        font-size: 50px;
-        color: #fab74b;
+      .delete-warning-text {
+        font-size: large;
+        padding-bottom: 30px;
+        color: #ffd449;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        /* margin-left: 150px; */
       }
 
-      .mypage-delete-board {
+      .mypage-delete-innerBoard {
         width: 100%;
         max-width: 950px;
-        height: 1100px;
-        padding: 0 140px;
+        height: 250px;
+        /* padding: 0 80px; */
         position: relative;
         z-index: 5;
+        display: flex;
+        flex-direction: column;
+        margin-left: 70px;
       }
 
-      button {
+      .id-txt,
+      .pw-txt {
+        /* margin-top: 0;
+        margin-bottom: 1rem; */
+        color: white;
+        display: flex;
+        margin-bottom: 10px;
+      }
+
+      input[type="text"],
+      input[type="password"] {
+        width: 400px;
+        height: 40px;
+        padding-left: 10px;
+        margin-bottom: 30px;
+      }
+
+      .btn-box {
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 50px;
+        margin-left: 170px;
+      }
+
+      .btn-box button {
         cursor: pointer;
+        border-radius: 8px;
+        margin: 10px;
+        width: 80px;
+        height: 35px;
+        border: none;
+      }
+
+      .btn-box .deleteBtn {
+        background-color: #fab74b;
+        color: white;
+      }
+
+      .mypage-delete-notice {
+        text-align: left;
+        width: 70%;
+      }
+
+      .mypage-delete-notice p,
+      li {
+        color: white;
+        margin-top: 3px;
       }
 
       /* -- main과 동일 -- */
@@ -294,47 +361,75 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
         <!-- main -->
         <main class="mypage-delete-container">
-          <aside class="mypage-side-menu">
-            <p onclick="location.href='/views/mypage/mypage.jsp'">내정보 홈</p>
-            <p onclick="location.href='/selectMember.mypage'">개인정보관리</p>
-            <p onclick="location.href='/views/mypage/updatePW.jsp'">
-              비밀번호 변경
-            </p>
-            <p onclick="location.href='/mypageGameList.mypage'">
-              게임플레이 정보
-            </p>
-            <p onclick="location.href='/'">문의내역</p>
-            <p onclick="location.href='/views/mypage/deleteMember.jsp'">
-              회원탈퇴
-            </p>
-            <p
-              class="logout"
-              onclick="if(confirm('로그아웃을 하시겠습니까?')) { location.href='/logout.members'; }"
-            >
-              로그아웃
-            </p>
-          </aside>
+          <div class="mypage-delete-title">회원탈퇴</div>
+          <div class="aside-section-form" style="display: flex">
+            <aside class="mypage-side-menu">
+              <p onclick="location.href='/views/mypage/mypage.jsp'">
+                내정보 홈
+              </p>
+              <p onclick="location.href='/selectMember.mypage'">개인정보관리</p>
+              <p onclick="location.href='/views/mypage/updatePW.jsp'">
+                비밀번호 변경
+              </p>
+              <p onclick="location.href='/mypageGameList.mypage'">
+                게임플레이 정보
+              </p>
+              <p onclick="location.href='/'">문의내역</p>
+              <p onclick="location.href='/views/mypage/deleteMember.jsp'">
+                회원탈퇴
+              </p>
+              <p
+                class="logout"
+                onclick="if(confirm('로그아웃을 하시겠습니까?')) { location.href='/logout.members'; }"
+              >
+                로그아웃
+              </p>
+            </aside>
 
-          <section class="mypage-delete-form">
-            <h1 class="mypage-delete-title">회원탈퇴</h1>
-            <form action="/delete.mypage">
-              <div class="mypage-delete-board">
-                <input
-                  type="text"
-                  placeholder="ID를 입력해주세요"
-                  class="inputID"
-                />
-                <input
-                  type="password"
-                  placeholder="PW를 입력해주세요"
-                  class="inputPW"
-                />
+            <section class="mypage-delete-form">
+              <div style="display: flex; flex-direction: column; width: 70%">
+                <div class="delete-warning-text">
+                  <p class="warning">회원탈퇴를 진행하시겠습니까?</p>
+                  <p class="warning">
+                    탈퇴 시, 모든 데이터가 삭제되며 복구가 불가능합니다. 신중히
+                    결정해 주세요.
+                  </p>
+                </div>
 
-                <button type="submit" class="deleteBtn">탈퇴하기</button>
-                <button type="button" class="cancelBtn">취소</button>
+                <form action="/delete.mypage">
+                  <div class="mypage-delete-innerBoard">
+                    <p class="id-txt">아이디 입력</p>
+                    <input
+                      type="text"
+                      placeholder="ID를 입력해주세요"
+                      class="inputID"
+                    />
+                    <p class="pw-txt">비밀번호 입력</p>
+                    <input
+                      type="password"
+                      placeholder="PW를 입력해주세요"
+                      class="inputPW"
+                    />
+                  </div>
+                  <div class="btn-box">
+                    <button type="submit" class="deleteBtn">탈퇴하기</button>
+                    <button type="button" class="cancelBtn">취소</button>
+                  </div>
+                </form>
               </div>
-            </form>
-          </section>
+              <div class="mypage-delete-notice">
+                <p>탈퇴 시 주의사항</p>
+                <ul>
+                  <li>탈퇴 후에는 동일한 아이디로 재가입이 불가능합니다.</li>
+                  <li>
+                    진행 중인 주문 및 예약 내역이 있는 경우, 처리 후 탈퇴가
+                    가능합니다.
+                  </li>
+                  <li>탈퇴와 관련된 문의는 고객센터로 연락해 주세요.</li>
+                </ul>
+              </div>
+            </section>
+          </div>
         </main>
       </div>
 
