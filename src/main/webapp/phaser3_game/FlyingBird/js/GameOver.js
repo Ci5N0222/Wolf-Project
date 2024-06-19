@@ -52,7 +52,7 @@ class GameOver extends Phaser.Scene {
         exitBtn.setScale(0.5);
 
         exitBtn.on('pointerdown', () => {
-            this.scene.start('/');
+            location.href= '/list.game';
         });
         // 버튼에 마우스 올릴 시 크기조절 및 효과
         exitBtn.on("pointerover", () => {

@@ -173,22 +173,37 @@ pageEncoding="UTF-8"%>
         border: 1px solid #67ffd1;
       } */
 
-      .mypage-container {
+      .mypage-select-container {
         display: flex;
-        /* height: 100vh; */
+        flex-direction: column;
+        height: 100vh;
         width: 100%;
       }
 
+      .mypage-myGame-title {
+        margin: 50px 0;
+        font-size: 50px;
+        color: white;
+        height: 10%;
+        width: 100%;
+      }
+
+      .aside-section-form {
+        display: flex;
+      }
+
       .mypage-side-menu {
+        flex: 2;
         min-width: 200px;
         height: 600px;
         background-color: #f0f0f0;
         margin-left: 30px;
-        margin-top: 200px;
+        margin-top: 0;
         border-radius: 10px;
         display: flex;
         flex-direction: column;
         padding: 15px;
+        width: 30%;
       }
 
       .mypage-side-menu > p:hover {
@@ -216,12 +231,6 @@ pageEncoding="UTF-8"%>
         align-items: center;
       }
 
-      .mypage-myGame-title {
-        margin: 50px 0;
-        font-size: 50px;
-        color: #f8faff;
-      }
-
       .mypage-myGameList {
         background-color: white;
         display: flex;
@@ -245,13 +254,7 @@ pageEncoding="UTF-8"%>
         height: 15%;
         display: flex;
       }
-      .mypage-myGameList .title {
-        flex: 3;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: larger;
-      }
+
       .mypage-myGameList .score {
         flex: 8;
         display: flex;
@@ -331,50 +334,55 @@ pageEncoding="UTF-8"%>
 
         <!-- main -->
         <main class="mypage-container">
-          <aside class="mypage-side-menu">
-            <p onclick="location.href='/views/mypage/mypage.jsp'">내정보 홈</p>
-            <p onclick="location.href='/selectMember.mypage'">개인정보관리</p>
-            <p onclick="location.href='/views/mypage/updatePW.jsp'">
-              비밀번호 변경
-            </p>
-            <p onclick="location.href='/mypageGameList.mypage'">
-              게임플레이 정보
-            </p>
-            <p onclick="location.href='/'">문의내역</p>
-            <p onclick="location.href='/views/mypage/deleteMember.jsp'">
-              회원탈퇴
-            </p>
-            <p
-              class="logout"
-              onclick="if(confirm('로그아웃을 하시겠습니까?')) { location.href='/logout.members'; }"
-            >
-              로그아웃
-            </p>
-          </aside>
+          <div class="mypage-myGame-title">게임플레이 정보</div>
+          <div class="aside-section-form" style="display: flex">
+            <aside class="mypage-side-menu">
+              <p onclick="location.href='/views/mypage/mypage.jsp'">
+                내정보 홈
+              </p>
+              <p onclick="location.href='/selectMember.mypage'">개인정보관리</p>
+              <p onclick="location.href='/views/mypage/updatePW.jsp'">
+                비밀번호 변경
+              </p>
+              <p onclick="location.href='/mypageGameList.mypage'">
+                게임플레이 정보
+              </p>
+              <p onclick="location.href='/'">문의내역</p>
+              <p onclick="location.href='/views/mypage/deleteMember.jsp'">
+                회원탈퇴
+              </p>
+              <p
+                class="logout"
+                onclick="if(confirm('로그아웃을 하시겠습니까?')) { location.href='/logout.members'; }"
+              >
+                로그아웃
+              </p>
+            </aside>
 
-          <section class="mypage-myGame-form">
-            <h1 class="mypage-myGame-title">게임 플레이 정보</h1>
-
-            <div class="mypage-myGameList">
-              <c:if test="${result == null}"> 플레이 한 게임이 없습니다. </c:if>
-              <c:if test="${result != null}">
-                <div>
-                  <c:forEach var="i" items="${result}">
-                    <div>
-                      <div class="title"><p>${i.title}</p></div>
-                      <div class="score">
-                        <p>
-                          최고점수 :
-                          <p class="score_txt">${i.score}</p>
-                          점
-                        </p>
+            <section class="mypage-myGame-form">
+              <div class="mypage-myGameList">
+                <c:if test="${result == null}">
+                  플레이 한 게임이 없습니다.
+                </c:if>
+                <c:if test="${result != null}">
+                  <div>
+                    <c:forEach var="i" items="${result}">
+                      <div>
+                        <div class="title"><p>${i.title}</p></div>
+                        <div class="score">
+                          <p>
+                            최고점수 :
+                            <p class="score_txt">${i.score}</p>
+                            점
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  </c:forEach>
-                </div>
-              </c:if>
-            </div>
-          </section>
+                    </c:forEach>
+                  </div>
+                </c:if>
+              </div>
+            </section>
+          </div>
         </main>
       </div>
       <!-- mode -->
