@@ -23,12 +23,12 @@ class Project extends Phaser.Scene{
         this.count=0;
 	}
     preload(){
-        this.load.image('background', '/phaser3_game/MshimaroJump/images/bg_layer1.png');
-		this.load.image('platform', '/phaser3_game/MshimaroJump/images/ground_grass.png');
-		this.load.image('bunny-stand', '/phaser3_game/MshimaroJump/images/bunny1_stand.png');
-		this.load.image('bunny-jump', '/phaser3_game/MshimaroJump/images/bunny1_jump.png');
-		this.load.image('carrot', '/phaser3_game/MshimaroJump/images/carrot.png');
-    	this.load.audio('jump', '/phaser3_game/MshimaroJump/images/sfx/phaseJump1.wav');
+        this.load.image('background', '/phaser3_game/MashimaroJump/images/bg_layer1.png');
+		this.load.image('platform', '/phaser3_game/MashimaroJump/images/ground_grass.png');
+		this.load.image('bunny-stand', '/phaser3_game/MashimaroJump/images/bunny1_stand.png');
+		this.load.image('bunny-jump', '/phaser3_game/MashimaroJump/images/bunny1_jump.png');
+		this.load.image('carrot', '/phaser3_game/MashimaroJump/images/carrot.png');
+    	this.load.audio('jump', '/phaser3_game/MashimaroJump/images/sfx/phaseJump1.wav');
 		this.cursor = this.input.keyboard.createCursorKeys();
     }
 
@@ -56,7 +56,7 @@ class Project extends Phaser.Scene{
         this.player.body.checkCollision.up = false;
 		this.player.body.checkCollision.left = false;
 		this.player.body.checkCollision.right = false;
-        
+        this.player.setGravityY(300);
 		this.cameras.main.startFollow(this.player);
 		this.cameras.main.setDeadzone(this.scale.width * 1.5);
 
@@ -97,6 +97,7 @@ class Project extends Phaser.Scene{
                 this.player.setVelocityX(0);
             }
             const onFloor = this.player.body.touching.down;
+            
             if(onFloor){
                 this.count=0;
             }
@@ -107,9 +108,9 @@ class Project extends Phaser.Scene{
             
             if (this.player.texture.key == 'bunny-stand'&&!onFloor)
             {
-                //this.player.setVelocityY(-300);
+                
                 this.player.setTexture('bunny-jump').setScale(0.2);
-                this.player.setSize(150/0.3, 150/0.3);
+                this.player.setSize(160/0.3, 160/0.3);
     
             }
             
