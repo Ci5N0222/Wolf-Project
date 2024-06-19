@@ -256,10 +256,12 @@ pageEncoding="UTF-8"%>
         height: 15%;
         display: flex;
         align-items: center;
+        margin-bottom: 20px;
       }
 
       .mypage-myGameList .title {
         flex: 3;
+        font-size: x-large;
       }
       .mypage-myGameList .score {
         flex: 8;

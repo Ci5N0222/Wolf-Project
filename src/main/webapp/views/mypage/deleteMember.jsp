@@ -237,6 +237,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         flex-direction: column;
         align-items: flex-start;
         /* margin-left: 150px; */
+        width: 100%;
       }
 
       .mypage-delete-innerBoard {
@@ -298,6 +299,31 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       li {
         color: white;
         margin-top: 3px;
+      }
+
+      @media (max-width: 1400px) {
+        .mypage-delete-innerBoard {
+          margin-left: 0;
+        }
+        .btn-box {
+          margin-left: 100px;
+        }
+      }
+
+      @media (max-width: 1100px) {
+        .mypage-side-menu {
+          display: none;
+        }
+        .mypage-delete-innerBoard {
+          /* margin-left: 70px; */
+          margin-left: 0;
+        }
+        .mypage-delete-form > div {
+          align-items: center;
+        }
+        /* .mypage-delete-notice {
+          margin-left: 70px;
+        } */
       }
 
       /* -- main과 동일 -- */
@@ -420,10 +446,10 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
               <div class="mypage-delete-notice">
                 <p>탈퇴 시 주의사항</p>
                 <ul>
-                  <li>탈퇴 후에는 동일한 아이디로 재가입이 불가능합니다.</li>
                   <li>
-                    진행 중인 주문 및 예약 내역이 있는 경우, 처리 후 탈퇴가
-                    가능합니다.
+                    게시글, 댓글 등 커뮤니티 활동 내역은 탈퇴 후에도 남아 있을
+                    수 있습니다. <br />
+                    삭제를 원하실 경우, 탈퇴 전에 직접 삭제해 주시기 바랍니다.
                   </li>
                   <li>탈퇴와 관련된 문의는 고객센터로 연락해 주세요.</li>
                 </ul>
