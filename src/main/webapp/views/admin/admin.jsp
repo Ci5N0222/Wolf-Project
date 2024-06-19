@@ -74,14 +74,14 @@
             	
             	<!-- 연령 대시보드 -->
             	<div class="dashboard-item">
-            		연령별 사용자수  <br />
+            		연령별 사용자수<br />
 	            	총 회원 수: ${ male + female } <br />
 	            	<div>
 						<canvas id="birthChart"></canvas>
 					</div>
 					
 					<script>
-						const birthLabels = ["10대", "20대", "30대", "40대", "50대", "60대"]
+						const birthLabels = ["10대 이하", "20대", "30대", "40대", "50대", "60대 이상"]
 						const birthChart = document.getElementById('birthChart');
 						new Chart(birthChart, {
 							type: 'bar',
@@ -89,7 +89,7 @@
 								 labels: birthLabels,
 								  datasets: [{
 								    label: '연령별 이용자 수',
-								    data: [65, 59, 80, 81, 56, 55, 40],
+								    data: [${ageList[0].membersCount}, ${ageList[1].membersCount}, ${ageList[2].membersCount}, ${ageList[3].membersCount}, ${ageList[4].membersCount}, ${ageList[5].membersCount}],
 								    backgroundColor: [
 								      'rgba(255, 99, 132, 0.2)',
 								      'rgba(255, 159, 64, 0.2)',

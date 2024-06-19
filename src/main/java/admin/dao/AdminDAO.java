@@ -7,6 +7,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import admin.dto.AdminDTO;
 import commons.DBConfig;
 import game.dto.GameDTO;
 import members.dto.MembersDTO;
@@ -21,6 +22,7 @@ public class AdminDAO {
 		if(instance == null) instance = new AdminDAO();
 		return instance;
 	}
+	
 	
 	/**
 	 * 총 회원수와 남자 회원의 회원수를 반환하는 메서드
@@ -39,8 +41,58 @@ public class AdminDAO {
 		}
 	}
 	
-	public void membersBirthCount() throws Exception {
-		String sql = "";
+	
+	/**
+	 * 연령별 회원의 수를 반환하는 메서드
+	 * @return
+	 * @throws Exception
+	 */
+	public List<AdminDTO.AdminAgeGroupDTO> membersAgeCount() throws Exception {
+		String sql = 
+			"WITH age_groups AS ( "
+					+ "SELECT '10대 이하' AS age FROM dual UNION ALL "
+					+ "SELECT '20대' FROM dual UNION ALL "
+					+ "SELECT '30대' FROM dual UNION ALL "
+					+ "SELECT '40대' FROM dual UNION ALL "
+					+ "SELECT '50대' FROM dual UNION ALL "
+					+ "SELECT '60대 이상' FROM dual) "
+			+"SELECT ag.age, COALESCE(count(m.birth), 0) AS members_count "
+			+"FROM "
+				+"age_groups ag "
+				+"LEFT JOIN ( "
+					+ "SELECT "
+						+ "CASE "
+							+ "WHEN to_char(sysdate, 'yyyy') - substr(birth, 1, 4) < 20 THEN '10대 이하' "
+							+ "WHEN to_char(sysdate, 'yyyy') - substr(birth, 1, 4) BETWEEN 20 AND 29 THEN '20대' "
+							+ "WHEN to_char(sysdate, 'yyyy') - substr(birth, 1, 4) BETWEEN 30 AND 39 THEN '30대' "
+							+ "WHEN to_char(sysdate, 'yyyy') - substr(birth, 1, 4) BETWEEN 40 AND 49 THEN '40대' "
+							+ "WHEN to_char(sysdate, 'yyyy') - substr(birth, 1, 4) BETWEEN 50 AND 59 THEN '50대' "
+							+ "ELSE '60대 이상' "
+						+ "END AS age, birth "
+					+ "FROM "
+						+ "MEMBERS "
+				+ ") m "
+				+ "ON ag.age = m.age "
+			+ "GROUP BY ag.age "
+			+ "ORDER BY ag.age ";
+		
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql);
+			ResultSet rs = pstat.executeQuery()){
+			
+			List<AdminDTO.AdminAgeGroupDTO> list = new ArrayList<>();
+			
+			while(rs.next()) {
+				String age = rs.getString("age");
+				int membersCount = rs.getInt("members_count");
+				
+				System.out.println(age + " : " + membersCount);
+				
+				list.add(new AdminDTO.AdminAgeGroupDTO(age, membersCount));
+			}
+			
+			return list;
+		}
 	}
 	
 	
