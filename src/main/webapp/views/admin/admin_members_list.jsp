@@ -46,6 +46,7 @@
 					</div>
 				</div>
 				
+             	<div class="admin-members-list">
 				<c:if test="${membersList.size() > 0}">
 					<table>
 						<tr>
@@ -79,14 +80,14 @@
 				 			</tr>
 			 			</c:forEach>
 					</table>
-					<div class="page-navigation"></div>
-					<script>
-						/** 페이징 네이게이터 **/
-						pagenation(${cpage}, ${recode_total_count}, ${recode_count_per_page}, ${navi_count_per_page}, "/members_list.admin", "${wpageName}", ${wpage});
-					</script>
 				</c:if>
+				</div>
+				<div class="page-navigation"></div>
+				<script>
+					/** 페이징 네이게이터 **/
+					pagenation(${cpage}, ${recode_total_count}, ${recode_count_per_page}, ${navi_count_per_page}, "/members_list.admin", "${wpageName}", ${wpage});
+				</script>
 			</div>
-	          <!-- 멤버 검색 -->
         </section>
 
     </main>

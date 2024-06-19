@@ -72,15 +72,13 @@
 	             			</tr>
 	             		</c:forEach>
              		</table>
-             		<div class="page-navigation"></div>
-             		<script>
-             			pagenation(${cpage}, ${recode_total_count}, ${recode_count_per_page}, ${navi_count_per_page}, "/game_list.admin", "${wpageName}", ${wpage});
-             		</script>
              	</c:if>
              </div>
+             <div class="page-navigation"></div>
+     		 <script>
+     		 	 pagenation(${cpage}, ${recode_total_count}, ${recode_count_per_page}, ${navi_count_per_page}, "/game_list.admin", "${wpageName}", ${wpage});
+     		 </script>
         </div>
-        	
-             <!-- 멤버 검색 -->
         </section>
 
     </main>
