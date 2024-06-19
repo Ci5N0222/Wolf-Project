@@ -15,6 +15,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import admin.dao.AdminDAO;
+import admin.dto.AdminDTO;
 import commons.EncryptionUitls;
 import commons.PageConfig;
 import game.dto.GameDTO;
@@ -54,6 +55,8 @@ public class AdminController extends HttpServlet {
 					request.setAttribute("female", (genderCount[0] - genderCount[1]));
 					
 					// 2. 연령별 비율 대시보드
+					List<AdminDTO.AdminAgeGroupDTO> ageList = dao.membersAgeCount();
+					request.setAttribute("ageList", ageList);
 					
 					request.getRequestDispatcher("/views/admin/admin.jsp").forward(request, response);
 				}
@@ -267,7 +270,7 @@ public class AdminController extends HttpServlet {
 					
 					int seq = dao.adminGameInsert(title, discription, contents, oriname);
 					if(seq > 0) {
-						imagesDAO.adminGameThumbnailInsert(oriname, sysname, image_code, seq);
+						imagesDAO.GameThumbnailInsert(oriname, sysname, image_code, seq);
 						response.sendRedirect("/game_list.admin");
 					}
 				}
@@ -298,24 +301,21 @@ public class AdminController extends HttpServlet {
 					String oriname = multi.getOriginalFileName("game_image");
 					String sysname = multi.getFilesystemName("game_image");
 					
-					System.out.println("oriname === " + oriname);
-
 					int result = dao.adminGameUpdate(Integer.parseInt(seq), title, discription, contents, oriname, service);
 					if(result > 0) {
 						if(sysname != null) {
-							imagesDAO.adminGameThumbnailInsert(oriname, sysname, image_code, Integer.parseInt(seq));
-						}
-					}
-					
-					// 서버에 저장된 이미지 삭제
-					if(sysname != null) {
-						String beforSysname = multi.getParameter("before_thumbnail");
-						String[] beforeArr = beforSysname.split("/");
-						String before = beforeArr[beforeArr.length-1];
+							
+							imagesDAO.GameThumbnailDelete(image_code, Integer.parseInt(seq));
+							imagesDAO.GameThumbnailInsert(oriname, sysname, image_code, Integer.parseInt(seq));
+							
+							String beforSysname = multi.getParameter("before_thumbnail");
+							String[] beforeArr = beforSysname.split("/");
+							String before = beforeArr[beforeArr.length-1];
 
-						File fileToDelete = new File(uploadPath, before);
-						if(fileToDelete.exists()) {
-							fileToDelete.delete();
+							File fileToDelete = new File(uploadPath, before);
+							if(fileToDelete.exists()) {
+								fileToDelete.delete();
+							}
 						}
 					}
 					
