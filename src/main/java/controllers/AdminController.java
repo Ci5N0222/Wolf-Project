@@ -15,6 +15,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import admin.dao.AdminDAO;
+import admin.dto.AdminDTO;
 import commons.EncryptionUitls;
 import commons.PageConfig;
 import game.dto.GameDTO;
@@ -54,6 +55,8 @@ public class AdminController extends HttpServlet {
 					request.setAttribute("female", (genderCount[0] - genderCount[1]));
 					
 					// 2. 연령별 비율 대시보드
+					List<AdminDTO.AdminAgeGroupDTO> ageList = dao.membersAgeCount();
+					request.setAttribute("ageList", ageList);
 					
 					request.getRequestDispatcher("/views/admin/admin.jsp").forward(request, response);
 				}
