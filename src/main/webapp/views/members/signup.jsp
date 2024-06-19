@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>login</title>
+<title>회원가입</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -530,8 +530,7 @@ button {
 
 					<label for="birth" id="birth1">생년월일</label>
 					<div class="form-group">
-						<input type="text" class="form-control" id="birth" name="birth"
-							placeholder="YYYYMMDD">
+						<input type="text" class="form-control" id="birth" name="birth">
 					</div>
 
 					<button type="submit" id="enterbtn">가입하기</button>
