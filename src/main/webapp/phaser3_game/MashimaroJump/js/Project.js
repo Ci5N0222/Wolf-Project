@@ -103,7 +103,7 @@ class Project extends Phaser.Scene{
                 this.count=0;
             }
             if(Phaser.Input.Keyboard.JustDown(this.cursor.space)&&this.count<2){
-                this.player.setVelocityY(-250);
+                this.player.setVelocityY(-300);
                 this.count++;
             }
 
