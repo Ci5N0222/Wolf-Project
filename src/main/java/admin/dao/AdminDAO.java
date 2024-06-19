@@ -77,20 +77,27 @@ public class AdminDAO {
 	
 	
 	/**
-	 * 총 회원수를 반환하는 메서드
+	 * 회원수를 반환하는 메서드
 	 * @return
 	 * @throws Exception
 	 */
-	public int getMemberTotalCount() throws Exception {
-		String sql ="select count(*) from members where grade not in (98, 99)";
+	public int getMemberTotalCount(int param) throws Exception {
+		String sql ="";
+		if(param == 0) {
+			sql = "select count(*) from members";
+		} else {
+			sql = "select count(*) from members where grade = ?";
+		}
 		
 		try(Connection con = DBConfig.getConnection();
-			PreparedStatement pstat = con.prepareStatement(sql);
-			ResultSet rs = pstat.executeQuery()){
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			if(param != 0) pstat.setInt(1, param);
 			
-			rs.next();
-			
-			return rs.getInt(1);
+			try(ResultSet rs = pstat.executeQuery()){
+				rs.next();
+				
+				return rs.getInt(1);
+			}
 		}
 	}
 	
@@ -100,13 +107,24 @@ public class AdminDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<MembersDTO> getMemberList(int start, int end) throws Exception {
-		String sql = "select * from (select members.*, row_number() over(order by join_date desc) rown from members) where rown between ? and ?";
+	public List<MembersDTO> getMemberList(int memberGrade, int start, int end) throws Exception {
+		String sql = "";
+		if(memberGrade == 0) {
+			sql = "select * from (select members.*, row_number() over(order by join_date desc) rown from members) where rown between ? and ?";
+		} else {
+			sql = "select * from (select members.*, row_number() over(order by join_date desc) rown from members where grade = ?) where rown between ? and ?";
+		}
 		
 		try(Connection con = DBConfig.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql)){
-			pstat.setInt(1, start);
-			pstat.setInt(2, end);
+			if(memberGrade != 0) {
+				pstat.setInt(1, memberGrade);
+				pstat.setInt(2, start);
+				pstat.setInt(3, end);
+			} else {
+				pstat.setInt(1, start);
+				pstat.setInt(2, end);
+			}
 			
 			try (ResultSet rs = pstat.executeQuery()){
 				List<MembersDTO> list = new ArrayList<>();
@@ -121,7 +139,6 @@ public class AdminDAO {
 					String birth = rs.getString("birth");
 					int grade = rs.getInt("grade");
 					Timestamp join_date = rs.getTimestamp("join_date");
-					
 					list.add(new MembersDTO(id, null, name, nickname, phone, email,gender, birth, grade, null, join_date));
 				}
 				
@@ -247,17 +264,26 @@ public class AdminDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	public int getGameTotalCount() throws Exception {
-		String sql ="select count(*) from game";
+	public int getGameTotalCount(int param) throws Exception {
+		String sql ="";
+		if(param == 9) {
+			sql = "select count(*) from game";
+		} else {
+			sql = "select count(*) from game where service_code = ?";
+		}
 		
 		try(Connection con = DBConfig.getConnection();
-			PreparedStatement pstat = con.prepareStatement(sql);
-			ResultSet rs = pstat.executeQuery()){
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			if(param != 9) pstat.setInt(1, param);
 			
-			rs.next();
-			return rs.getInt(1);
+			try(ResultSet rs = pstat.executeQuery()){
+				rs.next();
+				
+				return rs.getInt(1);
+			}
 		}
 	}
+	
 	
 
 	/**
@@ -267,13 +293,24 @@ public class AdminDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<GameDTO> getGameList(int start, int end) throws Exception {
-		String sql = "select * from (select game.*, row_number() over(order by seq) rown from game) where rown between ? and ?";
+	public List<GameDTO> getGameList(int gameService, int start, int end) throws Exception {
+		String sql = "";
+		if(gameService == 9) {
+			sql = "select * from (select game.*, row_number() over(order by seq) rown from game) where rown between ? and ?";
+		} else {
+			sql = "select * from (select game.*, row_number() over(order by seq) rown from game where service_code = ?) where rown between ? and ?";
+		}
 		
 		try(Connection con = DBConfig.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql)){
-			pstat.setInt(1, start);
-			pstat.setInt(2, end);
+			if(gameService != 9) {
+				pstat.setInt(1, gameService);
+				pstat.setInt(2, start);
+				pstat.setInt(3, end);
+			} else {
+				pstat.setInt(1, start);
+				pstat.setInt(2, end);
+			}
 			
 			try(ResultSet rs = pstat.executeQuery()){
 				List<GameDTO> list = new ArrayList<>();

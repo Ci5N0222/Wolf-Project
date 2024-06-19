@@ -96,7 +96,11 @@ public class AdminController extends HttpServlet {
 					if(pcpage == null) pcpage = "1";
 					int cpage = Integer.parseInt(pcpage);
 					
+					String grade = request.getParameter("grade");
+					if(grade == null) grade = "0";
+					
 					List<MembersDTO> membersList = dao.getMemberList(
+							Integer.parseInt(grade),
 							cpage * PageConfig.recordCountPerPage - (PageConfig.recordCountPerPage - 1),
 							cpage * PageConfig.recordCountPerPage);
 					
@@ -104,9 +108,13 @@ public class AdminController extends HttpServlet {
 					
 					/** 페이징 **/
 					request.setAttribute("cpage", cpage);
-					request.setAttribute("recode_total_count", dao.getMemberTotalCount());
+					request.setAttribute("recode_total_count", dao.getMemberTotalCount(Integer.parseInt(grade)));
 					request.setAttribute("recode_count_per_page", PageConfig.recordCountPerPage);
 					request.setAttribute("navi_count_per_page", PageConfig.naviCountPerPage);
+					
+					request.setAttribute("wpageName", "grade");
+					request.setAttribute("wpage", Integer.parseInt(grade));
+					
 					
 					request.getRequestDispatcher("views/admin/admin_members_list.jsp").forward(request, response);
 				}
@@ -119,7 +127,6 @@ public class AdminController extends HttpServlet {
 				else {
 					
 					String id = request.getParameter("id");
-					System.out.println("id ===" + id);
 					
 					String pcpage = request.getParameter("cpage");
 					if(pcpage == null) pcpage = "1";
@@ -183,7 +190,11 @@ public class AdminController extends HttpServlet {
 					if(pcpage == null) pcpage = "1";
 					int cpage = Integer.parseInt(pcpage);
 					
+					String service = request.getParameter("service");
+					if(service == null) service = "9";
+					
 					List<GameDTO> gameList = dao.getGameList(
+							Integer.parseInt(service),
 							cpage * PageConfig.recordCountPerPage - (PageConfig.recordCountPerPage - 1),
 							cpage * PageConfig.recordCountPerPage);
 					for(GameDTO dto: gameList) {
@@ -197,9 +208,12 @@ public class AdminController extends HttpServlet {
 					
 					/** 페이징 **/
 					request.setAttribute("cpage", cpage);
-					request.setAttribute("recode_total_count", dao.getGameTotalCount());
+					request.setAttribute("recode_total_count", dao.getGameTotalCount(Integer.parseInt(service)));
 					request.setAttribute("recode_count_per_page", PageConfig.recordCountPerPage);
 					request.setAttribute("navi_count_per_page", PageConfig.naviCountPerPage);
+					
+					request.setAttribute("wpageName", "service");
+					request.setAttribute("wpage", Integer.parseInt(service));
 					
 					request.getRequestDispatcher("/views/admin/admin_game_list.jsp").forward(request, response);
 				}

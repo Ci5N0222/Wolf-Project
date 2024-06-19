@@ -2,7 +2,21 @@
 $(() => {
 	var pathname = window.location.pathname;
 	
-	// 이미지 미리보기
+	// Admin members list select bar
+	if(pathname === "/members_list.admin"){
+		const searchParams = new URLSearchParams(window.location.search);
+    	const grade = searchParams.get('grade');
+    	if(grade !== null) $("#members-id-select").val(grade);
+	}
+	
+	// Admin game list select bar
+	if(pathname === "/game_list.admin"){
+		const searchParams = new URLSearchParams(window.location.search);
+    	const service = searchParams.get('service');
+    	if(service !== null) $("#game-service-select").val(service);
+	}
+	
+	// Admin game insert, detail 이미지 미리보기
 	if(pathname === "/page_game_insert.admin" || pathname === "/game_detail.admin"){
         $("#admin_game_thumbnail").on("change", (e) => {
             const file = e.target.files[0];
@@ -25,7 +39,6 @@ $(() => {
 			}
         });
     }
-    
     
     // Game Insert Validation
     $("#admin_game_insert").on("submit", () => {
@@ -77,54 +90,13 @@ $(() => {
 	
 	// Game list select bar
 	$("#game-service-select").on("change", () => {
-		if($("#game-service-select").val() === "1"){
-			$(".admin-game-list-service-ing").parent().show();
-			$(".admin-game-list-service-stop").parent().hide();
-			
-		} else if ($("#game-service-select").val() === "2"){
-			$(".admin-game-list-service-ing").parent().hide();
-			$(".admin-game-list-service-stop").parent().show();
-		} else {
-			location.href="/game_list.admin";
-			
-		}
+		
+		location.href="/game_list.admin?service=" + $("#game-service-select").val();
 	});
 	
 	// Memeber list select bar
 	$("#members-id-select").on("change", () => {
-		if($("#members-id-select").val() === "1"){
-			$(".member-select-noraml").parent().show();
-			$(".member-select-dormant").parent().hide();
-			$(".member-select-black").parent().hide();
-			$(".member-select-sub-manager").parent().hide();
-			$(".member-select-main-manager").parent().hide();
-		} else if($("#members-id-select").val() === "2"){
-			$(".member-select-noraml").parent().hide();
-			$(".member-select-dormant").parent().show();
-			$(".member-select-black").parent().hide();
-			$(".member-select-sub-manager").parent().hide();
-			$(".member-select-main-manager").parent().hide();
-		} else if($("#members-id-select").val() === "3"){
-			$(".member-select-noraml").parent().hide();
-			$(".member-select-dormant").parent().hide();
-			$(".member-select-black").parent().show();
-			$(".member-select-sub-manager").parent().hide();
-			$(".member-select-main-manager").parent().hide();
-		} else if($("#members-id-select").val() === "98"){
-			$(".member-select-noraml").parent().hide();
-			$(".member-select-dormant").parent().hide();
-			$(".member-select-black").parent().hide();
-			$(".member-select-sub-manager").parent().show();
-			$(".member-select-main-manager").parent().hide();
-		} else if($("#members-id-select").val() === "99"){
-			$(".member-select-noraml").parent().hide();
-			$(".member-select-dormant").parent().hide();
-			$(".member-select-black").parent().hide();
-			$(".member-select-sub-manager").parent().hide();
-			$(".member-select-main-manager").parent().show();
-		} else {
-			location.href="/members_list.admin";
-		}
+		location.href="/members_list.admin?grade=" + $("#members-id-select").val();
 	});
 	 
 });
@@ -228,7 +200,7 @@ const adminGameDelete = (seq) => {
 // ====================================== [ 공 통 ] ===========================================
 
 /** 페이지 네비게이션 함수 **/
-const pagenation = (cpage, recordTotalCount, recordCountPerPage, naviCountPerPage, url) => {
+const pagenation = (cpage, recordTotalCount, recordCountPerPage, naviCountPerPage, url, wpageName, wpage) => {
 	
 	// 총 페이지 수
 	let pageTotalCount = 0;
@@ -250,22 +222,22 @@ const pagenation = (cpage, recordTotalCount, recordCountPerPage, naviCountPerPag
 	if(endNavi == pageTotalCount) needNext = false;
 	
 	if(needPrev){
-		let prev = `<a href='${url}?cpage=${(startNavi - 1)}'> < </a>`;
+		let prev = `<a href='${url}?${wpageName}=${wpage}&cpage=${(startNavi - 1)}'> < </a>`;
 		$('.page-navigation').append(prev);
 	}
 	
 	for(let i = startNavi; i <= endNavi; i++){
 		if(cpage === i){
-			let items = `<a href='${url}?cpage=${i}'> ${i} </a>`;
+			let items = `<a href='${url}?${wpageName}=${wpage}&cpage=${i}'> ${i} </a>`;
     		$('.page-navigation').append(items);
 		} else {
-			let items = `<a href='${url}?cpage=${i}'> ${i} </a>`;
+			let items = `<a href='${url}?${wpageName}=${wpage}&cpage=${i}'> ${i} </a>`;
     		$('.page-navigation').append(items);	
 		}
 	}
 	
 	if(needNext) {
-		let next = `<a href='${url}?cpage=${(endNavi + 1)}'> > </a>`;
+		let next = `<a href='${url}?${wpageName}=${wpage}&cpage=${(endNavi + 1)}'> > </a>`;
 		$('.page-navigation').append(next);
 	}
 	
