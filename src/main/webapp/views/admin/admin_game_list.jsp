@@ -34,7 +34,7 @@
         	<div class="admin-game-insert-btn">
 	        	<select id="game-service-select">
         			<option value="9">전체 목록</option>
-        			<option value="1">서비 중 </option>
+        			<option value="1">서비스 중 </option>
         			<option value="0">서비스 정지</option>
         		</select>
         		<button onclick="location.href='/page_game_insert.admin'">게임 추가</button>
@@ -43,12 +43,14 @@
              	<c:if test="${gameList.size() > 0}">
              		<table>
              			<tr>
-             				<th>Thumbnail</th>
-             				<th>Title</th>
-             				<th>Service</th>
+             				<th>ID</th>
+             				<th>대표이미지</th>
+             				<th>제목</th>
+             				<th>서비스 유무</th>
              			</tr>
 	             		<c:forEach var="games" items="${gameList}">
 	             			<tr>
+	             				<td>${games.seq}</td>
 	             				<c:choose>
 				        			<c:when test="${games.thumbnail != 'none'}">
 				        				<td><img src="/${games.thumbnail}" alt="게임 섬네일 이미지"></td>

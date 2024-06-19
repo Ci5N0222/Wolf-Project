@@ -3,6 +3,7 @@ package admin.dto;
 public class AdminDTO {
 	
 	public static class AdminAgeGroupDTO{
+		
 		private String age;
 		private int membersCount;
 		
