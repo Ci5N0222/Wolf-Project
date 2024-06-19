@@ -48,6 +48,11 @@
 			<script src="/phaser3_game/MashimaroJump/js/Project.js"></script>
 			<script src="/phaser3_game/MashimaroJump/js/GameOver.js"></script>
 		</c:when>
+		<c:when test="${seq == 11 }">
+			<script src="/phaser3_game/spaceflight/js/StartScene.js"></script>
+			<script src="/phaser3_game/spaceflight/js/Game.js"></script>
+			<script src="/phaser3_game/spaceflight/js/GameOver.js"></script>
+		</c:when>
 	</c:choose>
 	
 
