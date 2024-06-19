@@ -5,7 +5,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>정보수정</title>
+    <title>비밀번호 변경</title>
 
     <!-- 부트스트랩 -->
     <link
@@ -256,6 +256,13 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         padding-bottom: 60px;
       }
 
+      input[type="password"] {
+        width: 400px;
+        height: 40px;
+        padding-left: 10px;
+        margin-bottom: 30px;
+      }
+
       .updatePW-board label {
         display: flex;
         margin-bottom: 10px;
@@ -345,7 +352,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
         <!-- main -->
         <main class="mypage-select-container">
-          <div class="mypage-updatePW-title">내 정보</div>
+          <div class="mypage-updatePW-title">비밀번호 변경</div>
           <div class="aside-section-form" style="display: flex">
             <aside class="mypage-side-menu">
               <p onclick="location.href='/views/mypage/mypage.jsp'">
@@ -358,7 +365,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
               <p onclick="location.href='/mypageGameList.mypage'">
                 게임플레이 정보
               </p>
-              <p onclick="location.href='/'">문의내역</p>
+              <p onclick="location.href='/myList.mypage'">문의내역</p>
               <p onclick="location.href='/views/mypage/deleteMember.jsp'">
                 회원탈퇴
               </p>
