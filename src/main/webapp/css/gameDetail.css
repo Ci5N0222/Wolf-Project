@@ -104,6 +104,7 @@ body.light {
 }
 
 /* 메뉴 */
+.wolf {display: none;}
 .navi {
 	z-index: 5;
 	height: 10%;
@@ -301,9 +302,6 @@ body.light {
 
 /* 모바일 */
 @media all and (max-width: 767px) {
-	#wolfLogo {
-		display: none;
-	}
 
 	.main>.datail {
 		padding: 20px;
@@ -362,6 +360,45 @@ body.light {
 	.main>.datail>div:last-child div {
 		padding: 20px;
 	}
+	
+	/* 메뉴 */
+	.container-fluid {padding: 0;}
+	.container{padding: 0}
+	.navi {
+		display: flex;
+		align-items: center;
+		background-color: var(--bg-nav);
+		padding: 0 3%;
+		font-size: 1rem;
+		color: var(--color-white);
+		text-shadow: 1px 1px 1px gray;
+		letter-spacing: 1px;
+		margin: 0;
+		border-radius: 0;
+		height: 10%; width: 100%; 
+		overflow: hidden;
+	}
+
+	.navi i {
+		font-size: 1rem;
+	}
+
+	.navi>div {
+		margin-top: 0;
+		
+	}
+	.navi > div:nth-child(1) {width: 70%; padding-right: 0;}
+	.navi > div:nth-child(2) {width: 20%; height: 100%;padding: 0;}
+	.navi > div:nth-child(2) #wolfLogo, .navi > div:nth-child(2) #wolf {display: flex;flex-direction: column;align-items: start;justify-content: center;}
+	.navi > div:nth-child(2) #wolfLogo img{
+		display: none;
+    }
+	.navi .wolf{
+		display: block;
+    }
+
+	.navi>div:nth-child(3) {width: 10%;}
+
 }
 
 
