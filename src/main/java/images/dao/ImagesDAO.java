@@ -170,7 +170,7 @@ public class ImagesDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	public int adminGameThumbnailInsert(String oriName, String sysName, int path, int seq) throws Exception {
+	public int GameThumbnailInsert(String oriName, String sysName, int path, int seq) throws Exception {
 		String sql = "insert into images values(images_seq.nextval, ?, ?, ?, ?, null)";
 		
 		try(Connection con = DBConfig.getConnection();
@@ -179,6 +179,26 @@ public class ImagesDAO {
 			pstat.setString(2, sysName);
 			pstat.setInt(3, path);
 			pstat.setInt(4, seq);
+			
+			return pstat.executeUpdate();
+		}
+	}
+	
+	
+	/**
+	 * 게임 섬네일을 삭제하는 메서드
+	 * @param imageCode
+	 * @param parentSeq
+	 * @return
+	 * @throws Exception
+	 */
+	public int GameThumbnailDelete(int imageCode, int parentSeq) throws Exception {
+		String sql = "delete from images where image_code = ? and parent_seq = ?";
+		
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setInt(1, imageCode);
+			pstat.setInt(2, parentSeq);
 			
 			return pstat.executeUpdate();
 		}

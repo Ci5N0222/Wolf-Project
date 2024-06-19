@@ -2,6 +2,7 @@
 <div class="row g-4 my-0 navi">
     <div class="col-4 d-flex justify-content-start">
         <div class="d-flex flex-row">
+        	<div class="me-3 naviBtn wolf" onclick="location.href='/index.jsp'">Home</div>
             <div class="me-3 naviBtn" onclick="location.href='/list.game'">Game</div>
             <div class="me-3 naviBtn" onclick="location.href='/list.board'">Board</div>
             <div class="naviBtn">About</div>
