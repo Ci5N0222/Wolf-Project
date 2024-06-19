@@ -37,11 +37,12 @@ body.light {
 .navi {
 	transition: background-color 0.5s ease, box-shadow 0.5s ease;
 }
+.wolf {display: none;}
 
 /* img */
 .img_bg {
 	position: absolute;
-	top: -60%;
+	top: 0%;
 	left: 0;
 	width: 100%;
 	object-fit: cover;
@@ -54,7 +55,8 @@ body.light {
 }
 
 .bgs:nth-child(1) {
-	top: 15%;
+	top: 20%;
+	background-color: #eee;
 	left: 80%;
 }
 
@@ -70,9 +72,9 @@ body.light {
 }
 
 .bgs:nth-child(4) {
-	top: 27%;
-	left: 70%;
-	width: 20px;
+	top: 20%;
+	left: 40%;
+	width: 30px;
 }
 
 .bgs:nth-child(5) {
@@ -101,8 +103,11 @@ body.light {
 .main {
 	height: 100%;
 }
+
 /* 메뉴 */
-.wolf {display: none;}
+.wolf {
+	display: none;
+}
 .navi {
 	z-index: 5;
 	height: 10%;
@@ -171,8 +176,8 @@ body.light {
 .naviBtn:hover {
 	opacity: 0.5;
 }
-/* -- main과 동일 -- */
 
+/* -- main과 동일 -- */
 
 
 
@@ -180,68 +185,252 @@ body.light {
 /* main */
 .main {
 	height: 90%;
+	z-index: 10;
+}
+
+.main>.datail {
+	padding: 20px;
+	width: 100%;
+	height: 100%;
 	display: flex;
-	align-items: center;
 	justify-content: center;
+	align-items: center;
 }
 
-.main>div {
-	display: flex;
-	width: 1200px;
-	height: 500px;
-}
-
-.main>div .game {
-	width: 1000px;
-	height: 100%;
-	
-}
-
-.main>div .ranking {
-	margin-left: 20px;
-	width: 200px;
-	height: 100%;
-	background-color: var(--bg-nav);
-	border-radius: 5px;
-}
-
-.main>div .ranking>div:first-child {
-	height: 50px;
-	line-height: 50px;
-	letter-spacing: 5px;
-}
-
-.main>div .ranking>div:last-child {
-	height: 450px;
+.main>.datail>div {
 	display: flex;
 	flex-direction: column;
-}
-
-.main>div .ranking>div:last-child>div {
-	flex: 1;
-	background-color: #eeeeee;
-	height: 150px;
 	border-radius: 5px;
+	flex: 1;
+	height: 700px;
 }
 
-.main>div .ranking>div:last-child>div>div:nth-child(1) {
+.main>.datail>div:first-child {
+	border: 1px solid #eeeeee32;
+}
+
+.main>.datail>div:first-child>div:first-child {
+	padding: 20px;
+	height: 600px;
+}
+
+.main>.datail>div:first-child>div:first-child img {
+	width: 100%;
+	height: 100%;
+	border-radius: 5px;
+	object-fit: cover;
+	background-color: #ccc;
+}
+
+.main>.datail>div:first-child>div:last-child {
+	flex: 1;
 	height: 100px;
-	border-top: 1px solid #f9a620;
+	line-height: 80px;
 }
 
-.main>div .ranking>div:last-child>div>div:nth-child(2) {
-	height: 25px;
-	border-top: 1px solid #f9a620;
+.main>.datail>div:last-child {
+	background-color: #eeeeee32;
+	color: white;
+	text-align: left;
 }
 
-.main>div .ranking>div:last-child>div>div:nth-child(3) {
-	height: 25px;
+.main>.datail>div:last-child div {
+	padding: 20px;
 }
 
-.main>div .ranking>div:last-child>div>div img {
-	width: 100px;
-	height: 100px;
-	object-fit: contain;
+
+
+
+/* 테블릿 가로, 테블릿 세로 (해상도 768px ~ 1023px)*/
+@media all and (min-width:768px) and (max-width: 1023px) {
+	.main>.datail {
+		padding: 20px;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.main>.datail>div {
+		display: flex;
+		flex-direction: column;
+		border-radius: 5px;
+		flex: 1;
+		height: 400px;
+		width: 500px;
+	}
+
+	.main>.datail>div:first-child {
+		border: 1px solid #eeeeee32;
+		;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.main>.datail>div:first-child>div:first-child {
+		padding: 20px;
+		flex: 1;
+		height: 300px;
+	}
+
+	.main>.datail>div:first-child>div:first-child img {
+		width: 100%;
+		height: 100%;
+		border-radius: 5px;
+		object-fit: cover;
+		background-color: #ccc;
+	}
+
+	.main>.datail>div:first-child>div:last-child {
+		flex: 1;
+		height: 100px;
+		line-height: 80px;
+	}
+
+	.main>.datail>div:last-child {
+		height: 400px;
+		background-color: #eeeeee32;
+		display: flex;
+		flex-direction: column;
+		color: white;
+		text-align: left;
+	}
+
+	.main>.datail>div:last-child div {
+		padding: 20px;
+	}
+}
+
+/* 모바일 */
+@media all and (max-width: 767px) {
+	/* #wolfLogo {
+		display: none;
+	} */
+
+	.main>.datail {
+		font-size: 1rem;
+		padding: 30px;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.main>.datail>div {
+		display: flex;
+		flex-direction: column;
+		border-radius: 5px;
+		flex: 1;
+		height: 50%;
+		width: 100%;
+	}
+
+	.main>.datail>div:first-child {
+		border: 1px solid #eeeeee32;
+		;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.main>.datail>div:first-child>div:first-child {
+		padding: 20px;
+		flex: 1;
+		width: 100%;
+		height: 85%;
+	}
+
+	.main>.datail>div:first-child>div:first-child img {
+		width: 100%;
+		height: 100%;
+		border-radius: 5px;
+		object-fit: cover;
+		background-color: #ccc;
+	}
+	.main>.datail>div:first-child> form{background-color: #eee; height: 15%;}
+	.main>.datail>div:first-child> form div:last-child {
+		height: 100%;
+		display: flex;justify-content: center;align-items: center;
+		/* background-color: #f9a620; */
+	}
+
+	.main>.datail>div:last-child {
+		background-color: #eeeeee32;
+		display: flex;
+		flex-direction: column;
+		color: white;
+		text-align: left;
+		margin-top: 5px;
+	}
+
+		/* 메뉴 */
+	.container-fluid {
+		padding: 0;
+	}
+
+	.container {
+		padding: 0
+	}
+
+	.navi {
+		display: flex;
+		align-items: center;
+		background-color: var(--bg-nav);
+		padding: 0 3%;
+		font-size: 1rem;
+		color: var(--color-white);
+		text-shadow: 1px 1px 1px gray;
+		letter-spacing: 1px;
+		margin: 0;
+		border-radius: 0;
+		height: 10%;
+		width: 100%;
+		overflow: hidden;
+	}
+
+	.navi i {
+		font-size: 1rem;
+	}
+
+	.navi>div {
+		margin-top: 0;
+
+	}
+
+	.navi>div:nth-child(1) {
+		width: 70%;
+		padding-right: 0;
+	}
+
+	.navi>div:nth-child(2) {
+		width: 20%;
+		height: 100%;
+		padding: 0;
+	}
+
+	.navi>div:nth-child(2) #wolfLogo,
+	.navi>div:nth-child(2) #wolf {
+		display: flex;
+		flex-direction: column;
+		align-items: start;
+		justify-content: center;
+	}
+
+	.navi>div:nth-child(2) #wolfLogo img {
+		display: none;
+	}
+
+	.navi .wolf {
+		display: block;
+	}
+
+	.navi>div:nth-child(3) {
+		width: 10%;
+	}
+	
 }
 
 
@@ -254,6 +443,7 @@ body.light {
 #mode {
 	cursor: pointer;
 	position: absolute;
+	z-index: 0;
 	bottom: 5%;
 	right: 5%;
 	background-color: var(--bg-dark);
