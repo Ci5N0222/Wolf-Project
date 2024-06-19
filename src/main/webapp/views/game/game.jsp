@@ -68,9 +68,7 @@
 			<!-- main -->
 			<main class="main">
 				<div>
-					<div class="game" id="game_play_form">
-						게임 화면${seq}<br />
-					</div>
+					<div class="game" id="game_play_form"></div>
 					<div class="ranking">
 						<div>ranking</div>
 						<div>
