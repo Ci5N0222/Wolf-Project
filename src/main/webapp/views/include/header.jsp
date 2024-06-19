@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!-- nav -->
 <div class="row g-4 my-0 navi">
     <div class="col-4 d-flex justify-content-start">

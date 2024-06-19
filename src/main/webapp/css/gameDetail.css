@@ -350,7 +350,7 @@ body.light {
 		object-fit: cover;
 		background-color: #ccc;
 	}
-	.main>.datail>div:first-child> form{background-color: #eee; height: 15%;}
+	.main>.datail>div:first-child> form{height: 15%;}
 	.main>.datail>div:first-child> form div:last-child {
 		height: 100%;
 		display: flex;justify-content: center;align-items: center;
