@@ -525,18 +525,27 @@ pageEncoding="UTF-8"%>
                   <div>
                     <div class="dashboard-inner_box">
                       <div>
-                        <div></div>
+                        <div style="overflow: hidden">
+                          <img
+                            src=""
+                            alt=""
+                            id="avatar_img"
+                            style="width: 100%; height: 100%"
+                          />
+                        </div>
                         <div>
                           <p>${WolfNickname} 님 환영합니다.</p>
                         </div>
                       </div>
                       <div>
-                        <button
-                          class="mypage_btn"
-                          onclick="location.href='/selectMember.mypage'"
-                        >
-                          내 정보
-                        </button>
+                        <div style="flex: 1">
+                          <button
+                            class="mypage_btn"
+                            onclick="location.href='/selectMember.mypage'"
+                          >
+                            내 정보
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -556,7 +565,11 @@ pageEncoding="UTF-8"%>
                     <div>
                       <div class="dashboard-inner_box">
                         <div><p>문의내역</p></div>
-                        <div><button onclick="location.href='/myList.mypage'">바로가기</button></div>
+                        <div>
+                          <button onclick="location.href='/myList.mypage'">
+                            바로가기
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -605,5 +618,13 @@ pageEncoding="UTF-8"%>
       crossorigin="anonymous"
     ></script>
     <script src="js/main.js"></script>
+    <script>
+      $.ajax({
+        url: "/updateAvatar.mypage",
+        type: "post",
+      }).done(function (resp) {
+        $("#avatar_img").attr("src", resp);
+      });
+    </script>
   </body>
 </html>

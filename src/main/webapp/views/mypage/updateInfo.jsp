@@ -120,6 +120,8 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       .container,
       .main {
         height: 100%;
+        position: relative;
+        z-index: 100;
       }
       /* 메뉴 */
       .navi {
@@ -451,18 +453,14 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                         <span>${member.grade}</span>
                       </div>
                     </div>
-                    <!-- <div class="row">
-                    <div class="txt">Avatar</div>
-                    <div class="content" id="avatar">
-                      <input type="file" name="file" />
-                      <img
-                        src="C:\workspace\04_workspace_backend\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Wolf-Project\files/4.jpg"
-                        alt=""
-                        width="500"
-                        id="img"
-                      />
+
+                    <div class="row">
+                      <div class="txt">Avatar</div>
+                      <div class="content" id="avatar">
+                        <input type="file" name="avatar" accept="image/*" />
+                      </div>
                     </div>
-                  </div> -->
+
                     <div class="row">
                       <div class="txt">Join Date</div>
                       <div class="content" id="join_date">
