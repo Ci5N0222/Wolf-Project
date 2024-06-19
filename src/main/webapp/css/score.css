@@ -166,19 +166,20 @@ body.light {
 	display: flex;
 	width: 1200px;
 	height: 500px;
-	border: 1px solid wheat;
 }
 
 .main>div .game {
 	width: 1000px;
 	height: 100%;
-	background-color: #ccc;
+	
 }
 
 .main>div .ranking {
+	margin-left: 20px;
 	width: 200px;
 	height: 100%;
 	background-color: var(--bg-nav);
+	border-radius: 5px;
 }
 
 .main>div .ranking>div:first-child {
@@ -197,6 +198,7 @@ body.light {
 	flex: 1;
 	background-color: #eeeeee;
 	height: 150px;
+	border-radius: 5px;
 }
 
 .main>div .ranking>div:last-child>div>div:nth-child(1) {

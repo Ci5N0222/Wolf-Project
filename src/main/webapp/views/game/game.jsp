@@ -44,6 +44,10 @@
 			<script src="/phaser3_game/Roadkill/js/Main.js"></script>
 			<script src="/phaser3_game/Roadkill/js/GameOver.js"></script>
 		</c:when>
+			<c:when test="${seq == 10 }">
+			<script src="/phaser3_game/MashimaroJump/js/Project.js"></script>
+			<script src="/phaser3_game/MashimaroJump/js/GameOver.js"></script>
+		</c:when>
 	</c:choose>
 	
 
@@ -68,9 +72,7 @@
 			<!-- main -->
 			<main class="main">
 				<div>
-					<div class="game" id="game_play_form">
-						게임 화면${seq}<br />
-					</div>
+					<div class="game" id="game_play_form"></div>
 					<div class="ranking">
 						<div>ranking</div>
 						<div>

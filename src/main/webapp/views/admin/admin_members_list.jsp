@@ -82,7 +82,7 @@
 					<div class="page-navigation"></div>
 					<script>
 						/** 페이징 네이게이터 **/
-						pagenation(${cpage}, ${recode_total_count}, ${recode_count_per_page}, ${navi_count_per_page}, "/members_list.admin");
+						pagenation(${cpage}, ${recode_total_count}, ${recode_count_per_page}, ${navi_count_per_page}, "/members_list.admin", "${wpageName}", ${wpage});
 					</script>
 				</c:if>
 			</div>
