@@ -94,7 +94,8 @@ class Project extends Phaser.Scene{
             this.b.push(bottomBoundary2);
 		}
 
-		this.player = this.physics.add.sprite(240, 320, 'bunny-stand').setScale(0.3);
+		this.player = this.physics.add.sprite(240, 320, 'bunny-stand').setScale(0.2);
+        this.player.setSize(50/0.2, 65/0.2);
 		//this.physics.add.collider(this.platforms, this.player);
     
         //위 왼쪽 오른쪽 출동무시
@@ -157,13 +158,13 @@ class Project extends Phaser.Scene{
     
             if(this.cursor.left.isDown){
                 //this.player.x-=10;
-                this.player.setTexture('bunny-stand-reverse').setScale(0.3);
-                this.player.setSize(0, 0);
+                this.player.setTexture('bunny-stand-reverse').setScale(0.2);
+                this.player.setSize(50/0.2, 65/0.2);
                 this.player.setVelocityX(-200); //속도단위
             }
             else if(this.cursor.right.isDown){
-                this.player.setTexture('bunny-stand').setScale(0.3);
-                this.player.setSize(0, 0);
+                this.player.setTexture('bunny-stand').setScale(0.2);
+                this.player.setSize(50/0.2, 65/0.2);
                 this.player.setVelocityX(+200);
             } else{
                 this.player.setVelocityX(0);
@@ -179,30 +180,31 @@ class Project extends Phaser.Scene{
             }
 
             if(!onFloor&&this.cursor.right.isDown){
-                this.player.setTexture('bunny-jump-reverse').setScale(0.2);
-                this.player.setSize(160/0.3, 160/0.3);
+                this.player.setTexture('bunny-jump-reverse').setScale(0.15); 
+                 this.player.setSize(50/0.15, 65/0.15);
             }
             else if(!onFloor&&this.cursor.left.isDown){
-                this.player.setTexture('bunny-jump').setScale(0.2);
-                this.player.setSize(160/0.3, 160/0.3);
+                this.player.setTexture('bunny-jump').setScale(0.15); 
+                this.player.setSize(50/0.15, 65/0.15);
             }
             
             if (this.player.texture.key == 'bunny-stand'&&!onFloor && this.cursor.right.isDown)
             {
                 
-                this.player.setTexture('bunny-jump-reverse').setScale(0.2);
-                this.player.setSize(160/0.3, 160/0.3);
+                this.player.setTexture('bunny-jump-reverse').setScale(0.15); 
+                 this.player.setSize(50/0.15, 65/0.15);
     
             }
             else if(this.player.texture.key == 'bunny-stand'&&!onFloor){
-                this.player.setTexture('bunny-jump').setScale(0.2);
-                this.player.setSize(160/0.3, 160/0.3);
+                this.player.setTexture('bunny-jump').setScale(0.15); 
+                this.player.setSize(50/0.15, 65/0.15);
             }
             
 
             if ((this.player.texture.key == 'bunny-jump'||this.player.texture.key == 'bunny-jump-reverse')&&onFloor){
-                this.player.setTexture('bunny-stand').setScale(0.3);
-                this.player.setSize(0, 0);
+                this.player.setTexture('bunny-stand').setScale(0.2);
+                this.player.setSize(50/0.2, 65/0.2);
+    
             }
     
             this.horizontalWrap(this.player);
@@ -250,7 +252,7 @@ class Project extends Phaser.Scene{
        wolf.setVelocityX(50);
        wolf.setBounce(1);
        this.add.existing(wolf);
-       wolf.body.setSize(wolf.width, wolf.height);
+       wolf.body.setSize(50/0.1, 50/0.1);
        this.physics.world.enable(wolf);
        return wolf;
    }
