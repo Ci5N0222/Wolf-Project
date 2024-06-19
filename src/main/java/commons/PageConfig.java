@@ -7,4 +7,6 @@ public class PageConfig {
 		public static int board=1;
 		public static int qna=2;
 		
+		public static int adminGameListRecord=5;
+		
 }

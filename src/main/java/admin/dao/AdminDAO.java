@@ -85,9 +85,6 @@ public class AdminDAO {
 			while(rs.next()) {
 				String age = rs.getString("age");
 				int membersCount = rs.getInt("members_count");
-				
-				System.out.println(age + " : " + membersCount);
-				
 				list.add(new AdminDTO.AdminAgeGroupDTO(age, membersCount));
 			}
 			

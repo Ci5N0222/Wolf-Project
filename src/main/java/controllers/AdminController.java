@@ -198,8 +198,8 @@ public class AdminController extends HttpServlet {
 					
 					List<GameDTO> gameList = dao.getGameList(
 							Integer.parseInt(service),
-							cpage * PageConfig.recordCountPerPage - (PageConfig.recordCountPerPage - 1),
-							cpage * PageConfig.recordCountPerPage);
+							cpage * PageConfig.adminGameListRecord - (PageConfig.adminGameListRecord - 1),
+							cpage * PageConfig.adminGameListRecord);
 					for(GameDTO dto: gameList) {
 						String sysname = imagesDAO.getImageName(dto.getSeq(), image_code);
 						if(!sysname.equals("none")) {
@@ -212,7 +212,7 @@ public class AdminController extends HttpServlet {
 					/** 페이징 **/
 					request.setAttribute("cpage", cpage);
 					request.setAttribute("recode_total_count", dao.getGameTotalCount(Integer.parseInt(service)));
-					request.setAttribute("recode_count_per_page", PageConfig.recordCountPerPage);
+					request.setAttribute("recode_count_per_page", PageConfig.adminGameListRecord);
 					request.setAttribute("navi_count_per_page", PageConfig.naviCountPerPage);
 					
 					request.setAttribute("wpageName", "service");
