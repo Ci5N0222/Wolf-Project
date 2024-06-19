@@ -256,7 +256,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         padding-bottom: 60px;
       }
 
-      input[type="text"],
       input[type="password"] {
         width: 400px;
         height: 40px;
@@ -366,7 +365,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
               <p onclick="location.href='/mypageGameList.mypage'">
                 게임플레이 정보
               </p>
-              <p onclick="location.href='/'">문의내역</p>
+              <p onclick="location.href='/myList.mypage'">문의내역</p>
               <p onclick="location.href='/views/mypage/deleteMember.jsp'">
                 회원탈퇴
               </p>

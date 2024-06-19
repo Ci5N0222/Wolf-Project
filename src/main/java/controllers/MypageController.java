@@ -151,8 +151,10 @@ public class MypageController extends HttpServlet {
 				
 				
 				/* 문의내역 조회 */
-			} else if(cmd.equals("/myPost.mypage")) {
+			} else if(cmd.equals("/myList.mypage")) {
 				
+				
+				request.getRequestDispatcher("/views/mypage/myList.jsp").forward(request, response);
 				
 				/* 회원 탈퇴 */
 			} else if(cmd.equals("/delete.mypage")) {

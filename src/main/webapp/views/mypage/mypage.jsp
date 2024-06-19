@@ -371,7 +371,7 @@ pageEncoding="UTF-8"%>
         }
       }
 
-      @media (max-width: 1100px) {
+      @media (max-width: 1200px) {
         .mypage-side-menu {
           display: none;
         }
@@ -381,7 +381,7 @@ pageEncoding="UTF-8"%>
       }
 
       /* 메인 반응형 */
-      @media (max-width: 880px) {
+      @media (max-width: 991px) {
         .mypage-main-form {
           margin: 0px;
         }
@@ -507,7 +507,7 @@ pageEncoding="UTF-8"%>
               <p onclick="location.href='/mypageGameList.mypage'">
                 게임플레이 정보
               </p>
-              <p onclick="location.href='/'">문의내역</p>
+              <p onclick="location.href='/myList.mypage'">문의내역</p>
               <p onclick="location.href='/views/mypage/deleteMember.jsp'">
                 회원탈퇴
               </p>
@@ -556,7 +556,7 @@ pageEncoding="UTF-8"%>
                     <div>
                       <div class="dashboard-inner_box">
                         <div><p>문의내역</p></div>
-                        <div><button>바로가기</button></div>
+                        <div><button onclick="location.href='/myList.mypage'">바로가기</button></div>
                       </div>
                     </div>
                   </div>
