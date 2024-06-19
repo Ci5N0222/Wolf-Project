@@ -27,6 +27,7 @@ class Project extends Phaser.Scene{
 		this.load.image('platform', '/phaser3_game/MashimaroJump/images/ground_grass.png');
 		this.load.image('bunny-stand', '/phaser3_game/MashimaroJump/images/bunny1_stand.png');
 		this.load.image('bunny-jump', '/phaser3_game/MashimaroJump/images/bunny1_jump.png');
+        this.load.image('bunny-jump-reverse', '/phaser3_game/MashimaroJump/images/bunny1_jump_reverse.png');
 		this.load.image('carrot', '/phaser3_game/MashimaroJump/images/carrot.png');
     	this.load.audio('jump', '/phaser3_game/MashimaroJump/images/sfx/phaseJump1.wav');
 		this.cursor = this.input.keyboard.createCursorKeys();
@@ -105,16 +106,30 @@ class Project extends Phaser.Scene{
                 this.player.setVelocityY(-250);
                 this.count++;
             }
+
+            if(!onFloor&&this.cursor.right.isDown){
+                this.player.setTexture('bunny-jump-reverse').setScale(0.2);
+                this.player.setSize(160/0.3, 160/0.3);
+            }
+            else if(!onFloor&&this.cursor.left.isDown){
+                this.player.setTexture('bunny-jump').setScale(0.2);
+                this.player.setSize(160/0.3, 160/0.3);
+            }
             
-            if (this.player.texture.key == 'bunny-stand'&&!onFloor)
+            if (this.player.texture.key == 'bunny-stand'&&!onFloor && this.cursor.right.isDown)
             {
                 
-                this.player.setTexture('bunny-jump').setScale(0.2);
+                this.player.setTexture('bunny-jump-reverse').setScale(0.2);
                 this.player.setSize(160/0.3, 160/0.3);
     
             }
+            else if(this.player.texture.key == 'bunny-stand'&&!onFloor){
+                this.player.setTexture('bunny-jump').setScale(0.2);
+                this.player.setSize(160/0.3, 160/0.3);
+            }
             
-            if (this.player.texture.key == 'bunny-jump'&&onFloor){
+
+            if ((this.player.texture.key == 'bunny-jump'||this.player.texture.key == 'bunny-jump-reverse')&&onFloor){
                 this.player.setTexture('bunny-stand').setScale(0.3);
                 this.player.setSize(0, 0);
             }
