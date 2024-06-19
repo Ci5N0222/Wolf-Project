@@ -27,7 +27,7 @@
 	<!-- Project local -->
 	<link rel="stylesheet" href="/css/score.css">
 	<script src="/js/game.js"></script>
-	
+
 	<c:choose>
 		<c:when test="${seq == 6 }">
 			<script src="/phaser3_game/among_run/js/AmongStart.js"></script>
@@ -38,6 +38,11 @@
 		<c:when test="${seq == 8 }">
 			<script src="/phaser3_game/FlyingBird/js/Exam03.js"></script>
 			<script src="/phaser3_game/FlyingBird/js/GameOver.js"></script>
+		</c:when>
+		<c:when test="${seq == 9 }">
+			<script src="/phaser3_game/Roadkill/js/GameStart.js"></script>
+			<script src="/phaser3_game/Roadkill/js/Main.js"></script>
+			<script src="/phaser3_game/Roadkill/js/GameOver.js"></script>
 		</c:when>
 	</c:choose>
 	

@@ -21,6 +21,13 @@ const gameConfig = (seq) => {
 			}
 			
 			break;
+		case 9:
+			config = {
+				width: 1000,
+				height:500,
+				scene:[GameStart,Main,GameOver]
+			}
+			break;
 	}
 	
 	return config;	
@@ -49,5 +56,6 @@ const gameCanvars = (seq) => {
 	
 	let game = new Phaser.Game(config);
 }
+
 
 
