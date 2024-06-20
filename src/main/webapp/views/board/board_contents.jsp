@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%
+    // URL 파라미터로 전달된 값을 가져오기
+    String boardCode = request.getParameter("board_code");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +14,8 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.tiny.cloud/1/9bewfouem96jjnfvuu236yinb3kp53xruh2gkkz3pkfnkw6c/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+
 <style>
     .container{
         display: flex;
@@ -37,6 +43,7 @@
 
 </head>
 <body>
+    
     <form action="/insert.board" id="fileform" method="post" enctype="multipart/form-data" >
         <div class="container">
             <div style="display: flex; flex: 1; font-size: xx-large; justify-content: center">
@@ -53,7 +60,7 @@
             <div id="files">
             </div>
         </div>
-       
+        <input type="hidden" value="<%= boardCode %>" name="board_code">
     </form>
 <script>
     var  myButton;
@@ -157,11 +164,12 @@
 </script>
 <script>
 		$("#list").on("click",function(){
+            let boardCode = "<%= boardCode %>";
             $.ajax({
-                url:"/delete.images"
+                url:"/delete.images?board_code="+boardCode
             }).done(function(resp){
                // alert(resp);
-                location.href="/list.board";
+                location.href="/list.board?board_code="+boardCode;
             })
 			
 		})
