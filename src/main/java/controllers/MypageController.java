@@ -104,6 +104,8 @@ public class MypageController extends HttpServlet {
 				MembersDTO dto = new MembersDTO(id, null, name, nickname, phone, email, null, null, 0, avatar, null);
 
 				mDAO.edit(dto);
+				
+				request.getSession().setAttribute("WolfAvatar", avatar);
 				request.getSession().setAttribute("WolfNickname", nickname);
 				response.sendRedirect("/selectMember.mypage");
 

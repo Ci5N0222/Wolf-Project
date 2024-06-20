@@ -56,7 +56,7 @@ pageEncoding="UTF-8"%>
         /* background-color: azure; */
         color: var(--bg-black);
         color: var(--color-black);
-        overflow: hidden;
+        overflow: auto;
         /* 폰트 */
         font-family: "Noto Sans KR", sans-serif;
         font-family: "Luckiest Guy", cursive;
@@ -163,6 +163,12 @@ pageEncoding="UTF-8"%>
       }
       .naviBtn:hover {
         opacity: 0.5;
+      }
+
+      .naviBtn > img {
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
       }
 
       /* main */

@@ -408,6 +408,17 @@ body {
         $('#sendEmailForm').submit(function(e) {
             e.preventDefault();
             
+            if($("#id").val()==""){
+            	alert("아이디를 입력해주세요.");
+            	return false;
+            }
+            	
+            if($("#email").val()==""){
+            	alert("이메일을 입력해주세요.")
+            	return false;
+            }
+            
+            
             var formData = {
                 id: $('#id').val(),
                 email: $('#email').val()
