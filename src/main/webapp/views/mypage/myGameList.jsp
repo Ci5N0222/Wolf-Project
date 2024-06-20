@@ -162,8 +162,14 @@ pageEncoding="UTF-8"%>
       .naviBtn:hover {
         opacity: 0.5;
       }
-      /* -- main과 동일 -- */
 
+      .naviBtn > img {
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
+      }
+
+      /* -- main -- */
       * {
         box-sizing: border-box;
         margin: 0;
