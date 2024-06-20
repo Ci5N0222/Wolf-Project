@@ -338,26 +338,25 @@ html,
                     <div style="flex: 1;"  class="center"> <fmt:formatDate value="${board_dto.write_date}" pattern="yyyy.MM.dd HH:mm" /></div>
                     <div style="flex: 1;"  class="center"> 조회 ${board_dto.count}</div>
             </div>  
-            <div style="flex: 1; color: gray;">
-                <div style="flex: 1; flex-direction: column;">
+    
+            <div style="flex: 5; flex-direction: column;" class="dto" id="board_contents" >${board_dto.contents}</div>
+            <div style="flex: 0.8; overflow-y: auto;">
+                <div style="flex: 1; flex-direction: column; overflow: auto; color: gray ">
                     <c:forEach var="files_dto" items="${files_list}">
                         <div class="files_div">
                            <span class="files_seq">${files_dto.seq }</span>.&nbsp<a href="/download.files?sysname=${files_dto.sysname }&oriname=${files_dto.oriname}">${files_dto.oriname}</a>
                             <button class="files_delete button_css" style="display: none;" >삭제</button> <!--onclick="filesDelete(${files_dto.seq })"-->
                         </div>
                     </c:forEach>
-                </div>
-            </div>
-            <div style="flex: 5; flex-direction: column;" class="dto" id="board_contents" >${board_dto.contents}</div>
-            <div style="flex: 0.5;">
+                </div>  
                 <c:choose>
                     <c:when test="${WolfID eq board_dto.member_id}">
-                        <div style="display: flex; justify-content:flex-end; flex: 1;" id="div1">
+                        <div style="display: flex; justify-content:flex-end; align-items: center; flex: 1;" id="div1">
                             <div><button type="button" id="update" class="button_css">글수정</button></div>&nbsp&nbsp
                             <div><button type="button" id="delete" class="button_css">글삭제</button></div>&nbsp&nbsp
                             <div><button type="button" id="list" class="button_css">목록보기</button></div>&nbsp&nbsp
                         </div>
-                        <div style="border: 0; display: none; flex: 1; justify-content:flex-end;" id="div2">
+                        <div style="border: 0; display: none; flex: 1; justify-content:flex-end; align-items: center;" id="div2">
                             <form action="/update.board" method="post" id="joinform" enctype="multipart/form-data">
                                 <input type="hidden" id="arrayField" name="array">
                                 <input type="hidden" name="title" class="update_input" id="board_title_input"> 
@@ -366,7 +365,7 @@ html,
                                 <div style="display: none;"><input type="file" name="file" id="upload"></div>
                                 <input type="hidden" name="seq" value="${board_dto.seq}" class="notuse">
                                 <button type="submit" id="confirm" class="button_css">확인</button>
-                                <button type="button" id="cancel" class="button_css">취소</button>
+                                <button type="button" id="cancel" class="button_css">취소</button>&nbsp&nbsp
                             </form>
                         </div>
                     </c:when>
