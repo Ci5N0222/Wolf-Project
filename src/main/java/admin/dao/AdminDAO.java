@@ -101,25 +101,36 @@ public class AdminDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	public int adminLogin(String id, String pw) throws Exception {
-		String sql = "select id, pw from members where id = ? and grade in (98, 99)";
+	public MembersDTO adminLogin(String loginId, String loginPw) throws Exception {
+		String sql = "select * from members where id = ? and grade in (98, 99)";
 		
 		try(Connection con = DBConfig.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql)){
-			pstat.setString(1, id);
+			pstat.setString(1, loginId);
 			
 			try(ResultSet rs = pstat.executeQuery()){
+				
 				rs.next();
+				String id = rs.getString("id");
+				String name = rs.getString("name");
+				String nickname = rs.getString("nickname");
+				String phone = rs.getString("phone");
+				String email = rs.getString("email");
+				String gender = rs.getString("gender");
+				String birth = rs.getString("birth");
+				int grade = rs.getInt("grade");
+				String avatar = rs.getString("avatar");
+				Timestamp joinDate = rs.getTimestamp("join_date");
 				
 				try {
-					if(rs.getString("id") != null) {
-						if(pw.equals(rs.getString("pw"))) return 1;
+					if(id != null) {
+						if(loginPw.equals(rs.getString("pw"))) return new MembersDTO(id, null, name, nickname, phone, email, gender, birth, grade, avatar, joinDate);
 					}
-					return 2;
+					return null;
 					
 				} catch (Exception e) {
 					e.printStackTrace();
-					return 2;
+					return null;
 				}
 			}
 		}
@@ -526,13 +537,14 @@ public class AdminDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<AdminDTO.BoardListDTO> getBoardList(int start, int end) throws Exception {
-		String sql = "select a.*,m.nickname nickname from (select board.*, row_number() over(order by seq) rown from board where board_code = 2) a join members m on m.id=a.member_id where rown between ? and ?";
+	public List<AdminDTO.BoardListDTO> getBoardList(int code, int start, int end) throws Exception {
+		String sql = "select a.*,m.nickname nickname from (select board.*, row_number() over(order by seq) rown from board where board_code = ?) a join members m on m.id=a.member_id where rown between ? and ?";
 		
 		try(Connection con = DBConfig.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql)){
-			pstat.setInt(1, start);
-			pstat.setInt(2, end);
+			pstat.setInt(1, code);
+			pstat.setInt(2, start);
+			pstat.setInt(3, end);
 			
 			try(ResultSet rs = pstat.executeQuery()){
 				List<AdminDTO.BoardListDTO> list = new ArrayList<>();

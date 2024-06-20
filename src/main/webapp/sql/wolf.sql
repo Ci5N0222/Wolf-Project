@@ -25,6 +25,7 @@ create table board(
     member_id varchar(20) not null,
     board_code number not null, 
     write_date timestamp default sysdate
+    secret varchar(1) default 'N'
 );
 
 create table board_list(

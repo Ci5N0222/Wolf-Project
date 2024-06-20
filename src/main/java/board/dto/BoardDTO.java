@@ -11,6 +11,7 @@ public class BoardDTO {
 	private int board_code;
 	private Timestamp write_date;
 	private String secret;
+	
 	public int getSeq() {
 		return seq;
 	}

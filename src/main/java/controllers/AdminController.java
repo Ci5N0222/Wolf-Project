@@ -2,6 +2,8 @@ package controllers;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -15,9 +17,12 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import admin.dao.AdminDAO;
 import admin.dto.AdminDTO;
+import board.dao.BoardDAO;
 import board.dto.BoardDTO;
 import commons.EncryptionUitls;
 import commons.PageConfig;
+import files.dao.FilesDAO;
+import files.dto.FilesDTO;
 import game.dto.GameDTO;
 import images.dao.ImagesDAO;
 import members.dto.MembersDTO;
@@ -32,8 +37,10 @@ public class AdminController extends HttpServlet {
 		String cmd = request.getRequestURI();
 		
 		AdminDAO dao = AdminDAO.getInstance();
-		
+		BoardDAO boardDAO = BoardDAO.getInstance();
 		ImagesDAO imagesDAO = ImagesDAO.getInstance();
+		FilesDAO filesDAO = FilesDAO.getInstance();
+		
 		
 		/** Admin login check **/ 
 		boolean adminSession = false;
@@ -71,8 +78,12 @@ public class AdminController extends HttpServlet {
 				String admin_id = request.getParameter("admin_id");
 				String admin_pw = request.getParameter("admin_pw");
 				
-				int result = dao.adminLogin(admin_id, EncryptionUitls.getSHA512(admin_pw));
-				if(result == 1) {
+				MembersDTO dto = dao.adminLogin(admin_id, EncryptionUitls.getSHA512(admin_pw));
+				
+				if(dto.getGrade() == 98 || dto.getGrade() == 99) {
+					request.getSession().setAttribute("WolfID", admin_id);
+					request.getSession().setAttribute("WolfNickname", dto.getNickname());
+					request.getSession().setAttribute("WolfAvatar", dto.getAvatar());
 					request.getSession().setAttribute("WolfAdmin", true);
 					response.getWriter().append("ok");
 				} else {
@@ -340,10 +351,9 @@ public class AdminController extends HttpServlet {
 				}
 			}
 
-			
 // ============================================ [ 게시판 ] =============================================
 			
-			/** 공지 게시판 리스트 **/
+			/** 게시판 리스트 **/
 			else if(cmd.equals("/notice_list.admin")) {
 				if(!adminSession) response.sendRedirect("/page_login.admin");
 				else {
@@ -351,8 +361,12 @@ public class AdminController extends HttpServlet {
 					String pcpage = request.getParameter("cpage");
 					if(pcpage == null) pcpage = "1";
 					int cpage = Integer.parseInt(pcpage);
+					
+					String boardCode = request.getParameter("board_code");
+					if(boardCode == null) boardCode = "2";
 
 					List<AdminDTO.BoardListDTO> boardList = dao.getBoardList(
+							Integer.parseInt(boardCode),
 							cpage * PageConfig.recordCountPerPage - (PageConfig.recordCountPerPage - 1),
 							cpage * PageConfig.recordCountPerPage);
 					
@@ -364,6 +378,9 @@ public class AdminController extends HttpServlet {
 					request.setAttribute("recode_count_per_page", PageConfig.recordCountPerPage);
 					request.setAttribute("navi_count_per_page", PageConfig.naviCountPerPage);
 					
+					request.setAttribute("wpageName", "board_code");
+					request.setAttribute("wpage", Integer.parseInt(boardCode));
+					
 					request.getRequestDispatcher("/views/admin/admin_notice_list.jsp").forward(request, response);
 				}
 			}
@@ -371,12 +388,57 @@ public class AdminController extends HttpServlet {
 			/** 공지사항 작성 **/
 			else if(cmd.equals("/page_notice_insert.admin")) {
 				if(!adminSession) response.sendRedirect("/page_login.admin");
+				String code = request.getParameter("code");
+				request.setAttribute("board_code", code);
 				request.getRequestDispatcher("/views/admin/admin_notice_insert.jsp").forward(request, response);
 			}
 			else if(cmd.equals("/notice_insert.admin")) {
 				if(!adminSession) response.sendRedirect("/page_login.admin");
-				
-				String test = request.getParameter("");
+				else {
+					
+					int maxSize = 1024 * 1024 * 10; // 10mb
+					String realPath = request.getServletContext().getRealPath("files");
+					File uploadPath = new File(realPath);
+					if (!uploadPath.exists()) {
+						uploadPath.mkdir();// 메이크 디렉토리
+					}
+					
+					MultipartRequest multi = new MultipartRequest(request, realPath, maxSize, "UTF8",
+							new DefaultFileRenamePolicy());
+
+					String title = multi.getParameter("title");
+					String contents = multi.getParameter("contents");
+					String boardCode = multi.getParameter("board_code");
+					String member_id = (String)request.getSession().getAttribute("WolfID");
+					
+					System.out.println("title ======= " + title);
+					System.out.println("contents ======= " + contents);
+					System.out.println("boardCode ======= " + boardCode);
+					System.out.println("member_id ======= " + member_id);
+					
+					BoardDTO dto = new BoardDTO(0, title, contents, 0, member_id, Integer.parseInt(boardCode), null, "N");
+					int board_seq = boardDAO.insert(dto);
+					//dao_files.insert(new FilesDTO(0, oriName, sysName, parent_seq));
+					Enumeration<String> names = multi.getFileNames();
+			        while(names.hasMoreElements()) {
+			               String name = names.nextElement();
+			               String oriname = multi.getOriginalFileName(name);
+			               String sysname = multi.getFilesystemName(name);
+			               System.out.println(name);
+			               
+			               if(oriname != null) {
+			            	   filesDAO.insert(new FilesDTO(0, oriname, sysname, board_seq));
+			               }
+			        }
+			        imagesDAO.updateTemp(board_seq);
+			        String new_contents = boardDAO.board_contents(board_seq);
+			        System.out.println(new_contents);
+			        String[] sysnames = boardDAO.findDeletedTags(new_contents);
+			        ArrayList<String> fileList = imagesDAO.delete(board_seq, Integer.parseInt(boardCode), sysnames);
+			        imagesDAO.deleteImageFile(request.getServletContext().getRealPath("upload_images"), fileList);
+			        
+			        response.sendRedirect("/detail.board?seq="+board_seq+"&target=&keyword=&board_code=" + Integer.parseInt(boardCode));
+				}
 				
 			}
 			
