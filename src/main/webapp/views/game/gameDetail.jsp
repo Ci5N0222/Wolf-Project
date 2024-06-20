@@ -51,7 +51,7 @@
 					<div>
 						<div>
 							<c:choose>
-								<c:when test="${dto.thumbnail != 'none'}">
+								<c:when test="${dto.thumbnail != 'null'}">
 									<img src="/${dto.thumbnail}">
 								</c:when>
 
@@ -61,10 +61,8 @@
 							</c:choose>
 						</div>
 						<form action='/gameview.game' method='post'>
-							<div>
 								<input type='hidden' name='seq' value="${dto.seq}" />
-								<button class="btn btn-outline-warning">게임 시작</button>
-							</div>
+								<button>게임 시작</button>
 						</form>
 					</div>
 					<div>
