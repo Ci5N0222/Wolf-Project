@@ -281,7 +281,6 @@ private static BoardDAO instance;
 			pstat.setString(2, dto.getContents());
 			pstat.setString(3, dto.getSecret());
 			pstat.setInt(4, dto.getSeq());
-
 			pstat.setInt(5, dto.getBoard_code());
 			
 			if(pstat.executeUpdate()>0)check=true;;

@@ -50,6 +50,7 @@ html,
             background-color: white;
             z-index: 100;
             position: relative;
+            overflow: hidden;
            
         }
         .navi {
@@ -160,12 +161,12 @@ html,
             width:700px !important;     
         }
         .board{
-        flex: 6;
-        flex-direction: column;
-        border: 1px solid black;
-        margin: 15px;
-        overflow: auto;
-     }
+            flex: 6;
+            flex-direction: column;
+            border: 1px solid black;
+             margin: 15px;
+            overflow: hidden;
+        }
      .menu{
         margin: 15px;
         flex: 1.3;
@@ -274,8 +275,7 @@ html,
 </style>
 <style>
     #board_contents img{
-        width: 100%;
-        height: 100%;
+        
     }
 </style>
 </head>
@@ -304,7 +304,7 @@ html,
                 </div> 
             </div>
         </div>
-        <div style="flex: 8;">
+        <div style="flex: 8; overflow: auto;">
             <div class="menu" style="flex: 1.5;">
                 <div style="flex: 1; flex-direction: column;">
                     <div style=" height: 50px !important;" class="center menu_title" id="board_1">
