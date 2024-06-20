@@ -2,7 +2,6 @@ package controllers;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -16,6 +15,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import admin.dao.AdminDAO;
 import admin.dto.AdminDTO;
+import board.dto.BoardDTO;
 import commons.EncryptionUitls;
 import commons.PageConfig;
 import game.dto.GameDTO;
@@ -343,11 +343,35 @@ public class AdminController extends HttpServlet {
 			
 // ============================================ [ 게시판 ] =============================================
 			
-			/** 공지 게시판 글쓰기 **/
-			else if(cmd.equals("/board_notice.admin")) {
+			/** 공지 게시판 리스트 **/
+			else if(cmd.equals("/notice_list.admin")) {
 				if(!adminSession) response.sendRedirect("/page_login.admin");
 				else {
 					
+					String pcpage = request.getParameter("cpage");
+					if(pcpage == null) pcpage = "1";
+					int cpage = Integer.parseInt(pcpage);
+					
+					String boardCode = request.getParameter("board_code");
+					if(boardCode == null) boardCode = "1";
+					
+					List<BoardDTO> list = dao.getBoardList(
+							Integer.parseInt(boardCode),
+							cpage * PageConfig.recordCountPerPage - (PageConfig.recordCountPerPage - 1),
+							cpage * PageConfig.recordCountPerPage);
+					
+					request.setAttribute("list", list);
+					
+					/** 페이징 **/
+					request.setAttribute("cpage", cpage);
+					request.setAttribute("recode_total_count", dao.getGameTotalCount(Integer.parseInt(boardCode)));
+					request.setAttribute("recode_count_per_page", PageConfig.recordCountPerPage);
+					request.setAttribute("navi_count_per_page", PageConfig.naviCountPerPage);
+					
+					request.setAttribute("wpageName", "board_code");
+					request.setAttribute("wpage", Integer.parseInt(boardCode));
+					
+					request.getRequestDispatcher("/views/admin/admin_notice_list.jsp").forward(request, response);
 				}
 			}
 			

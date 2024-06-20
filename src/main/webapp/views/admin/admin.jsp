@@ -32,8 +32,8 @@
         <%@ include file="/views/include/admin_side.jsp" %>
         <section class="admin-main-form">
             <h1 class="admin-main-title">Dash Board</h1>
+            <p>총 회원 수 : ${ male + female }명</p><br />
             <div class="admin-dashboard">
-            
             	<!-- 성별 대시보드 -->
             	<div class="dashboard-item">
             		남여 성별 비율 <br />
@@ -41,12 +41,9 @@
 						<canvas id="genderChart"></canvas>
 					</div>
 					<div class="dashboard-info">
-						<p>총 회원 수 : ${ male + female }명</p>
 						<p>남성 회원 : ${ male }명 ( <fmt:formatNumber value="${ male/(male + female) }" type="percent" /> )</p>
 						<p>여성 회원 : ${ female }명 ( <fmt:formatNumber value="${ female/(male + female) }" type="percent" /> )</p>
 					</div>
-					
-					
             	</div>
             	
             	<!-- 연령 대시보드 -->
@@ -56,7 +53,6 @@
 						<canvas id="birthChart"></canvas>
 					</div>
 					<div class="dashboard-info">
-						<p>총 회원 수 : ${ male + female }명</p>
 						<p>10대 이하 회원 : ${ ageList[0].membersCount }명 ( <fmt:formatNumber value="${ ageList[0].membersCount/(male + female) }" type="percent" /> )</p>
 						<p>20대 회원 : ${ ageList[1].membersCount }명 ( <fmt:formatNumber value="${ ageList[1].membersCount/(male + female) }" type="percent" /> )</p>
 						<p>30대 회원 : ${ ageList[2].membersCount }명 ( <fmt:formatNumber value="${ ageList[2].membersCount/(male + female) }" type="percent" /> )</p>
@@ -65,8 +61,6 @@
 						<p>60대 이상 회원 : ${ ageList[5].membersCount }명 ( <fmt:formatNumber value="${ ageList[5].membersCount/(male + female) }" type="percent" /> )</p>
 					</div>
             	</div>
-            	
-				
 			</div>
         </section>
         <script>

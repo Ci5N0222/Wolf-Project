@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import admin.dto.AdminDTO;
+import board.dto.BoardDTO;
 import commons.DBConfig;
 import game.dto.GameDTO;
 import members.dto.MembersDTO;
@@ -496,7 +497,68 @@ public class AdminDAO {
 			
 			return pstat.executeUpdate();
 		}
-			
 	}
+	
+	
+	/**
+	 * 게시물의 개수를 반환하는 메서드
+	 * @param code
+	 * @return
+	 * @throws Exception
+	 */
+	public int getBoardTotalCount(int code) throws Exception {
+		String sql = "select count(*) from board where board_code = ?";
+				
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setInt(1, code);
+			
+			try(ResultSet rs = pstat.executeQuery()){
+				rs.next();
+				
+				return rs.getInt(1);
+			}
+		}
+	}
+	
+	
+	/**
+	 * 게시물의 목록을 반환하는 메서드
+	 * @param code
+	 * @param start
+	 * @param end
+	 * @return
+	 * @throws Exception
+	 */
+	public List<BoardDTO> getBoardList(int code, int start, int end) throws Exception {
+		String sql = "select * from (select board.*, row_number() over(order by seq) rown from board where board_code = ?) where rown between ? and ?";
+		
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setInt(1, code);
+			pstat.setInt(2, start);
+			pstat.setInt(3, end);
+			
+			try(ResultSet rs = pstat.executeQuery()){
+				List<BoardDTO> list = new ArrayList<>();
+				
+				while(rs.next()) {
+					int seq = rs.getInt("seq");
+					String title = rs.getString("title");
+					String contents = rs.getString("contents");
+					int count = rs.getInt("count");
+					String memberId = rs.getString("member_id");
+					int boardCode = rs.getInt("board_code");
+					Timestamp writeDate = rs.getTimestamp("write_date");
+					
+					list.add(new BoardDTO(seq, title, contents, count, memberId, boardCode, writeDate));
+				}
+				
+				return list;
+			}
+		}
+	}
+	
+	
 	
 }
