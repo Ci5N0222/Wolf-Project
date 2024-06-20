@@ -175,11 +175,6 @@ public class MypageController extends HttpServlet {
 				mDAO.deleteMember(id);
 				response.sendRedirect("/logout.members");
 				
-			} else if(cmd.equals("/updateAvatar.mypage")) {
-				String id = (String)session.getAttribute("WolfID");
-				String avatar=pDAO.avatar(id);
-				pw.append(avatar);
-				
 			}
 			
 			
