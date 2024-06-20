@@ -56,7 +56,7 @@ pageEncoding="UTF-8"%>
         /* background-color: azure; */
         color: var(--bg-black);
         color: var(--color-black);
-        overflow: hidden;
+        overflow: auto;
         /* 폰트 */
         font-family: "Noto Sans KR", sans-serif;
         font-family: "Luckiest Guy", cursive;
@@ -163,6 +163,12 @@ pageEncoding="UTF-8"%>
       }
       .naviBtn:hover {
         opacity: 0.5;
+      }
+
+      .naviBtn > img {
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
       }
 
       /* main */
@@ -526,12 +532,22 @@ pageEncoding="UTF-8"%>
                     <div class="dashboard-inner_box">
                       <div>
                         <div style="overflow: hidden">
-                          <img
-                            src=""
-                            alt=""
-                            id="avatar_img"
-                            style="width: 100%; height: 100%"
-                          />
+                          <c:choose>
+                            <c:when test="${WolfAvatar eq null}">
+                              <img
+                                src="/images/default-avatar.jpg"
+                                alt=""
+                                style="width: 100%; height: 100%"
+                              />
+                            </c:when>
+                            <c:otherwise>
+                              <img
+                                src="${WolfAvatar}"
+                                alt=""
+                                style="width: 100%; height: 100%"
+                              />
+                            </c:otherwise>
+                          </c:choose>
                         </div>
                         <div>
                           <p>${WolfNickname} 님 환영합니다.</p>
@@ -618,13 +634,13 @@ pageEncoding="UTF-8"%>
       crossorigin="anonymous"
     ></script>
     <script src="js/main.js"></script>
-    <script>
+    <!-- <script>
       $.ajax({
         url: "/updateAvatar.mypage",
         type: "post",
       }).done(function (resp) {
         $("#avatar_img").attr("src", resp);
       });
-    </script>
+    </script> -->
   </body>
 </html>

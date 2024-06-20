@@ -3,6 +3,20 @@ $(() => {
 	// 현재 페이지 주소
 	var pathname = window.location.pathname;
 
+	// ================================ [ Board ] ================================
+	if(pathname === "/notice_list.admin"){
+		const searchParams = new URLSearchParams(window.location.search);
+    	const boardCode = searchParams.get('board_code');
+    	console.log("board_code === ", boardCode);
+    	if(boardCode !== null) $("#board-code-select").val(boardCode);
+	}
+	
+	// Admin memeber list select bar change
+	$("#board-code-select").on("change", () => {
+		location.href="/notice_list.admin?board_code=" + $("#board-code-select").val();
+	});
+	
+
 	// ================================ [ Members ] ================================
 	
 	// Admin members list select bar default
@@ -278,6 +292,9 @@ const adminGameDelete = (seq) => {
 /** page navigation **/
 const pagenation = (cpage, recordTotalCount, recordCountPerPage, naviCountPerPage, url, wpageName, wpage) => {
 	
+	if(wpageName === undefined) wpageName = "";
+	if(wpage === undefined)	wpage = "";
+
 	// total page count
 	let pageTotalCount = 0;
 	if(recordTotalCount % recordCountPerPage > 0) pageTotalCount = recordTotalCount / recordCountPerPage + 1;

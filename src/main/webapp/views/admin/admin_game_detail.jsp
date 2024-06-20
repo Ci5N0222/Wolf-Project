@@ -35,7 +35,7 @@
 	        	<form action="/game_update.admin" method="post" id="admin_game_update" enctype="multipart/form-data">
 		        	<div class="game-update-preview">
 						<c:choose>
-		        			<c:when test="${game.thumbnail != 'none'}">
+		        			<c:when test="${game.thumbnail != null}">
 		        				<img id="imagePreview" src="/${game.thumbnail}" alt="게임 섬네일 이미지">
 		        			</c:when>
 		        			<c:otherwise>

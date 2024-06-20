@@ -159,8 +159,15 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         cursor: pointer;
         transition: all 0.3s ease-in-out;
       }
+
       .naviBtn:hover {
         opacity: 0.5;
+      }
+
+      .naviBtn > img {
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
       }
 
       /* main */

@@ -104,6 +104,8 @@ public class MypageController extends HttpServlet {
 				MembersDTO dto = new MembersDTO(id, null, name, nickname, phone, email, null, null, 0, avatar, null);
 
 				mDAO.edit(dto);
+				
+				request.getSession().setAttribute("WolfAvatar", avatar);
 				request.getSession().setAttribute("WolfNickname", nickname);
 				response.sendRedirect("/selectMember.mypage");
 
@@ -172,11 +174,6 @@ public class MypageController extends HttpServlet {
 				
 				mDAO.deleteMember(id);
 				response.sendRedirect("/logout.members");
-				
-			} else if(cmd.equals("/updateAvatar.mypage")) {
-				String id = (String)session.getAttribute("WolfID");
-				String avatar=pDAO.avatar(id);
-				pw.append(avatar);
 				
 			}
 			

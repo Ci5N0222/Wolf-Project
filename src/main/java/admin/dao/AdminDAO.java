@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import admin.dto.AdminDTO;
+import board.dto.BoardDTO;
 import commons.DBConfig;
 import game.dto.GameDTO;
 import members.dto.MembersDTO;
@@ -100,25 +101,36 @@ public class AdminDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	public int adminLogin(String id, String pw) throws Exception {
-		String sql = "select id, pw from members where id = ? and grade in (98, 99)";
+	public MembersDTO adminLogin(String loginId, String loginPw) throws Exception {
+		String sql = "select * from members where id = ? and grade in (98, 99)";
 		
 		try(Connection con = DBConfig.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql)){
-			pstat.setString(1, id);
+			pstat.setString(1, loginId);
 			
 			try(ResultSet rs = pstat.executeQuery()){
+				
 				rs.next();
+				String id = rs.getString("id");
+				String name = rs.getString("name");
+				String nickname = rs.getString("nickname");
+				String phone = rs.getString("phone");
+				String email = rs.getString("email");
+				String gender = rs.getString("gender");
+				String birth = rs.getString("birth");
+				int grade = rs.getInt("grade");
+				String avatar = rs.getString("avatar");
+				Timestamp joinDate = rs.getTimestamp("join_date");
 				
 				try {
-					if(rs.getString("id") != null) {
-						if(pw.equals(rs.getString("pw"))) return 1;
+					if(id != null) {
+						if(loginPw.equals(rs.getString("pw"))) return new MembersDTO(id, null, name, nickname, phone, email, gender, birth, grade, avatar, joinDate);
 					}
-					return 2;
+					return null;
 					
 				} catch (Exception e) {
 					e.printStackTrace();
-					return 2;
+					return null;
 				}
 			}
 		}
@@ -496,7 +508,65 @@ public class AdminDAO {
 			
 			return pstat.executeUpdate();
 		}
-			
 	}
+	
+	
+	/**
+	 * 게시물의 개수를 반환하는 메서드
+	 * @param code
+	 * @return
+	 * @throws Exception
+	 */
+	public int getBoardTotalCount() throws Exception {
+		String sql = "select count(*) from board where board_code = 2";
+				
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql);
+			ResultSet rs = pstat.executeQuery()){
+			rs.next();
+			
+			return rs.getInt(1);
+		}
+	}
+	
+	
+	/**
+	 * 게시물의 목록을 반환하는 메서드
+	 * @param start
+	 * @param end
+	 * @return
+	 * @throws Exception
+	 */
+	public List<AdminDTO.BoardListDTO> getBoardList(int code, int start, int end) throws Exception {
+		String sql = "select a.*,m.nickname nickname from (select board.*, row_number() over(order by seq) rown from board where board_code = ?) a join members m on m.id=a.member_id where rown between ? and ?";
+		
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setInt(1, code);
+			pstat.setInt(2, start);
+			pstat.setInt(3, end);
+			
+			try(ResultSet rs = pstat.executeQuery()){
+				List<AdminDTO.BoardListDTO> list = new ArrayList<>();
+				
+				while(rs.next()) {
+					int seq = rs.getInt("seq");
+					String title = rs.getString("title");
+					String contents = rs.getString("contents");
+					int count = rs.getInt("count");
+					String memberId = rs.getString("member_id");
+					String nickName = rs.getString("nickname");
+					int boardCode = rs.getInt("board_code");
+					Timestamp writeDate = rs.getTimestamp("write_date");
+					
+					list.add(new AdminDTO.BoardListDTO(seq, title, contents, count, memberId, nickName, boardCode, writeDate));
+				}
+				
+				return list;
+			}
+		}
+	}
+	
+	
 	
 }

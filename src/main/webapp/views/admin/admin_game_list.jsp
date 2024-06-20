@@ -52,7 +52,7 @@
 	             			<tr>
 	             				<td>${games.seq}</td>
 	             				<c:choose>
-				        			<c:when test="${games.thumbnail != 'none'}">
+				        			<c:when test="${games.thumbnail != null}">
 				        				<td><img src="/${games.thumbnail}" alt="게임 섬네일 이미지"></td>
 				        			</c:when>
 				        			<c:otherwise>
