@@ -177,7 +177,7 @@ prefix="c" %>
         border: 1px solid #67ffd1;
       }
 
-      .mypage-select-container {
+      .mypage-myList-container {
         display: flex;
         flex-direction: column;
         height: 100vh;
@@ -306,7 +306,7 @@ prefix="c" %>
         <%@ include file="/views/include/header.jsp" %>
 
         <!-- main -->
-        <main class="mypage-container">
+        <main class="mypage-myList-container">
           <div class="mypage-myList-title">문의내역</div>
           <div class="aside-section-form" style="display: flex">
             <aside class="mypage-side-menu">

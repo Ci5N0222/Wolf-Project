@@ -175,11 +175,11 @@ pageEncoding="UTF-8"%>
         margin: 0;
         padding: 0;
       }
-      /* div {
+      div {
         border: 1px solid #67ffd1;
-      } */
+      }
 
-      .mypage-select-container {
+      .mypage-myGame-container {
         display: flex;
         flex-direction: column;
         height: 100vh;
@@ -363,7 +363,7 @@ pageEncoding="UTF-8"%>
         <%@ include file="/views/include/header.jsp" %>
 
         <!-- main -->
-        <main class="mypage-container">
+        <main class="mypage-myGame-container">
           <div class="mypage-myGame-title">게임플레이 정보</div>
           <div class="aside-section-form" style="display: flex">
             <aside class="mypage-side-menu">

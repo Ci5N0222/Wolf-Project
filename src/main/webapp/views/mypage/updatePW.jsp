@@ -179,7 +179,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         border: 1px solid aqua;
       } */
 
-      .mypage-select-container {
+      .mypage-updatePW-container {
         display: flex;
         flex-direction: column;
         height: 100vh;
@@ -302,6 +302,14 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
           display: none;
         }
       }
+      @media (max-width: 768px) {
+        .updatePW-warning-text {
+          margin-left: 80px;
+        }
+        .updatePW-board {
+          padding: 0 40px;
+        }
+      }
 
       /* -- main과 동일 -- */
       /* 라이트 다크 mode */
@@ -364,7 +372,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         <%@ include file="/views/include/header.jsp" %>
 
         <!-- main -->
-        <main class="mypage-select-container">
+        <main class="mypage-updatePW-container">
           <div class="mypage-updatePW-title">비밀번호 변경</div>
           <div class="aside-section-form" style="display: flex">
             <aside class="mypage-side-menu">

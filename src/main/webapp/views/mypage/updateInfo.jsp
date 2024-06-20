@@ -117,8 +117,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       .container,
       .main {
         height: 100%;
-        position: relative;
-        z-index: 100;
         /* 폰트 */
         font-family: "Noto Sans KR", sans-serif;
       }
@@ -159,7 +157,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         cursor: pointer;
         transition: all 0.3s ease-in-out;
       }
-
       .naviBtn:hover {
         opacity: 0.5;
       }
@@ -174,15 +171,16 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       * {
         box-sizing: border-box;
       }
-
-      /* div {
+      /* 
+      div {
         border: 1px solid aqua;
       } */
 
       .mypage-select-container {
         display: flex;
         flex-direction: column;
-        height: 100vh;
+        min-height: 100vh;
+        height: 100%;
         width: 100%;
       }
 
@@ -238,10 +236,9 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
       .select-board {
         width: 100%;
-        min-width: 800px;
+        min-width: 900px;
         /* height: 1100px; */
-        padding: 30px;
-        padding-top: 0;
+        /* padding: 0 30px; */
       }
 
       .select-board .select-board-list {
@@ -256,9 +253,14 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         box-shadow: 0 0 10px #ccc;
       }
 
+      .select-board .select-board-list .avatar-img-area {
+        flex: 2;
+      }
+
       .select-board .select-board-list .row {
         flex: 1;
         display: flex;
+        margin: 30px 0;
       }
       .select-board .select-board-list .row .txt {
         flex: 2;
@@ -303,7 +305,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         font-size: larger;
       }
 
-      @media (max-width: 1100px) {
+      @media (max-width: 1200px) {
         .mypage-side-menu {
           display: none;
         }
@@ -358,13 +360,13 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     <div class="container-fluid d-flex flex-column">
       <!-- nav -->
       <div class="container text-center flex-grow-1 d-flex flex-column">
-        <img src="images/bg1.png" alt="" class="img_bg" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="/images/bg1.png" alt="" class="img_bg" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
 
         <!-- nav -->
         <%@ include file="/views/include/header.jsp" %>
@@ -404,6 +406,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
               >
                 <div class="select-board">
                   <div class="select-board-list">
+                    <div class="avatar-img-area"></div>
                     <div class="row">
                       <div class="txt">ID</div>
                       <div class="content" id="id" name="id">${member.id}</div>
