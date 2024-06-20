@@ -388,6 +388,7 @@ html,
             <button id="reply_btn" style="width: 15% !important; height: 100% !important; background-color: #00c73c !important; color: white !important;" class="no-hover button_css">등록</button>
         </div>
     </div>
+    <input type="hidden" value="${board_code}" name="board_code">
     </form>
     <div id="reply_contents">
         <c:forEach var="reply_dto" items="${reply_list}" varStatus="status">

@@ -118,8 +118,6 @@ public class BoardController extends HttpServlet {
 				Object reply_childList[]=reply_childDAO.selectAll();
 				List<FilesDTO> fileList=filesDAO.select(seq);
 				
-				System.out.println();
-				
 				
 				request.setAttribute("target",target);
 				request.setAttribute("keyword",keyword);
