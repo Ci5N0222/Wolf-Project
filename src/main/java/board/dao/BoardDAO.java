@@ -279,8 +279,9 @@ private static BoardDAO instance;
 				PreparedStatement pstat=con.prepareStatement(sql)){
 			pstat.setString(1, dto.getTitle());
 			pstat.setString(2, dto.getContents());
-			pstat.setInt(3, dto.getSeq());
-			pstat.setString(4, dto.getSecret());
+			pstat.setString(3, dto.getSecret());
+			pstat.setInt(4, dto.getSeq());
+
 			pstat.setInt(5, dto.getBoard_code());
 			
 			if(pstat.executeUpdate()>0)check=true;;
