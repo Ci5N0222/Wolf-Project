@@ -56,14 +56,14 @@ public class BoardController extends HttpServlet {
 				
 				if(request.getSession().getAttribute("WolfAdmin")==null) {
 					if(login_id==null) {
-						System.out.println("로그인을 해주세요");
-						response.sendRedirect("/index.jsp");
+						request.setAttribute("WolfCheckLogin",true);
+						request.getRequestDispatcher("/index.jsp").forward(request, response);
 					}
 				}
 				else {
 					if(!(boolean)request.getSession().getAttribute("WolfAdmin")) {
-						System.out.println("로그인을 해주세요");
-						response.sendRedirect("/index.jsp");
+						request.setAttribute("WolfCheckLogin",true);
+						request.getRequestDispatcher("/index.jsp").forward(request, response);
 					}
 				}
 				
