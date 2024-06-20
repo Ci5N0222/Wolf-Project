@@ -53,11 +53,23 @@ public class BoardController extends HttpServlet {
 		try {
 			if(cmd.equals("/list.board")) {
 				String login_id= (String)session.getAttribute("WolfID");
-	
-				if(login_id==null) {
-					System.out.println("로그인을 해주세요");
-					response.sendRedirect("/index.jsp");
+				
+				if(request.getSession().getAttribute("WolfAdmin")==null) {
+					if(login_id==null) {
+						System.out.println("로그인을 해주세요");
+						response.sendRedirect("/index.jsp");
+					}
 				}
+				else {
+					if(!(boolean)request.getSession().getAttribute("WolfAdmin")) {
+						System.out.println("로그인을 해주세요");
+						response.sendRedirect("/index.jsp");
+					}
+				}
+				
+					
+				
+				
 				
 				int board_code=0;
 				if(request.getParameter("board_code")==null) board_code=PageConfig.board;
