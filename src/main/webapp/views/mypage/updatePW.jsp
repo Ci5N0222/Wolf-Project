@@ -163,6 +163,12 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         opacity: 0.5;
       }
 
+      .naviBtn > img {
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
+      }
+
       /* main */
       * {
         box-sizing: border-box;
