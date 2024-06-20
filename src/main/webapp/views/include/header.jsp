@@ -23,7 +23,7 @@
 	            			<img src="${WolfAvatar}">
 	            		</c:when>
 	            		<c:otherwise>
-	            			<img src="/images/default-avatar.png" width="50" alt="기본 아바타">
+	            			<img src="/images/default-avatar.jpg" width="50" alt="기본 아바타">
 	            		</c:otherwise>
 	            	</c:choose>
 	            	
