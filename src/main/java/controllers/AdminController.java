@@ -202,7 +202,7 @@ public class AdminController extends HttpServlet {
 							cpage * PageConfig.adminGameListRecord);
 					for(GameDTO dto: gameList) {
 						String sysname = imagesDAO.getImageName(dto.getSeq(), image_code);
-						if(!sysname.equals(null)) {
+						if(sysname != null) {
 							dto.setThumbnail("thumbnails/" + sysname);
 						}	
 					}
@@ -233,7 +233,7 @@ public class AdminController extends HttpServlet {
 					request.setAttribute("beforeThumbnail", game.getThumbnail());
 					
 					String sysname = imagesDAO.getImageName(Integer.parseInt(seq), image_code);
-					if(!sysname.equals(null)) {
+					if(sysname != null) {
 						game.setThumbnail("thumbnails/" + sysname);
 					}
 					
