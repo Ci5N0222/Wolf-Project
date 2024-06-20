@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>login</title>
+<title>회원가입</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -530,8 +530,7 @@ button {
 
 					<label for="birth" id="birth1">생년월일</label>
 					<div class="form-group">
-						<input type="text" class="form-control" id="birth" name="birth"
-							placeholder="YYMMDD">
+						<input type="text" class="form-control" id="birth" name="birth">
 					</div>
 
 					<button type="submit" id="enterbtn">가입하기</button>
@@ -548,9 +547,9 @@ button {
 				$(document)
 						.ready(
 								function() {
-									let didIdCheck = false;
-									let didnicknameCheck = false;
-									let didemailCheck = false;
+									let idCheckFlag = false;
+									let nicknameCheckFlag = false;
+									let emailCheckFlag = false;
 									$("#male").on("click", function() {
 										$("#female").prop("checked", false);
 									});
@@ -699,6 +698,10 @@ button {
 															alert("ID 중복확인을 해주세요.");
 															return false;
 														}
+														if (!nicknameCheckFlag) {
+															alert("닉네임 중복확인을 해주세요.");
+															return false;
+														}
 														if (!emailCheckFlag){
 															alert("이메일 인증을 해주세요.");
 															return false;
@@ -759,10 +762,7 @@ button {
 															alert("닉네임을 입력 해주세요.");
 															return false;
 														}
-														if (!nicknameCheckFlag) {
-															alert("닉네임 중복확인을 해주세요.");
-															return false;
-														}
+
 
 													
 														if (!$("#male").is(

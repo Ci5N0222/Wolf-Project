@@ -29,7 +29,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ID Verification</title>
+    <title>아이디 찾기</title>
     <style>
         @import
 	url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Noto+Sans+KR:wght@100..900&display=swap')
@@ -295,12 +295,17 @@ body {
 	position: relative;
 	z-index: 1;
 	box-sizing: border-box;
-    height:45%;
+    height:35%;
         }
-        h2 {
-        	margin-top:50px;
-            text-align: center;
-        }
+.container h2 {
+	margin-top:40px;
+	margin-bottom: 10px;
+	font-size: 32px;
+	color: #f9a620;
+	font-family: 'Orbitron', sans-serif;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+}
         form {
             margin-top: 20px;
         }
@@ -315,6 +320,7 @@ body {
             margin-bottom: 20px;
             border: 1px solid #ccc;
             border-radius: 3px;
+            
         }
         button {
             
