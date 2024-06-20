@@ -90,6 +90,12 @@ create table image_code(
     sortaion varchar(30) 
 );
 
+CREATE TABLE qna(
+	seq NUMBER PRIMARY KEY,
+	board_seq NUMBER NOT NULL,
+	res_ok varchar(1) DEFAULT 'N'
+);
+
 create sequence board_seq
 start with 1
 increment by 1
@@ -129,6 +135,13 @@ start with 1
 increment by 1
 nomaxvalue
 nocache;
+
+CREATE SEQUENCE qna_seq
+start with 1
+increment by 1
+nomaxvalue
+nocache
+;
 
 -- members table dummy data
 INSERT INTO members VALUES ('user001', 'password1', 'Alice', 'alice01', '01012345678', 'alice@example.com', 'F', '19750101', 1, null, sysdate);
