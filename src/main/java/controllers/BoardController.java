@@ -88,7 +88,7 @@ public class BoardController extends HttpServlet {
 				if(target==null||keyword.equals("")||target.equals("")) {
 					boardList = boardDAO.selectAll( PageConfig.recordCountPerPage, cpage,board_code);
 					request.setAttribute("record_total_count", boardDAO.getRecordCount("","",board_code));
-					
+					System.out.println("검색안할떄");
 				}
 				else {
 					boardList = boardDAO.selectType( PageConfig.recordCountPerPage, cpage,board_code,target,keyword);

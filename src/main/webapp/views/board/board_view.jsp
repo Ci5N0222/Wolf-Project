@@ -314,6 +314,7 @@ body {
                         </select>
                         <input type="text" name="keyword" value="${keyword}" placeholder="검색어를 입력해주세요" style="height: 30px;">
                         <button >검색</button>
+                        <input type="hidden" value="${board_code}" name="board_code">
                         <script>
                             document.getElementById('targetSelect').value = '${target}';
                         </script>
