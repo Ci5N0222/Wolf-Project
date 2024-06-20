@@ -53,10 +53,7 @@ prefix="c" %>
         background-color: var(--bg-dark);
         color: var(--bg-black);
         color: var(--color-black);
-        overflow: hidden;
-        /* 폰트 */
-        font-family: "Noto Sans KR", sans-serif;
-        font-family: "Luckiest Guy", cursive;
+        overflow: auto;
       }
       body.light {
         background-color: var(--bg-light);
@@ -120,6 +117,8 @@ prefix="c" %>
       .container,
       .main {
         height: 100%;
+        /* 폰트 */
+        font-family: "Noto Sans KR", sans-serif;
       }
       /* 메뉴 */
       .navi {
@@ -133,8 +132,9 @@ prefix="c" %>
         color: var(--color-white);
         text-shadow: 1px 1px 1px gray;
         letter-spacing: 1px;
-
         border-radius: 40px 80px / 80px 40px;
+        /* 폰트 */
+        font-family: "Luckiest Guy", cursive;
       }
       .navi i {
         font-size: 22px;
@@ -173,11 +173,11 @@ prefix="c" %>
         margin: 0;
         padding: 0;
       }
-      /* div {
+      div {
         border: 1px solid #67ffd1;
-      } */
+      }
 
-      .mypage-select-container {
+      .mypage-myList-container {
         display: flex;
         flex-direction: column;
         height: 100vh;
@@ -225,6 +225,25 @@ prefix="c" %>
         flex: 1;
         justify-content: center;
         align-items: center;
+      }
+
+      .mypage-myList-form {
+        /* background-color: #bab58b; */
+        flex: 13;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 30px;
+        padding-top: 0;
+      }
+      .mypage-myList {
+        background-color: #f7f7f7;
+        display: flex;
+        width: 100%;
+        max-width: 950px;
+        height: auto;
+        min-height: 800px;
+        border-radius: 30px;
       }
 
       /* -- main과 동일 -- */
@@ -287,7 +306,7 @@ prefix="c" %>
         <%@ include file="/views/include/header.jsp" %>
 
         <!-- main -->
-        <main class="mypage-container">
+        <main class="mypage-myList-container">
           <div class="mypage-myList-title">문의내역</div>
           <div class="aside-section-form" style="display: flex">
             <aside class="mypage-side-menu">
@@ -313,7 +332,9 @@ prefix="c" %>
               </p>
             </aside>
 
-            <section class="mypage-myList-form"></section>
+            <section class="mypage-myList-form">
+              <div class="mypage-myList">ffddddddddddd</div>
+            </section>
           </div>
         </main>
       </div>

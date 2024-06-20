@@ -81,14 +81,11 @@ public class MypageController extends HttpServlet {
 				while(names.hasMoreElements()) {
 					
 					String name = names.nextElement();
-					 oriName= multi.getOriginalFileName(name); // 원본 파일 이름
+					oriName= multi.getOriginalFileName(name); // 원본 파일 이름
 					sysName = multi.getFilesystemName(name); // 서버에 저장된 파일의 이름
 
 					System.out.println(sysName);
 				}
-				
-				//response.reset(); // 기존에 response가 가지고 있는 내용을 리셋하는 작업
-				//response.setHeader("Content-Disposition", "attachment;filename=\""+oriName+"\"");
 				
 				String id = (String)session.getAttribute("WolfID");
 				String name = multi.getParameter("name");

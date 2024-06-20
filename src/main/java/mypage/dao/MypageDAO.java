@@ -19,12 +19,20 @@ public class MypageDAO {
 	private MypageDAO() {
 	}
 	
+	/**
+	 * 사용자의 아바타 이미지 이름
+	 * @param id
+	 * @return
+	 */
 	public String avatar(String id) {
 		String sql="select avatar from members where id=?";
 		String avatar="";
+		
 		try (Connection con =DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
+			
 			pstat.setString(1, id);
+		
 			try (ResultSet rs =pstat.executeQuery()){
 				rs.next();
 				avatar=rs.getString(1);

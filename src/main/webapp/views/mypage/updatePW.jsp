@@ -54,10 +54,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         /* background-color: azure; */
         color: var(--bg-black);
         color: var(--color-black);
-        overflow: hidden;
-        /* 폰트 */
-        font-family: "Noto Sans KR", sans-serif;
-        font-family: "Luckiest Guy", cursive;
+        overflow: auto;
       }
       body.light {
         /* background-color: var(--bg-light); */
@@ -122,6 +119,9 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       .container,
       .main {
         height: 100%;
+        z-index: 100;
+        /* 폰트 */
+        font-family: "Noto Sans KR", sans-serif;
       }
       /* 메뉴 */
       .navi {
@@ -135,8 +135,9 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         color: var(--color-white);
         text-shadow: 1px 1px 1px gray;
         letter-spacing: 1px;
-
         border-radius: 40px 80px / 80px 40px;
+        /* 폰트 */
+        font-family: "Luckiest Guy", cursive;
       }
       .navi i {
         font-size: 22px;
@@ -178,7 +179,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         border: 1px solid aqua;
       } */
 
-      .mypage-select-container {
+      .mypage-updatePW-container {
         display: flex;
         flex-direction: column;
         height: 100vh;
@@ -248,7 +249,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       .updatePW-board {
         width: 100%;
         max-width: 950px;
-        height: 1100px;
         padding: 0 140px;
       }
 
@@ -262,12 +262,12 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         padding-bottom: 60px;
       }
 
-      input[type="password"] {
+      /* input[type="password"] {
         width: 400px;
         height: 40px;
         padding-left: 10px;
         margin-bottom: 30px;
-      }
+      } */
 
       .updatePW-board label {
         display: flex;
@@ -300,6 +300,14 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       @media (max-width: 1100px) {
         .mypage-side-menu {
           display: none;
+        }
+      }
+      @media (max-width: 768px) {
+        .updatePW-warning-text {
+          margin-left: 80px;
+        }
+        .updatePW-board {
+          padding: 0 40px;
         }
       }
 
@@ -364,7 +372,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         <%@ include file="/views/include/header.jsp" %>
 
         <!-- main -->
-        <main class="mypage-select-container">
+        <main class="mypage-updatePW-container">
           <div class="mypage-updatePW-title">비밀번호 변경</div>
           <div class="aside-section-form" style="display: flex">
             <aside class="mypage-side-menu">
@@ -405,6 +413,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                   <label for="current_password">현재 비밀번호</label>
                   <input
                     type="password"
+                    placeholder="현재 비밀번호"
                     id="current_password"
                     name="current_password"
                     required
@@ -416,6 +425,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                     <label for="new_password">새 비밀번호</label>
                     <input
                       type="password"
+                      placeholder="새 비밀번호"
                       id="new_password"
                       name="new_password"
                       required
@@ -426,6 +436,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                     <label for="confirm_password">새 비밀번호 확인</label>
                     <input
                       type="password"
+                      placeholder="새 비밀번호 확인"
                       id="confirm_password"
                       name="confirm_password"
                       required
