@@ -411,11 +411,6 @@ public class AdminController extends HttpServlet {
 					String boardCode = multi.getParameter("board_code");
 					String member_id = (String)request.getSession().getAttribute("WolfID");
 					
-					System.out.println("title ======= " + title);
-					System.out.println("contents ======= " + contents);
-					System.out.println("boardCode ======= " + boardCode);
-					System.out.println("member_id ======= " + member_id);
-					
 					BoardDTO dto = new BoardDTO(0, title, contents, 0, member_id, Integer.parseInt(boardCode), null, "N");
 					int board_seq = boardDAO.insert(dto);
 					//dao_files.insert(new FilesDTO(0, oriName, sysName, parent_seq));
@@ -443,11 +438,35 @@ public class AdminController extends HttpServlet {
 			}
 			
 			
-			/** QNA 게시판 답변 남기기 **/
+			/** QNA 게시판 리스트 **/
 			else if(cmd.equals("/board_qna.admin")) {
 				if(!adminSession) response.sendRedirect("/page_login.admin");
 				else {
+					// 내용 작성
+					String pcpage = request.getParameter("cpage");
+					if(pcpage == null) pcpage = "1";
+					int cpage = Integer.parseInt(pcpage);
 					
+					String res = request.getParameter("res");
+					if(res == null) res = "Y";
+
+					List<AdminDTO.QnaListDTO> boardList = dao.getQnaList(
+							res,
+							cpage * PageConfig.recordCountPerPage - (PageConfig.recordCountPerPage - 1),
+							cpage * PageConfig.recordCountPerPage);
+					
+					request.setAttribute("boardList", boardList);
+					
+					/** 페이징 **/
+					request.setAttribute("cpage", cpage);
+					request.setAttribute("recode_total_count", dao.getBoardTotalCount());
+					request.setAttribute("recode_count_per_page", PageConfig.recordCountPerPage);
+					request.setAttribute("navi_count_per_page", PageConfig.naviCountPerPage);
+					
+					request.setAttribute("wpageName", "res");
+					request.setAttribute("wpage", res);
+					
+					request.getRequestDispatcher("/views/admin/admin_notice_list.jsp").forward(request, response);
 				}
 			}
 			
