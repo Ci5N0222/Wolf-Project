@@ -275,7 +275,13 @@ html,
 </head>
 
 <body>
-
+    <img  src="/images/bg1.png" alt="" class="img_bg"> 
+    <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
+    <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
+    <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
+    <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
+    <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
+    <img  src="/images/bg3.png" alt="" class="img_bg bgs">
     <div class="container">
         <div class="navi">
             <div style="flex: 2;">
@@ -295,21 +301,30 @@ html,
         <div style="flex: 8;">
             <div class="menu" style="flex: 1.5;">
                 <div style="flex: 1; flex-direction: column;">
-                    <div style="flex: 1;" class="center menu_title" id="board_1">
+                    <div style=" height: 50px !important;" class="center menu_title" id="board_1">
                         자유 게시판
                     </div>
-                    <div style="flex: 1;"  class="center menu_title" id="board_2">
+                    <div style=" height: 50px !important;"  class="center menu_title" id="board_2">
                         공지 게시판
                     </div>
-                    <div style="flex: 1;"  class="center menu_title" id="board_3">
+                    <div style="display: none;"  class="center menu_title" id="board_3">
                         QNA 게시판
                     </div>
-                    <div style="flex: 1;"  class="center menu_title" id="board_4">
-                        문의하기
+                    <div style="flex: 1; display: none;"  class="center menu_title" id="board_4">
+                        FAQ 게시판
                     </div>
                     <script>
                         $("#board_1").on("click",function(){
-                            location.href="/list.board";
+                            location.href="/list.board?board_code=1";
+                        })
+                        $("#board_2").on("click",function(){
+                            location.href="/list.board?board_code=2";
+                        })
+                        $("#board_3").on("click",function(){
+                            location.href="/list.board?board_code=3";
+                        })
+                        $("#board_4").on("click",function(){
+                            location.href="/list.board?board_code=4";
                         })
                     </script>
                 </div>
@@ -379,6 +394,7 @@ html,
             <button id="reply_btn" style="width: 15% !important; height: 100% !important; background-color: #00c73c !important; color: white !important;" class="no-hover button_css">등록</button>
         </div>
     </div>
+    <input type="hidden" value="${board_code}" name="board_code">
     </form>
     <div id="reply_contents">
         <c:forEach var="reply_dto" items="${reply_list}" varStatus="status">
@@ -434,7 +450,7 @@ html,
                                     <div style="flex: 4;" class="reply_child_list_contents">
                                        ${reply_child_dto.contents}
                                     </div>
-                                    <div style="flex: 1;" class="reply_child_list_write_date">
+                                    <div style="flex: 1; color: gray;" class="reply_child_list_write_date">
                                         <fmt:formatDate value="${reply_child_dto.write_date}" pattern="yyyy.MM.dd HH:mm" />
                                     </div>
                                 </div>
@@ -459,7 +475,7 @@ html,
                             </div>
                             <div style="flex: 4;" class="reply_child_list_contents">
                             </div>
-                            <div style="flex: 1;" class="reply_child_list_write_date">
+                            <div style="flex: 1; color: gray;" class="reply_child_list_write_date">
                             </div>
                         </div>
                         <div style="justify-content: flex-end;" class="reply_child_div1">
@@ -479,6 +495,7 @@ html,
                                     <p style="font-family: 'Courier New', Courier, monospace; font-size:small;">${WolfNickname}(${WolfID.substring(0, 4)}****) </p>
                                 </div>
                                 <div style="flex: 3; border: 1px solid gray; width: 100%; max-height: 155px;" class="reply_child_input div_input" onkeydown="handleKeyPress(this,event)"><label id="reply_child_label" style="font-size: 20px; color: gray;">주제와 무관한 댓글이나 스포일러, 악플은 경고조치 없이 삭제되며 징계 대상이 될 수 있습니다.</label></div>
+                                <div style="flex:0.5; color: grey;"><span>현재 입력한 글자수 :&nbsp</span><span class="reply_child_count">0</span>/<span>전체 입력 가능한 글자수 :&nbsp</span><span class="reply_child_count_max">500</span></div>
                                 <div style="flex: 1; justify-content: flex-end;">
                                         <button class="reply_child_insert no-hover button_css" style="color: #00c73c !important; background-color: whitesmoke !important; height: 100% !important; width: 18% !important;">등록</button>
                                 </div>         
@@ -495,13 +512,7 @@ html,
                 
         </div>
        
-        <img  src="/images/bg1.png" alt="" class="img_bg"> 
-        <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
-        <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
-        <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
-        <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
-        <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
-        <img  src="/images/bg3.png" alt="" class="img_bg bgs">
+  
         <script> //reply_child_script
             let reply_child_btn=$(".reply_child_btn");
             let reply_child_close=$(".reply_child_close");
@@ -545,7 +556,14 @@ html,
                 $(this).attr("contenteditable",true);
                 $(this).find("label").remove();
             })
+            reply_child_input.keydown(function(event){
+                let input=$(this);
+                let length=input.html().trim().length();
+                let count=input.parent().find(reply_child_count);
+                count.text(length);
+            })
 
+            
 
             reply_child_insert.on("click",function(){
                 let btn=$(this);
@@ -654,16 +672,25 @@ html,
                 if (event.keyCode === 13) {
                     for(let i=0;i<2;i++){
                         event.preventDefault(); // 기본 동작 막기
-                        // 새로운 줄을 추가하기 위해 <br> 태그 삽입
-                        let br=$("<br>");
-                        $(a).append(br);
-                        // 커서를 새로 삽입된 br 바로 뒤로 이동
-                        let range = document.createRange();
-                        range.setStartAfter(br[0]);
-                        range.collapse(true);
-                        let sel = window.getSelection();
-                        sel.removeAllRanges();
-                        sel.addRange(range);   
+                         // 현재 div 요소의 높이를 가져옵니다.
+                        const currentHeight = $(a).height()+5;
+                        console.log(currentHeight);
+                        // scrollHeight는 div 요소의 스크롤이 포함된 전체 높이를 나타냅니다.
+                        const scrollHeight = $(a).prop('scrollHeight');
+                        console.log(scrollHeight);
+                        if( scrollHeight < currentHeight){
+                              // 새로운 줄을 추가하기 위해 <br> 태그 삽입
+                            let br=$("<br>");
+                            $(a).append(br);
+                            // 커서를 새로 삽입된 br 바로 뒤로 이동
+                            let range = document.createRange();
+                            range.setStartAfter(br[0]);
+                            range.collapse(true);
+                            let sel = window.getSelection();
+                            sel.removeAllRanges();
+                            sel.addRange(range);   
+                        }
+                      
                     }       
                 }
             }
@@ -827,7 +854,7 @@ html,
 
         })
         btn2.on("click", function () { //list
-            location.href = "/list.board?target=${target}&keyword=${keyword}";
+            location.href = "/list.board?target=${target}&keyword=${keyword}&board_code=${board_code}";
 
         })
         btn3.on("click", function () { //update

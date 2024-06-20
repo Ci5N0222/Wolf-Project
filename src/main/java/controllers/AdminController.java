@@ -2,7 +2,6 @@ package controllers;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -16,6 +15,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import admin.dao.AdminDAO;
 import admin.dto.AdminDTO;
+import board.dto.BoardDTO;
 import commons.EncryptionUitls;
 import commons.PageConfig;
 import game.dto.GameDTO;
@@ -202,7 +202,7 @@ public class AdminController extends HttpServlet {
 							cpage * PageConfig.adminGameListRecord);
 					for(GameDTO dto: gameList) {
 						String sysname = imagesDAO.getImageName(dto.getSeq(), image_code);
-						if(!sysname.equals("none")) {
+						if(sysname != null) {
 							dto.setThumbnail("thumbnails/" + sysname);
 						}	
 					}
@@ -233,7 +233,7 @@ public class AdminController extends HttpServlet {
 					request.setAttribute("beforeThumbnail", game.getThumbnail());
 					
 					String sysname = imagesDAO.getImageName(Integer.parseInt(seq), image_code);
-					if(!sysname.equals("none")) {
+					if(sysname != null) {
 						game.setThumbnail("thumbnails/" + sysname);
 					}
 					
@@ -343,13 +343,43 @@ public class AdminController extends HttpServlet {
 			
 // ============================================ [ 게시판 ] =============================================
 			
-			/** 공지 게시판 글쓰기 **/
-			else if(cmd.equals("/board_notice.admin")) {
+			/** 공지 게시판 리스트 **/
+			else if(cmd.equals("/notice_list.admin")) {
 				if(!adminSession) response.sendRedirect("/page_login.admin");
 				else {
 					
+					String pcpage = request.getParameter("cpage");
+					if(pcpage == null) pcpage = "1";
+					int cpage = Integer.parseInt(pcpage);
+
+					List<AdminDTO.BoardListDTO> boardList = dao.getBoardList(
+							cpage * PageConfig.recordCountPerPage - (PageConfig.recordCountPerPage - 1),
+							cpage * PageConfig.recordCountPerPage);
+					
+					request.setAttribute("boardList", boardList);
+					
+					/** 페이징 **/
+					request.setAttribute("cpage", cpage);
+					request.setAttribute("recode_total_count", dao.getBoardTotalCount());
+					request.setAttribute("recode_count_per_page", PageConfig.recordCountPerPage);
+					request.setAttribute("navi_count_per_page", PageConfig.naviCountPerPage);
+					
+					request.getRequestDispatcher("/views/admin/admin_notice_list.jsp").forward(request, response);
 				}
 			}
+
+			/** 공지사항 작성 **/
+			else if(cmd.equals("/page_notice_insert.admin")) {
+				if(!adminSession) response.sendRedirect("/page_login.admin");
+				request.getRequestDispatcher("/views/admin/admin_notice_insert.jsp").forward(request, response);
+			}
+			else if(cmd.equals("/notice_insert.admin")) {
+				if(!adminSession) response.sendRedirect("/page_login.admin");
+				
+				String test = request.getParameter("");
+				
+			}
+			
 			
 			/** QNA 게시판 답변 남기기 **/
 			else if(cmd.equals("/board_qna.admin")) {
