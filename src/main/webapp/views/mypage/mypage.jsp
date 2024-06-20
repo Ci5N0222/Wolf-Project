@@ -57,9 +57,6 @@ pageEncoding="UTF-8"%>
         color: var(--bg-black);
         color: var(--color-black);
         overflow: auto;
-        /* 폰트 */
-        font-family: "Noto Sans KR", sans-serif;
-        font-family: "Luckiest Guy", cursive;
       }
       body.light {
         /* background-color: var(--bg-light); */
@@ -124,6 +121,8 @@ pageEncoding="UTF-8"%>
       .container,
       .main {
         height: 100%;
+        /* 폰트 */
+        font-family: "Noto Sans KR", sans-serif;
       }
       /* 메뉴 */
       .navi {
@@ -137,8 +136,9 @@ pageEncoding="UTF-8"%>
         color: var(--color-white);
         text-shadow: 1px 1px 1px gray;
         letter-spacing: 1px;
-
         border-radius: 40px 80px / 80px 40px;
+        /* 폰트 */
+        font-family: "Luckiest Guy", cursive;
       }
       .navi i {
         font-size: 22px;

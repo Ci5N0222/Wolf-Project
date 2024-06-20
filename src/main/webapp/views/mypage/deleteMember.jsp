@@ -54,9 +54,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         color: var(--bg-black);
         color: var(--color-black);
         overflow: hidden;
-        /* 폰트 */
-        font-family: "Noto Sans KR", sans-serif;
-        font-family: "Luckiest Guy", cursive;
       }
       body.light {
         /* background-color: var(--bg-light); */
@@ -121,6 +118,8 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       .container,
       .main {
         height: 100%;
+        /* 폰트 */
+        font-family: "Noto Sans KR", sans-serif;
       }
       /* 메뉴 */
       .navi {
@@ -134,8 +133,9 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         color: var(--color-white);
         text-shadow: 1px 1px 1px gray;
         letter-spacing: 1px;
-
         border-radius: 40px 80px / 80px 40px;
+        /* 폰트 */
+        font-family: "Luckiest Guy", cursive;
       }
       .navi i {
         font-size: 22px;
