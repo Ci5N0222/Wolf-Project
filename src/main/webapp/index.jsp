@@ -153,5 +153,10 @@
 		</div>
 	</div>
 	<script src="js/main.js"></script>
+	<script>
+		if("${WolfCheckLogin}"=="true"){
+			alert("로그인을 해주세요");
+		}
+	</script>
 </body>
 </html>
