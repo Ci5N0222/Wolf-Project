@@ -33,9 +33,20 @@
 	<main class="admin-container">
         <%@ include file="/views/include/admin_side.jsp" %>
         <section class="admin-main-form">
-	        <h1 class="admin-main-title">공지사항 작성</h1>
+        
+	        <c:choose>
+        		<c:when test="${ board_code eq 2 }">
+        			<h1 class="admin-main-title">공지사항 작성</h1>
+        		</c:when>
+        		<c:when test="${ board_code eq 3 }">
+        			<h1 class="admin-main-title">Q&A 작성</h1>
+        		</c:when>
+        		<c:otherwise>
+        		<h1 class="admin-main-title">FAQ 작성</h1>
+        		</c:otherwise>
+        	</c:choose>
 			<div class="admin-members-list">
-				<form action="/insert.board" id="fileform" method="post" enctype="multipart/form-data" >
+				<form action="/notice_insert.admin" id="fileform" method="post" enctype="multipart/form-data" >
 		            <div class="admin-notice-insert-title">
 		                <input type="text" name="title" placeholder="글 제목을 입력하세요">
 		            </div>
@@ -45,6 +56,7 @@
 		            	<button class="btn">작성완료</button>        
 	                    <button type="button" onclick="location.href='/notice_list.admin'">취소</button>
 		            </div>
+		            <input type="hidden" name="board_code" value="${board_code}">
 			    </form>
 			</div>
         </section>

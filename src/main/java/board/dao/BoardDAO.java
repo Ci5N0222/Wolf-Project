@@ -28,7 +28,7 @@ private static BoardDAO instance;
 	private BoardDAO() {}
 	
 	public int insert(BoardDTO dto) {
-		String sql="insert into board values(board_seq.nextval,?,?,0,?,?,sysdate)";
+		String sql="insert into board values(board_seq.nextval,?,?,0,?,?,sysdate,?)";
 		int seq=0;
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql,new String[] {"seq"})){
@@ -36,6 +36,7 @@ private static BoardDAO instance;
 			pstat.setString(2, dto.getContents());
 			pstat.setString(3, dto.getMember_id());
 			pstat.setInt(4, dto.getBoard_code());
+			pstat.setString(5, dto.getSecret());
 			
 			pstat.executeUpdate();
 			try (ResultSet rs=pstat.getGeneratedKeys()){
@@ -70,7 +71,7 @@ private static BoardDAO instance;
 				String member_id=rs.getString(5);
 				Timestamp write_date=rs.getTimestamp(6);
 				nickname.add(rs.getString(8));
-				list.add(new BoardDTO(seq,title,contents,count,member_id,board_code,write_date));			
+				//list.add(new BoardDTO(seq,title,contents,count,member_id,board_code,write_date));			
 			}		
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -102,8 +103,9 @@ private static BoardDAO instance;
 					int count =rs.getInt(4);
 					String member_id=rs.getString(5);
 					Timestamp write_date=rs.getTimestamp(7);
-					nickname.add(rs.getString(9));
-					BoardDTO dto=new BoardDTO(seq,title,contents,count,member_id,board_code,write_date);
+					String secret=rs.getString(8);
+					nickname.add(rs.getString(10));
+					BoardDTO dto=new BoardDTO(seq,title,contents,count,member_id,board_code,write_date,secret);
 					list.add(dto);
 				}
 			} catch (Exception e) {
@@ -146,8 +148,9 @@ private static BoardDAO instance;
 						int count =rs.getInt(4);
 						String member_id=rs.getString(5);
 						Timestamp write_date=rs.getTimestamp(7);
-						nickname.add(rs.getString(8));		
-						BoardDTO dto=new BoardDTO(seq,title,contents,count,member_id,board_code,write_date);
+						String secret=rs.getString(8);
+						nickname.add(rs.getString(9));		
+						BoardDTO dto=new BoardDTO(seq,title,contents,count,member_id,board_code,write_date,secret);
 						list.add(dto);
 						
 					}
@@ -172,9 +175,10 @@ private static BoardDAO instance;
 						int count =rs.getInt(4);
 						String member_id=rs.getString(5);
 						Timestamp write_date=rs.getTimestamp(7);
-						nickname.add(rs.getString(8));
+						String secret=rs.getString(8);
+						nickname.add(rs.getString(9));
 				
-						BoardDTO dto=new BoardDTO(seq,title,contents,count,member_id,board_code,write_date);
+						BoardDTO dto=new BoardDTO(seq,title,contents,count,member_id,board_code,write_date,secret);
 						list.add(dto);
 					}
 				} catch (Exception e) {}
@@ -199,8 +203,9 @@ private static BoardDAO instance;
 						int count =rs.getInt(4);
 						String member_id=rs.getString(5);
 						Timestamp write_date=rs.getTimestamp(7);
-						nickname.add(rs.getString(8));
-						BoardDTO dto=new BoardDTO(seq,title,contents,count,member_id,board_code,write_date);
+						String secret=rs.getString(8);
+						nickname.add(rs.getString(9));
+						BoardDTO dto=new BoardDTO(seq,title,contents,count,member_id,board_code,write_date,secret);
 						list.add(dto);
 					}
 				} catch (Exception e) {}
@@ -231,8 +236,9 @@ private static BoardDAO instance;
 					int count =rs.getInt(4);
 					String member_id=rs.getString(5);
 					Timestamp write_date=rs.getTimestamp(7);
-					nickname=rs.getString(8);
-					dto=(new BoardDTO(seq,title,contents,count,member_id,board_code,write_date));
+					String secret=rs.getString(8);
+					nickname=rs.getString(9);
+					dto=(new BoardDTO(seq,title,contents,count,member_id,board_code,write_date,secret));
 			} catch (Exception e) {
 				
 			}
@@ -267,14 +273,15 @@ private static BoardDAO instance;
 	}
 	
 	public void update(BoardDTO dto,int board_code) {
-		String sql="update board set title=?,contents=? , write_date=sysdate where seq=? and board_code=?";
+		String sql="update board set title=?,contents=? , secret=? write_date=sysdate where seq=? and board_code=?";
 		
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
 			pstat.setString(1, dto.getTitle());
 			pstat.setString(2, dto.getContents());
 			pstat.setInt(3, dto.getSeq());
-			pstat.setInt(4, board_code);
+			pstat.setString(4, dto.getSecret());
+			pstat.setInt(5, board_code);
 			pstat.executeUpdate();
 			
 			

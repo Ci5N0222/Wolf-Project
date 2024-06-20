@@ -29,14 +29,36 @@
         <%@ include file="/views/include/admin_side.jsp" %>
         
         <section class="admin-main-form">
-	        <h1 class="admin-main-title">공지사항</h1>
+        	<c:choose>
+        		<c:when test="${ wpage eq 2 }">
+        			<h1 class="admin-main-title">공 지 사 항</h1>
+        		</c:when>
+        		<c:when test="${ wpage eq 3 }">
+        			<h1 class="admin-main-title">Q & A</h1>
+        		</c:when>
+        		<c:otherwise>
+        		<h1 class="admin-main-title">F A Q</h1>
+        		</c:otherwise>
+        	</c:choose>
+	        
 			<div class="admin-members-list">
 				<div class="admin-game-insert-btn">
-					<button onclick="location.href='/page_notice_insert.admin'">공지 작성</button>
-					<div class="member-search-box">
-						<input type="text" id="member_search_text" placeholder="검색할 ID를 입력하세요">
-						<button onclick="adminMemberSearch()">search</button>
-					</div>
+					<select id="board-code-select">
+						<option value="2">공지사항</option>
+						<option value="3">Q&A</option>
+				        <option value="4">FAQ</option>
+					</select>
+					<c:choose>
+		        		<c:when test="${ wpage eq 2 }">
+		        			<button onclick="location.href='/page_notice_insert.admin?code=2'">공지 작성</button>
+		        		</c:when>
+		        		<c:when test="${ wpage eq 3 }">
+		        			<button onclick="location.href='/page_notice_insert.admin?code=3'">Q&A 작성</button>
+		        		</c:when>
+		        		<c:otherwise>
+		        			<button onclick="location.href='/page_notice_insert.admin?code=4'">FAQ 작성</button>
+		        		</c:otherwise>
+		        	</c:choose>
 				</div>
 				
              	<div class="admin-members-list">
@@ -64,7 +86,7 @@
 				<div class="page-navigation"></div>
 				<script>
 					/** 페이징 네이게이터 **/
-					pagenation(${cpage}, ${recode_total_count}, ${recode_count_per_page}, ${navi_count_per_page}, "/notice_list.admin");
+					pagenation(${cpage}, ${recode_total_count}, ${recode_count_per_page}, ${navi_count_per_page}, "/notice_list.admin", "${wpageName}", ${wpage});
 				</script>
 			</div>
         </section>

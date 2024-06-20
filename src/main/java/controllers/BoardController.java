@@ -56,14 +56,14 @@ public class BoardController extends HttpServlet {
 				
 				if(request.getSession().getAttribute("WolfAdmin")==null) {
 					if(login_id==null) {
-						System.out.println("로그인을 해주세요");
-						response.sendRedirect("/index.jsp");
+						request.setAttribute("WolfCheckLogin",true);
+						request.getRequestDispatcher("/index.jsp").forward(request, response);
 					}
 				}
 				else {
 					if(!(boolean)request.getSession().getAttribute("WolfAdmin")) {
-						System.out.println("로그인을 해주세요");
-						response.sendRedirect("/index.jsp");
+						request.setAttribute("WolfCheckLogin",true);
+						request.getRequestDispatcher("/index.jsp").forward(request, response);
 					}
 				}
 				
@@ -148,10 +148,14 @@ public class BoardController extends HttpServlet {
 				int board_code=Integer.parseInt(multi.getParameter("board_code"));
 				if(board_code==2||board_code==4)response.sendRedirect("/index.jsp");
 				else {
+					String secret="";
+					if(multi.getParameter("secret")==null) secret="N";
+					else secret=multi.getParameter("secret");
+					
 					String title=multi.getParameter("title");
 					String contents=multi.getParameter("contents");
 					String member_id= (String)session.getAttribute("WolfID");
-					BoardDTO dto=new BoardDTO(0,title,contents,0,member_id,board_code,null);
+					BoardDTO dto=new BoardDTO(0,title,contents,0,member_id,board_code,null,secret);
 					int board_seq= boardDAO.insert(dto);
 					//dao_files.insert(new FilesDTO(0, oriName, sysName, parent_seq));
 					Enumeration<String> names = multi.getFileNames();
@@ -202,12 +206,15 @@ public class BoardController extends HttpServlet {
 				for (int i : intArray) {
 					filesDAO.delete(i);
 				}
+				String secret="";
+				if(multi.getParameter("secret")==null) secret="N";
+				else secret=multi.getParameter("secret");
 				int seq=Integer.parseInt(multi.getParameter("seq"));
 				String title =multi.getParameter("title");
 				String contents=multi.getParameter("contents");
 				String member_id= (String)session.getAttribute("WolfID");
 				int count =Integer.parseInt(multi.getParameter("count"));
-				boardDAO.update(new BoardDTO(seq,title,contents,count,member_id,PageConfig.board,null),PageConfig.board);
+				boardDAO.update(new BoardDTO(seq,title,contents,count,member_id,PageConfig.board,null,secret),PageConfig.board);
 				Enumeration<String> names = multi.getFileNames();
 		        while(names.hasMoreElements()) {
 		               String name = names.nextElement();
