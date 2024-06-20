@@ -78,12 +78,11 @@ $(() => {
 		                temp.html('파일 업로드: ' + fileName);
 		                temp.append(button);
 		                files.append(temp);
-			                
-			          });   
+		          	});   
 			        button.on("click",function(){
 			            input.remove();
 			            temp.remove();
-			        })
+			        });
 			        files.append(div);
 			            
 			    },         
