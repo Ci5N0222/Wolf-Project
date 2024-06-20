@@ -272,24 +272,25 @@ private static BoardDAO instance;
 		}
 	}
 	
-	public void update(BoardDTO dto,int board_code) {
-		String sql="update board set title=?,contents=? , secret=? write_date=sysdate where seq=? and board_code=?";
-		
+	public boolean update(BoardDTO dto) {
+		String sql="update board set title=?,contents=? , secret=? ,write_date=sysdate where seq=? and board_code=?";
+		boolean check=false;
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
 			pstat.setString(1, dto.getTitle());
 			pstat.setString(2, dto.getContents());
 			pstat.setInt(3, dto.getSeq());
 			pstat.setString(4, dto.getSecret());
-			pstat.setInt(5, board_code);
-			pstat.executeUpdate();
+			pstat.setInt(5, dto.getBoard_code());
+			
+			if(pstat.executeUpdate()>0)check=true;;
 			
 			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		
-		
+		return check;
 	}
 	
 	public int getRecordCount(String type,String keyword,int board_code) {
