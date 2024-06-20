@@ -263,7 +263,7 @@ body, html {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-family: 'Roboto', sans-serif;
+	
 	background-size: cover;
 }
 
@@ -289,6 +289,7 @@ body, html {
 	color: #fff;
 	position: relative;
 	z-index: 1;
+	font-family: 'Roboto', sans-serif;
 	box-sizing: border-box;
 }
 
@@ -455,6 +456,7 @@ button:hover {
 							<a href="/views/members/signup.jsp">회원가입</a> <span>|</span>
 							 <a	href="/views/members/findid.jsp">아이디찾기</a> <span>|</span> 
 							 <a	href="/views/members/findpw.jsp">비밀번호찾기</a>
+							 <a href="/views/members/rank.jsp">.</a>
 						</div>
 					</div>
 				

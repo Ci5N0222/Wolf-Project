@@ -259,7 +259,7 @@ body, html {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-family: 'Roboto', sans-serif;
+	
 	background-size: cover;
 }
 
@@ -273,7 +273,7 @@ body, html {
 	z-index: -1;
 }
 body {
-	font-family: Arial, sans-serif;
+	
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -281,6 +281,7 @@ body {
 	margin: 0;
 }
 #container {
+font-family: Arial, sans-serif;
     background: #14213D;
     padding: 2px;
     margin: auto;
