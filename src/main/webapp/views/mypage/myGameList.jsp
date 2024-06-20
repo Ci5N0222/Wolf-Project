@@ -56,9 +56,6 @@ pageEncoding="UTF-8"%>
         color: var(--bg-black);
         color: var(--color-black);
         overflow: auto;
-        /* 폰트 */
-        font-family: "Noto Sans KR", sans-serif;
-        font-family: "Luckiest Guy", cursive;
       }
       body.light {
         background-color: var(--bg-light);
@@ -122,6 +119,8 @@ pageEncoding="UTF-8"%>
       .container,
       .main {
         height: 100%;
+        /* 폰트 */
+        font-family: "Noto Sans KR", sans-serif;
       }
       /* 메뉴 */
       .navi {
@@ -135,8 +134,9 @@ pageEncoding="UTF-8"%>
         color: var(--color-white);
         text-shadow: 1px 1px 1px gray;
         letter-spacing: 1px;
-
         border-radius: 40px 80px / 80px 40px;
+        /* 폰트 */
+        font-family: "Luckiest Guy", cursive;
       }
       .navi i {
         font-size: 22px;
@@ -240,50 +240,66 @@ pageEncoding="UTF-8"%>
       }
 
       .mypage-myGameList {
-        background-color: white;
+        background-color: rgb(247, 247, 247);
         display: flex;
+        flex-direction: column;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
         width: 100%;
         max-width: 950px;
         height: auto;
         min-height: 800px;
         border-radius: 30px;
+        padding: 50px 100px;
       }
 
-      .mypage-myGameList > div {
-        width: 80%;
-        height: 80%;
-        display: flex;
-        flex-direction: column;
-      }
-      .mypage-myGameList > div > div {
+      .mypage-myGameList .mypage-myGameList-info {
         width: 100%;
-        height: 15%;
+        height: 200px;
         display: flex;
-        align-items: center;
-        margin-bottom: 20px;
+        border-radius: 30px;
+        box-shadow: 0 0 10px #ccc;
+        margin-bottom: 30px;
+        padding: 10px;
       }
-
-      .mypage-myGameList .title {
-        flex: 3;
-        font-size: x-large;
-      }
-      .mypage-myGameList .score {
-        flex: 8;
+      .mypage-myGameList .mypage-myGameList-img {
+        flex: 2;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: larger;
-      }
-      .mypage-myGameList .score .score_txt {
-        font-weight: bolder;
-        font-size: xx-large;
+        background-color: #ffe8c1;
+        border-radius: 30px;
       }
 
-      @media (max-width: 1100px) {
+      .mypage-myGameList .mypage-myGameList-info > div:last-child {
+        flex: 3;
+        display: flex;
+        flex-direction: column;
+        margin-left: 40px;
+      }
+      .mypage-myGameList .mypage-myGameList-info .mypage-myGameList-title {
+        flex: 1;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        font-size: x-large;
+      }
+      .mypage-myGameList .mypage-myGameList-info .mypage-myGameList-score {
+        flex: 1;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        font-size: x-large;
+      }
+
+      @media (max-width: 1200px) {
         .mypage-side-menu {
           display: none;
+        }
+      }
+      @media (max-width: 1000px) {
+        .mypage-myGameList {
+          padding: 50px 30px;
         }
       }
 
@@ -376,14 +392,21 @@ pageEncoding="UTF-8"%>
             <section class="mypage-myGame-form">
               <div class="mypage-myGameList">
                 <c:if test="${result == null}">
-                  플레이 한 게임이 없습니다.
+                  <div style="border: 1px solid aqua">
+                    플레이 한 게임이 없습니다.
+                  </div>
                 </c:if>
                 <c:if test="${result != null}">
-                  <div>
-                    <c:forEach var="i" items="${result}">
+                  <c:forEach var="i" items="${result}">
+                    <div class="mypage-myGameList-info">
+                      <div class="mypage-myGameList-img">
+                        <img src="${WolfAvatar}" style="width: 100%; height: 100%; border-radius: 30px;">
+                      </div>
                       <div>
-                        <div class="title"><p>${i.title}</p></div>
-                        <div class="score">
+                        <div class="mypage-myGameList-title">
+                          <p class="title_txt">${i.title}</p>
+                        </div>
+                        <div class="mypage-myGameList-score">
                           <p>
                             최고점수 :
                             <p class="score_txt">${i.score}</p>
@@ -391,14 +414,15 @@ pageEncoding="UTF-8"%>
                           </p>
                         </div>
                       </div>
-                    </c:forEach>
-                  </div>
+                    </div>
+                  </c:forEach>
                 </c:if>
               </div>
             </section>
           </div>
         </main>
       </div>
+
       <!-- mode -->
       <div id="mode">
         <i class="fa-regular fa-lightbulb" style="display: none"></i>
