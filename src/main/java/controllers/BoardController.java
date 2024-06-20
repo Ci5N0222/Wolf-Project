@@ -113,7 +113,7 @@ public class BoardController extends HttpServlet {
 				String keyword=request.getParameter("keyword");
 				int board_code=Integer.parseInt(request.getParameter("board_code"));
 				boardDAO.countUp(seq);
-				Object boardList[] =boardDAO.selectBoard(seq,PageConfig.board);
+				Object boardList[] =boardDAO.selectBoard(seq,board_code);
 				Object replyList[] =replyDAO.select(seq);
 				Object reply_childList[]=reply_childDAO.selectAll();
 				List<FilesDTO> fileList=filesDAO.select(seq);
@@ -191,6 +191,7 @@ public class BoardController extends HttpServlet {
 			} else if(cmd.equals("/update.board")) {
 				//session.setAttribute("WolfID", "test1");
 				
+				
 				int maxSize = 1024 * 1024 * 10; // 10mb
 				String realPath = request.getServletContext().getRealPath("files");
 				File uploadPath = new File(realPath);
@@ -206,15 +207,22 @@ public class BoardController extends HttpServlet {
 				for (int i : intArray) {
 					filesDAO.delete(i);
 				}
+			
+				
+				int board_code=Integer.parseInt(multi.getParameter("board_code"));
+				
 				String secret="";
 				if(multi.getParameter("secret")==null) secret="N";
 				else secret=multi.getParameter("secret");
+				System.out.println(secret);
+				
 				int seq=Integer.parseInt(multi.getParameter("seq"));
 				String title =multi.getParameter("title");
 				String contents=multi.getParameter("contents");
 				String member_id= (String)session.getAttribute("WolfID");
 				int count =Integer.parseInt(multi.getParameter("count"));
-				boardDAO.update(new BoardDTO(seq,title,contents,count,member_id,PageConfig.board,null,secret),PageConfig.board);
+				boolean check=boardDAO.update(new BoardDTO(seq,title,contents,count,member_id,board_code,null,secret));
+				if(check)System.out.println("업데이트 성공!!!!!!!");
 				Enumeration<String> names = multi.getFileNames();
 		        while(names.hasMoreElements()) {
 		               String name = names.nextElement();
@@ -231,7 +239,7 @@ public class BoardController extends HttpServlet {
 		        String[] sysnames=boardDAO.findDeletedTags(new_contents);
 		        ArrayList<String> fileList= imagesDAO.delete(seq, PageConfig.board, sysnames);
 		        imagesDAO.deleteImageFile(request.getServletContext().getRealPath("upload_images"), fileList);
-				response.sendRedirect("/detail.board?seq="+seq);
+		        response.sendRedirect("/detail.board?seq="+seq+"&board_code="+board_code);
 				
 			} else if(cmd.equals("/1.board")) {
 				

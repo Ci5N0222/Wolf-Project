@@ -74,6 +74,26 @@ public class ImagesDAO {
 		
 		return result;
 	}
+	public String selectMypageAvatar(String member_id) {
+		String sql="select sysname from images where member_id =? and image_code =2";
+		String result="";
+		try (Connection con=DBConfig.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)){
+			
+			pstat.setString(1, member_id);
+			try (ResultSet rs=pstat.executeQuery()){
+				rs.next();
+				result=rs.getString(1);
+			} catch (Exception e) {
+			}
+			
+		} catch (Exception e) {	
+		}
+		return result;
+	}
+	
+
+	
 	
 	public ArrayList<String> delete(int parent_seq,int image_code ,String[] sysnames) {
 	

@@ -63,8 +63,9 @@ public class MypageController extends HttpServlet {
 				/* 내 정보 수정 */
 			} else if (cmd.equals("/update.mypage")) {
 				//--- 파일 업로드
+				String id = (String)session.getAttribute("WolfID");
 				int maxSize = 1024 * 1024 * 10; // 10MB 사이즈 제한
-				String realPath = request.getServletContext().getRealPath("avatar"); // 파일이 저장될 위치
+				String realPath = request.getServletContext().getRealPath(id); // 파일이 저장될 위치
 				System.out.println(realPath);
 				File uploadPath = new File(realPath); // 저장 위치 폴더를 파일 인스턴스로 생성
 
@@ -87,16 +88,39 @@ public class MypageController extends HttpServlet {
 					System.out.println(sysName);
 				}
 				
-				String id = (String)session.getAttribute("WolfID");
+				
 				String name = multi.getParameter("name");
 				String nickname = multi.getParameter("nickname");
 				String phone = multi.getParameter("phone");
 				String email = multi.getParameter("email");
-				String avatar = "/avatar" + "/" + sysName;
-
+				String avatar = "/"+id + "/" + sysName;
 				
-				iDAO.insert(new ImagesDTO(0,oriName,sysName,2,0,id));
-				//iDAO.updateMypage(oriName, sysName, id);
+				
+				
+				String deleteSysname=iDAO.selectMypageAvatar(id);
+				
+				 File imageFile = new File(realPath + "/" + deleteSysname);
+				 if (imageFile.exists()) {
+					   if (imageFile.delete()) {
+				         System.out.println("파일 삭제 성공");
+					   } else {
+				         System.out.println("파일 삭제 실패");
+					   }
+				 }else {
+				    System.out.println("파일이 존재하지 않습니다.");
+				 }
+			
+				 
+				
+				if(deleteSysname.equals("")) {
+					iDAO.insert(new ImagesDTO(0,oriName,sysName,2,0,id));
+				}
+				else {
+					iDAO.updateMypage(oriName, sysName, id);
+				}
+				
+			
+				
 				
 				MembersDTO dto = new MembersDTO(id, null, name, nickname, phone, email, null, null, 0, avatar, null);
 
