@@ -5,8 +5,8 @@ public class PageConfig {
 		public static int naviCountPerPage=10;
 		public static int recordCountPerPage=10;
 		public static int board=1;
-		public static int qna=2;
-		
+		public static int qna=3;
+		public static int faq=4;
 		public static int adminGameListRecord=5;
 		
 }

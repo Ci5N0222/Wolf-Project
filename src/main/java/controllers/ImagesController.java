@@ -117,11 +117,16 @@ public class ImagesController extends HttpServlet {
 			  	 			
 		}
 		else if(cmd.equals("/delete.images")) {
-			if(imagesDAO.delete()) {
+			String board_code=request.getParameter("board_code");
+			int image_code=Integer.parseInt(board_code);
+			
+			if(imagesDAO.delete(image_code)) {
 				pw.append("success");
+				System.out.println("success");
 			}
 			else {
 				pw.append("fail");
+				System.out.println("fail");
 			}
 			
 		}

@@ -36,11 +36,12 @@ public class ImagesDAO {
 		}
 	}
 	
-	public boolean delete() {
-		String sql="delete from images where parent_seq=999999";
+	public boolean delete(int image_code) {
+		String sql="delete from images where parent_seq=999999 and image_code=?";
 		boolean result=false;
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
+			pstat.setInt(1, image_code);
 			if(pstat.executeUpdate()>0)result=true;
 			
 		} catch (Exception e) {

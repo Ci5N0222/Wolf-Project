@@ -265,11 +265,20 @@ body {
                         QNA 게시판
                     </div>
                     <div style="flex: 1;"  class="center menu_title" id="board_4">
-                        문의하기
+                        FAQ 게시판
                     </div>
                     <script>
                         $("#board_1").on("click",function(){
-                            location.href="/list.board";
+                            location.href="/list.board?board_code=1";
+                        })
+                        $("#board_2").on("click",function(){
+                            location.href="/list.board?board_code=2";
+                        })
+                        $("#board_3").on("click",function(){
+                            location.href="/list.board?board_code=3";
+                        })
+                        $("#board_4").on("click",function(){
+                            location.href="/list.board?board_code=4";
                         })
                     </script>
                 </div>
@@ -279,7 +288,21 @@ body {
             </div>    
             <div class="board">
                 <div class="center" style="flex: 1; font-family: 'Luckiest Guy', cursive; font-size: 30px;">
-                    자유게시판
+                    <c:choose>
+                        <c:when test="${board_code==1}">
+                            자유 게시판
+                        </c:when>
+                        <c:when test="${board_code==2}">
+                            공지 게시판
+                        </c:when>
+                        <c:when test="${board_code==3}">
+                            QNA 게시판
+                        </c:when>
+                        <c:when test="${board_code==4}">
+                            FAQ 게시판
+                        </c:when>
+                    </c:choose>
+                   
                 </div>
                 <div style="flex: 0.7; justify-content: flex-end;">
                     <form action="/list.board" method="get" >
@@ -315,10 +338,15 @@ body {
                     </c:forEach>
                 </div>
                 <div style="flex: 1;" class="center" id="navi"></div>
-                <div style="flex: 1; justify-content: flex-end; align-items: center;">
-                    <button id="new">글쓰기</button>&nbsp&nbsp
-                    <button id="index">뒤로가기</button>&nbsp&nbsp&nbsp
-                </div>
+                <c:choose>
+                    <c:when test="${board_code==1 || board_code==3}">
+                        <div style="flex: 1; justify-content: flex-end; align-items: center;">
+                            <button id="new">글쓰기</button>&nbsp&nbsp
+                            <button id="index">뒤로가기</button>&nbsp&nbsp&nbsp
+                        </div>
+                    </c:when>
+                </c:choose>
+              
             </div>
         </div>
     </div>
@@ -381,17 +409,18 @@ body {
             //console.log($(e).text());
             //console.log(seq.eq(index).text());
             $(e).on("click",function(){
-                location.href="/detail.board?seq="+seq.eq(index).text()+"&target=${target}&keyword=${keyword}";
+                location.href="/detail.board?seq="+seq.eq(index).text()+"&target=${target}&keyword=${keyword}&board_code=${board_code}";
             })
 
          })
+         
 
          $("#index").on("click",function(){
             location.href="/index.jsp";
         })
         $("#new").on("click",function(){ //작성하기
             if("${WolfID}"!="")
-            location.href="/views/board/board_contents.jsp";
+            location.href="/views/board/board_contents.jsp?board_code=${board_code}";
             else{
                 alert("로그인을 해주세요");
             }
