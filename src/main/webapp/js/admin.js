@@ -278,6 +278,9 @@ const adminGameDelete = (seq) => {
 /** page navigation **/
 const pagenation = (cpage, recordTotalCount, recordCountPerPage, naviCountPerPage, url, wpageName, wpage) => {
 	
+	if(wpageName === undefined) wpageName = "";
+	if(wpage === undefined)	wpage = "";
+
 	// total page count
 	let pageTotalCount = 0;
 	if(recordTotalCount % recordCountPerPage > 0) pageTotalCount = recordTotalCount / recordCountPerPage + 1;

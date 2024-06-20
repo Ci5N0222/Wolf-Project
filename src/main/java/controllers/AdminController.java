@@ -351,29 +351,35 @@ public class AdminController extends HttpServlet {
 					String pcpage = request.getParameter("cpage");
 					if(pcpage == null) pcpage = "1";
 					int cpage = Integer.parseInt(pcpage);
-					
-					String boardCode = request.getParameter("board_code");
-					if(boardCode == null) boardCode = "1";
-					
-					List<BoardDTO> list = dao.getBoardList(
-							Integer.parseInt(boardCode),
+
+					List<AdminDTO.BoardListDTO> boardList = dao.getBoardList(
 							cpage * PageConfig.recordCountPerPage - (PageConfig.recordCountPerPage - 1),
 							cpage * PageConfig.recordCountPerPage);
 					
-					request.setAttribute("list", list);
+					request.setAttribute("boardList", boardList);
 					
 					/** 페이징 **/
 					request.setAttribute("cpage", cpage);
-					request.setAttribute("recode_total_count", dao.getGameTotalCount(Integer.parseInt(boardCode)));
+					request.setAttribute("recode_total_count", dao.getBoardTotalCount());
 					request.setAttribute("recode_count_per_page", PageConfig.recordCountPerPage);
 					request.setAttribute("navi_count_per_page", PageConfig.naviCountPerPage);
-					
-					request.setAttribute("wpageName", "board_code");
-					request.setAttribute("wpage", Integer.parseInt(boardCode));
 					
 					request.getRequestDispatcher("/views/admin/admin_notice_list.jsp").forward(request, response);
 				}
 			}
+
+			/** 공지사항 작성 **/
+			else if(cmd.equals("/page_notice_insert.admin")) {
+				if(!adminSession) response.sendRedirect("/page_login.admin");
+				request.getRequestDispatcher("/views/admin/admin_notice_insert.jsp").forward(request, response);
+			}
+			else if(cmd.equals("/notice_insert.admin")) {
+				if(!adminSession) response.sendRedirect("/page_login.admin");
+				
+				String test = request.getParameter("");
+				
+			}
+			
 			
 			/** QNA 게시판 답변 남기기 **/
 			else if(cmd.equals("/board_qna.admin")) {

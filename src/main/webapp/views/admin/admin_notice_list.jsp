@@ -29,17 +29,10 @@
         <%@ include file="/views/include/admin_side.jsp" %>
         
         <section class="admin-main-form">
-	        <h1 class="admin-main-title">회원 관리</h1>
+	        <h1 class="admin-main-title">공지사항</h1>
 			<div class="admin-members-list">
 				<div class="admin-game-insert-btn">
-					<select id="members-id-select">
-						<option value="0">전체회원</option>
-				        <option value="1">일반회원</option>
-				        <option value="2">휴면계정</option>
-				        <option value="3">블랙리스트</option>
-				        <option value="98">서브관리자</option>
-				        <option value="99">메인관리자</option>
-					</select>
+					<button onclick="location.href='/page_notice_insert.admin'">공지 작성</button>
 					<div class="member-search-box">
 						<input type="text" id="member_search_text" placeholder="검색할 ID를 입력하세요">
 						<button onclick="adminMemberSearch()">search</button>
@@ -47,36 +40,22 @@
 				</div>
 				
              	<div class="admin-members-list">
-				<c:if test="${membersList.size() > 0}">
+				<c:if test="${boardList.size() > 0}">
 					<table>
 						<tr>
-							<th>ID</th>
-							<th>이름</th>
-							<th>닉네임</th>
-							<th>회원 등급</th>
+							<th>N0.</th>
+							<th>제목</th>
+							<th>작성자</th>
+							<th>작성일</th>
+							<th>조회수</th>
 						</tr>
-			 			<c:forEach var="members" items="${membersList}">
+			 			<c:forEach var="boardList" items="${boardList}">
 				 			<tr>
-				 				<td><a href="/members_detail.admin?id=${members.id}">${members.id}</a></td>
-				 				<td>${members.name}</td>
-				 				<td>${members.nickname}</td>
-				 				<c:choose>
-							   		<c:when test="${ members.grade eq 1 }">
-							   			<td class="member-select-noraml">일반 회원</td>
-							   		</c:when>
-							   		<c:when test="${ members.grade eq 2 }">
-							   			<td class="member-select-dormant">휴면 회원</td>
-							   		</c:when>
-							   		<c:when test="${ members.grade eq 3 }">
-							   			<td class="member-select-black">블랙 회원</td>
-							   		</c:when>
-							   		<c:when test="${ members.grade eq 98 }">
-							   			<td class="member-select-sub-manager">서브 관리자</td>
-							   		</c:when>
-							   		<c:when test="${members.grade eq 99 }">
-							   			<td class="member-select-main-manager">메인 관리자</td>
-							   		</c:when>
-							   	</c:choose>
+				 				<td>${boardList.seq}</td>
+				 				<td><a href="/detail.board?seq=${boardList.seq}&target=&keyword=&board_code=2">${boardList.title}</a></td>
+				 				<td>${boardList.nickname}</td>
+				 				<td>${boardList.write_date}</td>
+				 				<td>${boardList.count}</td>
 				 			</tr>
 			 			</c:forEach>
 					</table>
@@ -85,7 +64,7 @@
 				<div class="page-navigation"></div>
 				<script>
 					/** 페이징 네이게이터 **/
-					pagenation(${cpage}, ${recode_total_count}, ${recode_count_per_page}, ${navi_count_per_page}, "/members_list.admin", "${wpageName}", ${wpage});
+					pagenation(${cpage}, ${recode_total_count}, ${recode_count_per_page}, ${navi_count_per_page}, "/notice_list.admin");
 				</script>
 			</div>
         </section>

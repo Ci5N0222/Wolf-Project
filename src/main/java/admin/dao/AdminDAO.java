@@ -506,41 +506,36 @@ public class AdminDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	public int getBoardTotalCount(int code) throws Exception {
-		String sql = "select count(*) from board where board_code = ?";
+	public int getBoardTotalCount() throws Exception {
+		String sql = "select count(*) from board where board_code = 2";
 				
 		try(Connection con = DBConfig.getConnection();
-			PreparedStatement pstat = con.prepareStatement(sql)){
-			pstat.setInt(1, code);
+			PreparedStatement pstat = con.prepareStatement(sql);
+			ResultSet rs = pstat.executeQuery()){
+			rs.next();
 			
-			try(ResultSet rs = pstat.executeQuery()){
-				rs.next();
-				
-				return rs.getInt(1);
-			}
+			return rs.getInt(1);
 		}
 	}
 	
 	
 	/**
 	 * 게시물의 목록을 반환하는 메서드
-	 * @param code
 	 * @param start
 	 * @param end
 	 * @return
 	 * @throws Exception
 	 */
-	public List<BoardDTO> getBoardList(int code, int start, int end) throws Exception {
-		String sql = "select * from (select board.*, row_number() over(order by seq) rown from board where board_code = ?) where rown between ? and ?";
+	public List<AdminDTO.BoardListDTO> getBoardList(int start, int end) throws Exception {
+		String sql = "select a.*,m.nickname nickname from (select board.*, row_number() over(order by seq) rown from board where board_code = 2) a join members m on m.id=a.member_id where rown between ? and ?";
 		
 		try(Connection con = DBConfig.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql)){
-			pstat.setInt(1, code);
-			pstat.setInt(2, start);
-			pstat.setInt(3, end);
+			pstat.setInt(1, start);
+			pstat.setInt(2, end);
 			
 			try(ResultSet rs = pstat.executeQuery()){
-				List<BoardDTO> list = new ArrayList<>();
+				List<AdminDTO.BoardListDTO> list = new ArrayList<>();
 				
 				while(rs.next()) {
 					int seq = rs.getInt("seq");
@@ -548,10 +543,11 @@ public class AdminDAO {
 					String contents = rs.getString("contents");
 					int count = rs.getInt("count");
 					String memberId = rs.getString("member_id");
+					String nickName = rs.getString("nickname");
 					int boardCode = rs.getInt("board_code");
 					Timestamp writeDate = rs.getTimestamp("write_date");
 					
-					list.add(new BoardDTO(seq, title, contents, count, memberId, boardCode, writeDate));
+					list.add(new AdminDTO.BoardListDTO(seq, title, contents, count, memberId, nickName, boardCode, writeDate));
 				}
 				
 				return list;
