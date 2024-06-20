@@ -202,11 +202,13 @@ body.light {
 
 .card {
 	height: 300px;
+	border: 5px solid rgba(255, 255, 255, 0.41);
 }
 
 /* 이미지가 카드를 넘어가면 잘림 */
 .card>div {
 	height: 200px;
+	border: 1px solid #ccc;
 }
 
 /* 이미지가 가로로 꽉 차게 설정 */
@@ -221,9 +223,30 @@ body.light {
 	height: 100px;
 }
 
+/* .card>form button {
+	height: 50px;
+} */
 .card>form button {
 	height: 50px;
+	width: 100%;
+	font-size:1rem;
+	/* border-radius:10px; */
+	background-color: var(--bg-dark); 
+	border: 5px solid transparent;
+	color: var(--color-white);
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	letter-spacing: 1.5px;
+	transition: border-color 0.4s ease-in-out, color 0.4s ease-in-out;
 }
+
+.card>form button:hover {
+	border-color: #f9a620;
+	color: var(--color-white);
+
+}
+
 
 .card>form div {
 	height: 50px;
