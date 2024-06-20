@@ -52,7 +52,7 @@
 							<div class="card" style="width: 18rem;">
 								<div>
 									<c:choose>
-										<c:when test="${l.thumbnail != 'none'}">
+										<c:when test="/${l.thumbnail != null}">
 											<img class="card-img-top" src="/${l.thumbnail}"
 												alt="게임 섬네일 이미지">
 										</c:when>
@@ -64,7 +64,7 @@
 								</div>
 								<form action='/detail.game' method='post'>
 									<input type="hidden" name="seq" value="${l.seq}">
-									<button class='btn btn-primary'>${l.title}</button>
+									<button>${l.title}</button>
 									<div class="discription">${l.discription}</div>
 								</form>
 							</div>
