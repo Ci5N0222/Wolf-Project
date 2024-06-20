@@ -179,7 +179,7 @@ public class ImagesDAO {
 				if(rs.next()) {
 					return rs.getString("sysname");	
 				} else {
-					return "none";
+					return null;
 				}
 			}
 		}
