@@ -58,7 +58,7 @@ public class ImagesDAO {
 	 * @return
 	 */
 	public boolean updateMypage(String oriname, String sysname, String member_id) {
-		String sql="update images set oriname=?,sysname=? where image_code=7 and member_id=?";
+		String sql="update images set oriname=?,sysname=? where image_code=2 and member_id=?";
 		boolean result=false;
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){

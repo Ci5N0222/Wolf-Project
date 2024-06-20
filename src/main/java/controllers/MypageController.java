@@ -98,7 +98,7 @@ public class MypageController extends HttpServlet {
 				String avatar = "/avatar" + "/" + sysName;
 
 				
-				iDAO.insert(new ImagesDTO(0,oriName,sysName,7,0,id));
+				iDAO.insert(new ImagesDTO(0,oriName,sysName,2,0,id));
 				//iDAO.updateMypage(oriName, sysName, id);
 				
 				MembersDTO dto = new MembersDTO(id, null, name, nickname, phone, email, null, null, 0, avatar, null);
