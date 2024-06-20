@@ -19,8 +19,11 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import commons.EncryptionUitls;
 import game.dao.GameDAO;
+import images.dao.ImagesDAO;
+import images.dto.ImagesDTO;
 import members.dao.MembersDAO;
 import members.dto.MembersDTO;
+import mypage.dao.MypageDAO;
 import mypage.dto.GameScoreDTO;
 
 @WebServlet("*.mypage")
@@ -32,9 +35,12 @@ public class MypageController extends HttpServlet {
 		
 		GameDAO gDAO = GameDAO.getInstance();
 		MembersDAO mDAO = MembersDAO.getinstance();
-
+		MypageDAO pDAO = MypageDAO.getinstance();
+		ImagesDAO iDAO =ImagesDAO.getInstance();
+		
 		HttpSession session = request.getSession();
 		Gson g = new Gson();
+		PrintWriter pw= response.getWriter();
 		
 		String cmd= request.getRequestURI();
 		System.out.println("확인중 :" + cmd);
@@ -58,7 +64,8 @@ public class MypageController extends HttpServlet {
 			} else if (cmd.equals("/update.mypage")) {
 				//--- 파일 업로드
 				int maxSize = 1024 * 1024 * 10; // 10MB 사이즈 제한
-				String realPath = request.getServletContext().getRealPath("files"); // 파일이 저장될 위치
+				String realPath = request.getServletContext().getRealPath("avatar"); // 파일이 저장될 위치
+				System.out.println(realPath);
 				File uploadPath = new File(realPath); // 저장 위치 폴더를 파일 인스턴스로 생성
 
 				if (!uploadPath.exists()) { // 파일 업로드 할 폴더가 존재하지 않는다면
@@ -80,16 +87,20 @@ public class MypageController extends HttpServlet {
 					System.out.println(sysName);
 				}
 				
-				response.reset(); // 기존에 response가 가지고 있는 내용을 리셋하는 작업
-				response.setHeader("Content-Disposition", "attachment;filename=\""+oriName+"\"");
+				//response.reset(); // 기존에 response가 가지고 있는 내용을 리셋하는 작업
+				//response.setHeader("Content-Disposition", "attachment;filename=\""+oriName+"\"");
 				
 				String id = (String)session.getAttribute("WolfID");
 				String name = multi.getParameter("name");
 				String nickname = multi.getParameter("nickname");
 				String phone = multi.getParameter("phone");
 				String email = multi.getParameter("email");
-				String avatar = realPath + "/" + sysName;
+				String avatar = "/avatar" + "/" + sysName;
 
+				
+				iDAO.insert(new ImagesDTO(0,oriName,sysName,2,0,id));
+				//iDAO.updateMypage(oriName, sysName, id);
+				
 				MembersDTO dto = new MembersDTO(id, null, name, nickname, phone, email, null, null, 0, avatar, null);
 
 				mDAO.edit(dto);
@@ -106,7 +117,6 @@ public class MypageController extends HttpServlet {
 				
 				response.setContentType("text/html; charset=UTF-8");			
 
-				PrintWriter pw = response.getWriter();
 				
 				if(result) { // db에 pw있다면 변경
 					id = (String)session.getAttribute("WolfID");
@@ -162,6 +172,11 @@ public class MypageController extends HttpServlet {
 				
 				mDAO.deleteMember(id);
 				response.sendRedirect("/logout.members");
+				
+			} else if(cmd.equals("/updateAvatar.mypage")) {
+				String id = (String)session.getAttribute("WolfID");
+				String avatar=pDAO.avatar(id);
+				pw.append(avatar);
 				
 			}
 			

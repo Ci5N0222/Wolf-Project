@@ -50,6 +50,30 @@ public class ImagesDAO {
 		return result;
 	}
 	
+	/**
+	 * 마이페이지_ 아바타 사진 업데이트
+	 * @param oriname
+	 * @param sysname
+	 * @param member_id
+	 * @return
+	 */
+	public boolean updateMypage(String oriname, String sysname, String member_id) {
+		String sql="update images set oriname=?,sysname=? where image_code=2 and member_id=?";
+		boolean result=false;
+		try (Connection con=DBConfig.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)){
+			pstat.setString(1, oriname);
+			pstat.setString(2, sysname);
+			pstat.setString(3, member_id);
+			if(pstat.executeUpdate()>0)result=true;
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return result;
+	}
+	
 	public ArrayList<String> delete(int parent_seq,int image_code ,String[] sysnames) {
 	
 		ArrayList<String> sysnameList= new ArrayList<>();
