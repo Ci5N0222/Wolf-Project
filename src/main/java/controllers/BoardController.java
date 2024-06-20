@@ -88,7 +88,7 @@ public class BoardController extends HttpServlet {
 				if(target==null||keyword.equals("")||target.equals("")) {
 					boardList = boardDAO.selectAll( PageConfig.recordCountPerPage, cpage,board_code);
 					request.setAttribute("record_total_count", boardDAO.getRecordCount("","",board_code));
-					
+					System.out.println("검색안할떄");
 				}
 				else {
 					boardList = boardDAO.selectType( PageConfig.recordCountPerPage, cpage,board_code,target,keyword);
@@ -117,8 +117,6 @@ public class BoardController extends HttpServlet {
 				Object replyList[] =replyDAO.select(seq);
 				Object reply_childList[]=reply_childDAO.selectAll();
 				List<FilesDTO> fileList=filesDAO.select(seq);
-				
-				System.out.println();
 				
 				
 				request.setAttribute("target",target);

@@ -225,6 +225,14 @@ body {
 </style>
 </head>
 <body>
+
+    <script>
+        if("${board_code}"==3  || "${board_code}"==4){
+            location.href="/index.jsp";
+            alert("잘못된 접근입니다");
+        }
+    </script>
+
     <div>
         <img src="/images/bg1.png" alt="" class="img_bg"> 
         <img src="/images/bg3.png" alt="" class="img_bg bgs"> 
@@ -255,16 +263,16 @@ body {
         <div style="display: flex; flex: 8;">
             <div class="menu" style="flex: 1.5;">
                 <div style="flex: 1; flex-direction: column;">
-                    <div style="flex: 1;" class="center menu_title" id="board_1">
+                    <div style=" height: 50px !important;" class="center menu_title" id="board_1">
                         자유 게시판
                     </div>
-                    <div style="flex: 1;"  class="center menu_title" id="board_2">
+                    <div style=" height: 50px !important;"  class="center menu_title" id="board_2">
                         공지 게시판
                     </div>
-                    <div style="flex: 1;"  class="center menu_title" id="board_3">
+                    <div style="display: none;"  class="center menu_title" id="board_3">
                         QNA 게시판
                     </div>
-                    <div style="flex: 1;"  class="center menu_title" id="board_4">
+                    <div style="flex: 1; display: none;"  class="center menu_title" id="board_4">
                         FAQ 게시판
                     </div>
                     <script>
@@ -314,6 +322,7 @@ body {
                         </select>
                         <input type="text" name="keyword" value="${keyword}" placeholder="검색어를 입력해주세요" style="height: 30px;">
                         <button >검색</button>
+                        <input type="hidden" value="${board_code}" name="board_code">
                         <script>
                             document.getElementById('targetSelect').value = '${target}';
                         </script>

@@ -275,7 +275,13 @@ html,
 </head>
 
 <body>
-
+    <img  src="/images/bg1.png" alt="" class="img_bg"> 
+    <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
+    <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
+    <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
+    <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
+    <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
+    <img  src="/images/bg3.png" alt="" class="img_bg bgs">
     <div class="container">
         <div class="navi">
             <div style="flex: 2;">
@@ -295,16 +301,16 @@ html,
         <div style="flex: 8;">
             <div class="menu" style="flex: 1.5;">
                 <div style="flex: 1; flex-direction: column;">
-                    <div style="flex: 1;" class="center menu_title" id="board_1">
+                    <div style=" height: 50px !important;" class="center menu_title" id="board_1">
                         자유 게시판
                     </div>
-                    <div style="flex: 1;"  class="center menu_title" id="board_2">
+                    <div style=" height: 50px !important;"  class="center menu_title" id="board_2">
                         공지 게시판
                     </div>
-                    <div style="flex: 1;"  class="center menu_title" id="board_3">
+                    <div style="display: none;"  class="center menu_title" id="board_3">
                         QNA 게시판
                     </div>
-                    <div style="flex: 1;"  class="center menu_title" id="board_4">
+                    <div style="flex: 1; display: none;"  class="center menu_title" id="board_4">
                         FAQ 게시판
                     </div>
                     <script>
@@ -388,6 +394,7 @@ html,
             <button id="reply_btn" style="width: 15% !important; height: 100% !important; background-color: #00c73c !important; color: white !important;" class="no-hover button_css">등록</button>
         </div>
     </div>
+    <input type="hidden" value="${board_code}" name="board_code">
     </form>
     <div id="reply_contents">
         <c:forEach var="reply_dto" items="${reply_list}" varStatus="status">
@@ -488,7 +495,7 @@ html,
                                     <p style="font-family: 'Courier New', Courier, monospace; font-size:small;">${WolfNickname}(${WolfID.substring(0, 4)}****) </p>
                                 </div>
                                 <div style="flex: 3; border: 1px solid gray; width: 100%; max-height: 155px;" class="reply_child_input div_input" onkeydown="handleKeyPress(this,event)"><label id="reply_child_label" style="font-size: 20px; color: gray;">주제와 무관한 댓글이나 스포일러, 악플은 경고조치 없이 삭제되며 징계 대상이 될 수 있습니다.</label></div>
-                                <div style="flex:0.5;"><span class="u_vc">현재 입력한 글자수</span><strong class="u_cbox_count_num">500</strong>/<span class="u_vc">전체 입력 가능한 글자수</span><span class="u_cbox_write_total">500</span></div>
+                                <div style="flex:0.5; color: grey;"><span>현재 입력한 글자수 :&nbsp</span><span class="reply_child_count">0</span>/<span>전체 입력 가능한 글자수 :&nbsp</span><span class="reply_child_count_max">500</span></div>
                                 <div style="flex: 1; justify-content: flex-end;">
                                         <button class="reply_child_insert no-hover button_css" style="color: #00c73c !important; background-color: whitesmoke !important; height: 100% !important; width: 18% !important;">등록</button>
                                 </div>         
@@ -505,13 +512,7 @@ html,
                 
         </div>
        
-        <img  src="/images/bg1.png" alt="" class="img_bg"> 
-        <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
-        <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
-        <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
-        <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
-        <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
-        <img  src="/images/bg3.png" alt="" class="img_bg bgs">
+  
         <script> //reply_child_script
             let reply_child_btn=$(".reply_child_btn");
             let reply_child_close=$(".reply_child_close");
@@ -555,7 +556,14 @@ html,
                 $(this).attr("contenteditable",true);
                 $(this).find("label").remove();
             })
+            reply_child_input.keydown(function(event){
+                let input=$(this);
+                let length=input.html().trim().length();
+                let count=input.parent().find(reply_child_count);
+                count.text(length);
+            })
 
+            
 
             reply_child_insert.on("click",function(){
                 let btn=$(this);
