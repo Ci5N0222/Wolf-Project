@@ -301,16 +301,16 @@ html,
         <div style="flex: 8;">
             <div class="menu" style="flex: 1.5;">
                 <div style="flex: 1; flex-direction: column;">
-                    <div style="flex: 1;" class="center menu_title" id="board_1">
+                    <div style=" height: 50px !important;" class="center menu_title" id="board_1">
                         자유 게시판
                     </div>
-                    <div style="flex: 1;"  class="center menu_title" id="board_2">
+                    <div style=" height: 50px !important;"  class="center menu_title" id="board_2">
                         공지 게시판
                     </div>
-                    <div style="flex: 1;"  class="center menu_title" id="board_3">
+                    <div style="display: none;"  class="center menu_title" id="board_3">
                         QNA 게시판
                     </div>
-                    <div style="flex: 1;"  class="center menu_title" id="board_4">
+                    <div style="flex: 1; display: none;"  class="center menu_title" id="board_4">
                         FAQ 게시판
                     </div>
                     <script>
@@ -559,6 +559,8 @@ html,
             reply_child_input.keydown(function(event){
                 let input=$(this);
                 let length=input.html().trim().length();
+                let count=input.parent().find(reply_child_count);
+                count.text(length);
             })
 
             
