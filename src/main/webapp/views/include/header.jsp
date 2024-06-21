@@ -7,7 +7,6 @@
             <div class="me-3 naviBtn" onclick="location.href='/list.game'">Game</div>
             <div class="me-3 naviBtn" onclick="location.href='/list.board'">Community</div>
             <div class="me-3 naviBtn" onclick="location.href='/list.board'">Ranking</div>
-            <div class="me-3 naviBtn" onclick="location.href='/list.board'">Service</div>
         </div>
     </div>
     <div class="col-4 d-flex justify-content-center align-items-center">
@@ -17,6 +16,7 @@
     </div>
     <div class="col-4 d-flex justify-content-end">
         <div class="d-flex flex-row">
+            <div class="me-3 naviBtn" onclick="location.href='/main.service'">Service</div>
             <c:if test="${WolfID != null}">
 	            <div class="naviBtn" onclick="location.href ='/views/mypage/mypage.jsp'">
 	            	<c:choose>

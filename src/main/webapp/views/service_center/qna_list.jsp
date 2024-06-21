@@ -34,7 +34,6 @@
 <!-- Project local -->
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/service.css">
-<script src="/js/service.js"></script>
 
 </head>
 <body>
@@ -64,23 +63,23 @@
 			<main class="service-main">
 				<nav class="service-navi">
 					<p onclick="location.href='#'">F A Q</p>
-					<p onclick="serviceFormMove('/qna_list.service', '${wolfID}')">Q & A</p>
+					<p onclick="location.href='#'">Q & A</p>
 				</nav>
 				<section class="servie-content-box">
 					<div class="service-main-row">
 						<div class="service-main-col">
 							<p>불편한점, 버그 제보해주세요!</p>
-							<button onclick="serviceFormMove('/page_qna_insert.service', '${wolfID}')">문의 작성하기</button>
+							<button>문의 작성하기</button>
 						</div>
 						<div class="service-main-col">
 							<p>여기서 문의 내역을 확인하세요!</p>
-							<button onclick="serviceFormMove('/qna_list.service', '${wolfID}')">나의 문의 내역</button>
+							<button>나의 문의 내역</button>
 						</div>
 					</div>
 					<div class="service-main-row">
 						<div class="service-main-row">
 							<p>자주 묻는 질문들은 여기서 확인하세요!</p>
-							<button onclick="location.href='#'">자주 묻는 질문</button>
+							<button>자주 묻는 질문</button>
 						</div>
 					</div>
 				</section>
