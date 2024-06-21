@@ -116,6 +116,8 @@ body.light {
 }
 
 /* 메뉴 */
+.navi {display: block;}
+.m_navi {display: none;}
 .wolf {
   display: none;
 }
@@ -146,11 +148,11 @@ body.light {
 /* 메뉴 */
 .navi > div:nth-child(1),
 .navi > div:nth-child(3) {
-  width: 30%;
+  width: 40%;
 }
 
 .navi > div:nth-child(2) {
-  width: 40%;
+  width: 20%;
 }
 
 .navi > div:nth-child(1) > div {
@@ -158,10 +160,12 @@ body.light {
   display: flex;
   align-items: center;
   justify-content: left;
+   z-index: 10;
+   cursor: pointer;
 }
 
 .navi > div:nth-child(2) #wolfLogo {
-  width: 100%;
+  width: initial;
   height: 100%;
 }
 
@@ -170,7 +174,6 @@ body.light {
   height: 130%;
   object-fit: contain;
 }
-
 .navi > div:nth-child(3) > div {
   height: 100%;
   display: flex;
@@ -333,7 +336,12 @@ body.light {
   .M_main {
     display: none;
   }
-
+  .wolf {
+  	display: block;
+  }
+  #wolfLogo {
+    display: none;
+  }
   .navi > div:nth-child(1),
   .navi > div:nth-child(3) {
     flex: 4;
@@ -493,63 +501,41 @@ body.light {
   }
 
   /* 메뉴 */
-  .container-fluid {
-    padding: 0;
+  .wolf {
+  	display: block;
   }
-  .container {
-    padding: 0;
-  }
+
   .navi {
-    display: flex;
-    align-items: center;
-    background-color: var(--bg-nav);
-    padding: 0 3%;
-    font-size: 1rem;
-    color: var(--color-white);
-    text-shadow: 1px 1px 1px gray;
-    letter-spacing: 1px;
-    margin: 0;
-    border-radius: 0;
-    height: 10%;
-    width: 100%;
-    overflow: hidden;
+  	display: none;
   }
 
-  .navi i {
-    font-size: 1rem;
+  .m_navi {
+  	display: block;
   }
 
-  .navi > div {
-    margin-top: 0;
-  }
-  .navi > div:nth-child(1) {
-    width: 70%;
-    padding-right: 0;
-  }
-  .navi > div:nth-child(2) {
-    width: 20%;
-    height: 100%;
-    padding: 0;
-  }
-  .navi > div:nth-child(2) #wolfLogo,
-  .navi > div:nth-child(2) #wolf {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: center;
-  }
-  .navi > div:nth-child(2) #wolfLogo img {
-    display: none;
-  }
-  .navi .wolf {
-    display: block;
+  .container-fluid {
+  	padding: 0;
   }
 
-  .navi > div:nth-child(3) {
-    width: 10%;
+  .container {
+  	padding: 0;
   }
-}
 
+  /* 내용물 */
+  /* 햄버거 */
+  .navbar {
+  	box-shadow: 0px 1px 5px white;
+  	
+  }
+
+  .navbar div {
+  	width: 50px;
+  	width: 50px;
+  	height: 50px;
+  	line-height: 50px;
+  }
+ }
+ 
 /* 라이트 다크 mode */
 #mode {
   z-index: 100;
