@@ -48,7 +48,7 @@ body {
         height: 950px;
         margin: auto;
         flex-direction: column;
-        background-color: white ;
+ 
         position:relative;
         z-index: 100;
     }
@@ -112,12 +112,13 @@ body {
         flex-direction: column;
         border: 1px solid black;
         margin: 15px;
+        background-color: white ;
     }
     .menu{
         margin: 15px;
         flex: 1.3;
         flex-direction: column;
-        background-color: #f9a62098;
+       
     }
     .menu_title{
             font-size: 15px;
@@ -290,7 +291,7 @@ body {
                         })
                     </script>
                 </div>
-                <div style="flex: 1; background-color: white;">
+                <div style="flex: 1;">
     
                 </div>
             </div>    

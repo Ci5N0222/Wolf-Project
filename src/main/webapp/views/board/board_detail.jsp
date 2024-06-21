@@ -40,6 +40,7 @@ html,
         margin: 0;
          background-color: var(--bg-dark);
        
+       
       }   
 
         .container {
@@ -47,10 +48,11 @@ html,
             height: 950px;
             margin: auto;
             flex-direction: column;
-            background-color: white;
             z-index: 100;
             position: relative;
             overflow: hidden;
+            border-radius: 20px;
+          
            
         }
         .navi {
@@ -101,6 +103,7 @@ html,
             align-items: center;
             margin: auto;
             background-color: white;
+            border-radius: 20px;
       
            
             
@@ -125,6 +128,7 @@ html,
             flex-direction: column;
             z-index: 100;
             position: relative;
+            border-radius: 20px;
            
         }
 
@@ -133,6 +137,7 @@ html,
             justify-content: center !important;
             align-items: center !important;
             text-align: center;
+            border-radius: 20px !important;
         }
 
         .custom-confirm-button {
@@ -163,6 +168,7 @@ html,
         .board{
             flex: 6;
             flex-direction: column;
+            background-color: white;
             border: 1px solid black;
              margin: 15px;
             overflow: hidden;
@@ -171,7 +177,7 @@ html,
         margin: 15px;
         flex: 1.3;
         flex-direction: column;
-        background-color: #f9a62098;
+        
     }
     .menu_title{
             font-size: 15px;
@@ -273,11 +279,7 @@ html,
 	}
 }
 </style>
-<style>
-    #board_contents img{
-        
-    }
-</style>
+
 </head>
 
 <body>
@@ -334,13 +336,13 @@ html,
                         })
                     </script>
                 </div>
-                <div style="flex: 1; background-color: white;">
+                <div style="flex: 1; ">
     
                 </div>
             </div>    
         <div class="board" >
-            <div style="flex: 1;" class="center dto title" id="board_title">${board_dto.title}</div>
-            <div style="flex: 1; background-color: #f5f5f5; color: #545861;font-weight: bold; border-bottom: 5px solid #e3e3e3;">
+            <div style="flex: 0.8;" class="center dto title" id="board_title">${board_dto.title}</div>
+            <div style="flex: 0.35; background-color: #f5f5f5; color: #545861;font-weight: bold; border-bottom: 5px solid #e3e3e3;">
                     <div style="flex: 1;" class="center">${board_nickname}(${board_dto.member_id.substring(0, 4)}****)</div>
                     <div style="flex: 1;"  class="center"> <fmt:formatDate value="${board_dto.write_date}" pattern="yyyy.MM.dd HH:mm" /></div>
                     <div style="flex: 1;"  class="center"> 조회 ${board_dto.count}</div>
@@ -388,17 +390,19 @@ html,
         </div>
     </div> <!--contaier 끝-->
     <form action="/insert.reply" method="get" id="replyform">
-    <div class="reply">
+    <div class="reply" style="  border-radius: 20px; margin-bottom: 15px;">
         <div style="flex: 1; margin-left: 15px;"> <p style="font-family: 'Courier New', Courier, monospace; font-size:small;">${WolfNickname}(${WolfID.substring(0, 4)}****) </p></div>
-        <div style="flex: 5;">
+        <div style="flex: 5; overflow: auto;">
             <div style="flex-direction: column; flex: 5; border: 1px solid black; margin: 15px; word-break: break-all; overflow: auto; max-height: 183px;" contenteditable="true" class="dto reply_child_input" id="reply_insert_div"  onkeydown="handleKeyPress(this,event)"><label id="reply_child_label" style="font-size: 20px; color: gray;">주제와 무관한 댓글이나 스포일러, 악플은 경고조치 없이 삭제되며 징계 대상이 될 수 있습니다.</label></div>
             <input type="hidden" name="contents" id="reply_insert_contents">
             <input type="hidden" name="member_id" value="${WolfID}"class="notuse">
             <input type="hidden" name="board_seq" value="${board_dto.seq}" class="notuse">
         </div>
-        <div style=" margin-left: 15px; flex:0.5; color: grey;"><span>현재 입력한 글자수 :&nbsp</span><span class="reply_child_count">0</span>/<span>전체 입력 가능한 글자수 :&nbsp</span><span class="reply_child_count_max">300</span></div>
-        <div style=" flex: 1; justify-content: flex-end; align-items: center;">
-            <button id="reply_btn" style="width: 15% !important; height: 100% !important; background-color: #00c73c !important; color: white !important;" class="no-hover button_css">등록</button>
+        <div style="flex: 1;">
+            <div style=" margin-left: 15px; flex:1; color: grey; justify-content: flex-start; align-items: center;"><span>현재 입력한 글자수 :&nbsp</span><span class="reply_child_count">0</span>/<span>전체 입력 가능한 글자수 :&nbsp</span><span class="reply_child_count_max">300</span></div>
+            <div style=" flex: 1; justify-content: flex-end; align-items: center;">
+                <button id="reply_btn" style="width: 15% !important; height: 100% !important; background-color: #00c73c !important; color: white !important;" class="no-hover button_css">등록</button>&nbsp&nbsp&nbsp&nbsp
+            </div>
         </div>
     </div>
     <input type="hidden" value="${board_code}" name="board_code">
