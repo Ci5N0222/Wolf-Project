@@ -322,7 +322,7 @@ font-family: Arial, sans-serif;
         #passwordMismatch {
             margin-top: 10px;
         }
-       button {
+       .Certification {
        		margin-top:20px;
             margin-bottom:20px;
             width: 70%;
@@ -350,7 +350,50 @@ font-family: Arial, sans-serif;
 		#newpw{
 			margin-left: 20px;
 		}
+/* 모바일 메뉴 */ @media all and (max-width: 767px) { 
+	.wolf {
+		display: block;
+	}
+	
+	.navi {
+		display: none;
+	}
+	
+	.m_navi {
+		display: block;
+	}
+	
+	.container-fluid {
+		padding: 0;
+	}
+	
+	.container {
+		padding: 0;
+	}
+	
+	/* 햄버거 */
+	.navbar {
+		box-shadow: 0px 1px 5px white;
+	}
+	
+	.navbar div {
+		width: 50px;
+		width: 50px;
+		height: 50px;
+		line-height: 50px;
+		margin: 0 2%;
+	} }
+.wolf {display: none;}
 
+
+ @media all and (min-width:768px) and (max-width: 1023px) {
+	.wolf {
+		display: block;
+	}
+	
+	#wolfLogo {
+		display: none;
+	}}
     </style>
 </head>
 <body>
@@ -374,14 +417,14 @@ font-family: Arial, sans-serif;
             <input type="text" id="id" name="id" placeholder="ID를 입력해주세요.">
             <label for="email" >이메일</label>
             <input type="email" id="email" name="email" placeholder="Emali을 입력해주세요.">
-            <button type="submit">인증번호 발송</button>
+            <button type="submit" class="Certification">인증번호 발송</button>
         </form>
         
         <form id="passwordChangeForm" action="/changePassword.members" method="post">
             <label for="CertificationCode" id="code" >인증번호</label>
             <input type="text" id="CertificationCode" name="CertificationCode"  placeholder="인증번호를 입력해주세요">
             <div id="timer"></div>
-            <button id="CertificationCodeBtn" type="button">인증번호 확인</button>
+            <button id="CertificationCodeBtn" type="button" class="Certification">인증번호 확인</button>
             <div id="passwordFields" style="display: none;">
                 <label for="newPassword" id="newpw">새 비밀번호</label>
                 <input type="password" id="newPassword" name="newPassword" placeholder="새 비밀번호를 입력해주세요">
@@ -390,7 +433,7 @@ font-family: Arial, sans-serif;
                 <div id="passwordMismatch" style="display: none; color: red;">
                     비밀번호가 일치하지 않습니다!
                 </div>
-                <button id="changePasswordBtn" type="button" name="changePasswordBtn">비밀번호 변경</button>
+                <button id="changePasswordBtn" type="button" name="changePasswordBtn" class="Certification">비밀번호 변경</button>
             </div>
         </form>
     </div>

@@ -53,6 +53,7 @@ public class RankDAO {
     
 
     public RankDTO getUserInfo(String id, int gameSeq) throws Exception {
+    	
     	 String sql = "SELECT nickname, score, rank FROM ( "
                  + "    SELECT m.nickname, s.score, ROW_NUMBER() OVER (ORDER BY s.score DESC) AS rank "
                  + "    FROM members m "

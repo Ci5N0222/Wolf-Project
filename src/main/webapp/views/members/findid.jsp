@@ -323,7 +323,7 @@ body {
             border-radius: 3px;
             
         }
-        button {
+        #Certification {
             
             width: 70%;
             padding: 10px;
@@ -351,6 +351,50 @@ body {
 		color: #f9a620;
 		text-decoration: none;
 		}
+		/* 모바일 메뉴 */ @media all and (max-width: 767px) { 
+	.wolf {
+		display: block;
+	}
+	
+	.navi {
+		display: none;
+	}
+	
+	.m_navi {
+		display: block;
+	}
+	
+	.container-fluid {
+		padding: 0;
+	}
+	
+	.container {
+		padding: 0;
+	}
+	
+	/* 햄버거 */
+	.navbar {
+		box-shadow: 0px 1px 5px white;
+	}
+	
+	.navbar div {
+		width: 50px;
+		width: 50px;
+		height: 50px;
+		line-height: 50px;
+		margin: 0 2%;
+	} }
+.wolf {display: none;}
+
+
+ @media all and (min-width:768px) and (max-width: 1023px) {
+	.wolf {
+		display: block;
+	}
+	
+	#wolfLogo {
+		display: none;
+	}}
     </style>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
