@@ -220,7 +220,7 @@ body.light {
 	border: 1px solid #ccc;
 }
 .card:hover{
-	transform: rotate(2deg);
+	transform: rotate(3deg);
 }
 
 /* 이미지가 가로로 꽉 차게 설정 */
