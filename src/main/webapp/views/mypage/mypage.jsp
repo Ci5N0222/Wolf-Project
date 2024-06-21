@@ -139,7 +139,19 @@ pageEncoding="UTF-8"%>
         /* 폰트 */
         font-family: "Noto Sans KR", sans-serif;
       }
+      /* PC */
+
       /* 메뉴 */
+      .wolf {
+        display: none;
+      }
+      .navi {
+        display: block;
+      }
+      .m_navi {
+        display: none;
+      }
+
       .navi {
         z-index: 5;
         height: 10%;
@@ -155,27 +167,58 @@ pageEncoding="UTF-8"%>
         /* 폰트 */
         font-family: "Luckiest Guy", cursive;
       }
+
       .navi i {
         font-size: 22px;
       }
+
       .navi > div {
         margin-top: 0;
-      }
-      .navi > div:nth-child(2) #wolfLogo {
-        width: 100px;
-        height: 100px;
-      }
-      /* 로고 */
-      .navi #wolfLogo > img {
-        object-fit: cover;
-        width: 100%;
         height: 100%;
       }
+
+      /* 메뉴 */
+      .navi > div:nth-child(1),
+      .navi > div:nth-child(3) {
+        width: 40%;
+      }
+
+      .navi > div:nth-child(2) {
+        width: 20%;
+      }
+
+      .navi > div:nth-child(1) > div {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        z-index: 10;
+        cursor: pointer;
+      }
+
+      .navi > div:nth-child(2) #wolfLogo {
+        width: initial;
+        height: 100%;
+      }
+
+      .navi > div:nth-child(2) #wolfLogo img {
+        width: initial;
+        height: 130%;
+        object-fit: contain;
+      }
+      .navi > div:nth-child(3) > div {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: right;
+      }
+
       /* 메뉴 버튼 */
       .naviBtn {
         cursor: pointer;
         transition: all 0.3s ease-in-out;
       }
+
       .naviBtn:hover {
         opacity: 0.5;
       }
@@ -389,11 +432,6 @@ pageEncoding="UTF-8"%>
         background-color: white;
       }
 
-      /* PC */
-      .wolf {
-        display: none;
-      }
-
       /* 사이드바 반응형 */
       @media (max-width: 1400px) {
         .mypage-side-menu {
@@ -515,9 +553,20 @@ pageEncoding="UTF-8"%>
         font-size: 30px;
         color: var(--color-nav-bg);
       }
+      /* 태블릿 크기  */
+      @media all and (min-width: 768px) and (max-width: 1023px) {
+        .wolf {
+          display: block;
+        }
+
+        #wolfLogo {
+          display: none;
+        }
+      }
 
       /* 모바일 메뉴 */
       @media all and (max-width: 767px) {
+        /* 메뉴 */
         .wolf {
           display: block;
         }
@@ -538,6 +587,7 @@ pageEncoding="UTF-8"%>
           padding: 0;
         }
 
+        /* 내용물 */
         /* 햄버거 */
         .navbar {
           box-shadow: 0px 1px 5px white;
@@ -549,17 +599,6 @@ pageEncoding="UTF-8"%>
           height: 50px;
           line-height: 50px;
           margin: 0 2%;
-        }
-      }
-
-      /* 태블릿 크기  */
-      @media all and (min-width: 768px) and (max-width: 1023px) {
-        .wolf {
-          display: block;
-        }
-
-        #wolfLogo {
-          display: none;
         }
       }
     </style>

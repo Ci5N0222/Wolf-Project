@@ -398,6 +398,58 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         font-size: 30px;
         color: var(--color-nav-bg);
       }
+
+      /* PC */
+      .wolf {
+        display: none;
+      }
+
+      /* 모바일 메뉴 */
+      @media all and (max-width: 767px) {
+        .wolf {
+          display: block;
+        }
+
+        .navi {
+          display: none;
+        }
+
+        .m_navi {
+          display: block;
+        }
+
+        .container-fluid {
+          padding: 0;
+        }
+
+        .container {
+          padding: 0;
+        }
+
+        /* 햄버거 */
+        .navbar {
+          box-shadow: 0px 1px 5px white;
+        }
+
+        .navbar div {
+          width: 50px;
+          width: 50px;
+          height: 50px;
+          line-height: 50px;
+          margin: 0 2%;
+        }
+      }
+
+      /* 태블릿 크기  */
+      @media all and (min-width: 768px) and (max-width: 1023px) {
+        .wolf {
+          display: block;
+        }
+
+        #wolfLogo {
+          display: none;
+        }
+      }
     </style>
   </head>
 

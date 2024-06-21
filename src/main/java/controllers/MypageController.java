@@ -130,8 +130,8 @@ public class MypageController extends HttpServlet {
 				request.getSession().setAttribute("WolfNickname", nickname);
 				response.sendRedirect("/selectMember.mypage");
 
-				/* 비밀번호 변경 */
-			} else if(cmd.equals("/pwUpdate.mypage")){
+				/* 현재 비밀번호 체크 */
+			} else if(cmd.equals("/pwCheck.mypage")){
 
 				String id = (String)session.getAttribute("WolfID");
 				String current_password = EncryptionUitls.getSHA512(request.getParameter("current_password"));
@@ -139,26 +139,20 @@ public class MypageController extends HttpServlet {
 				boolean result = mDAO.isPWExist(id, current_password);
 				
 				response.setContentType("text/html; charset=UTF-8");			
-
+				if(result) response.getWriter().append("ok");
+				else response.getWriter().append("fail");
 				
-				if(result) { // db에 pw있다면 변경
-					id = (String)session.getAttribute("WolfID");
-					String new_password = EncryptionUitls.getSHA512(request.getParameter("new_password"));
-					String confirm_password = EncryptionUitls.getSHA512(request.getParameter("confirm_password"));
-					
-					if(new_password.equals(confirm_password)) {
-						mDAO.updatePW(id, new_password);
-						pw.append("true");
-						
-					} else {
-						System.out.println("확인 비밀번호 불일치");
-						pw.append("false1");
-					}
-					
-				} else {
-					pw.append("false2");
-					System.out.println("현재 비밀번호 오류");
-				}				
+				/** 비밀번호 변경 **/
+			} else if(cmd.equals("/pwUpdate.mypage")){
+
+				String id = (String)session.getAttribute("WolfID");
+				String new_password = EncryptionUitls.getSHA512(request.getParameter("new_password"));
+				
+				int result = mDAO.updatePW(id, new_password);
+				
+				response.setContentType("text/html; charset=UTF-8");			
+				if(result > 0) response.getWriter().append("ok");
+				else response.getWriter().append("fail");
 				
 				/* 마이페이지 게임플레이 정보 조회 */
 			} else if(cmd.equals("/mypageGameList.mypage")) {
