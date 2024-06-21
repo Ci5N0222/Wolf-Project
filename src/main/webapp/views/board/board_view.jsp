@@ -43,9 +43,9 @@
     .main{
         font-family: "Noto Sans KR", sans-serif;
         margin: auto;
-        flex-direction: column;
         position:relative;
         z-index: 100;
+        display: flex;
     }
     .main div{
         display: flex;
@@ -141,17 +141,16 @@
             <img src="/images/bg3.png" alt="" class="img_bg bgs">
             <%@ include file="/views/include/header.jsp" %>   
         <div class="main">
-            <div style="flex: 0.1;"></div>
-            <div style="display: flex; flex: 8;">
+            <div style="display: flex; flex: 8; flex-direction: column;">
                 <div class="menu" style="flex: 1.5;">
-                    <div style="flex: 1; flex-direction: column;">
-                        <div style=" height: 50px !important;" class="center menu_title" id="board_1">
+                    <div style="flex: 1;">
+                        <div style=" height: 50px !important; flex: 1;" class="center menu_title" id="board_1">
                             자유 게시판
                         </div>
-                        <div style=" height: 50px !important;"  class="center menu_title" id="board_2">
+                        <div style=" height: 50px !important; flex: 1;"  class="center menu_title" id="board_2">
                             공지 게시판
                         </div>
-                        <div  class="center menu_title" id="board_3">
+                        <div  style=" height: 50px !important; flex: 1;"  class="center menu_title" id="board_3">
                             QNA 게시판
                         </div>
                         <div style="flex: 1; display: none;"  class="center menu_title" id="board_4">
@@ -171,9 +170,6 @@
                                 location.href="/list.board?board_code=4";
                             })
                         </script>
-                    </div>
-                    <div style="flex: 1;">
-        
                     </div>
                 </div>    
                 <div class="board">
