@@ -42,11 +42,47 @@ document.addEventListener("DOMContentLoaded", function () {
     if (mode === "light") {
         toggleMode(); // light 모드인 경우 토글 함수 호출하여 변경
     }
+    
+    // 현재 페이지 주소
+	var pathname = window.location.pathname;
+	if(pathname === "/" || pathname === "/index.jsp") homeBinding();
+   
+    
 });
 
 // 모드 변경 이벤트 리스너 등록
 let mode = document.getElementById("mode"); //버튼
-mode.addEventListener("click", () => {
-    console.log("aa");
-    toggleMode;
-});
+mode.addEventListener("click", toggleMode);
+
+
+ /** Home 입장 시 게임 데이터 받아서 카드에 바인딩 **/
+const homeBinding = () => {
+	$.ajax({
+		url: "/home.web",
+		method: "post",
+		dataType: "json"
+	})
+	.done((res) =>  {
+		console.log("res === ", res);
+		if(res.result === "ok"){
+			res.data.forEach(item => homeCardSetting(item));
+		} else {
+			console.log("No 'data' property found in response.");
+		}
+	});
+ }
+ 
+ const homeCardSetting = (res) => {
+	let item = `
+		<div class="item flex-grow-1">
+			<div class="card d-flex">
+				<img src="${res.thumbnail}" class="card-img-top" alt="..."
+					style="flex: 7;">
+				<div class="card-body" style="flex: 3;">
+					<p class="card-text">${res.title}</p>
+				</div>
+			</div>
+		</div>`
+	
+	$("#card-form").append(item);
+ }

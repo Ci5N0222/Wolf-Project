@@ -37,6 +37,7 @@
 	url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Noto+Sans+KR:wght@100..900&display=swap')
 	;
 
+
 :root { -
 	-bg-light: #ffd449; -
 	-bg-dark: #14213D; -
@@ -263,7 +264,7 @@ body, html {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-family: 'Roboto', sans-serif;
+	
 	background-size: cover;
 }
 
@@ -289,6 +290,7 @@ body, html {
 	color: #fff;
 	position: relative;
 	z-index: 1;
+	font-family: 'Roboto', sans-serif;
 	box-sizing: border-box;
 }
 
@@ -413,6 +415,51 @@ button:hover {
 	color: #f9a620;
 	text-decoration: none;
 }
+
+/* 모바일 메뉴 */ @media all and (max-width: 767px) { 
+	.wolf {
+		display: block;
+	}
+	
+	.navi {
+		display: none;
+	}
+	
+	.m_navi {
+		display: block;
+	}
+	
+	.container-fluid {
+		padding: 0;
+	}
+	
+	.container {
+		padding: 0;
+	}
+	
+	/* 햄버거 */
+	.navbar {
+		box-shadow: 0px 1px 5px white;
+	}
+	
+	.navbar div {
+		width: 50px;
+		width: 50px;
+		height: 50px;
+		line-height: 50px;
+		margin: 0 2%;
+	} }
+.wolf {display: none;}
+
+
+ @media all and (min-width:768px) and (max-width: 1023px) {
+	.wolf {
+		display: block;
+	}
+	
+	#wolfLogo {
+		display: none;
+	}}
 </style>
 </head>
 
@@ -455,6 +502,7 @@ button:hover {
 							<a href="/views/members/signup.jsp">회원가입</a> <span>|</span>
 							 <a	href="/views/members/findid.jsp">아이디찾기</a> <span>|</span> 
 							 <a	href="/views/members/findpw.jsp">비밀번호찾기</a>
+							
 						</div>
 					</div>
 				

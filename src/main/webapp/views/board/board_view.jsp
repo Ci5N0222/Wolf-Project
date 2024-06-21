@@ -7,85 +7,50 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- 부트스트랩 -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+	crossorigin="anonymous">
+
+<!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
-        
- 
 <!-- icon -->
-<script src="https://kit.fontawesome.com/1ee4acc8d4.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/1ee4acc8d4.js"
+	crossorigin="anonymous"></script>
 
-        
+<!-- bootstrap -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+	crossorigin="anonymous"></script>
+
 <!-- Project local -->
+<link rel="stylesheet" href="css/style.css">
+ <style> @import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');</style>
+
+<script>
+    if("${board_code}"==5  || "${board_code}"==4){
+        location.href="/index.jsp";
+        alert("잘못된 접근입니다");
+    }
+</script>
+
 
 <style>
-    :root {
-    --bg-light: #ffd449;
-    --bg-dark: #14213D;
-    --bg-transparent: transparent;
-
-    --color-white: #eeeeee;
-    --color-black: #14213D;
-    --bg-nav: #f9a620;
-    --color-nav-icon: #14213D;
-    --color-nav-bg: #f9a620;
-    font-size: 16px;
-}
-html,
-body {
-    margin: 0;
-    background-color: var(--bg-dark);
-    color: var(--color-black);
-    /* 폰트 */
-    font-family: "Noto Sans KR", sans-serif;
-    font-family: "Luckiest Guy", cursive;
-    overflow: auto;
-
-}
-
-    .container{
-        max-width: 1000px;
-        width: 1000px;
-        height: 950px;
+    .main{
+        font-family: "Noto Sans KR", sans-serif;
         margin: auto;
         flex-direction: column;
-        background-color: white ;
         position:relative;
         z-index: 100;
     }
-      /* 메뉴 */
-    .navi {
-        display: flex;
-        flex: 1;
-        background-color:#f9a620;
-        font-size: 20px;
-        color: white;
-        text-shadow: 1px 1px 1px gray;
-        letter-spacing: 1px;
-        border-radius: 40px 80px / 80px 40px;
-        justify-content: center;
-        align-items: center;
-        transition: background-color 0.5s ease, box-shadow 0.5s ease;
-        overflow: hidden;
-    }
-    .navi i {font-size: 22px;}
-
-    /* 로고 */
-    /* 메뉴 버튼 */
-    .naviBtn{cursor: pointer; transition: all 0.3s ease-in-out;}
-    .naviBtn:hover{opacity: 0.5;}
-    #wolfLog{
-        width: 100px;height: 100px;
-    }
-    *{
-        box-sizing: border-box;
-    }
-    div{
-      
+    .main div{
         display: flex;
     }
-    
- 
-    
+     
     .title{
         flex: 1;
         
@@ -95,8 +60,6 @@ body {
         flex-direction: column;
        
     }
-
-
     .center{
         display: flex;
         justify-content: center;
@@ -105,21 +68,22 @@ body {
     .title:hover{
     cursor: pointer;
     color: red;
-    
 	}
     .board{
         flex: 6;
         flex-direction: column;
         border: 1px solid black;
         margin: 15px;
+        background-color: white ;
     }
     .menu{
         margin: 15px;
         flex: 1.3;
         flex-direction: column;
-        background-color: #f9a62098;
+       
     }
     .menu_title{
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             font-size: 15px;
             font-weight: bold;
             color: #333;
@@ -130,11 +94,10 @@ body {
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
     .menu_title:hover{
-        transform: scale(1.2);
         cursor: pointer;
         color: rgb(6, 14, 249);
     }
-    button{
+    .button_css{
     	height: 30px;
     	line-height: 30px;
     	font-size: 15px !important;
@@ -144,7 +107,7 @@ body {
     	border-radius: 5px;
     	cursor: pointer;
     }
-    button:hover{
+    .button_css:hover{
         transform: scale(1.2);
         text-decoration: underline;
     }
@@ -158,210 +121,153 @@ body {
             cursor: pointer;
             user-select: none;
             font-size: x-large;
-        }
-        
+    }   
     .page-number:hover {
             background-color: #f0f0f0;
     }
-    /* img */
-.img_bg {
-	position: absolute;
-	top: 0%;
-	left: 0;
-	width: 100%;
-	object-fit: cover;
-}
-
-.bgs {
-	animation: bg 1s ease-in Infinite Alternate;
-	transition: all ease-in 0.2s;
-	width: 50px;
-}
-
-.bgs:nth-child(1) {
-	top: 20%;
-	background-color: #eee;
-	left: 80%;
-}
-
-.bgs:nth-child(2) {
-	top: 20%;
-	left: 80%;
-	width: 40px;
-}
-
-.bgs:nth-child(3) {
-	top: 15%;
-	left: 20%;
-}
-
-.bgs:nth-child(4) {
-	top: 20%;
-	left: 40%;
-	width: 30px;
-}
-
-.bgs:nth-child(5) {
-	top: 12%;
-	left: 50%;
-}
-
-.bgs:nth-child(6) {
-	top: 12%;
-	left: 80%;
-	width: 20px;
-}
-
-@keyframes bg {
-	0% {
-		opacity: 1;
-	}
-
-	100% {
-		opacity: 0;
-	}
-}
-    
 </style>
 </head>
 <body>
 
-    <script>
-        if("${board_code}"==3  || "${board_code}"==4){
-            location.href="/index.jsp";
-            alert("잘못된 접근입니다");
-        }
-    </script>
 
-    <div>
-        <img src="/images/bg1.png" alt="" class="img_bg"> 
-        <img src="/images/bg3.png" alt="" class="img_bg bgs"> 
-        <img src="/images/bg3.png" alt="" class="img_bg bgs"> 
-        <img src="/images/bg3.png" alt="" class="img_bg bgs"> 
-        <img src="/images/bg3.png" alt="" class="img_bg bgs"> 
-        <img src="/images/bg3.png" alt="" class="img_bg bgs"> 
-        <img src="/images/bg3.png" alt="" class="img_bg bgs">
-    </div>
-  
-
-    <div class="container">
-        <div class="navi">
-            <div style="flex: 2;">
-                <div class="naviBtn center" onclick="location.href='/list.game'" style="flex: 1;">Game</div>
-                <div class="naviBtn center" onclick="location.href='/list.board'" style="flex: 1;">Board</div>
-                <div class="naviBtn center" style="flex: 1;">About</div>
-            </div>
-            <div style="flex: 4; justify-content: center; align-items: center; overflow: hidden; height: 100%; width: 100%; " id="wolfLogo" onclick="location.href='/index.jsp'">
-                <img src="/images/wolfLogo.png" alt="" style=" max-width: 100%; max-height: 100%; height: auto; width: auto; ">
-            </div>
-            <div style="flex: 2; justify-content: flex-end;">
-                <div class="naviBtn" onclick="location.href ='/views/mypage/mypage.jsp'">
-                    <img src="/images/default-avatar.png" width="50" >
-                </div> 
-            </div>
-        </div>
-        <div style="display: flex; flex: 8;">
-            <div class="menu" style="flex: 1.5;">
-                <div style="flex: 1; flex-direction: column;">
-                    <div style=" height: 50px !important;" class="center menu_title" id="board_1">
-                        자유 게시판
-                    </div>
-                    <div style=" height: 50px !important;"  class="center menu_title" id="board_2">
-                        공지 게시판
-                    </div>
-                    <div style="display: none;"  class="center menu_title" id="board_3">
-                        QNA 게시판
-                    </div>
-                    <div style="flex: 1; display: none;"  class="center menu_title" id="board_4">
-                        FAQ 게시판
-                    </div>
-                    <script>
-                        $("#board_1").on("click",function(){
-                            location.href="/list.board?board_code=1";
-                        })
-                        $("#board_2").on("click",function(){
-                            location.href="/list.board?board_code=2";
-                        })
-                        $("#board_3").on("click",function(){
-                            location.href="/list.board?board_code=3";
-                        })
-                        $("#board_4").on("click",function(){
-                            location.href="/list.board?board_code=4";
-                        })
-                    </script>
-                </div>
-                <div style="flex: 1; background-color: white;">
-    
-                </div>
-            </div>    
-            <div class="board">
-                <div class="center" style="flex: 1; font-family: 'Luckiest Guy', cursive; font-size: 30px;">
-                    <c:choose>
-                        <c:when test="${board_code==1}">
+<div class="container-fluid d-flex flex-column">
+    <div class="container text-center flex-grow-1 d-flex flex-column">
+            <img src="/images/bg1.png" alt="" class="img_bg"> 
+            <img src="/images/bg3.png" alt="" class="img_bg bgs"> 
+            <img src="/images/bg3.png" alt="" class="img_bg bgs"> 
+            <img src="/images/bg3.png" alt="" class="img_bg bgs"> 
+            <img src="/images/bg3.png" alt="" class="img_bg bgs"> 
+            <img src="/images/bg3.png" alt="" class="img_bg bgs"> 
+            <img src="/images/bg3.png" alt="" class="img_bg bgs">
+            <%@ include file="/views/include/header.jsp" %>   
+        <div class="main">
+            <div style="flex: 0.1;"></div>
+            <div style="display: flex; flex: 8;">
+                <div class="menu" style="flex: 1.5;">
+                    <div style="flex: 1; flex-direction: column;">
+                        <div style=" height: 50px !important;" class="center menu_title" id="board_1">
                             자유 게시판
-                        </c:when>
-                        <c:when test="${board_code==2}">
+                        </div>
+                        <div style=" height: 50px !important;"  class="center menu_title" id="board_2">
                             공지 게시판
-                        </c:when>
-                        <c:when test="${board_code==3}">
+                        </div>
+                        <div  class="center menu_title" id="board_3">
                             QNA 게시판
-                        </c:when>
-                        <c:when test="${board_code==4}">
+                        </div>
+                        <div style="flex: 1; display: none;"  class="center menu_title" id="board_4">
                             FAQ 게시판
+                        </div>
+                        <script>
+                            $("#board_1").on("click",function(){
+                                location.href="/list.board?board_code=1";
+                            })
+                            $("#board_2").on("click",function(){
+                                location.href="/list.board?board_code=2";
+                            })
+                            $("#board_3").on("click",function(){
+                                location.href="/list.board?board_code=3";
+                            })
+                            $("#board_4").on("click",function(){
+                                location.href="/list.board?board_code=4";
+                            })
+                        </script>
+                    </div>
+                    <div style="flex: 1;">
+        
+                    </div>
+                </div>    
+                <div class="board">
+                    <div class="center" style="flex: 1; font-family: 'Gugi', sans-serif; font-size: 30px;">
+                        <c:choose>
+                            <c:when test="${board_code==1}">
+                                자유 게시판
+                            </c:when>
+                            <c:when test="${board_code==2}">
+                                공지 게시판
+                            </c:when>
+                            <c:when test="${board_code==3}">
+                                QNA 게시판
+                            </c:when>
+                            <c:when test="${board_code==4}">
+                                FAQ 게시판
+                            </c:when>
+                        </c:choose>
+                       
+                    </div>
+                    <div style="flex: 0.7; justify-content: flex-end;">
+                        <form action="/list.board" method="get" >
+                            <select name="target" title="검색선택" style="height: 30px;" id="targetSelect">
+                                <option value="">선택</option>
+                                <option value="title">제목</option>
+                                <option value="contents">내용</option>
+                                <option value="nickname">작성자</option>
+                            </select>
+                            <input type="text" name="keyword" value="${keyword}" placeholder="검색어를 입력해주세요" style="height: 30px;">
+                            <button class="button_css" >검색</button>
+                            <input type="hidden" value="${board_code}" name="board_code">
+                            <script>
+                                document.getElementById('targetSelect').value = '${target}';
+                            </script>
+                        </form>
+                    </div>
+                    <div style="flex: 1; background-color: #f5f5f5; color: #545861;font-weight: bold; border-bottom: 5px solid #e3e3e3;">
+                            <div style="flex: 1;" class="center">번호</div>
+                            <div style="flex: 5;" class="center">제목</div>
+                            <div style="flex: 1;" class="center">작성자</div>
+                            <div style="flex: 1;" class="center">날짜</div>
+                            <div style="flex: 1;" class="center" id="a">조회</div>
+                    </div>    
+                    <div class="contents">
+                        <c:forEach var="dto" items="${list}" varStatus="status">
+                            <div style="display: flex; height: 50px;  border-bottom: 2px solid #e3e3e3;" >
+                                <div style="flex: 1;" class="center"><span class="seq">${dto.seq}</span></div>
+                                <div style="flex: 5;" class="center"><span class="title">${dto.title}</span> </div>
+                                <div style="flex: 1;" class="center">${board_nickname_list[status.index]}</div>
+                                <div style="flex: 1;" class="center"><fmt:formatDate value="${dto.write_date}" pattern="yyyy.MM.dd"/></div>
+                                <div style="flex: 1;" class="center">${dto.count}</div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                    <div style="flex: 1;" class="center" id="navi"></div>
+                    <c:choose>
+                        <c:when test="${board_code==1 || board_code==3}">
+                            <div style="flex: 1; justify-content: flex-end; align-items: center;">
+                                <button id="new" class="button_css">글쓰기</button>&nbsp&nbsp
+                                <button id="index" class="button_css">뒤로가기</button>&nbsp&nbsp&nbsp
+                            </div>
                         </c:when>
                     </c:choose>
-                   
+                  
                 </div>
-                <div style="flex: 0.7; justify-content: flex-end;">
-                    <form action="/list.board" method="get" >
-                        <select name="target" title="검색선택" style="height: 30px;" id="targetSelect">
-                            <option value="">선택</option>
-                            <option value="title">제목</option>
-                            <option value="contents">내용</option>
-                            <option value="nickname">작성자</option>
-                        </select>
-                        <input type="text" name="keyword" value="${keyword}" placeholder="검색어를 입력해주세요" style="height: 30px;">
-                        <button >검색</button>
-                        <input type="hidden" value="${board_code}" name="board_code">
-                        <script>
-                            document.getElementById('targetSelect').value = '${target}';
-                        </script>
-                    </form>
-                </div>
-                <div style="flex: 1; background-color: #f5f5f5; color: #545861;font-weight: bold; border-bottom: 5px solid #e3e3e3;">
-                        <div style="flex: 1;" class="center">번호</div>
-                        <div style="flex: 5;" class="center">제목</div>
-                        <div style="flex: 1;" class="center">작성자</div>
-                        <div style="flex: 1;" class="center">날짜</div>
-                        <div style="flex: 1;" class="center" id="a">조회</div>
-                </div>    
-                <div class="contents">
-                    <c:forEach var="dto" items="${list}" varStatus="status">
-                        <div style="display: flex; height: 50px;  border-bottom: 2px solid #e3e3e3;" >
-                            <div style="flex: 1;" class="center"><span class="seq">${dto.seq}</span></div>
-                            <div style="flex: 5;" class="center"><span class="title">${dto.title}</span> </div>
-                            <div style="flex: 1;" class="center">${board_nickname_list[status.index]}</div>
-                            <div style="flex: 1;" class="center"><fmt:formatDate value="${dto.write_date}" pattern="yyyy.MM.dd"/></div>
-                            <div style="flex: 1;" class="center">${dto.count}</div>
-                        </div>
-                    </c:forEach>
-                </div>
-                <div style="flex: 1;" class="center" id="navi"></div>
-                <c:choose>
-                    <c:when test="${board_code==1 || board_code==3}">
-                        <div style="flex: 1; justify-content: flex-end; align-items: center;">
-                            <button id="new">글쓰기</button>&nbsp&nbsp
-                            <button id="index">뒤로가기</button>&nbsp&nbsp&nbsp
-                        </div>
-                    </c:when>
-                </c:choose>
-              
             </div>
         </div>
+        <div class="footer" style="flex: 1;">
+                    
+        </div>
+
     </div>
-    <div class="footer" style="flex: 1;">
-                
-    </div>
+</div>
+
+    <script>
+        let m_navi=$(".m_navi");
+        let check=true;
+        let toggle=m_navi.find(".navbar-toggler").on("click",function(){
+            if(check){
+                m_navi.find("#navbarToggleExternalContent").css({
+                    display:"block"
+                })
+                check=false;
+            }
+            else{
+                m_navi.find("#navbarToggleExternalContent").css({
+                    display:"none"
+                })
+                check=true;
+            }
+        })
+        
+    </script>
+  
 
     <script>
         //
@@ -436,5 +342,19 @@ body {
         })
 
     </script>
+<div class="sun"></div>
+      <!-- mode -->
+      <div id="mode">
+        <i class="fa-regular fa-lightbulb" style="display: none"></i>
+        <i class="fa-solid fa-lightbulb"></i>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/js/main.js"></script>
+
 </body>
 </html>

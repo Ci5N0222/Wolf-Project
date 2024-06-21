@@ -34,7 +34,7 @@ import reply_child.dao.Reply_childDAO;
 
 @WebServlet("*.board")
 public class BoardController extends HttpServlet {
-	
+	 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
@@ -176,7 +176,7 @@ public class BoardController extends HttpServlet {
 			        ArrayList<String> fileList= imagesDAO.delete(board_seq, board_code, sysnames);
 			        imagesDAO.deleteImageFile(request.getServletContext().getRealPath("upload_images"), fileList);
 			        
-					response.sendRedirect("/list.board");
+					response.sendRedirect("/list.board?board_code="+board_code);
 				}
 				
 				
