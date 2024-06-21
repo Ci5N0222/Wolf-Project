@@ -467,7 +467,32 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                     <div class="row">
                       <div class="txt">Avatar</div>
                       <div class="content" id="avatar">
-                        <input type="file" name="avatar" accept="image/*" />
+                        <c:choose>
+                            <c:when test="${WolfAvatar eq null}">
+                              <img
+                                src="/images/default-avatar.jpg"
+                                alt=""
+                                style="width: 100%; height: 100%"
+                                id="avatarImg"
+                              />
+                            </c:when>
+                            <c:otherwise>
+                              <img
+                                src="${WolfAvatar}"
+                                alt=""
+                                style="width: 100%; height: 100%"
+                                id="avatarImg"
+                              />
+                            </c:otherwise>
+                          </c:choose>
+                          <div style="display: none;">
+                            <input type="file" name="avatar" accept="image/*" id="inputAvatar"/>
+                          </div>
+                          <script>
+                              $("#avatarImg").on("click",function(){
+                                $("#inputAvatar").click();
+                              })
+                          </script>
                       </div>
                     </div>
 
@@ -536,6 +561,8 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         <i class="fa-solid fa-lightbulb"></i>
       </div>
     </div>
+
+
 
     <script>
       // 사용변수
