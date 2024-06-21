@@ -119,6 +119,7 @@ pageEncoding="UTF-8"%>
       .container,
       .main {
         height: 100%;
+        z-index: 100;
         /* 폰트 */
         font-family: "Noto Sans KR", sans-serif;
       }
@@ -235,8 +236,7 @@ pageEncoding="UTF-8"%>
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 30px;
-        padding-top: 0;
+        padding: 0 30px;
       }
 
       .mypage-myGameList {
@@ -347,20 +347,19 @@ pageEncoding="UTF-8"%>
     </style>
   </head>
   <body>
-    <!-- container -->
-    <div class="container-fluid d-flex flex-column">
-      <!-- nav -->
-      <div class="container text-center flex-grow-1 d-flex flex-column">
-        <img src="images/bg1.png" alt="" class="img_bg" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-
-        <!-- nav -->
-        <%@ include file="/views/include/header.jsp" %>
+	<!-- container -->
+	<div class="container-fluid d-flex flex-column">
+		<div class="container text-center flex-grow-1 d-flex flex-column">
+			<img src="/images/bg1.png" alt="" class="img_bg"> 
+			<img src="/images/bg3.png" alt="" class="img_bg bgs"> 
+			<img
+				src="/images/bg3.png" alt="" class="img_bg bgs"> 
+				<img src="/images/bg3.png" alt="" class="img_bg bgs"> 
+				<img src="/images/bg3.png" alt="" class="img_bg bgs"> 
+				<img src="/images/bg3.png" alt="" class="img_bg bgs"> 
+				<img src="/images/bg3.png" alt="" class="img_bg bgs">
+			<!-- nav -->
+			<%@ include file="/views/include/header.jsp"%>
 
         <!-- main -->
         <main class="mypage-myGame-container">

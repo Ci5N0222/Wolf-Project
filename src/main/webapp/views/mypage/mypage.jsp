@@ -121,6 +121,7 @@ pageEncoding="UTF-8"%>
       .container,
       .main {
         height: 100%;
+        z-index: 100;
         /* 폰트 */
         font-family: "Noto Sans KR", sans-serif;
       }
@@ -176,9 +177,9 @@ pageEncoding="UTF-8"%>
         box-sizing: border-box;
       }
 
-      /* div {
+      div {
         border: 1px solid aqua;
-      } */
+      }
 
       .mypage-container {
         display: flex;
@@ -241,8 +242,7 @@ pageEncoding="UTF-8"%>
         display: flex;
         width: 100%;
         max-width: 950px;
-        height: auto;
-        min-height: 560px;
+        min-height: 600px;
       }
       .mypage-dashboard div {
         border-radius: 10px;
@@ -292,7 +292,26 @@ pageEncoding="UTF-8"%>
         flex: 2;
         background-color: #d5d5d5;
         width: 90%;
-        border-radius: 50%;
+        border-radius: 100%;
+      }
+      /* .dashboard-inner_box > div:first-child > div:first-child {
+        flex: 2;
+        background-color: #d5d5d5;
+        width: 90%;
+        height: 0;
+        padding-top: 90%; 
+        border-radius: 50%; 
+        position: relative;
+        overflow: hidden;
+      } */
+
+      .dashboard-inner_box > div:first-child > div:first-child img {
+        width: 100%;
+        height: 100%;
+        /* object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0; */
       }
 
       /* 내정보 닉네임 출력칸 */
@@ -438,6 +457,14 @@ pageEncoding="UTF-8"%>
           /* gap: 20px 0; */
         }
       }
+
+      @media (max-width: 767px) {
+        .container,
+        .mypage-dashboard {
+          padding: 0;
+        }
+      }
+
       /* -- main과 동일 -- */
       /* 라이트 다크 mode */
       #mode {
@@ -485,18 +512,16 @@ pageEncoding="UTF-8"%>
   <body>
     <!-- container -->
     <div class="container-fluid d-flex flex-column">
-      <!-- nav -->
       <div class="container text-center flex-grow-1 d-flex flex-column">
-        <img src="images/bg1.png" alt="" class="img_bg" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-
+        <img src="/images/bg1.png" alt="" class="img_bg" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
         <!-- nav -->
-        <%@ include file="/views/include/header.jsp" %>
+        <%@ include file="/views/include/header.jsp"%>
 
         <!-- main -->
         <main class="mypage-container">
@@ -534,11 +559,7 @@ pageEncoding="UTF-8"%>
                         <div style="overflow: hidden">
                           <c:choose>
                             <c:when test="${WolfAvatar eq null}">
-                              <img
-                                src="/images/default-avatar.jpg"
-                                alt=""
-                                style="width: 100%; height: 100%"
-                              />
+                              <img src="/images/default-avatar.jpg" alt="" />
                             </c:when>
                             <c:otherwise>
                               <img
