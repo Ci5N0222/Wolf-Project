@@ -176,7 +176,7 @@ public class BoardController extends HttpServlet {
 			        ArrayList<String> fileList= imagesDAO.delete(board_seq, board_code, sysnames);
 			        imagesDAO.deleteImageFile(request.getServletContext().getRealPath("upload_images"), fileList);
 			        
-					response.sendRedirect("/list.board");
+					response.sendRedirect("/list.board?board_code="+board_code);
 				}
 				
 				
