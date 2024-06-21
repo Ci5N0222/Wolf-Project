@@ -6,7 +6,7 @@
         	<div class="me-3 naviBtn wolf" onclick="location.href='/'">Home</div>
             <div class="me-3 naviBtn" onclick="location.href='/list.game'">Game</div>
             <div class="me-3 naviBtn" onclick="location.href='/list.board'">Community</div>
-            <div class="me-3 naviBtn" onclick="location.href='/list.board'">Ranking</div>
+            <div class="me-3 naviBtn" onclick="location.href='/views/members/rank.jsp'">Ranking</div>
         </div>
     </div>
     <div class="col-4 d-flex justify-content-center align-items-center">

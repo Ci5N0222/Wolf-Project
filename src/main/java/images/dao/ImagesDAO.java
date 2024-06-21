@@ -74,6 +74,7 @@ public class ImagesDAO {
 		
 		return result;
 	}
+	
 	public String selectMypageAvatar(String member_id) {
 		String sql="select sysname from images where member_id =? and image_code =2";
 		String result="";
@@ -91,8 +92,6 @@ public class ImagesDAO {
 		}
 		return result;
 	}
-	
-
 	
 	
 	public ArrayList<String> delete(int parent_seq,int image_code ,String[] sysnames) {

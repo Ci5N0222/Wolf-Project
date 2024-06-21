@@ -53,21 +53,36 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         background-color: var(--bg-dark);
         color: var(--bg-black);
         color: var(--color-black);
-        overflow: auto;
+        overflow: hidden;
       }
       body.light {
         background-color: var(--bg-light);
         color: var(--bg-black);
       }
+
+      /* 하단 원 */
+      .sun {
+        position: absolute;
+        width: 120%;
+        height: 100%;
+        background-color: var(--color-nav-bg);
+        box-shadow: 5px -5px 10px var(--bg-light);
+        border-radius: 50%;
+        top: 40%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
       /* 모드 변경시 부드럽게 넘어가는 효과 */
       .sun,
       .navi {
         transition: background-color 0.5s ease, box-shadow 0.5s ease;
       }
+
       /* img */
       .img_bg {
         position: absolute;
-        top: -60%;
+        top: 0%;
         left: 0;
         width: 100%;
         object-fit: cover;
@@ -117,7 +132,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       .container,
       .main {
         height: 100%;
-        z-index: 100;
         /* 폰트 */
         font-family: "Noto Sans KR", sans-serif;
       }
@@ -183,14 +197,17 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         min-height: 100vh;
         height: 100%;
         width: 100%;
+        z-index: 100;
       }
 
       .mypage-select-title {
         margin: 50px 0;
         font-size: 50px;
+        font-weight: 700;
         color: white;
         height: 10%;
         width: 100%;
+        text-shadow: 5px 5px 5px #14213d;
       }
 
       .aside-section-form {
@@ -272,6 +289,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         display: flex;
         justify-content: center;
         align-items: center;
+        border: 3px solid #14213d;
       }
       .avatar-img-area > div:nth-child(2) img {
         width: 100%;
@@ -355,6 +373,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         transition: all ease-in 0.2s;
         animation: ball 1s ease-in Infinite Alternate;
         border: double 1px rgba(255, 255, 255, 0.46);
+        z-index: 150;
       }
       @keyframes ball {
         0% {
@@ -378,6 +397,58 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       #mode i {
         font-size: 30px;
         color: var(--color-nav-bg);
+      }
+
+      /* PC */
+      .wolf {
+        display: none;
+      }
+
+      /* 모바일 메뉴 */
+      @media all and (max-width: 767px) {
+        .wolf {
+          display: block;
+        }
+
+        .navi {
+          display: none;
+        }
+
+        .m_navi {
+          display: block;
+        }
+
+        .container-fluid {
+          padding: 0;
+        }
+
+        .container {
+          padding: 0;
+        }
+
+        /* 햄버거 */
+        .navbar {
+          box-shadow: 0px 1px 5px white;
+        }
+
+        .navbar div {
+          width: 50px;
+          width: 50px;
+          height: 50px;
+          line-height: 50px;
+          margin: 0 2%;
+        }
+      }
+
+      /* 태블릿 크기  */
+      @media all and (min-width: 768px) and (max-width: 1023px) {
+        .wolf {
+          display: block;
+        }
+
+        #wolfLogo {
+          display: none;
+        }
       }
     </style>
   </head>
@@ -567,6 +638,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         </main>
       </div>
 
+      <div class="sun"></div>
       <!-- mode -->
       <div id="mode">
         <i class="fa-regular fa-lightbulb" style="display: none"></i>

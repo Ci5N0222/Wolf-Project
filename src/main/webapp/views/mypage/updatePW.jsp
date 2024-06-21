@@ -51,25 +51,38 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         height: 100%;
         margin: 0;
         background-color: var(--bg-dark);
-        /* background-color: azure; */
         color: var(--bg-black);
         color: var(--color-black);
-        overflow: auto;
+        overflow: hidden;
       }
       body.light {
-        /* background-color: var(--bg-light); */
         background-color: white;
         color: var(--bg-black);
       }
+
+      /* 하단 원 */
+      .sun {
+        position: absolute;
+        width: 120%;
+        height: 100%;
+        background-color: var(--color-nav-bg);
+        box-shadow: 5px -5px 10px var(--bg-light);
+        border-radius: 50%;
+        top: 40%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
       /* 모드 변경시 부드럽게 넘어가는 효과 */
       .sun,
       .navi {
         transition: background-color 0.5s ease, box-shadow 0.5s ease;
       }
+
       /* img */
       .img_bg {
         position: absolute;
-        top: -60%;
+        top: 0%;
         left: 0;
         width: 100%;
         object-fit: cover;
@@ -119,7 +132,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       .container,
       .main {
         height: 100%;
-        z-index: 100;
         /* 폰트 */
         font-family: "Noto Sans KR", sans-serif;
       }
@@ -184,14 +196,17 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         flex-direction: column;
         height: 100vh;
         width: 100%;
+        z-index: 100;
       }
 
       .mypage-updatePW-title {
         margin: 50px 0;
         font-size: 50px;
+        font-weight: 700;
         color: white;
         height: 10%;
         width: 100%;
+        text-shadow: 5px 5px 5px #14213d;
       }
 
       .aside-section-form {
@@ -262,13 +277,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         padding-bottom: 60px;
       }
 
-      /* input[type="password"] {
-        width: 400px;
-        height: 40px;
-        padding-left: 10px;
-        margin-bottom: 30px;
-      } */
-
       .updatePW-board label {
         display: flex;
         margin-bottom: 10px;
@@ -328,6 +336,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         transition: all ease-in 0.2s;
         animation: ball 1s ease-in Infinite Alternate;
         border: double 1px rgba(255, 255, 255, 0.46);
+        z-index: 150;
       }
       @keyframes ball {
         0% {
@@ -351,6 +360,58 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       #mode i {
         font-size: 30px;
         color: var(--color-nav-bg);
+      }
+
+      /* PC */
+      .wolf {
+        display: none;
+      }
+
+      /* 모바일 메뉴 */
+      @media all and (max-width: 767px) {
+        .wolf {
+          display: block;
+        }
+
+        .navi {
+          display: none;
+        }
+
+        .m_navi {
+          display: block;
+        }
+
+        .container-fluid {
+          padding: 0;
+        }
+
+        .container {
+          padding: 0;
+        }
+
+        /* 햄버거 */
+        .navbar {
+          box-shadow: 0px 1px 5px white;
+        }
+
+        .navbar div {
+          width: 50px;
+          width: 50px;
+          height: 50px;
+          line-height: 50px;
+          margin: 0 2%;
+        }
+      }
+
+      /* 태블릿 크기  */
+      @media all and (min-width: 768px) and (max-width: 1023px) {
+        .wolf {
+          display: block;
+        }
+
+        #wolfLogo {
+          display: none;
+        }
       }
     </style>
   </head>
@@ -418,7 +479,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                   />
                 </div>
 
-                <div class="update">
+                <div class="update" style="display: none">
                   <div class="new_password">
                     <label for="new_password">새 비밀번호</label>
                     <input
@@ -443,6 +504,13 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                 </div>
                 <div class="buttons">
                   <button type="button" id="confirm">확인</button>
+                  <button
+                    type="button"
+                    id="update_confirm"
+                    style="display: none"
+                  >
+                    확인
+                  </button>
                   <button type="button" id="cancel">취소</button>
                 </div>
               </div>
@@ -451,6 +519,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         </main>
       </div>
 
+      <div class="sun"></div>
       <!-- mode -->
       <div id="mode">
         <i class="fa-regular fa-lightbulb" style="display: none"></i>
@@ -460,35 +529,45 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
     <script>
       $("#confirm").on("click", function () {
-        if (confirm("변경하시겠습니까?")) {
-          $.ajax({
-            url: "/pwUpdate.mypage",
-            method: "post",
-            data: {
-              current_password: $("#current_password").val(),
-              new_password: $("#new_password").val(),
-              confirm_password: $("#confirm_password").val(),
-            },
-          }).done(function (resp) {
-            if (resp == "true") {
-              alert("변경되었습니다");
-              location.href = "/views/mypage/mypage.jsp";
-            } else if (resp == "false1") {
-              alert("확인 비밀번호 불일치");
-              $("#current_password").val("");
-              $("#new_password").val("");
-              $("#confirm_password").val("");
-            } else if (resp == "false2") {
-              alert("현재 비밀번호가 틀렸습니다");
-              $("#current_password").val("");
-              $("#new_password").val("");
-              $("#confirm_password").val("");
-            }
-          });
-        } else {
-          // 취소 버튼을 눌렀을 때 실행할 코드
-          alert("취소되었습니다.");
-        }
+        $.ajax({
+          url: "/pwCheck.mypage",
+          method: "post",
+          data: {
+            current_password: $("#current_password").val(),
+          },
+        }).done(function (resp) {
+          if (resp === "ok") {
+            // 새 비밀반호 폼 오픈
+            $(".update").show();
+            $(".current_password").hide();
+            $("#update_confirm").show();
+            $("#confirm").hide();
+          } else {
+            alert("비번 틀림~");
+          }
+        });
+
+        $("#update_confirm").on("click", function () {
+          if ($("#new_password").val() == $("#confirm_password").val()) {
+            $.ajax({
+              url: "/pwUpdate.mypage",
+              method: "post",
+              data: {
+                new_password: $("#new_password").val(),
+              },
+            }).done(function (resp) {
+              console.log(resp);
+              if (resp == "ok") {
+                alert("비밀번호 변경이 완료되었습니다.");
+                location.href = "/views/mypage/mypage.jsp";
+              } else {
+                alert("오류가 발생하였습니다.");
+              }
+            });
+          } else {
+            alert("확인 비밀번호가 일치하지 않습니다.");
+          }
+        });
       });
 
       $("#cancel").on("click", function () {
