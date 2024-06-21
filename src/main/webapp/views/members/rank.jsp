@@ -301,19 +301,25 @@ body {
 	margin: 0;
 }
 
-        .container {
+        .rankcontainer {
+        	width:100%;
             max-width: 800px;
             margin: auto;
             z-index: 1;
         }
-
-        .btn-group {
-            margin-bottom: 20px;
-        }
-        .btn{
-			background-color: #f9a620;
-			border: #f9a620;
-			}
+.btn-group>.btn-group>.btn, .btn-group>.btn.dropdown-toggle-split:first-child, .btn-group>.btn:not(:last-child):not(.dropdown-toggle) {
+	border-radius:20px;
+}
+.btn-group>.btn-group:not(:first-child)>.btn, .btn-group>.btn:nth-child(n+3), .btn-group>:not(.btn-check)+.btn {
+border-radius:20px;}
+    
+        .btn {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f9a620;
+    border: #f9a620;
+    border-radius: 5px; /* 모든 모서리에 적용될 둥근 모서리 설정 */
+}
 
         .game-rank {
             background-color: #fff;
@@ -449,7 +455,9 @@ body {
 				src="/images/bg3.png" alt="" class="img_bg bgs">
 			<!-- nav -->
 		<%@ include file="/views/include/header.jsp"%>
-    <div class="container">
+		
+		
+    <div class="rankcontainer">
 
 
         <!-- 사용자 정보 표시 -->
@@ -461,11 +469,11 @@ body {
 
         <!-- 게임 선택 버튼 그룹 -->
         <div class="btn-group mb-4">
-            <button type="button" class="btn btn-primary mr-2" onclick="loadRank(1)">Game 1</button>
-            <button type="button" class="btn btn-primary mr-2" onclick="loadRank(2)">Game 2</button>
-            <button type="button" class="btn btn-primary mr-2" onclick="loadRank(3)">Game 3</button>
-            <button type="button" class="btn btn-primary mr-2" onclick="loadRank(4)">Game 4</button>
-            <button type="button" class="btn btn-primary" onclick="loadRank(5)">Game 5</button>
+            <button type="button" class="btn btn-primary mr-2" onclick="loadRank(1)">Among_Run</button>
+            <button type="button" class="btn btn-primary mr-2" onclick="loadRank(2)">FlyingBird</button>
+            <button type="button" class="btn btn-primary mr-2" onclick="loadRank(3)">MashimaroJump</button>
+            <button type="button" class="btn btn-primary mr-2" onclick="loadRank(4)">RoadKill</button>
+            <button type="button" class="btn btn-primary" onclick="loadRank(5)">SpaceFlight</button>
         </div>
 
         <!-- 상위 랭크 박스 -->
@@ -498,51 +506,69 @@ body {
         }
 
         // 랭킹 불러오기 함수
-        function loadRank(gameSeq) {
-            $.ajax({
-                type: "GET",
-                url: "/rankselect.score",
-                data: { gameSeq: gameSeq },
-                dataType: "json"
-            }).done(function(response) {
-                // 상위 랭크 박스 업데이트
-                $("#topRankSection").empty();
-                let topRankHtml = '';
-                for (let i = 0; i < Math.min(response.length, 3); i++) {
-                    let rankDTO = response[i];
-                    let boxHtml = '<div class="box-title"> ' + rankDTO.nickname + '</div>' +
-                        '<div class="box-score"> ' + rankDTO.score + '</div>';
-                    if (i === 1) {
-                        topRankHtml += '<div class="secondbox">' + boxHtml + '</div>';
-                    } else if (i === 0) {
-                        topRankHtml += '<div class="firstbox">' + boxHtml + '</div>';
-                    } else if (i === 2) {
-                        topRankHtml += '<div class="thirdbox">' + boxHtml + '</div>';
-                    }
+       function loadRank(gameSeq) {
+    $.ajax({
+        type: "GET",
+        url: "/rankselect.score",
+        data: { gameSeq: gameSeq },
+        dataType: "json"
+    }).done(function(response) {
+        // 상위 랭크 박스 업데이트
+        $("#topRankSection").empty();
+        let topRankHtml = '';
+        for (let i = 0; i < 3; i++) {
+            if (i < response.length) {
+                let rankDTO = response[i];
+                let boxHtml = '<div class="box-title"> ' + rankDTO.nickname + '</div>' +
+                    '<div class="box-score"> ' + rankDTO.score + '</div>';
+                if (i === 1) {
+                    topRankHtml += '<div class="secondbox">' + boxHtml + '</div>';
+                } else if (i === 0 || i === 2) {
+                    topRankHtml += '<div class="firstbox">' + boxHtml + '</div>';
                 }
-                $("#topRankSection").append(topRankHtml);
-
-                // 하위 랭킹 리스트 업데이트
-                $("#lowRankSection").empty();
-                let lowRankHtml = '';
-                for (let i = 3; i < Math.min(response.length, 20); i++) {
-                    let rankDTO = response[i];
-                    let rankItemHtml = '<div class="ranklist">' +
-                        '<div class="lownum">' + rankDTO.rank + '</div>' +
-                        '<div class="lowimg"><img src="' + rankDTO.avatar + '" alt="아바타"></div>' +
-                        '<div class="lowname">' + rankDTO.nickname + '</div>' +
-                        '<div class="lowscore">' + rankDTO.score + '</div>' +
-                        '</div>';
-                    lowRankHtml += rankItemHtml;
+            } else {
+                // 게임 기록이 없는 경우 처리 (예: 데이터베이스에 기록이 1개 이하인 경우)
+                if (i === 1) {
+                    topRankHtml += '<div class="secondbox"></div>';
+                } else if (i === 0 || i === 2) {
+                    topRankHtml += '<div class="firstbox"></div>';
                 }
-                $("#lowRankSection").append(lowRankHtml);
-
-                // 랭킹을 로드한 후 사용자 정보 업데이트
-                updateUserStatsFromDatabase(gameSeq);
-            }).fail(function(xhr, status, error) {
-                console.error("Error loading rank:", error);
-            });
+            }
         }
+        $("#topRankSection").append(topRankHtml);
+
+        // 하위 랭킹 리스트 업데이트
+        $("#lowRankSection").empty();
+        let lowRankHtml = '';
+        for (let i = 3; i < 10; i++) { // 항상 10개의 항목을 표시하도록 설정
+            if (i < response.length) {
+                let rankDTO = response[i];
+                let rankItemHtml = '<div class="ranklist">' +
+                    '<div class="lownum">' + rankDTO.rank + '</div>' +
+                    '<div class="lowimg"><img src="' + rankDTO.avatar + '" alt="아바타"></div>' +
+                    '<div class="lowname">' + rankDTO.nickname + '</div>' +
+                    '<div class="lowscore">' + rankDTO.score + '</div>' +
+                    '</div>';
+                lowRankHtml += rankItemHtml;
+            } else {
+                // 게임 기록이 없는 경우 빈 데이터로 처리
+                let emptyRankItemHtml = '<div class="ranklist">' +
+                    '<div class="lownum"></div>' +
+                    '<div class="lowimg"></div>' +
+                    '<div class="lowname">기록 없음</div>' +
+                    '<div class="lowscore">0</div>' +
+                    '</div>';
+                lowRankHtml += emptyRankItemHtml;
+            }
+        }
+        $("#lowRankSection").append(lowRankHtml);
+
+        // 랭킹을 로드한 후 사용자 정보 업데이트
+        updateUserStatsFromDatabase(gameSeq);
+    }).fail(function(xhr, status, error) {
+        console.error("Error loading rank:", error);
+    });
+}
 
         // 데이터베이스에서 사용자 정보를 가져오는 함수
         function updateUserStatsFromDatabase(gameSeq) {
