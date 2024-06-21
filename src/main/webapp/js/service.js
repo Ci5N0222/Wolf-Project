@@ -1,7 +1,6 @@
-const serviceFormMove = (url, id) => {
+const serviceFormMove = (url) => {
 	
 	console.log("url === ", url);
-	console.log("id === ", id);
 	
 	$.ajax({
 		url: "/check.service",
