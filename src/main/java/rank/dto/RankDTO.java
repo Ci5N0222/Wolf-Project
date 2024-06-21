@@ -16,7 +16,11 @@ public class RankDTO {
         this.rank = rank;
     }
 
-    // getter 및 setter 메서드 (필요에 따라)
+    public RankDTO() {
+		// TODO Auto-generated constructor stub
+	}
+
+	// getter 및 setter 메서드 (필요에 따라)
     public String getNickname() {
         return nickname;
     }

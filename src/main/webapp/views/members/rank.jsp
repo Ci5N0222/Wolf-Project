@@ -538,25 +538,21 @@ border-radius:20px;}
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
-
-
-
-
 function updateUserStats(nickname, score, rank) {
     var userInfoElement = $("#userInfo");
 
-        
-    if (nickname === 0 && score === 0 && rank === 0) {
-        // 로그인은 되었지만 플레이 기록이 없는 경우
-        userInfoElement.html('<span id="userNickname">플레이한 기록이 없습니다.</span>');
-    }else{
-        // 로그인되었고 플레이 기록이 있는 경우
+    console.log("Received:", nickname, score, rank); // 변수 값 확인용 로그
+
+    if (nickname === undefined || nickname === null) {
+        userInfoElement.html('<span id="userNickname"></span>');
+    } else if (score === 0 || rank === 0) {
+        userInfoElement.html('<span id="userNickname">' + nickname + '</span> 님의 플레이한 기록이 없습니다.');
+    } else {
         userInfoElement.html('<span id="userNickname">' + nickname + '</span> 님의 점수는 ' +
-            '<span id="userScore">' + score + '</span> 점 순위는 ' +
+            '<span id="userScore">' + score + '</span> 점, 순위는 ' +
             '<span id="userRank">' + rank + '</span> 등 입니다.');
     }
 }
-
 // 랭킹 로드 함수
 function loadRank(gameSeq) {
     $.ajax({
@@ -630,13 +626,18 @@ function updateUserStatsFromDatabase(gameSeq) {
         data: { gameSeq: gameSeq },
         dataType: "json"
     }).done(function(user) {
-    	if (user) {
-    	    updateUserStats(user.nickname, user.score, user.rank);
-    	} else {
-    	    updateUserStats(0, 0, 0);
-    	}
+        if (user && user.nickname !== undefined && user.nickname !== null) {
+            if (user.score === undefined || user.rank === undefined) {
+                updateUserStats(user.nickname); // 스코어와 랭크가 없는 경우
+            } else {
+                updateUserStats(user.nickname, user.score, user.rank); // 스코어와 랭크가 있는 경우
+            }
+        } else {
+            updateUserStats(undefined); // 사용자가 로그인하지 않은 경우
+        }
     }).fail(function(xhr, status, error) {
         console.error("Error loading user info:", error);
+        updateUserStats(undefined);
     });
 }
 
@@ -645,6 +646,8 @@ $(document).ready(function() {
     loadRank(1); // 초기에 Game 1의 랭킹을 로드합니다.
 });
 </script>
+
+
     <script src="/js/main.js"></script>
 </body>
 
