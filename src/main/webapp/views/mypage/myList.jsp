@@ -117,6 +117,7 @@ prefix="c" %>
       .container,
       .main {
         height: 100%;
+        z-index: 100;
         /* 폰트 */
         font-family: "Noto Sans KR", sans-serif;
       }
@@ -246,6 +247,17 @@ prefix="c" %>
         border-radius: 30px;
       }
 
+      @media (max-width: 1400px) {
+        .mypage-side-menu {
+          display: none;
+        }
+      }
+      @media (max-width: 992px) {
+        .mypage-myList-form {
+          padding: 0;
+        }
+      }
+
       /* -- main과 동일 -- */
       /* 라이트 다크 mode */
       #mode {
@@ -292,18 +304,16 @@ prefix="c" %>
   <body>
     <!-- container -->
     <div class="container-fluid d-flex flex-column">
-      <!-- nav -->
       <div class="container text-center flex-grow-1 d-flex flex-column">
-        <img src="images/bg1.png" alt="" class="img_bg" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-        <img src="images/bg3.png" alt="" class="img_bg bgs" />
-
+        <img src="/images/bg1.png" alt="" class="img_bg" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
+        <img src="/images/bg3.png" alt="" class="img_bg bgs" />
         <!-- nav -->
-        <%@ include file="/views/include/header.jsp" %>
+        <%@ include file="/views/include/header.jsp"%>
 
         <!-- main -->
         <main class="mypage-myList-container">

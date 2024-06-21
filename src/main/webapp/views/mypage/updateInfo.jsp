@@ -117,6 +117,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       .container,
       .main {
         height: 100%;
+        z-index: 100;
         /* 폰트 */
         font-family: "Noto Sans KR", sans-serif;
       }
@@ -171,8 +172,8 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       * {
         box-sizing: border-box;
       }
-      /* 
-      div {
+
+      /* div {
         border: 1px solid aqua;
       } */
 
@@ -236,9 +237,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
       .select-board {
         width: 100%;
-        min-width: 900px;
-        /* height: 1100px; */
-        /* padding: 0 30px; */
+        min-width: 950px;
       }
 
       .select-board .select-board-list {
@@ -254,7 +253,31 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       }
 
       .select-board .select-board-list .avatar-img-area {
-        flex: 2;
+        height: 300px;
+        display: flex;
+        margin-bottom: 50px;
+        margin-top: 30px;
+      }
+      .select-board .select-board-list .avatar-img-area > div {
+        flex: 1;
+        position: relative;
+      }
+      .avatar-img-area > div:nth-child(2) {
+        background-color: cadetblue;
+        border-radius: 100%;
+        overflow: hidden;
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .avatar-img-area > div:nth-child(2) img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
       }
 
       .select-board .select-board-list .row {
@@ -301,11 +324,15 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         margin: 30px;
         border-radius: 8px;
         cursor: pointer;
-        height: 40px;
+        width: 100px;
+        height: 50px;
+        background-color: #fab74b;
+        color: white;
         font-size: larger;
+        border: none;
       }
 
-      @media (max-width: 1200px) {
+      @media (max-width: 1400px) {
         .mypage-side-menu {
           display: none;
         }
@@ -358,7 +385,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
   <body>
     <!-- container -->
     <div class="container-fluid d-flex flex-column">
-      <!-- nav -->
       <div class="container text-center flex-grow-1 d-flex flex-column">
         <img src="/images/bg1.png" alt="" class="img_bg" />
         <img src="/images/bg3.png" alt="" class="img_bg bgs" />
@@ -367,9 +393,8 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         <img src="/images/bg3.png" alt="" class="img_bg bgs" />
         <img src="/images/bg3.png" alt="" class="img_bg bgs" />
         <img src="/images/bg3.png" alt="" class="img_bg bgs" />
-
         <!-- nav -->
-        <%@ include file="/views/include/header.jsp" %>
+        <%@ include file="/views/include/header.jsp"%>
 
         <!-- main -->
         <main class="mypage-select-container">
@@ -406,7 +431,32 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
               >
                 <div class="select-board">
                   <div class="select-board-list">
-                    <div class="avatar-img-area"></div>
+                    <div class="avatar-img-area">
+                      <div></div>
+                      <div>
+                        <c:choose>
+                          <c:when test="${WolfAvatar eq null}">
+                            <img
+                              src="/images/default-avatar.jpg"
+                              alt=""
+                              id="avatarImg"
+                            />
+                          </c:when>
+                          <c:otherwise>
+                            <img src="${WolfAvatar}" alt="" id="avatarImg" />
+                          </c:otherwise>
+                        </c:choose>
+                        <div style="display: none">
+                          <input
+                            type="file"
+                            name="avatar"
+                            accept="image/*"
+                            id="inputAvatar"
+                          />
+                        </div>
+                      </div>
+                      <div></div>
+                    </div>
                     <div class="row">
                       <div class="txt">ID</div>
                       <div class="content" id="id" name="id">${member.id}</div>
@@ -465,38 +515,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                     </div>
 
                     <div class="row">
-                      <div class="txt">Avatar</div>
-                      <div class="content" id="avatar">
-                        <c:choose>
-                            <c:when test="${WolfAvatar eq null}">
-                              <img
-                                src="/images/default-avatar.jpg"
-                                alt=""
-                                style="width: 100%; height: 100%"
-                                id="avatarImg"
-                              />
-                            </c:when>
-                            <c:otherwise>
-                              <img
-                                src="${WolfAvatar}"
-                                alt=""
-                                style="width: 100%; height: 100%"
-                                id="avatarImg"
-                              />
-                            </c:otherwise>
-                          </c:choose>
-                          <div style="display: none;">
-                            <input type="file" name="avatar" accept="image/*" id="inputAvatar"/>
-                          </div>
-                          <script>
-                              $("#avatarImg").on("click",function(){
-                                $("#inputAvatar").click();
-                              })
-                          </script>
-                      </div>
-                    </div>
-
-                    <div class="row">
                       <div class="txt">Join Date</div>
                       <div class="content" id="join_date">
                         <fmt:formatDate
@@ -543,12 +561,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                   id="hidden_email"
                   value="${member.email}"
                 />
-                <!-- <input
-                type="hidden"
-                name="avatar"
-                id="hidden_avatar"
-                value="${member.avatar}"
-              /> -->
               </form>
             </section>
           </div>
@@ -562,8 +574,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       </div>
     </div>
 
-
-
     <script>
       // 사용변수
       let id = $("#id");
@@ -571,7 +581,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       let nickname = $("#nickname");
       let phone = $("#phone");
       let email = $("#email");
-      let avatar = $("#avatar");
+      let avatarOK = false;
 
       let regexName = /^[가-힣]{2,5}$/;
       let regexPhone = /^01[\d]-?\d{4}-?\d{4}$/;
@@ -586,7 +596,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         nickname.attr("contenteditable", true);
         phone.attr("contenteditable", true);
         email.attr("contenteditable", true);
-        avatar.attr("contenteditable", true);
 
         name.on("keyup", function () {
           let result = regexName.test(name.html());
@@ -638,6 +647,26 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             $(".correct_email").css("color", "red");
           }
         });
+
+        // 수정버튼 눌렀을 시 아바타 선택 가능하게
+        $("#avatarImg").on("click", function () {
+          $("#inputAvatar").click();
+        });
+
+        $("#inputAvatar").on("change", function (event) {
+          var input = event.target;
+
+          if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+              $("#avatarImg").attr("src", e.target.result);
+              avatarOK = true;
+            };
+
+            reader.readAsDataURL(input.files[0]);
+          }
+        });
       });
 
       // 홈 버튼 눌렀을 시
@@ -651,7 +680,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         $("#hidden_nickname").val($("#nickname").text().trim());
         $("#hidden_phone").val($("#phone").text().trim());
         $("#hidden_email").val($("#email").text().trim());
-        $("#hidden_avatar").val($("#avatar").text().trim());
 
         if (!regexName.test(name.html())) {
           alert("이름을 올바르게 입력해주세요.");
@@ -662,6 +690,11 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         } else if (!regexEmail.test(email.html())) {
           alert("이메일을 올바르게 입력해주세요.");
           return false;
+        }
+
+        // 아바타 사진을 선택하지 않은 경우 기존 사진 유지
+        if (!avatarOK) {
+          $("#avatarImg").attr("src", "${WolfAvatar}");
         }
       });
 
