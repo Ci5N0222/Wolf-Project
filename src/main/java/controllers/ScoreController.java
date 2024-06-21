@@ -3,6 +3,7 @@ package controllers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,13 +37,19 @@ public class ScoreController extends HttpServlet {
                 out.print(json);
                 out.flush();
             } else if (cmd.equals("/userinfo.score")) {
-            	int gameSeq = Integer.parseInt(request.getParameter("gameSeq"));
-                String id = (String) session.getAttribute("WolfID");
-               
-                RankDTO userInfo = dao.getUserInfo(id, gameSeq);
-                String json = g.toJson(userInfo);
-                out.print(json);
-                out.flush();
+            	 int gameSeq = Integer.parseInt(request.getParameter("gameSeq"));
+                 String id = (String) session.getAttribute("WolfID");
+                 String nickname = (String)session.getAttribute("WolfNickname");
+                 RankDTO userInfo = dao.getUserInfo(id, gameSeq);
+
+                 // 사용자 정보가 없을 경우 처리
+                 if (userInfo == null) {
+                     userInfo = new RankDTO();  // 빈 RankDTO 객체 생성
+                    userInfo.setNickname(nickname);
+                 }
+
+                 String json = g.toJson(userInfo);
+                 response.getWriter().write(json);
             }
         } catch (Exception e) {
             e.printStackTrace();
