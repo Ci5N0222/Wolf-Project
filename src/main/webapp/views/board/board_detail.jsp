@@ -14,7 +14,7 @@
     <script src="https://cdn.tiny.cloud/1/9bewfouem96jjnfvuu236yinb3kp53xruh2gkkz3pkfnkw6c/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="https://kit.fontawesome.com/1ee4acc8d4.js" crossorigin="anonymous"></script>
 
-
+ 
 
 <style>
         * {
@@ -40,6 +40,7 @@ html,
         margin: 0;
          background-color: var(--bg-dark);
        
+       
       }   
 
         .container {
@@ -47,10 +48,11 @@ html,
             height: 950px;
             margin: auto;
             flex-direction: column;
-            background-color: white;
             z-index: 100;
             position: relative;
             overflow: hidden;
+            border-radius: 20px;
+          
            
         }
         .navi {
@@ -101,6 +103,7 @@ html,
             align-items: center;
             margin: auto;
             background-color: white;
+            border-radius: 20px;
       
            
             
@@ -125,6 +128,7 @@ html,
             flex-direction: column;
             z-index: 100;
             position: relative;
+            border-radius: 20px;
            
         }
 
@@ -133,6 +137,7 @@ html,
             justify-content: center !important;
             align-items: center !important;
             text-align: center;
+            border-radius: 20px !important;
         }
 
         .custom-confirm-button {
@@ -163,6 +168,7 @@ html,
         .board{
             flex: 6;
             flex-direction: column;
+            background-color: white;
             border: 1px solid black;
              margin: 15px;
             overflow: hidden;
@@ -171,7 +177,7 @@ html,
         margin: 15px;
         flex: 1.3;
         flex-direction: column;
-        background-color: #f9a62098;
+        
     }
     .menu_title{
             font-size: 15px;
@@ -273,11 +279,7 @@ html,
 	}
 }
 </style>
-<style>
-    #board_contents img{
-        
-    }
-</style>
+
 </head>
 
 <body>
@@ -313,7 +315,7 @@ html,
                     <div style=" height: 50px !important;"  class="center menu_title" id="board_2">
                         공지 게시판
                     </div>
-                    <div style="display: none;"  class="center menu_title" id="board_3">
+                    <div   class="center menu_title" id="board_3">
                         QNA 게시판
                     </div>
                     <div style="flex: 1; display: none;"  class="center menu_title" id="board_4">
@@ -334,13 +336,13 @@ html,
                         })
                     </script>
                 </div>
-                <div style="flex: 1; background-color: white;">
+                <div style="flex: 1; ">
     
                 </div>
             </div>    
         <div class="board" >
-            <div style="flex: 1;" class="center dto title" id="board_title">${board_dto.title}</div>
-            <div style="flex: 1; background-color: #f5f5f5; color: #545861;font-weight: bold; border-bottom: 5px solid #e3e3e3;">
+            <div style="flex: 0.8;" class="center dto title" id="board_title">${board_dto.title}</div>
+            <div style="flex: 0.35; background-color: #f5f5f5; color: #545861;font-weight: bold; border-bottom: 5px solid #e3e3e3;">
                     <div style="flex: 1;" class="center">${board_nickname}(${board_dto.member_id.substring(0, 4)}****)</div>
                     <div style="flex: 1;"  class="center"> <fmt:formatDate value="${board_dto.write_date}" pattern="yyyy.MM.dd HH:mm" /></div>
                     <div style="flex: 1;"  class="center"> 조회 ${board_dto.count}</div>
@@ -348,14 +350,19 @@ html,
     
             <div style="flex: 5; flex-direction: column; overflow: auto; height: 100% ; width: 100%;" class="dto" id="board_contents" >${board_dto.contents}</div>
             <div style="flex: 0.8; overflow-y: auto;">
-                <div style="flex: 1; flex-direction: column; overflow: auto; color: gray ">
-                    <c:forEach var="files_dto" items="${files_list}">
-                        <div class="files_div">
-                           <span class="files_seq">${files_dto.seq }</span>.&nbsp<a href="/download.files?sysname=${files_dto.sysname }&oriname=${files_dto.oriname}">${files_dto.oriname}</a>
-                            <button class="files_delete button_css" style="display: none;" >삭제</button> <!--onclick="filesDelete(${files_dto.seq })"-->
-                        </div>
-                    </c:forEach>
-                </div>  
+                <form action="/update.board" method="post" id="joinform" enctype="multipart/form-data" style="flex: 1; display: flex;">
+                <div style="flex: 2;">
+                    <div style="flex: 0.7; flex-direction: column; overflow: auto; color: gray;" id="files_div_main">
+                        <c:forEach var="files_dto" items="${files_list}">
+                            <div class="files_div  justify-content: flex-start; align-items: center;">
+                               <span class="files_seq">${files_dto.seq }</span>.&nbsp<a href="/download.files?sysname=${files_dto.sysname }&oriname=${files_dto.oriname}">${files_dto.oriname}</a>&nbsp&nbsp
+                                <button class="files_delete button_css" style="display: none; font-size: 20px; background-color: white !important;" >❌</button> <!--onclick="filesDelete(${files_dto.seq })"-->
+                            </div>
+                        </c:forEach>
+                    </div> 
+                    <div id="files" class="index" style="flex: 1; flex-direction: column; overflow: auto;">
+                    </div>
+                </div>
                 <c:choose>
                     <c:when test="${WolfID eq board_dto.member_id}">
                         <div style="display: flex; justify-content:flex-end; align-items: center; flex: 1;" id="div1">
@@ -364,17 +371,16 @@ html,
                             <div><button type="button" id="list" class="button_css">목록보기</button></div>&nbsp&nbsp
                         </div>
                         <div style="border: 0; display: none; flex: 1; justify-content:flex-end; align-items: center;" id="div2">
-                            <form action="/update.board" method="post" id="joinform" enctype="multipart/form-data">
+                            
                                 <input type="hidden" id="arrayField" name="array">
                                 <input type="hidden" name="title" class="update_input" id="board_title_input"> 
                                 <input type="hidden" name="contents" class="update_input" id="board_contents_input"> 
                                 <input type="hidden" name="count" value="${board_dto.count}">
                                 <input type="hidden" name="board_code" value="${board_code}">
-                                <div style="display: none;"><input type="file" name="file" id="upload"></div>
                                 <input type="hidden" name="seq" value="${board_dto.seq}" class="notuse">
                                 <button type="submit" id="confirm" class="button_css">확인</button>
                                 <button type="button" id="cancel" class="button_css">취소</button>&nbsp&nbsp
-                            </form>
+                         
                         </div>
                     </c:when>
                     <c:otherwise>
@@ -383,22 +389,25 @@ html,
                         </div>
                     </c:otherwise>
                 </c:choose>
+            </form>
             </div>
             </div>
         </div>
     </div> <!--contaier 끝-->
     <form action="/insert.reply" method="get" id="replyform">
-    <div class="reply">
+    <div class="reply" style="  border-radius: 20px; margin-bottom: 15px;">
         <div style="flex: 1; margin-left: 15px;"> <p style="font-family: 'Courier New', Courier, monospace; font-size:small;">${WolfNickname}(${WolfID.substring(0, 4)}****) </p></div>
-        <div style="flex: 5;">
+        <div style="flex: 5; overflow: auto;">
             <div style="flex-direction: column; flex: 5; border: 1px solid black; margin: 15px; word-break: break-all; overflow: auto; max-height: 183px;" contenteditable="true" class="dto reply_child_input" id="reply_insert_div"  onkeydown="handleKeyPress(this,event)"><label id="reply_child_label" style="font-size: 20px; color: gray;">주제와 무관한 댓글이나 스포일러, 악플은 경고조치 없이 삭제되며 징계 대상이 될 수 있습니다.</label></div>
             <input type="hidden" name="contents" id="reply_insert_contents">
             <input type="hidden" name="member_id" value="${WolfID}"class="notuse">
             <input type="hidden" name="board_seq" value="${board_dto.seq}" class="notuse">
         </div>
-        <div style=" margin-left: 15px; flex:0.5; color: grey;"><span>현재 입력한 글자수 :&nbsp</span><span class="reply_child_count">0</span>/<span>전체 입력 가능한 글자수 :&nbsp</span><span class="reply_child_count_max">300</span></div>
-        <div style=" flex: 1; justify-content: flex-end; align-items: center;">
-            <button id="reply_btn" style="width: 15% !important; height: 100% !important; background-color: #00c73c !important; color: white !important;" class="no-hover button_css">등록</button>
+        <div style="flex: 1;">
+            <div style=" margin-left: 15px; flex:1; color: grey; justify-content: flex-start; align-items: center;"><span>현재 입력한 글자수 :&nbsp</span><span class="reply_child_count">0</span>/<span>전체 입력 가능한 글자수 :&nbsp</span><span class="reply_child_count_max">300</span></div>
+            <div style=" flex: 1; justify-content: flex-end; align-items: center;">
+                <button id="reply_btn" style="width: 15% !important; height: 100% !important; background-color: #00c73c !important; color: white !important;" class="no-hover button_css">등록</button>&nbsp&nbsp&nbsp&nbsp
+            </div>
         </div>
     </div>
     <input type="hidden" value="${board_code}" name="board_code">
@@ -905,7 +914,7 @@ html,
             })
             board_title.attr("contenteditable", "true");
            // board_contents.attr("contenteditable", "true");
-
+           let index=0;
             tinymce.init({
                 selector: 'div#board_contents',
                 plugins:'wordcount anchor image',
@@ -966,39 +975,46 @@ html,
                     }
                 },
                 setup: function (editor) {
-                    editor.ui.registry.addButton('fileupload', {
+                editor.ui.registry.addButton('fileupload', {
                     text: '파일 업로드: 선택된 파일없음',
                     onSetup: function(e) {
                       myButton=e;
                     },
                     onAction: function() {
-                        $("#upload").click();
+                        let files=$("#files");
+                        let div=$("<div style='display: none;''>");
+                        let input=$("<input type='file'class='upload'>");
+                        input.attr("name","files"+index++);
+                        div.append(input);
+                        let button=$("<button style='font-size: 20px; background-color: white !important'>❌</button>");
+                        button.attr("class","button_css");
+                        input.click();
+                        let temp=$("<div>");
                         //myButton.setText("aa");
+                        input.on('change', function() {
+                                var fileName = $(this).val().split('\\').pop();
+                                console.log(fileName);
+                                temp.html('파일 업로드: ' + fileName);
+                                temp.append(button);
+                                files.append(temp);
+                                
+                          });   
+                        button.on("click",function(){
+                            input.remove();
+                            temp.remove();
+                        })
+                        files.append(div);
                             
                     },         
-                }),
+                }); 
                 editor.on('change', function () {
                     localStorage.setItem('editorContent', editor.getContent());
-                }); 
-                $('#upload').on('change', function() {
-                     var fileName = $(this).val().split('\\').pop();
-                     console.log(fileName);
-                     if(fileName===""){
-                        myButton.setText('파일 업로드: 선택된 파일없음');
-                        
-                     }
-                     else{
-                        myButton.setText('파일 업로드: ' + fileName);
-                     }
-                     
-                });   
-                
-                
+                });
+            }
                 
 
-            }
         });
-        })
+    })
 
    
 

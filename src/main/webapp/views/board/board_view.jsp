@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
-        
+         
  
 <!-- icon -->
 <script src="https://kit.fontawesome.com/1ee4acc8d4.js" crossorigin="anonymous"></script>
@@ -48,7 +48,7 @@ body {
         height: 950px;
         margin: auto;
         flex-direction: column;
-        background-color: white ;
+ 
         position:relative;
         z-index: 100;
     }
@@ -112,12 +112,13 @@ body {
         flex-direction: column;
         border: 1px solid black;
         margin: 15px;
+        background-color: white ;
     }
     .menu{
         margin: 15px;
         flex: 1.3;
         flex-direction: column;
-        background-color: #f9a62098;
+       
     }
     .menu_title{
             font-size: 15px;
@@ -227,7 +228,7 @@ body {
 <body>
 
     <script>
-        if("${board_code}"==3  || "${board_code}"==4){
+        if("${board_code}"==5  || "${board_code}"==4){
             location.href="/index.jsp";
             alert("잘못된 접근입니다");
         }
@@ -269,7 +270,7 @@ body {
                     <div style=" height: 50px !important;"  class="center menu_title" id="board_2">
                         공지 게시판
                     </div>
-                    <div style="display: none;"  class="center menu_title" id="board_3">
+                    <div  class="center menu_title" id="board_3">
                         QNA 게시판
                     </div>
                     <div style="flex: 1; display: none;"  class="center menu_title" id="board_4">
@@ -290,7 +291,7 @@ body {
                         })
                     </script>
                 </div>
-                <div style="flex: 1; background-color: white;">
+                <div style="flex: 1;">
     
                 </div>
             </div>    
