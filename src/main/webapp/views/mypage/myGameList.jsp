@@ -55,7 +55,7 @@ pageEncoding="UTF-8"%>
         background-color: var(--bg-dark);
         color: var(--bg-black);
         color: var(--color-black);
-        overflow: auto;
+        overflow: hidden;
       }
       body.light {
         background-color: var(--bg-light);
@@ -339,6 +339,7 @@ pageEncoding="UTF-8"%>
         transition: all ease-in 0.2s;
         animation: ball 1s ease-in Infinite Alternate;
         border: double 1px rgba(255, 255, 255, 0.46);
+        z-index: 150;
       }
       @keyframes ball {
         0% {
@@ -362,6 +363,58 @@ pageEncoding="UTF-8"%>
       #mode i {
         font-size: 30px;
         color: var(--color-nav-bg);
+      }
+
+      /* PC */
+      .wolf {
+        display: none;
+      }
+
+      /* 모바일 메뉴 */
+      @media all and (max-width: 767px) {
+        .wolf {
+          display: block;
+        }
+
+        .navi {
+          display: none;
+        }
+
+        .m_navi {
+          display: block;
+        }
+
+        .container-fluid {
+          padding: 0;
+        }
+
+        .container {
+          padding: 0;
+        }
+
+        /* 햄버거 */
+        .navbar {
+          box-shadow: 0px 1px 5px white;
+        }
+
+        .navbar div {
+          width: 50px;
+          width: 50px;
+          height: 50px;
+          line-height: 50px;
+          margin: 0 2%;
+        }
+      }
+
+      /* 태블릿 크기  */
+      @media all and (min-width: 768px) and (max-width: 1023px) {
+        .wolf {
+          display: block;
+        }
+
+        #wolfLogo {
+          display: none;
+        }
       }
     </style>
   </head>
