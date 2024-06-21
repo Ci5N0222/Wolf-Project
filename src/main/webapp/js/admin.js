@@ -7,7 +7,6 @@ $(() => {
 	if(pathname === "/notice_list.admin"){
 		const searchParams = new URLSearchParams(window.location.search);
     	const boardCode = searchParams.get('board_code');
-    	console.log("board_code === ", boardCode);
     	if(boardCode !== null) $("#board-code-select").val(boardCode);
 	}
 	
@@ -15,7 +14,6 @@ $(() => {
 	$("#board-code-select").on("change", () => {
 		location.href="/notice_list.admin?board_code=" + $("#board-code-select").val();
 	});
-	
 
 	// ================================ [ Members ] ================================
 	

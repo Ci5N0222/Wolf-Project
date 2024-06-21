@@ -3,7 +3,7 @@
 
 <!-- JSTL Core -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +21,10 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
+<!-- tinymce -->
+<script src="https://cdn.tiny.cloud/1/9bewfouem96jjnfvuu236yinb3kp53xruh2gkkz3pkfnkw6c/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <!-- icon -->
 <script src="https://kit.fontawesome.com/1ee4acc8d4.js"
 	crossorigin="anonymous"></script>
@@ -32,7 +36,10 @@
 	crossorigin="anonymous"></script>
 
 <!-- Project local -->
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/service.css">
+<script src="/js/service.js"></script>
+<script src="/js/tinymce.js"></script>
 
 </head>
 <body>
@@ -51,51 +58,34 @@
 			<%@ include file="/views/include/header.jsp"%>
 
 			<!-- 컨텐츠 -->
-			<div id="contents"
+			<div id="serivce-title"
 				class="d-flex align-items-center justify-content-center my-3">
 				<div>
-					Developer <br /> who wants to cry
+					문의 작성하기
 				</div>
-				<div></div>
 			</div>
 
 			<!-- main -->
-			<main class="main">
-				<section class="d-flex flex-wrap list" id="card-form"></section>
-			</main>
-			<main class="M_main">
-				<div id="carouselExample" class="carousel slide">
-					<div class="carousel-inner">
-						<div class="carousel-item active">
-							<img src="/images/img01.png" alt="...">
+			<main class="service-main">
+				<form action="/qna_insert.service" id="fileform" method="post" enctype="multipart/form-data">
+					<div class="service-qna-insert">
+						<div class="qna-insert-title">
+							<input type="text" name="title" placeholder="글 제목을 입력하세요">
 						</div>
-						<div class="carousel-item">
-							<img src="/images/img02.png" alt="...">
-						</div>
-						<div class="carousel-item">
-							<img src="/images/img03.png" alt="...">
-						</div>
-						<div class="carousel-item">
-							<img src="/images/img02.png" alt="...">
-						</div>
-						<div class="carousel-item">
-							<img src="/images/img03.png" alt="...">
-						</div>
-						<div class="carousel-item">
-							<img src="/images/img03.png" alt="...">
-						</div>
+						<div id="contents"></div>
+			            <div id="files"></div>
+			            <div class="qna-insert-btn">
+			            	<button class="btn">작성완료</button>        
+		                    <button type="button" onclick="location.href='/qna_list.service'">취소</button>
+			            </div>
+			            <input type="hidden" name="board_code" value="${board_code}">
 					</div>
-					<button class="carousel-control-prev" type="button"
-						data-bs-target="#carouselExample" data-bs-slide="prev">
-						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						<span class="visually-hidden">Previous</span>
-					</button>
-					<button class="carousel-control-next" type="button"
-						data-bs-target="#carouselExample" data-bs-slide="next">
-						<span class="carousel-control-next-icon" aria-hidden="true"></span>
-						<span class="visually-hidden">Next</span>
-					</button>
-				</div>
+				</form>
+				
+			</main>
+			
+			<main class="M_main">
+				
 			</main>
 		</div>
 
@@ -106,6 +96,6 @@
 				class="fa-solid fa-lightbulb"></i>
 		</div>
 	</div>
-	<script src="js/main.js"></script>
+	<script src="/js/main.js"></script>
 </body>
 </html>

@@ -14,14 +14,30 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.tiny.cloud/1/9bewfouem96jjnfvuu236yinb3kp53xruh2gkkz3pkfnkw6c/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-
+ 
 
 <style>
+     :root {
+    --bg-light: #ffd449;
+    --bg-dark: #14213D;
+    --bg-transparent: transparent;
+
+    --color-white: #eeeeee;
+    --color-black: #14213D;
+    --bg-nav: #f9a620;
+    --color-nav-icon: #14213D;
+    --color-nav-bg: #f9a620;
+    font-size: 16px;
+}
+html,
+    
     .container{
         display: flex;
         flex-direction: column;
         max-width: 1000px;
         margin: auto;
+        
+       
     }
     .btn{
     	height: 30px;
@@ -37,27 +53,105 @@
         transform: scale(1.2);
         text-decoration: underline;
     }
+    #files{
+        color: white;
+    }
 
 </style>
+<style>
+      body {
+        margin: 0;
+         background-color: var(--bg-dark);
+       
+       
+      } 
+    /* img */
+.img_bg {
+position: absolute;
+top: 0%;
+left: 0;
+width: 100%;
+object-fit: cover;
+}
 
+.bgs {
+animation: bg 1s ease-in Infinite Alternate;
+transition: all ease-in 0.2s;
+width: 50px;
+}
+
+.bgs:nth-child(1) {
+top: 20%;
+background-color: #eee;
+left: 80%;
+}
+
+.bgs:nth-child(2) {
+top: 20%;
+left: 80%;
+width: 40px;
+}
+
+.bgs:nth-child(3) {
+top: 15%;
+left: 20%;
+}
+
+.bgs:nth-child(4) {
+top: 20%;
+left: 40%;
+width: 30px;
+}
+
+.bgs:nth-child(5) {
+top: 12%;
+left: 50%;
+}
+
+.bgs:nth-child(6) {
+top: 12%;
+left: 80%;
+width: 20px;
+}
+
+@keyframes bg {
+0% {
+    opacity: 1;
+}
+
+100% {
+    opacity: 0;
+}
+}
+.index{
+    z-index: 100;
+        position: relative;
+}
+</style>
 
 </head>
 <body>
-    
+    <img  src="/images/bg1.png" alt="" class="img_bg"> 
+    <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
+    <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
+    <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
+    <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
+    <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
+    <img  src="/images/bg3.png" alt="" class="img_bg bgs">
     <form action="/insert.board" id="fileform" method="post" enctype="multipart/form-data" >
         <div class="container">
-            <div style="display: flex; flex: 1; font-size: xx-large; justify-content: center">
-                자유 게시판 글 작성하기
+            <div style="margin-top: 20px; display: flex; flex: 1; font-size: 40px; justify-content: center; background-color: white; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;" class="index">
+                자유 게시판 글 작성하기 
             </div>
-            <div style="flex: 2;">
-                <input type="text" placeholder="글 제목을 입력하세요" style="width: 100%; height: 75px; font-size:30px;" name="title">
+            <div style="flex: 2; overflow: hidden; border: 0px; "class="index">
+                <input type="text" placeholder="글 제목을 입력하세요" style="border: 0; width: 100%; height: 75px; font-size:30px;" name="title">
             </div>
             <div style="flex: 8;"  id="contents"></div>
-            <div style="display: flex; flex: 1; justify-content: flex-end;">        
+            <div style="display: flex; flex: 1; justify-content: flex-end; "class="index">        
                     <button type="button"  class="btn" id="list">목록으로</button>&nbsp&nbsp
                     <button class="btn">작성완료</button>
             </div>
-            <div id="files">
+            <div id="files" class="index">
             </div>
         </div>
         <input type="hidden" value="<%= boardCode %>" name="board_code">
@@ -136,7 +230,8 @@
                         let input=$("<input type='file'class='upload'>");
                         input.attr("name","files"+index++);
                         div.append(input);
-                        let button=$("<button style='width: 50px; height: 50px;'>삭제</button>")
+                        let button=$("<button style='width: 50px; height: 50px; background-color: #14213D; border: 0; font-size: 20px;'>❌</button>")
+                       
                         input.click();
                         let temp=$("<div>");
                         //myButton.setText("aa");

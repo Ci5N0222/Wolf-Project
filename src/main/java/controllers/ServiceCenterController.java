@@ -1,13 +1,17 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
+import commons.PageConfig;
+import service_center.dao.ServiceCenterDAO;
+import service_center.dto.ServiceCenterDTO;
 
 @WebServlet("*.service")
 public class ServiceCenterController extends HttpServlet {
@@ -16,26 +20,72 @@ public class ServiceCenterController extends HttpServlet {
 		
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=UTF-8");
-		
+
 		String cmd = request.getRequestURI();
-		Gson g = new Gson();
+		
+		ServiceCenterDAO dao = ServiceCenterDAO.getInstance();
 		
 		try {
 			
 			/** login check **/
 			if(cmd.equals("/check.service")) {
-				if(request.getParameter("id") == "") response.getWriter().append("fail");
+				if((String)request.getSession().getAttribute("WolfID") == "") response.getWriter().append("fail");
 				else response.getWriter().append("ok");
 			}
 			
-			/** Service Center Main **/
+			/** 고객센터 메인 페이지 **/
 			else if(cmd.equals("/main.service")) {
 				request.getRequestDispatcher("/views/service_center/service_center.jsp").forward(request, response);
 			}
 			
-			/** Q & A list **/
+			/** Q & A 목록 **/
 			else if(cmd.equals("/qna_list.service")) {
-				
+				String id = (String)request.getSession().getAttribute("WolfID");
+				if(id == "") response.sendRedirect("/views/members/login.jsp");
+				else {
+					
+					String pcpage = request.getParameter("cpage");
+					if(pcpage == null) pcpage = "1";
+					int cpage = Integer.parseInt(pcpage);
+					
+					String res = request.getParameter("res");
+					if(res == null) res = "0";
+					
+					List<ServiceCenterDTO> qnaList = dao.getMyQnaList(
+							id,
+							res,
+							cpage * PageConfig.recordCountPerPage - (PageConfig.recordCountPerPage - 1),
+							cpage * PageConfig.recordCountPerPage);
+					
+					request.setAttribute("qnaList", qnaList);
+					
+					/** 페이징 **/
+					request.setAttribute("cpage", cpage);
+					request.setAttribute("recode_total_count", dao.getQnaTotalCount(id, res));
+					request.setAttribute("recode_count_per_page", PageConfig.recordCountPerPage);
+					request.setAttribute("navi_count_per_page", PageConfig.naviCountPerPage);
+					
+					request.setAttribute("wpageName", "res");
+					request.setAttribute("wpage", res);
+					
+					request.getRequestDispatcher("/views/service_center/qna_list.jsp").forward(request, response);
+				}
+			}
+			
+			/** Q & A 작성 **/
+			else if(cmd.equals("/page_qna_insert.service")) {
+				String id = (String)request.getSession().getAttribute("WolfID");
+				if(id == "") response.sendRedirect("/views/members/login.jsp");
+				else {
+					request.getRequestDispatcher("/views/service_center/qna_insert.jsp").forward(request, response);
+				}
+			}
+			else if(cmd.equals("/qna_insert.service")) {
+				String id = (String)request.getSession().getAttribute("WolfID");
+				if(id == "") response.sendRedirect("/views/members/login.jsp");
+				else {
+					request.getRequestDispatcher("/views/service_center/qna_insert.jsp").forward(request, response);
+				}
 			}
 			
 			
