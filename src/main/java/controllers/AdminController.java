@@ -466,7 +466,7 @@ public class AdminController extends HttpServlet {
 					request.setAttribute("wpageName", "res");
 					request.setAttribute("wpage", res);
 					
-					request.getRequestDispatcher("/views/admin/admin_notice_list.jsp").forward(request, response);
+					request.getRequestDispatcher("/views/admin/admin_qna_list.jsp").forward(request, response);
 				}
 			}
 			
