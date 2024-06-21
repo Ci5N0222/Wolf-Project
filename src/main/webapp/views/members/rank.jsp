@@ -537,20 +537,28 @@ border-radius:20px;}
     <!-- 스크립트 부분은 변경하지 않음 -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        // 사용자 정보 업데이트 함수
-         function updateUserStats(nickname, score, rank) {
-            if (nickname === "로그인이 필요합니다.") {
-                $("#userInfo").html('<span>' + nickname + '</span>');
-            } else {
-                $("#userInfo").html('<span id="userNickname">' + nickname + '</span> 님의 점수는 ' +
-                    '<span id="userScore">' + score + '</span> 점 순위는 ' +
-                    '<span id="userRank">' + rank + '</span> 등 입니다.');
-            }
-        }
+<script>
 
-        // 랭킹 불러오기 함수
-       function loadRank(gameSeq) {
+
+
+
+function updateUserStats(nickname, score, rank) {
+    var userInfoElement = $("#userInfo");
+
+        
+    if (nickname === 0 && score === 0 && rank === 0) {
+        // 로그인은 되었지만 플레이 기록이 없는 경우
+        userInfoElement.html('<span id="userNickname">플레이한 기록이 없습니다.</span>');
+    }else{
+        // 로그인되었고 플레이 기록이 있는 경우
+        userInfoElement.html('<span id="userNickname">' + nickname + '</span> 님의 점수는 ' +
+            '<span id="userScore">' + score + '</span> 점 순위는 ' +
+            '<span id="userRank">' + rank + '</span> 등 입니다.');
+    }
+}
+
+// 랭킹 로드 함수
+function loadRank(gameSeq) {
     $.ajax({
         type: "GET",
         url: "/rankselect.score",
@@ -571,7 +579,7 @@ border-radius:20px;}
                     topRankHtml += '<div class="firstbox">' + boxHtml + '</div>';
                 }
             } else {
-                // 게임 기록이 없는 경우 처리 (예: 데이터베이스에 기록이 1개 이하인 경우)
+                // 게임 기록이 없는 경우 처리
                 if (i === 1) {
                     topRankHtml += '<div class="secondbox"></div>';
                 } else if (i === 0 || i === 2) {
@@ -614,29 +622,29 @@ border-radius:20px;}
     });
 }
 
-        // 데이터베이스에서 사용자 정보를 가져오는 함수
-        function updateUserStatsFromDatabase(gameSeq) {
-            $.ajax({
-                type: "GET",
-                url: "/userinfo.score",
-                data: { gameSeq: gameSeq },
-                dataType: "json"
-            }).done(function(user) {
-                if (user) {
-                    updateUserStats(user.nickname, user.score, user.rank);
-                } else {
-                    updateUserStats("로그인이 필요합니다.");
-                }
-            }).fail(function(xhr, status, error) {
-                console.error("Error loading user info:", error);
-            });
-        }
+// 데이터베이스에서 사용자 정보 업데이트
+function updateUserStatsFromDatabase(gameSeq) {
+    $.ajax({
+        type: "GET",
+        url: "/userinfo.score",
+        data: { gameSeq: gameSeq },
+        dataType: "json"
+    }).done(function(user) {
+    	if (user) {
+    	    updateUserStats(user.nickname, user.score, user.rank);
+    	} else {
+    	    updateUserStats(0, 0, 0);
+    	}
+    }).fail(function(xhr, status, error) {
+        console.error("Error loading user info:", error);
+    });
+}
 
-        // 페이지 로드 시 초기 데이터 설정
-        $(document).ready(function() {
-            loadRank(1); // 초기에 Game 1의 랭킹을 로드합니다.
-        });
-    </script>
+// 페이지 로드 시 초기 랭킹 로드
+$(document).ready(function() {
+    loadRank(1); // 초기에 Game 1의 랭킹을 로드합니다.
+});
+</script>
     <script src="/js/main.js"></script>
 </body>
 
