@@ -8,7 +8,7 @@ class Carrot extends Phaser.Physics.Arcade.Sprite
 
 		this.setScale(0.5)
 	}
-}
+}s
 
 class Wolf extends Phaser.Physics.Arcade.Sprite
 {

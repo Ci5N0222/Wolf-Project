@@ -312,7 +312,7 @@ private static BoardDAO instance;
 			}
 		}
 		else if(type.equals("title")) {
-			String sql="select count(*) from board where title like ? and board_code=?";
+			String sql="select count(*) from board where REGEXP_REPLACE(title, '<[^>]+>', '') like ? and board_code=?";
 			try (Connection con=DBConfig.getConnection();
 					PreparedStatement pstat=con.prepareStatement(sql);){
 				pstat.setString(1, "%" + keyword + "%");
@@ -330,7 +330,7 @@ private static BoardDAO instance;
 			}
 			
 		} else if(type.equals("contents")) {
-			String sql="select count(*) from board where contents like ? and board_code=?";
+			String sql="select count(*) from board where REGEXP_REPLACE(contents, '<[^>]+>', '') like ? and board_code=?";
 			try (Connection con=DBConfig.getConnection();
 					PreparedStatement pstat=con.prepareStatement(sql);){
 				pstat.setString(1, "%" + keyword + "%");
