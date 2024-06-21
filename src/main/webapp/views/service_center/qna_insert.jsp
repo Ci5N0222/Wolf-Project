@@ -21,6 +21,10 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
+<!-- tinymce -->
+<script src="https://cdn.tiny.cloud/1/9bewfouem96jjnfvuu236yinb3kp53xruh2gkkz3pkfnkw6c/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <!-- icon -->
 <script src="https://kit.fontawesome.com/1ee4acc8d4.js"
 	crossorigin="anonymous"></script>
@@ -35,6 +39,7 @@
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/service.css">
 <script src="/js/service.js"></script>
+<script src="/js/tinymce.js"></script>
 
 </head>
 <body>
@@ -56,61 +61,26 @@
 			<div id="serivce-title"
 				class="d-flex align-items-center justify-content-center my-3">
 				<div>
-					My "Q&A" List
+					문의 작성하기
 				</div>
 			</div>
 
 			<!-- main -->
 			<main class="service-main">
-				<nav class="service-navi">
-					<p onclick="location.href='#'">F A Q</p>
-					<p onclick="location.reload()">Q & A</p>
-				</nav>
-				<section class="servie-content-box">
-					<div class="service-qna-res-seelct">
-						<select id="qna-res-seelct">
-							<option value="0">전체 문의</option>
-					        <option value="N">답변 대기중</option>
-					        <option value="Y">댑변 완료</option>
-						</select>
-						<button onclick="location.href='/page_qna_insert.service'">문의하기</button>
+				<form action="/qna_insert.service" id="fileform" method="post" enctype="multipart/form-data">
+					<div class="service-qna-insert">
+						<div class="qna-insert-title">
+							<input type="text" name="title" placeholder="글 제목을 입력하세요">
+						</div>
+						<div id="contents"></div>
+			            <div id="files"></div>
+			            <div class="qna-insert-btn">
+			            	<button class="btn">작성완료</button>        
+		                    <button type="button" onclick="location.href='/qna_list.service'">취소</button>
+			            </div>
+			            <input type="hidden" name="board_code" value="${board_code}">
 					</div>
-				</section>
-				
-				<div class="service-qna-list">
-					<c:if test="${qnaList.size() > 0}">
-						<table>
-							<tr>
-								<th>NO.</th>
-								<th>제목</th>
-								<th>작성자</th>
-								<th>작성일</th>
-								<th>상태</th>
-							</tr>
-				 			<c:forEach var="qnaList" items="${qnaList}">
-					 			<tr>
-					 				<td>${qnaList.seq}</td>
-					 				<td><a href="#">${qnaList.title}</a></td>
-					 				<td>${qnaList.nickname}</td>
-					 				<td><fmt:formatDate value="${qnaList.write_date}" pattern="yyyy.MM.dd"/></td>
-					 				<c:choose>
-					 					<c:when test="${qnaList.res_ok eq 'Y'}">
-					 						<td>완료</td>
-					 					</c:when>
-					 					<c:otherwise>
-					 						<td>대기중</td>
-					 					</c:otherwise>
-					 				</c:choose>
-					 			</tr>
-				 			</c:forEach>
-						</table>
-					</c:if>
-					<div class="page-navigation"></div>
-					<script>
-						/** 페이징 네이게이터 **/
-						pagenation(${cpage}, ${recode_total_count}, ${recode_count_per_page}, ${navi_count_per_page}, "/qna_list.service", "${wpageName}", "${wpage}");
-					</script>
-				</div>
+				</form>
 				
 			</main>
 			

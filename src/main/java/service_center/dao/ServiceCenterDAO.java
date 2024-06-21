@@ -32,9 +32,9 @@ public class ServiceCenterDAO {
 	public int getQnaTotalCount(String id, String res) throws Exception {
 		String sql = "";
 		if(res.equals("0")) {
-			sql = "select count(*) from board where board_code = 2 and member_id = ?";
+			sql = "select count(*) from board where board_code = 3 and member_id = ?";
 		} else {
-			sql = "select count(*) from board where board_code = 2 and member_id = ? and res_ok = ?";
+			sql = "select count(*) from board b join qna q on b.seq = q.board_seq where board_code = 3 and member_id = ? and res_ok = ?";
 		}
 		
 		try(Connection con = DBConfig.getConnection();
@@ -95,10 +95,6 @@ public class ServiceCenterDAO {
 					String secret = rs.getString("secret");
 					String resOk = rs.getString("res_ok");
 					String nickName = rs.getString("nickname");
-					
-					System.out.println("seq === " + seq);
-					System.out.println("nickname === " + nickName);
-					System.out.println("res_ok === " + resOk);
 					
 					list.add(new ServiceCenterDTO(seq, title, contents, count, memberId, boardCode, writeDate, secret, resOk, nickName));
 				}

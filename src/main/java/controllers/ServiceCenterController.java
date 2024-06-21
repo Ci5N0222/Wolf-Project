@@ -33,18 +33,17 @@ public class ServiceCenterController extends HttpServlet {
 				else response.getWriter().append("ok");
 			}
 			
-			/** Service Center Main **/
+			/** 고객센터 메인 페이지 **/
 			else if(cmd.equals("/main.service")) {
 				request.getRequestDispatcher("/views/service_center/service_center.jsp").forward(request, response);
 			}
 			
-			/** Q & A list **/
+			/** Q & A 목록 **/
 			else if(cmd.equals("/qna_list.service")) {
 				String id = (String)request.getSession().getAttribute("WolfID");
 				if(id == "") response.sendRedirect("/views/members/login.jsp");
 				else {
 					
-					System.out.println("id === " + id);
 					String pcpage = request.getParameter("cpage");
 					if(pcpage == null) pcpage = "1";
 					int cpage = Integer.parseInt(pcpage);
@@ -70,6 +69,22 @@ public class ServiceCenterController extends HttpServlet {
 					request.setAttribute("wpage", res);
 					
 					request.getRequestDispatcher("/views/service_center/qna_list.jsp").forward(request, response);
+				}
+			}
+			
+			/** Q & A 작성 **/
+			else if(cmd.equals("/page_qna_insert.service")) {
+				String id = (String)request.getSession().getAttribute("WolfID");
+				if(id == "") response.sendRedirect("/views/members/login.jsp");
+				else {
+					request.getRequestDispatcher("/views/service_center/qna_insert.jsp").forward(request, response);
+				}
+			}
+			else if(cmd.equals("/qna_insert.service")) {
+				String id = (String)request.getSession().getAttribute("WolfID");
+				if(id == "") response.sendRedirect("/views/members/login.jsp");
+				else {
+					request.getRequestDispatcher("/views/service_center/qna_insert.jsp").forward(request, response);
 				}
 			}
 			
