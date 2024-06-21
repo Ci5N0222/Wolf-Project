@@ -567,6 +567,39 @@ public class AdminDAO {
 		}
 	}
 	
+	public List<AdminDTO.QnaListDTO> getQnaList(String res, int start, int end) throws Exception {
+		String sql = "SELECT b.*, q.res_ok, m.nickname FROM (select board.*, row_number() over(order by seq desc) rown FROM board WHERE board_code = 3) b JOIN qna q  ON b.seq = q.board_seq JOIN members m ON m.id = b.member_id WHERE q.res_ok = ? AND rown BETWEEN ? AND ?";
+		
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, res);
+			pstat.setInt(2, start);
+			pstat.setInt(3, end);
+			
+			try(ResultSet rs = pstat.executeQuery()){
+				List<AdminDTO.QnaListDTO> list = new ArrayList<>();
+				
+				while(rs.next()) {
+					int seq = rs.getInt("seq");
+					String title = rs.getString("title");
+					String contents = rs.getString("contents");
+					int count = rs.getInt("count");
+					String memberId = rs.getString("member_id");
+					int boardCode = rs.getInt("board_code");
+					Timestamp writeDate = rs.getTimestamp("write_date");
+					String secret = rs.getString("secret");
+					String resOk = rs.getString("res_ok");
+					String nickName = rs.getString("nickname");
+					
+					list.add(new AdminDTO.QnaListDTO(seq, title, contents, count, memberId, boardCode, writeDate, secret, resOk, nickName));
+				}
+				
+				return list;
+			}
+		}
+		
+	}
+	
 	
 	
 }

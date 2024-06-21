@@ -24,7 +24,7 @@ create table board(
     count number default 0,
     member_id varchar(20) not null,
     board_code number not null, 
-    write_date timestamp default sysdate
+    write_date timestamp default sysdate,
     secret varchar(1) default 'N'
 );
 
@@ -90,6 +90,12 @@ create table image_code(
     sortaion varchar(30) 
 );
 
+CREATE TABLE qna(
+	seq NUMBER PRIMARY KEY,
+	board_seq NUMBER NOT NULL,
+	res_ok varchar(1) DEFAULT 'N'
+);
+
 create sequence board_seq
 start with 1
 increment by 1
@@ -130,6 +136,13 @@ increment by 1
 nomaxvalue
 nocache;
 
+CREATE SEQUENCE qna_seq
+start with 1
+increment by 1
+nomaxvalue
+nocache
+;
+
 -- members table dummy data
 INSERT INTO members VALUES ('user001', 'password1', 'Alice', 'alice01', '01012345678', 'alice@example.com', 'F', '19750101', 1, null, sysdate);
 INSERT INTO members VALUES ('user002', 'password2', 'Bob', 'bobster', '01023456789', 'bob@example.com', 'M', '19800202', 1, null, sysdate);
@@ -160,16 +173,16 @@ INSERT INTO grade (seq, name) VALUES (98, '서브관리자');
 INSERT INTO grade (seq, name) VALUES (99, '메인관리자');
 
 -- board table dummy data
-INSERT INTO board VALUES (board_seq.nextval, '첫 번째 글', '첫 번째 글 내용입니다.', 0, 'user001', 1, sysdate);
-INSERT INTO board VALUES (board_seq.nextval, '두 번째 글', '두 번째 글 내용입니다.', 0, 'user002', 1, sysdate);
-INSERT INTO board VALUES (board_seq.nextval, '세 번째 글', '세 번째 글 내용입니다.', 0, 'user003', 2, sysdate);
-INSERT INTO board VALUES (board_seq.nextval, '네 번째 글', '네 번째 글 내용입니다.', 0, 'user004', 2, sysdate);
-INSERT INTO board VALUES (board_seq.nextval, '다섯 번째 글', '다섯 번째 글 내용입니다.', 0, 'user005', 1, sysdate);
-INSERT INTO board VALUES (board_seq.nextval, '여섯 번째 글', '여섯 번째 글 내용입니다.', 0, 'user006', 1, sysdate);
-INSERT INTO board VALUES (board_seq.nextval, '일곱 번째 글', '일곱 번째 글 내용입니다.', 0, 'user007', 2, sysdate);
-INSERT INTO board VALUES (board_seq.nextval, '여덟 번째 글', '여덟 번째 글 내용입니다.', 0, 'user008', 2, sysdate);
-INSERT INTO board VALUES (board_seq.nextval, '아홉 번째 글', '아홉 번째 글 내용입니다.', 0, 'user009', 1, sysdate);
-INSERT INTO board VALUES (board_seq.nextval, '열 번째 글', '열 번째 글 내용입니다.', 0, 'user010', 1, sysdate);
+INSERT INTO board VALUES (board_seq.nextval, '첫 번째 글', '첫 번째 글 내용입니다.', 0, 'user001', 1, sysdate, 'N');
+INSERT INTO board VALUES (board_seq.nextval, '두 번째 글', '두 번째 글 내용입니다.', 0, 'user002', 1, sysdate, 'N');
+INSERT INTO board VALUES (board_seq.nextval, '세 번째 글', '세 번째 글 내용입니다.', 0, 'user003', 2, sysdate, 'N');
+INSERT INTO board VALUES (board_seq.nextval, '네 번째 글', '네 번째 글 내용입니다.', 0, 'user004', 2, sysdate, 'N');
+INSERT INTO board VALUES (board_seq.nextval, '다섯 번째 글', '다섯 번째 글 내용입니다.', 0, 'user005', 1, sysdate, 'N');
+INSERT INTO board VALUES (board_seq.nextval, '여섯 번째 글', '여섯 번째 글 내용입니다.', 0, 'user006', 1, sysdate, 'N');
+INSERT INTO board VALUES (board_seq.nextval, '일곱 번째 글', '일곱 번째 글 내용입니다.', 0, 'user007', 2, sysdate, 'N');
+INSERT INTO board VALUES (board_seq.nextval, '여덟 번째 글', '여덟 번째 글 내용입니다.', 0, 'user008', 2, sysdate, 'N');
+INSERT INTO board VALUES (board_seq.nextval, '아홉 번째 글', '아홉 번째 글 내용입니다.', 0, 'user009', 1, sysdate, 'N');
+INSERT INTO board VALUES (board_seq.nextval, '열 번째 글', '열 번째 글 내용입니다.', 0, 'user010', 1, sysdate, 'N');
 
 -- board_list table dummy data
 INSERT INTO board_list VALUES (1, '자유게시판');
@@ -195,21 +208,21 @@ INSERT INTO reply VALUES(reply_seq.nextval, 'user014', '열네 번째 댓글입�
 INSERT INTO reply VALUES(reply_seq.nextval, 'user015', '열다섯 번째 댓글입니다.', 8,sysdate);
 
 -- reply_child table dummy data
-INSERT INTO reply_child VALUES(1, 'user001', '첫 번째 댓글의 답글입니다.', 1,sysdate);
-INSERT INTO reply_child VALUES(2, 'user002', '두 번째 댓글의 답글입니다.', 1,sysdate);
-INSERT INTO reply_child VALUES(3, 'user003', '세 번째 댓글의 답글입니다.', 2,sysdate);
-INSERT INTO reply_child VALUES(4, 'user004', '네 번째 댓글의 답글입니다.', 2,sysdate);
-INSERT INTO reply_child VALUES(5, 'user005', '다섯 번째 댓글의 답글입니다.', 3,sysdate);
-INSERT INTO reply_child VALUES(6, 'user006', '여섯 번째 댓글의 답글입니다.', 3,sysdate);
-INSERT INTO reply_child VALUES(7, 'user007', '일곱 번째 댓글의 답글입니다.', 4,sysdate);
-INSERT INTO reply_child VALUES(8, 'user008', '여덟 번째 댓글의 답글입니다.', 4,sysdate);
-INSERT INTO reply_child VALUES(9, 'user009', '아홉 번째 댓글의 답글입니다.', 5,sysdate);
-INSERT INTO reply_child VALUES(10, 'user010', '열 번째 댓글의 답글입니다.', 5,sysdate);
-INSERT INTO reply_child VALUES(11, 'user011', '열한 번째 댓글의 답글입니다.', 6,sysdate);
-INSERT INTO reply_child VALUES(12, 'user012', '열두 번째 댓글의 답글입니다.', 6,sysdate);
-INSERT INTO reply_child VALUES(13, 'user013', '열세 번째 댓글의 답글입니다.', 7,sysdate);
-INSERT INTO reply_child VALUES(14, 'user014', '열네 번째 댓글의 답글입니다.', 7,sysdate);
-INSERT INTO reply_child VALUES(15, 'user015', '열다섯 번째 댓글의 답글입니다.', 8,sysdate);
+INSERT INTO reply_child VALUES(reply_child_seq.nextval, 'user001', '첫 번째 댓글의 답글입니다.', 1,sysdate);
+INSERT INTO reply_child VALUES(reply_child_seq.nextval, 'user002', '두 번째 댓글의 답글입니다.', 1,sysdate);
+INSERT INTO reply_child VALUES(reply_child_seq.nextval, 'user003', '세 번째 댓글의 답글입니다.', 2,sysdate);
+INSERT INTO reply_child VALUES(reply_child_seq.nextval, 'user004', '네 번째 댓글의 답글입니다.', 2,sysdate);
+INSERT INTO reply_child VALUES(reply_child_seq.nextval, 'user005', '다섯 번째 댓글의 답글입니다.', 3,sysdate);
+INSERT INTO reply_child VALUES(reply_child_seq.nextval, 'user006', '여섯 번째 댓글의 답글입니다.', 3,sysdate);
+INSERT INTO reply_child VALUES(reply_child_seq.nextval, 'user007', '일곱 번째 댓글의 답글입니다.', 4,sysdate);
+INSERT INTO reply_child VALUES(reply_child_seq.nextval, 'user008', '여덟 번째 댓글의 답글입니다.', 4,sysdate);
+INSERT INTO reply_child VALUES(reply_child_seq.nextval, 'user009', '아홉 번째 댓글의 답글입니다.', 5,sysdate);
+INSERT INTO reply_child VALUES(reply_child_seq.nextval, 'user010', '열 번째 댓글의 답글입니다.', 5,sysdate);
+INSERT INTO reply_child VALUES(reply_child_seq.nextval, 'user011', '열한 번째 댓글의 답글입니다.', 6,sysdate);
+INSERT INTO reply_child VALUES(reply_child_seq.nextval, 'user012', '열두 번째 댓글의 답글입니다.', 6,sysdate);
+INSERT INTO reply_child VALUES(reply_child_seq.nextval, 'user013', '열세 번째 댓글의 답글입니다.', 7,sysdate);
+INSERT INTO reply_child VALUES(reply_child_seq.nextval, 'user014', '열네 번째 댓글의 답글입니다.', 7,sysdate);
+INSERT INTO reply_child VALUES(reply_child_seq.nextval, 'user015', '열다섯 번째 댓글의 답글입니다.', 8,sysdate);
 
 -- game table dummy data
 INSERT INTO game VALUES(game_seq.nextval, '게임1', '게임1요약', '게임1에 대한 내용입니다.', 'none', 1);
