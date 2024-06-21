@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 
 import game.dao.GameDAO;
 import game.dto.GameDTO;
+import images.dao.ImagesDAO;
 
 @WebServlet("*.web")
 public class WebController extends HttpServlet {
@@ -25,6 +26,7 @@ public class WebController extends HttpServlet {
 		String cmd = request.getRequestURI();
 		
 		GameDAO gameDAO = GameDAO.getInstance();
+		ImagesDAO imagesDAO = ImagesDAO.getInstance();
 		
 		Gson g = new Gson();
 		
@@ -32,6 +34,14 @@ public class WebController extends HttpServlet {
 			
 			if(cmd.equals("/home.web")) {
 				List<GameDTO> gameList = gameDAO.getList();
+
+				for(GameDTO dto: gameList) {
+					String sysname = imagesDAO.getImageName(dto.getSeq(), 3);
+					if(sysname != null) {
+						dto.setThumbnail("thumbnails/" + sysname);
+					}	
+				}
+				
 				String result = "{\"result\": \"ok\", \"data\": "+ g.toJson(gameList)+"}";
 				response.getWriter().append(result);
 			}
