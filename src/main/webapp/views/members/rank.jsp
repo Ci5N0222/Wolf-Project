@@ -440,6 +440,50 @@ border-radius:20px;}
             max-height: 50px;
             border-radius: 50%;
         }
+        /* 모바일 메뉴 */ @media all and (max-width: 767px) { 
+	.wolf {
+		display: block;
+	}
+	
+	.navi {
+		display: none;
+	}
+	
+	.m_navi {
+		display: block;
+	}
+	
+	.container-fluid {
+		padding: 0;
+	}
+	
+	.container {
+		padding: 0;
+	}
+	
+	/* 햄버거 */
+	.navbar {
+		box-shadow: 0px 1px 5px white;
+	}
+	
+	.navbar div {
+		width: 50px;
+		width: 50px;
+		height: 50px;
+		line-height: 50px;
+		margin: 0 2%;
+	} }
+.wolf {display: none;}
+
+
+ @media all and (min-width:768px) and (max-width: 1023px) {
+	.wolf {
+		display: block;
+	}
+	
+	#wolfLogo {
+		display: none;
+	}}
     </style>
 </head>
 
@@ -457,15 +501,11 @@ border-radius:20px;}
 		<%@ include file="/views/include/header.jsp"%>
 		
 		
-    <div class="rankcontainer">
-
-
-        <!-- 사용자 정보 표시 -->
-        <div id="userInfo" class="user-info">
-            닉네임: <span id="userNickname"></span> |
-            점수: <span id="userScore"></span> |
-            순위: <span id="userRank"></span>
-        </div>
+             <div class="rankcontainer">
+                <!-- 사용자 정보 표시 -->
+                <div id="userInfo" class="user-info">
+                    <!-- 사용자 정보 업데이트 스크립트에서 동적으로 업데이트 -->
+                </div>
 
         <!-- 게임 선택 버튼 그룹 -->
         <div class="btn-group mb-4">
@@ -499,10 +539,14 @@ border-radius:20px;}
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         // 사용자 정보 업데이트 함수
-        function updateUserStats(nickname, score, rank) {
-            $("#userNickname").text(nickname);
-            $("#userScore").text(score);
-            $("#userRank").text(rank);
+         function updateUserStats(nickname, score, rank) {
+            if (nickname === "로그인이 필요합니다.") {
+                $("#userInfo").html('<span>' + nickname + '</span>');
+            } else {
+                $("#userInfo").html('<span id="userNickname">' + nickname + '</span> 님의 점수는 ' +
+                    '<span id="userScore">' + score + '</span> 점 순위는 ' +
+                    '<span id="userRank">' + rank + '</span> 등 입니다.');
+            }
         }
 
         // 랭킹 불러오기 함수
@@ -581,7 +625,7 @@ border-radius:20px;}
                 if (user) {
                     updateUserStats(user.nickname, user.score, user.rank);
                 } else {
-                    updateUserStats("기록 없음", 0, "N/A");
+                    updateUserStats("로그인이 필요합니다.");
                 }
             }).fail(function(xhr, status, error) {
                 console.error("Error loading user info:", error);
