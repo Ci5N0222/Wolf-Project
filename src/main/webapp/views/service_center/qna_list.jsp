@@ -3,7 +3,7 @@
 
 <!-- JSTL Core -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,7 +55,7 @@
 			<div id="serivce-title"
 				class="d-flex align-items-center justify-content-center my-3">
 				<div>
-					Service Center
+					My "Q&A" List
 				</div>
 			</div>
 
@@ -66,24 +66,46 @@
 					<p onclick="location.href='#'">Q & A</p>
 				</nav>
 				<section class="servie-content-box">
-					<div class="service-main-row">
-						<div class="service-main-col">
-							<p>불편한점, 버그 제보해주세요!</p>
-							<button>문의 작성하기</button>
-						</div>
-						<div class="service-main-col">
-							<p>여기서 문의 내역을 확인하세요!</p>
-							<button>나의 문의 내역</button>
-						</div>
-					</div>
-					<div class="service-main-row">
-						<div class="service-main-row">
-							<p>자주 묻는 질문들은 여기서 확인하세요!</p>
-							<button>자주 묻는 질문</button>
-						</div>
+					<div class="service-qna-res-seelct">
+						<select id="qna-res-seelct">
+							<option value="0">전체 문의</option>
+					        <option value="N">답변 대기중</option>
+					        <option value="Y">댑변 완료</option>
+						</select>
 					</div>
 				</section>
-
+				
+				<div class="service-qna-list">
+					<c:if test="${qnaList.size() > 0}">
+						<table>
+							<tr>
+								<th>NO.</th>
+								<th>제목</th>
+								<th>작성자</th>
+								<th>작성일</th>
+								<th>상태</th>
+							</tr>
+				 			<c:forEach var="qnaList" items="${qnaList}">
+					 			<tr>
+					 				<td>${qnaList.seq}</td>
+					 				<td><a href="#">${qnaList.title}</a></td>
+					 				<td>${qnaList.nickname}</td>
+					 				<td><fmt:formatDate value="${qnaList.write_date}" pattern="yyyy.MM.dd"/></td>
+					 				<c:choose>
+					 					<c:when test="${qnaList.res_ok eq 'Y'}">
+					 						<td>완료</td>
+					 					</c:when>
+					 					<c:otherwise>
+					 						<td>대기중</td>
+					 					</c:otherwise>
+					 				</c:choose>
+					 			</tr>
+				 			</c:forEach>
+						</table>
+					</c:if>
+					
+				</div>
+				
 			</main>
 			
 			<main class="M_main">

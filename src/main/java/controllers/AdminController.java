@@ -26,6 +26,7 @@ import files.dto.FilesDTO;
 import game.dto.GameDTO;
 import images.dao.ImagesDAO;
 import members.dto.MembersDTO;
+import service_center.dto.ServiceCenterDTO;
 
 @WebServlet("*.admin")
 public class AdminController extends HttpServlet {
@@ -450,7 +451,7 @@ public class AdminController extends HttpServlet {
 					String res = request.getParameter("res");
 					if(res == null) res = "Y";
 
-					List<AdminDTO.QnaListDTO> boardList = dao.getQnaList(
+					List<ServiceCenterDTO> boardList = dao.getQnaList(
 							res,
 							cpage * PageConfig.recordCountPerPage - (PageConfig.recordCountPerPage - 1),
 							cpage * PageConfig.recordCountPerPage);
