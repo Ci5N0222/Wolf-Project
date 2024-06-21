@@ -219,6 +219,9 @@ body.light {
 	height: 200px;
 	border: 1px solid #ccc;
 }
+.card:hover{
+	transform: rotate(2deg);
+}
 
 /* 이미지가 가로로 꽉 차게 설정 */
 .card>div img {
