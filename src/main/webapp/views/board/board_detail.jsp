@@ -50,6 +50,7 @@ html,
             background-color: white;
             z-index: 100;
             position: relative;
+            overflow: hidden;
            
         }
         .navi {
@@ -160,11 +161,12 @@ html,
             width:700px !important;     
         }
         .board{
-        flex: 6;
-        flex-direction: column;
-        border: 1px solid black;
-        margin: 15px;
-     }
+            flex: 6;
+            flex-direction: column;
+            border: 1px solid black;
+             margin: 15px;
+            overflow: hidden;
+        }
      .menu{
         margin: 15px;
         flex: 1.3;
@@ -271,6 +273,11 @@ html,
 	}
 }
 </style>
+<style>
+    #board_contents img{
+        
+    }
+</style>
 </head>
 
 <body>
@@ -297,7 +304,7 @@ html,
                 </div> 
             </div>
         </div>
-        <div style="flex: 8;">
+        <div style="flex: 8; overflow: auto;">
             <div class="menu" style="flex: 1.5;">
                 <div style="flex: 1; flex-direction: column;">
                     <div style=" height: 50px !important;" class="center menu_title" id="board_1">
@@ -331,7 +338,7 @@ html,
     
                 </div>
             </div>    
-        <div class="board">
+        <div class="board" >
             <div style="flex: 1;" class="center dto title" id="board_title">${board_dto.title}</div>
             <div style="flex: 1; background-color: #f5f5f5; color: #545861;font-weight: bold; border-bottom: 5px solid #e3e3e3;">
                     <div style="flex: 1;" class="center">${board_nickname}(${board_dto.member_id.substring(0, 4)}****)</div>
@@ -339,7 +346,7 @@ html,
                     <div style="flex: 1;"  class="center"> 조회 ${board_dto.count}</div>
             </div>  
     
-            <div style="flex: 5; flex-direction: column;" class="dto" id="board_contents" >${board_dto.contents}</div>
+            <div style="flex: 5; flex-direction: column; overflow: auto; height: 100% ; width: 100%;" class="dto" id="board_contents" >${board_dto.contents}</div>
             <div style="flex: 0.8; overflow-y: auto;">
                 <div style="flex: 1; flex-direction: column; overflow: auto; color: gray ">
                     <c:forEach var="files_dto" items="${files_list}">
@@ -362,6 +369,7 @@ html,
                                 <input type="hidden" name="title" class="update_input" id="board_title_input"> 
                                 <input type="hidden" name="contents" class="update_input" id="board_contents_input"> 
                                 <input type="hidden" name="count" value="${board_dto.count}">
+                                <input type="hidden" name="board_code" value="${board_code}">
                                 <div style="display: none;"><input type="file" name="file" id="upload"></div>
                                 <input type="hidden" name="seq" value="${board_dto.seq}" class="notuse">
                                 <button type="submit" id="confirm" class="button_css">확인</button>
