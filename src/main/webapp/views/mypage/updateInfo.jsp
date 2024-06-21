@@ -454,7 +454,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                       <div></div>
                       <div>
                         <c:choose>
-                          <c:when test="${WolfAvatar eq /${WolfId}/null}">
+                          <c:when test="${WolfAvatar eq null}">
                             <img
                               src="/images/default-avatar.jpg"
                               alt=""
