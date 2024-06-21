@@ -168,6 +168,13 @@ public class MypageController extends HttpServlet {
 				List<GameScoreDTO> result = gDAO.gameList(id);
 				System.out.println(result.size());
 				
+				for(GameScoreDTO dto : result) {
+					String sysname = iDAO.getImageName(dto.getGame_seq(), 3);
+					if(sysname != null) {
+						dto.setThumbnail("thumbnails/" + sysname);
+					}	
+				}
+				
 				request.setAttribute("result", result);
 				request.getRequestDispatcher("/views/mypage/myGameList.jsp").forward(request, response);
 

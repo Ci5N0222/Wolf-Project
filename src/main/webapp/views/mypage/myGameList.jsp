@@ -61,15 +61,30 @@ pageEncoding="UTF-8"%>
         background-color: var(--bg-light);
         color: var(--bg-black);
       }
+
+      /* 하단 원 */
+      .sun {
+        position: absolute;
+        width: 120%;
+        height: 100%;
+        background-color: var(--color-nav-bg);
+        box-shadow: 5px -5px 10px var(--bg-light);
+        border-radius: 50%;
+        top: 40%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
       /* 모드 변경시 부드럽게 넘어가는 효과 */
       .sun,
       .navi {
         transition: background-color 0.5s ease, box-shadow 0.5s ease;
       }
+
       /* img */
       .img_bg {
         position: absolute;
-        top: -60%;
+        top: 0%;
         left: 0;
         width: 100%;
         object-fit: cover;
@@ -119,7 +134,6 @@ pageEncoding="UTF-8"%>
       .container,
       .main {
         height: 100%;
-        z-index: 100;
         /* 폰트 */
         font-family: "Noto Sans KR", sans-serif;
       }
@@ -176,27 +190,33 @@ pageEncoding="UTF-8"%>
         margin: 0;
         padding: 0;
       }
-      div {
+      /* div {
         border: 1px solid #67ffd1;
-      }
+      } */
 
       .mypage-myGame-container {
         display: flex;
         flex-direction: column;
         height: 100vh;
         width: 100%;
+        z-index: 100;
       }
 
       .mypage-myGame-title {
         margin: 50px 0;
         font-size: 50px;
+        font-weight: 700;
         color: white;
         height: 10%;
         width: 100%;
+        text-shadow: 5px 5px 5px #14213d;
       }
 
       .aside-section-form {
         display: flex;
+        overflow: hidden;
+        max-height: 700px;
+
       }
 
       .mypage-side-menu {
@@ -237,6 +257,7 @@ pageEncoding="UTF-8"%>
         flex-direction: column;
         align-items: center;
         padding: 0 30px;
+        overflow: auto;
       }
 
       .mypage-myGameList {
@@ -247,8 +268,6 @@ pageEncoding="UTF-8"%>
         align-items: flex-start;
         width: 100%;
         max-width: 950px;
-        height: auto;
-        min-height: 800px;
         border-radius: 30px;
         padding: 50px 100px;
       }
@@ -390,27 +409,33 @@ pageEncoding="UTF-8"%>
 
             <section class="mypage-myGame-form">
               <div class="mypage-myGameList">
-                <c:if test="${result == null}">
+                <!-- <c:if test="${result == null}">
                   <div style="border: 1px solid aqua">
                     플레이 한 게임이 없습니다.
                   </div>
-                </c:if>
+                </c:if> -->
                 <c:if test="${result != null}">
                   <c:forEach var="i" items="${result}">
                     <div class="mypage-myGameList-info">
                       <div class="mypage-myGameList-img">
-                        <img src="${WolfAvatar}" style="width: 100%; height: 100%; border-radius: 30px;">
+                        <img src="${i.thumbnail}" style="width: 100%; height: 100%; border-radius: 30px;">
                       </div>
                       <div>
                         <div class="mypage-myGameList-title">
                           <p class="title_txt">${i.title}</p>
                         </div>
                         <div class="mypage-myGameList-score">
-                          <p>
-                            최고점수 :
-                            <p class="score_txt">${i.score}</p>
-                            점
-                          </p>
+                          <c:choose>
+                            <c:when test="${i.score != null}">
+                                <p>최고점수 :
+                                  <p class="score_txt">${i.score}</p>
+                                  점
+                                </p>
+                              </c:when>
+                              <c:otherwise>
+                                플레이한 기록이 없습니다.
+                              </c:otherwise>
+                            </c:choose>
                         </div>
                       </div>
                     </div>
@@ -422,6 +447,7 @@ pageEncoding="UTF-8"%>
         </main>
       </div>
 
+      <div class="sun"></div>
       <!-- mode -->
       <div id="mode">
         <i class="fa-regular fa-lightbulb" style="display: none"></i>
