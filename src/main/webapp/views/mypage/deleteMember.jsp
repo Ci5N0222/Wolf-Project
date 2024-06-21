@@ -60,15 +60,30 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         background-color: white;
         color: var(--bg-black);
       }
+
+      /* 하단 원 */
+      .sun {
+        position: absolute;
+        width: 120%;
+        height: 100%;
+        background-color: var(--color-nav-bg);
+        box-shadow: 5px -5px 10px var(--bg-light);
+        border-radius: 50%;
+        top: 40%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
       /* 모드 변경시 부드럽게 넘어가는 효과 */
       .sun,
       .navi {
         transition: background-color 0.5s ease, box-shadow 0.5s ease;
       }
+
       /* img */
       .img_bg {
         position: absolute;
-        top: -60%;
+        top: 0%;
         left: 0;
         width: 100%;
         object-fit: cover;
@@ -118,7 +133,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       .container,
       .main {
         height: 100%;
-        z-index: 100;
         /* 폰트 */
         font-family: "Noto Sans KR", sans-serif;
       }
@@ -183,14 +197,17 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         flex-direction: column;
         height: 100vh;
         width: 100%;
+        z-index: 100;
       }
 
       .mypage-delete-title {
         margin: 50px 0;
         font-size: 50px;
-        color: #fab74b;
+        font-weight: 700;
+        color: white;
         height: 10%;
         width: 100%;
+        text-shadow: 5px 5px 5px #14213d;
       }
 
       .aside-section-form {
@@ -464,6 +481,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         </main>
       </div>
 
+      <div class="sun"></div>
       <!-- mode -->
       <div id="mode">
         <i class="fa-regular fa-lightbulb" style="display: none"></i>

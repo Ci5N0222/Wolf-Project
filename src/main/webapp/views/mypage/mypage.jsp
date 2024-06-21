@@ -56,22 +56,37 @@ pageEncoding="UTF-8"%>
         /* background-color: azure; */
         color: var(--bg-black);
         color: var(--color-black);
-        overflow: auto;
+        overflow: hidden;
       }
       body.light {
         /* background-color: var(--bg-light); */
         background-color: white;
         color: var(--bg-black);
       }
+
+      /* 하단 원 */
+      .sun {
+        position: absolute;
+        width: 120%;
+        height: 100%;
+        background-color: var(--color-nav-bg);
+        box-shadow: 5px -5px 10px var(--bg-light);
+        border-radius: 50%;
+        top: 40%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
       /* 모드 변경시 부드럽게 넘어가는 효과 */
       .sun,
       .navi {
         transition: background-color 0.5s ease, box-shadow 0.5s ease;
       }
+
       /* img */
       .img_bg {
         position: absolute;
-        top: -60%;
+        top: 0%;
         left: 0;
         width: 100%;
         object-fit: cover;
@@ -121,7 +136,6 @@ pageEncoding="UTF-8"%>
       .container,
       .main {
         height: 100%;
-        z-index: 100;
         /* 폰트 */
         font-family: "Noto Sans KR", sans-serif;
       }
@@ -177,23 +191,26 @@ pageEncoding="UTF-8"%>
         box-sizing: border-box;
       }
 
-      div {
+      /* div {
         border: 1px solid aqua;
-      }
+      } */
 
       .mypage-container {
         display: flex;
         flex-direction: column;
         height: 100vh;
         width: 100%;
+        z-index: 100;
       }
 
       .mypage-main-title {
         margin: 50px 0;
         font-size: 50px;
+        font-weight: 700;
         color: white;
         height: 10%;
         width: 100%;
+        text-shadow: 5px 5px 5px #14213d;
       }
 
       .aside-section-form {
@@ -289,34 +306,20 @@ pageEncoding="UTF-8"%>
 
       /* 내정보 아바타 출력칸 */
       .dashboard-inner_box > div:first-child > div:first-child {
-        flex: 2;
-        background-color: #d5d5d5;
-        width: 90%;
-        border-radius: 100%;
+        flex: 1;
+        width: 100%;
+        height: 200px;
       }
-      /* .dashboard-inner_box > div:first-child > div:first-child {
-        flex: 2;
-        background-color: #d5d5d5;
-        width: 90%;
-        height: 0;
-        padding-top: 90%; 
-        border-radius: 50%; 
-        position: relative;
-        overflow: hidden;
-      } */
 
       .dashboard-inner_box > div:first-child > div:first-child img {
         width: 100%;
         height: 100%;
-        /* object-fit: cover;
-        position: absolute;
-        top: 0;
-        left: 0; */
+        border-radius: 50%;
       }
 
       /* 내정보 닉네임 출력칸 */
       .dashboard-inner_box > div:first-child > div:last-child {
-        flex: 5;
+        flex: 2;
         background-color: white;
         border-radius: 0px;
       }
@@ -384,6 +387,11 @@ pageEncoding="UTF-8"%>
         margin-top: 10px;
         margin-left: 12px;
         background-color: white;
+      }
+
+      /* PC */
+      .wolf {
+        display: none;
       }
 
       /* 사이드바 반응형 */
@@ -482,6 +490,7 @@ pageEncoding="UTF-8"%>
         transition: all ease-in 0.2s;
         animation: ball 1s ease-in Infinite Alternate;
         border: double 1px rgba(255, 255, 255, 0.46);
+        z-index: 150;
       }
       @keyframes ball {
         0% {
@@ -505,6 +514,53 @@ pageEncoding="UTF-8"%>
       #mode i {
         font-size: 30px;
         color: var(--color-nav-bg);
+      }
+
+      /* 모바일 메뉴 */
+      @media all and (max-width: 767px) {
+        .wolf {
+          display: block;
+        }
+
+        .navi {
+          display: none;
+        }
+
+        .m_navi {
+          display: block;
+        }
+
+        .container-fluid {
+          padding: 0;
+        }
+
+        .container {
+          padding: 0;
+        }
+
+        /* 햄버거 */
+        .navbar {
+          box-shadow: 0px 1px 5px white;
+        }
+
+        .navbar div {
+          width: 50px;
+          width: 50px;
+          height: 50px;
+          line-height: 50px;
+          margin: 0 2%;
+        }
+      }
+
+      /* 태블릿 크기  */
+      @media all and (min-width: 768px) and (max-width: 1023px) {
+        .wolf {
+          display: block;
+        }
+
+        #wolfLogo {
+          display: none;
+        }
       }
     </style>
   </head>
@@ -642,6 +698,8 @@ pageEncoding="UTF-8"%>
           </div>
         </main>
       </div>
+
+      <div class="sun"></div>
       <!-- mode -->
       <div id="mode">
         <i class="fa-regular fa-lightbulb" style="display: none"></i>
@@ -654,14 +712,6 @@ pageEncoding="UTF-8"%>
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-    <script src="js/main.js"></script>
-    <!-- <script>
-      $.ajax({
-        url: "/updateAvatar.mypage",
-        type: "post",
-      }).done(function (resp) {
-        $("#avatar_img").attr("src", resp);
-      });
-    </script> -->
+    <script src="/js/main.js"></script>
   </body>
 </html>
