@@ -3,6 +3,7 @@ package rank.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,42 +22,61 @@ public class RankDAO {
     
     private RankDAO() {}
     
-    public List<RankDTO> selectRank(int game_seq) throws Exception {
-        String sql = "SELECT nickname, avatar, score, 순위 FROM (SELECT m.nickname, m.avatar, s.score,ROW_NUMBER() OVER (ORDER BY s.score DESC) AS 순위  FROM members m JOIN game_score s ON m.id = s.member_id WHERE s.game_seq = ? )WHERE 순위 BETWEEN 1 AND 20";
+    public List<RankDTO> selectRank(int gameSeq) throws Exception {
+        String sql = "SELECT nickname, avatar, score, ROW_NUMBER() OVER (ORDER BY score DESC) AS rank " +
+                     "FROM members m " +
+                     "JOIN game_score s ON m.id = s.member_id " +
+                     "WHERE s.game_seq = ?";
+
         List<RankDTO> list = new ArrayList<>();
         try (Connection con = DBConfig.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql)) {
-        	pstat.setInt(1, game_seq);
-        	try(ResultSet rs = pstat.executeQuery()){
-            while (rs.next()) {
-                String nickname = rs.getString("nickname");
-                String avatar = rs.getString("avatar");
-                int score = rs.getInt("score");
-                int rank = rs.getInt("순위"); // 순위 컬럼 이름 사용
-                RankDTO dto = new RankDTO(nickname, avatar, score, rank);
-                list.add(dto);
+
+            pstat.setInt(1, gameSeq);
+
+            try (ResultSet rs = pstat.executeQuery()) {
+                while (rs.next()) {
+                    String nickname = rs.getString("nickname");
+                    String avatar = rs.getString("avatar");
+                    int score = rs.getInt("score");
+                    int rank = rs.getInt("rank");
+
+                    RankDTO dto = new RankDTO(nickname, avatar, score, rank);
+                    list.add(dto);
+                }
             }
         }
         return list;
     }
+
+
+    
+
+    public RankDTO getUserInfo(String id, int gameSeq) throws Exception {
+    	 String sql = "SELECT nickname, score, rank FROM ( "
+                 + "    SELECT m.nickname, s.score, ROW_NUMBER() OVER (ORDER BY s.score DESC) AS rank "
+                 + "    FROM members m "
+                 + "    JOIN game_score s ON m.id = s.member_id "
+                 + "    WHERE s.game_seq = ? "
+                 + ") ranking "
+                 + "WHERE nickname = (SELECT nickname FROM members WHERE id = ?)";
+
+        try (Connection con = DBConfig.getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql)) {
+            pstat.setInt(1, gameSeq);
+            pstat.setString(2, id); // Set member ID
+            try (ResultSet rs = pstat.executeQuery()) {
+                if (rs.next()) {
+                    String nickname = rs.getString("nickname");
+                    
+                    int score = rs.getInt("score");
+                    int rank = rs.getInt("rank");
+                    return new RankDTO(nickname, null, score, rank);
+                }
+            }
+        }
+        return null;
     }
-     public List<RankDTO> myRank (String nickname, int game_seq) throws Exception{
-    	 String sql = "select nickname,score,순위 from (select m.nickname as 닉네임. gs.score as 점수 , rank() over (order by gs.score desc) as 순위 from members m join (select memberid, max(score) as score from game_score where game_seq = ? group by member_id) gs on m.id = gs.memberid ) where nickname=?";
-    	 List<RankDTO> list = new ArrayList<>();
-    	   try (Connection con = DBConfig.getConnection();
-    	             PreparedStatement pstat = con.prepareStatement(sql)) {
-    		   pstat.setInt(1, game_seq);
-    		   pstat.setString(2, nickname);
-    		   try(ResultSet rs = pstat.executeQuery()){
-    			   while(rs.next()) {
-    				   rs.getString(nickname);
-    				   int score = rs.getInt("score");
-    				   int rank = rs.getInt("순위");
-    				   
-    				   RankDTO dto = new RankDTO(nickname, null, score, rank);
-    				   list.add(dto);
-    			   }
-    		   }
-    	   }return list;
-     }
+    
 }
+
