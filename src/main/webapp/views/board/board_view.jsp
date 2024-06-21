@@ -228,7 +228,7 @@ body {
 <body>
 
     <script>
-        if("${board_code}"==3  || "${board_code}"==4){
+        if("${board_code}"==5  || "${board_code}"==4){
             location.href="/index.jsp";
             alert("잘못된 접근입니다");
         }
@@ -270,7 +270,7 @@ body {
                     <div style=" height: 50px !important;"  class="center menu_title" id="board_2">
                         공지 게시판
                     </div>
-                    <div style="display: none;"  class="center menu_title" id="board_3">
+                    <div  class="center menu_title" id="board_3">
                         QNA 게시판
                     </div>
                     <div style="flex: 1; display: none;"  class="center menu_title" id="board_4">

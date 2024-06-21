@@ -315,7 +315,7 @@ html,
                     <div style=" height: 50px !important;"  class="center menu_title" id="board_2">
                         공지 게시판
                     </div>
-                    <div style="display: none;"  class="center menu_title" id="board_3">
+                    <div   class="center menu_title" id="board_3">
                         QNA 게시판
                     </div>
                     <div style="flex: 1; display: none;"  class="center menu_title" id="board_4">
@@ -350,14 +350,19 @@ html,
     
             <div style="flex: 5; flex-direction: column; overflow: auto; height: 100% ; width: 100%;" class="dto" id="board_contents" >${board_dto.contents}</div>
             <div style="flex: 0.8; overflow-y: auto;">
-                <div style="flex: 1; flex-direction: column; overflow: auto; color: gray ">
-                    <c:forEach var="files_dto" items="${files_list}">
-                        <div class="files_div">
-                           <span class="files_seq">${files_dto.seq }</span>.&nbsp<a href="/download.files?sysname=${files_dto.sysname }&oriname=${files_dto.oriname}">${files_dto.oriname}</a>
-                            <button class="files_delete button_css" style="display: none;" >삭제</button> <!--onclick="filesDelete(${files_dto.seq })"-->
-                        </div>
-                    </c:forEach>
-                </div>  
+                <form action="/update.board" method="post" id="joinform" enctype="multipart/form-data" style="flex: 1; display: flex;">
+                <div style="flex: 2;">
+                    <div style="flex: 0.7; flex-direction: column; overflow: auto; color: gray;" id="files_div_main">
+                        <c:forEach var="files_dto" items="${files_list}">
+                            <div class="files_div  justify-content: flex-start; align-items: center;">
+                               <span class="files_seq">${files_dto.seq }</span>.&nbsp<a href="/download.files?sysname=${files_dto.sysname }&oriname=${files_dto.oriname}">${files_dto.oriname}</a>&nbsp&nbsp
+                                <button class="files_delete button_css" style="display: none; font-size: 20px; background-color: white !important;" >❌</button> <!--onclick="filesDelete(${files_dto.seq })"-->
+                            </div>
+                        </c:forEach>
+                    </div> 
+                    <div id="files" class="index" style="flex: 1; flex-direction: column; overflow: auto;">
+                    </div>
+                </div>
                 <c:choose>
                     <c:when test="${WolfID eq board_dto.member_id}">
                         <div style="display: flex; justify-content:flex-end; align-items: center; flex: 1;" id="div1">
@@ -366,17 +371,16 @@ html,
                             <div><button type="button" id="list" class="button_css">목록보기</button></div>&nbsp&nbsp
                         </div>
                         <div style="border: 0; display: none; flex: 1; justify-content:flex-end; align-items: center;" id="div2">
-                            <form action="/update.board" method="post" id="joinform" enctype="multipart/form-data">
+                            
                                 <input type="hidden" id="arrayField" name="array">
                                 <input type="hidden" name="title" class="update_input" id="board_title_input"> 
                                 <input type="hidden" name="contents" class="update_input" id="board_contents_input"> 
                                 <input type="hidden" name="count" value="${board_dto.count}">
                                 <input type="hidden" name="board_code" value="${board_code}">
-                                <div style="display: none;"><input type="file" name="file" id="upload"></div>
                                 <input type="hidden" name="seq" value="${board_dto.seq}" class="notuse">
                                 <button type="submit" id="confirm" class="button_css">확인</button>
                                 <button type="button" id="cancel" class="button_css">취소</button>&nbsp&nbsp
-                            </form>
+                         
                         </div>
                     </c:when>
                     <c:otherwise>
@@ -385,6 +389,7 @@ html,
                         </div>
                     </c:otherwise>
                 </c:choose>
+            </form>
             </div>
             </div>
         </div>
@@ -909,7 +914,7 @@ html,
             })
             board_title.attr("contenteditable", "true");
            // board_contents.attr("contenteditable", "true");
-
+           let index=0;
             tinymce.init({
                 selector: 'div#board_contents',
                 plugins:'wordcount anchor image',
@@ -970,39 +975,46 @@ html,
                     }
                 },
                 setup: function (editor) {
-                    editor.ui.registry.addButton('fileupload', {
+                editor.ui.registry.addButton('fileupload', {
                     text: '파일 업로드: 선택된 파일없음',
                     onSetup: function(e) {
                       myButton=e;
                     },
                     onAction: function() {
-                        $("#upload").click();
+                        let files=$("#files");
+                        let div=$("<div style='display: none;''>");
+                        let input=$("<input type='file'class='upload'>");
+                        input.attr("name","files"+index++);
+                        div.append(input);
+                        let button=$("<button style='font-size: 20px; background-color: white !important'>❌</button>");
+                        button.attr("class","button_css");
+                        input.click();
+                        let temp=$("<div>");
                         //myButton.setText("aa");
+                        input.on('change', function() {
+                                var fileName = $(this).val().split('\\').pop();
+                                console.log(fileName);
+                                temp.html('파일 업로드: ' + fileName);
+                                temp.append(button);
+                                files.append(temp);
+                                
+                          });   
+                        button.on("click",function(){
+                            input.remove();
+                            temp.remove();
+                        })
+                        files.append(div);
                             
                     },         
-                }),
+                }); 
                 editor.on('change', function () {
                     localStorage.setItem('editorContent', editor.getContent());
-                }); 
-                $('#upload').on('change', function() {
-                     var fileName = $(this).val().split('\\').pop();
-                     console.log(fileName);
-                     if(fileName===""){
-                        myButton.setText('파일 업로드: 선택된 파일없음');
-                        
-                     }
-                     else{
-                        myButton.setText('파일 업로드: ' + fileName);
-                     }
-                     
-                });   
-                
-                
+                });
+            }
                 
 
-            }
         });
-        })
+    })
 
    
 
