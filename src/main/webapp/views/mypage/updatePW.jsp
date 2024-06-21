@@ -61,15 +61,30 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         background-color: white;
         color: var(--bg-black);
       }
+
+      /* 하단 원 */
+      .sun {
+        position: absolute;
+        width: 120%;
+        height: 100%;
+        background-color: var(--color-nav-bg);
+        box-shadow: 5px -5px 10px var(--bg-light);
+        border-radius: 50%;
+        top: 40%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
       /* 모드 변경시 부드럽게 넘어가는 효과 */
       .sun,
       .navi {
         transition: background-color 0.5s ease, box-shadow 0.5s ease;
       }
+
       /* img */
       .img_bg {
         position: absolute;
-        top: -60%;
+        top: 0%;
         left: 0;
         width: 100%;
         object-fit: cover;
@@ -119,7 +134,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       .container,
       .main {
         height: 100%;
-        z-index: 100;
         /* 폰트 */
         font-family: "Noto Sans KR", sans-serif;
       }
@@ -184,14 +198,17 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         flex-direction: column;
         height: 100vh;
         width: 100%;
+        z-index: 100;
       }
 
       .mypage-updatePW-title {
         margin: 50px 0;
         font-size: 50px;
+        font-weight: 700;
         color: white;
         height: 10%;
         width: 100%;
+        text-shadow: 5px 5px 5px #14213d;
       }
 
       .aside-section-form {
@@ -419,7 +436,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                 </div>
 
                 <div class="update">
-                  <div class="new_password">
+                  <div class="new_password" style="display: none">
                     <label for="new_password">새 비밀번호</label>
                     <input
                       type="password"
@@ -430,7 +447,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                     />
                   </div>
 
-                  <div class="confirm_password">
+                  <div class="confirm_password" style="display: none">
                     <label for="confirm_password">새 비밀번호 확인</label>
                     <input
                       type="password"
@@ -451,6 +468,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         </main>
       </div>
 
+      <div class="sun"></div>
       <!-- mode -->
       <div id="mode">
         <i class="fa-regular fa-lightbulb" style="display: none"></i>
@@ -459,37 +477,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     </div>
 
     <script>
-      $("#confirm").on("click", function () {
-        if (confirm("변경하시겠습니까?")) {
-          $.ajax({
-            url: "/pwUpdate.mypage",
-            method: "post",
-            data: {
-              current_password: $("#current_password").val(),
-              new_password: $("#new_password").val(),
-              confirm_password: $("#confirm_password").val(),
-            },
-          }).done(function (resp) {
-            if (resp == "true") {
-              alert("변경되었습니다");
-              location.href = "/views/mypage/mypage.jsp";
-            } else if (resp == "false1") {
-              alert("확인 비밀번호 불일치");
-              $("#current_password").val("");
-              $("#new_password").val("");
-              $("#confirm_password").val("");
-            } else if (resp == "false2") {
-              alert("현재 비밀번호가 틀렸습니다");
-              $("#current_password").val("");
-              $("#new_password").val("");
-              $("#confirm_password").val("");
-            }
-          });
-        } else {
-          // 취소 버튼을 눌렀을 때 실행할 코드
-          alert("취소되었습니다.");
-        }
-      });
+      $("#confirm").on("click", function () {});
 
       $("#cancel").on("click", function () {
         location.href = "/views/mypage/mypage.jsp";

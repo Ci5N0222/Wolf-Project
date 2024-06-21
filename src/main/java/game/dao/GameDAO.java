@@ -75,7 +75,7 @@ public class GameDAO {
 	 */
 	public List<GameScoreDTO> gameList(String id) throws Exception {
 
-		String sql = "select * from game_score gs join game g on g.seq = gs.game_seq where member_id = ? order by seq";
+		String sql = "select * from game g left join game_score gs on g.seq = gs.game_seq and gs.member_id = ?";
 
 		try (Connection con = DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
 
@@ -89,8 +89,9 @@ public class GameDAO {
 					int score = rs.getInt("score");
 					String member_id = rs.getString("member_id");
 					int game_seq = rs.getInt("game_seq");
+					String thumbnail = rs.getString("thumbnail");
 					
-					list.add(new GameScoreDTO(title, score, member_id, game_seq));
+					list.add(new GameScoreDTO(title, score, member_id, game_seq, thumbnail));
 				}
 				return list;
 			}
