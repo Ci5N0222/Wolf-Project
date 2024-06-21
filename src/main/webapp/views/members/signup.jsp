@@ -291,7 +291,7 @@ html, body {
 }
 
 body {
-	font-family: Arial, sans-serif;
+	
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -300,6 +300,7 @@ body {
 }
 
 #signupcontainer {
+font-family: Arial, sans-serif;
 	background: #14213D;
 	padding: 2px;
 	margin: auto;
@@ -530,7 +531,7 @@ button {
 
 					<label for="birth" id="birth1">생년월일</label>
 					<div class="form-group">
-						<input type="text" class="form-control" id="birth" name="birth">
+						<input type="text" class="form-control" id="birth" name="birth" placeholder="YYYYMMDD">
 					</div>
 
 					<button type="submit" id="enterbtn">가입하기</button>
