@@ -61,53 +61,7 @@
 
 			<!-- main -->
 			<main class="main">
-				<section class="d-flex flex-wrap list">
-					<div class="item flex-grow-1">
-						<div class="card d-flex">
-							<img src="/images/card.gif" class="card-img-top" alt="..."
-								style="flex: 7;">
-							<div class="card-body" style="flex: 3;">
-								<p class="card-text">test</p>
-							</div>
-						</div>
-					</div>
-					<div class="item flex-grow-1">
-						<div class="card d-flex">
-							<img src="/images/card.gif" class="card-img-top" alt="..."
-								style="flex: 7;">
-							<div class="card-body" style="flex: 3;">
-								<p class="card-text">test</p>
-							</div>
-						</div>
-					</div>
-					<div class="item flex-grow-1">
-						<div class="card d-flex">
-							<img src="/images/card.gif" class="card-img-top" alt="..."
-								style="flex: 7;">
-							<div class="card-body" style="flex: 3;">
-								<p class="card-text">test</p>
-							</div>
-						</div>
-					</div>
-					<div class="item flex-grow-1">
-						<div class="card d-flex">
-							<img src="/images/card.gif" class="card-img-top" alt="..."
-								style="flex: 7;">
-							<div class="card-body" style="flex: 3;">
-								<p class="card-text">test</p>
-							</div>
-						</div>
-					</div>
-					<div class="item flex-grow-1">
-						<div class="card d-flex">
-							<img src="/images/card.gif" class="card-img-top" alt="..."
-								style="flex: 7;">
-							<div class="card-body" style="flex: 3;">
-								<p class="card-text">test</p>
-							</div>
-						</div>
-					</div>
-				</section>
+				<section class="d-flex flex-wrap list" id="card-form"></section>
 			</main>
 			<main class="M_main">
 				<div id="carouselExample" class="carousel slide">
