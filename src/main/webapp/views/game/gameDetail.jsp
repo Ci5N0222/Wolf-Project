@@ -51,7 +51,7 @@
 					<div>
 						<div>
 							<c:choose>
-								<c:when test="/${dto.thumbnail != null}">
+								<c:when test="${dto.thumbnail != null}">
 									<img src="/${dto.thumbnail}">
 								</c:when>
 
