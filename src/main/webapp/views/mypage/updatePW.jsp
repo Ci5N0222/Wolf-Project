@@ -53,8 +53,15 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         background-color: var(--bg-dark);
         color: var(--bg-black);
         color: var(--color-black);
+      }
+      html {
         overflow: hidden;
       }
+      body {
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+
       body.light {
         background-color: white;
         color: var(--bg-black);
@@ -135,7 +142,19 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         /* 폰트 */
         font-family: "Noto Sans KR", sans-serif;
       }
+
+      /* PC */
       /* 메뉴 */
+      .wolf {
+        display: none;
+      }
+      .navi {
+        display: block;
+      }
+      .m_navi {
+        display: none;
+      }
+
       .navi {
         z-index: 5;
         height: 10%;
@@ -151,27 +170,58 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         /* 폰트 */
         font-family: "Luckiest Guy", cursive;
       }
+
       .navi i {
         font-size: 22px;
       }
+
       .navi > div {
         margin-top: 0;
-      }
-      .navi > div:nth-child(2) #wolfLogo {
-        width: 100px;
-        height: 100px;
-      }
-      /* 로고 */
-      .navi #wolfLogo > img {
-        object-fit: cover;
-        width: 100%;
         height: 100%;
       }
+
+      /* 메뉴 */
+      .navi > div:nth-child(1),
+      .navi > div:nth-child(3) {
+        width: 40%;
+      }
+
+      .navi > div:nth-child(2) {
+        width: 20%;
+      }
+
+      .navi > div:nth-child(1) > div {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        z-index: 10;
+        cursor: pointer;
+      }
+
+      .navi > div:nth-child(2) #wolfLogo {
+        width: initial;
+        height: 100%;
+      }
+
+      .navi > div:nth-child(2) #wolfLogo img {
+        width: initial;
+        height: 130%;
+        object-fit: contain;
+      }
+      .navi > div:nth-child(3) > div {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: right;
+      }
+
       /* 메뉴 버튼 */
       .naviBtn {
         cursor: pointer;
         transition: all 0.3s ease-in-out;
       }
+
       .naviBtn:hover {
         opacity: 0.5;
       }
@@ -182,7 +232,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         border-radius: 100%;
       }
 
-      /* main */
+      /* ================== [main] ================== */
       * {
         box-sizing: border-box;
       }
@@ -305,20 +355,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         height: 40px;
       }
 
-      @media (max-width: 1100px) {
-        .mypage-side-menu {
-          display: none;
-        }
-      }
-      @media (max-width: 768px) {
-        .updatePW-warning-text {
-          margin-left: 80px;
-        }
-        .updatePW-board {
-          padding: 0 40px;
-        }
-      }
-
       /* -- main과 동일 -- */
       /* 라이트 다크 mode */
       #mode {
@@ -362,13 +398,35 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         color: var(--color-nav-bg);
       }
 
-      /* PC */
-      .wolf {
-        display: none;
+      /* ================== [반응형] ================== */
+      @media (max-width: 1100px) {
+        .mypage-side-menu {
+          display: none;
+        }
+      }
+      @media (max-width: 768px) {
+        .updatePW-warning-text {
+          margin-left: 80px;
+        }
+        .updatePW-board {
+          padding: 0 40px;
+        }
+      }
+
+      /* 태블릿 크기  */
+      @media all and (min-width: 768px) and (max-width: 1023px) {
+        .wolf {
+          display: block;
+        }
+
+        #wolfLogo {
+          display: none;
+        }
       }
 
       /* 모바일 메뉴 */
       @media all and (max-width: 767px) {
+        /* 메뉴 */
         .wolf {
           display: block;
         }
@@ -389,6 +447,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
           padding: 0;
         }
 
+        /* 내용물 */
         /* 햄버거 */
         .navbar {
           box-shadow: 0px 1px 5px white;
@@ -400,17 +459,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
           height: 50px;
           line-height: 50px;
           margin: 0 2%;
-        }
-      }
-
-      /* 태블릿 크기  */
-      @media all and (min-width: 768px) and (max-width: 1023px) {
-        .wolf {
-          display: block;
-        }
-
-        #wolfLogo {
-          display: none;
         }
       }
     </style>
@@ -464,6 +512,9 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                 </p>
                 <p class="warning">
                   * 이전에 사용한 적 없는 비밀번호가 안전합니다.
+                </p>
+                <p class="warning">
+                  * 알파벳 대,소문자 숫자 1개씩 포함 8자 이상 입력
                 </p>
               </div>
 
@@ -528,6 +579,8 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     </div>
 
     <script>
+      let regexPW = /(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/;
+
       $("#confirm").on("click", function () {
         $.ajax({
           url: "/pwCheck.mypage",
@@ -537,23 +590,33 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
           },
         }).done(function (resp) {
           if (resp === "ok") {
-            // 새 비밀반호 폼 오픈
+            // 새 비밀번호 폼 오픈
             $(".update").show();
             $(".current_password").hide();
             $("#update_confirm").show();
             $("#confirm").hide();
           } else {
-            alert("비번 틀림~");
+            alert("비밀번호가 틀렸습니다.");
           }
         });
 
         $("#update_confirm").on("click", function () {
-          if ($("#new_password").val() == $("#confirm_password").val()) {
+          let newPassword = $("#new_password").val();
+          let confirmPassword = $("#confirm_password").val();
+
+          if (!regexPW.test(newPassword)) {
+            alert("올바르지 않은 형식의 PW입니다");
+            $("#new_password").val("");
+            $("#confirm_password").val("");
+            return;
+          }
+
+          if (newPassword == confirmPassword) {
             $.ajax({
               url: "/pwUpdate.mypage",
               method: "post",
               data: {
-                new_password: $("#new_password").val(),
+                new_password: newPassword,
               },
             }).done(function (resp) {
               console.log(resp);
@@ -566,6 +629,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             });
           } else {
             alert("확인 비밀번호가 일치하지 않습니다.");
+            $("#confirm_password").val("");
           }
         });
       });
@@ -575,5 +639,38 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       });
     </script>
     <script src="/js/main.js"></script>
+
+    <!-- 스크롤 관련 -->
+    <script>
+      resize();
+      $(window).resize(function () {
+        resize();
+      });
+      function resize() {
+        const currentHeight = $("body").height() + 5;
+        const scrollHeight = $("body").prop("scrollHeight");
+        if (scrollHeight > currentHeight) {
+          $(".img_bg").css({
+            left: "0%",
+            width: "98.5%",
+          });
+        }
+      }
+      let m_navi = $(".m_navi");
+      let check = true;
+      let toggle = m_navi.find(".navbar-toggler").on("click", function () {
+        if (check) {
+          m_navi.find("#navbarToggleExternalContent").css({
+            display: "block",
+          });
+          check = false;
+        } else {
+          m_navi.find("#navbarToggleExternalContent").css({
+            display: "none",
+          });
+          check = true;
+        }
+      });
+    </script>
   </body>
 </html>

@@ -50,11 +50,17 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         height: 100%;
         margin: 0;
         background-color: var(--bg-dark);
-        /* background-color: azure; */
         color: var(--bg-black);
         color: var(--color-black);
+      }
+      html {
         overflow: hidden;
       }
+      body {
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+
       body.light {
         /* background-color: var(--bg-light); */
         background-color: white;
@@ -136,7 +142,19 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         /* 폰트 */
         font-family: "Noto Sans KR", sans-serif;
       }
+
+      /* PC */
       /* 메뉴 */
+      .wolf {
+        display: none;
+      }
+      .navi {
+        display: block;
+      }
+      .m_navi {
+        display: none;
+      }
+
       .navi {
         z-index: 5;
         height: 10%;
@@ -152,27 +170,58 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         /* 폰트 */
         font-family: "Luckiest Guy", cursive;
       }
+
       .navi i {
         font-size: 22px;
       }
+
       .navi > div {
         margin-top: 0;
-      }
-      .navi > div:nth-child(2) #wolfLogo {
-        width: 100px;
-        height: 100px;
-      }
-      /* 로고 */
-      .navi #wolfLogo > img {
-        object-fit: cover;
-        width: 100%;
         height: 100%;
       }
+
+      /* 메뉴 */
+      .navi > div:nth-child(1),
+      .navi > div:nth-child(3) {
+        width: 40%;
+      }
+
+      .navi > div:nth-child(2) {
+        width: 20%;
+      }
+
+      .navi > div:nth-child(1) > div {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        z-index: 10;
+        cursor: pointer;
+      }
+
+      .navi > div:nth-child(2) #wolfLogo {
+        width: initial;
+        height: 100%;
+      }
+
+      .navi > div:nth-child(2) #wolfLogo img {
+        width: initial;
+        height: 130%;
+        object-fit: contain;
+      }
+      .navi > div:nth-child(3) > div {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: right;
+      }
+
       /* 메뉴 버튼 */
       .naviBtn {
         cursor: pointer;
         transition: all 0.3s ease-in-out;
       }
+
       .naviBtn:hover {
         opacity: 0.5;
       }
@@ -183,7 +232,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         border-radius: 100%;
       }
 
-      /* main */
+      /* ================== [main] ================== */
       * {
         box-sizing: border-box;
       }
@@ -246,7 +295,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       }
 
       .mypage-delete-form {
-        /* background-color: #0a5479; */
         flex: 13;
         display: flex;
         flex-direction: column;
@@ -260,7 +308,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        /* margin-left: 150px; */
         width: 100%;
       }
 
@@ -268,7 +315,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         width: 100%;
         max-width: 950px;
         height: 250px;
-        /* padding: 0 80px; */
         position: relative;
         z-index: 5;
         display: flex;
@@ -278,8 +324,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
       .id-txt,
       .pw-txt {
-        /* margin-top: 0;
-        margin-bottom: 1rem; */
         color: white;
         display: flex;
         margin-bottom: 10px;
@@ -325,31 +369,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         margin-top: 3px;
       }
 
-      @media (max-width: 1400px) {
-        .mypage-delete-innerBoard {
-          margin-left: 0;
-        }
-        .btn-box {
-          margin-left: 100px;
-        }
-      }
-
-      @media (max-width: 1100px) {
-        .mypage-side-menu {
-          display: none;
-        }
-        .mypage-delete-innerBoard {
-          /* margin-left: 70px; */
-          margin-left: 0;
-        }
-        .mypage-delete-form > div {
-          align-items: center;
-        }
-        /* .mypage-delete-notice {
-          margin-left: 70px;
-        } */
-      }
-
       /* -- main과 동일 -- */
       /* 라이트 다크 mode */
       #mode {
@@ -393,13 +412,42 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         color: var(--color-nav-bg);
       }
 
-      /* PC */
-      .wolf {
-        display: none;
+      /* ================== [반응형] ================== */
+      @media (max-width: 1400px) {
+        .mypage-delete-innerBoard {
+          margin-left: 0;
+        }
+        .btn-box {
+          margin-left: 100px;
+        }
+      }
+
+      @media (max-width: 1100px) {
+        .mypage-side-menu {
+          display: none;
+        }
+        .mypage-delete-innerBoard {
+          margin-left: 0;
+        }
+        .mypage-delete-form > div {
+          align-items: center;
+        }
+      }
+
+      /* 태블릿 크기  */
+      @media all and (min-width: 768px) and (max-width: 1023px) {
+        .wolf {
+          display: block;
+        }
+
+        #wolfLogo {
+          display: none;
+        }
       }
 
       /* 모바일 메뉴 */
       @media all and (max-width: 767px) {
+        /* 메뉴 */
         .wolf {
           display: block;
         }
@@ -420,6 +468,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
           padding: 0;
         }
 
+        /* 내용물 */
         /* 햄버거 */
         .navbar {
           box-shadow: 0px 1px 5px white;
@@ -431,17 +480,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
           height: 50px;
           line-height: 50px;
           margin: 0 2%;
-        }
-      }
-
-      /* 태블릿 크기  */
-      @media all and (min-width: 768px) and (max-width: 1023px) {
-        .wolf {
-          display: block;
-        }
-
-        #wolfLogo {
-          display: none;
         }
       }
     </style>
@@ -550,5 +588,38 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     </script>
 
     <script src="/js/main.js"></script>
+
+    <!-- 스크롤 관련 -->
+    <script>
+      resize();
+      $(window).resize(function () {
+        resize();
+      });
+      function resize() {
+        const currentHeight = $("body").height() + 5;
+        const scrollHeight = $("body").prop("scrollHeight");
+        if (scrollHeight > currentHeight) {
+          $(".img_bg").css({
+            left: "0%",
+            width: "98.5%",
+          });
+        }
+      }
+      let m_navi = $(".m_navi");
+      let check = true;
+      let toggle = m_navi.find(".navbar-toggler").on("click", function () {
+        if (check) {
+          m_navi.find("#navbarToggleExternalContent").css({
+            display: "block",
+          });
+          check = false;
+        } else {
+          m_navi.find("#navbarToggleExternalContent").css({
+            display: "none",
+          });
+          check = true;
+        }
+      });
+    </script>
   </body>
 </html>

@@ -53,14 +53,18 @@ pageEncoding="UTF-8"%>
         height: 100%;
         margin: 0;
         background-color: var(--bg-dark);
-        /* background-color: azure; */
         color: var(--bg-black);
         color: var(--color-black);
+      }
+      html {
         overflow: hidden;
       }
+      body {
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
       body.light {
-        /* background-color: var(--bg-light); */
-        background-color: white;
+        background-color: var(--bg-light);
         color: var(--bg-black);
       }
 
@@ -139,8 +143,8 @@ pageEncoding="UTF-8"%>
         /* 폰트 */
         font-family: "Noto Sans KR", sans-serif;
       }
-      /* PC */
 
+      /* PC */
       /* 메뉴 */
       .wolf {
         display: none;
@@ -229,7 +233,7 @@ pageEncoding="UTF-8"%>
         border-radius: 100%;
       }
 
-      /* main */
+      /* ================== [main] ================== */
       * {
         box-sizing: border-box;
       }
@@ -352,6 +356,8 @@ pageEncoding="UTF-8"%>
         flex: 1;
         width: 100%;
         height: 200px;
+        border: 2px solid #14213d;
+        border-radius: 50%;
       }
 
       .dashboard-inner_box > div:first-child > div:first-child img {
@@ -432,6 +438,50 @@ pageEncoding="UTF-8"%>
         background-color: white;
       }
 
+      /* -- main과 동일 -- */
+      /* 라이트 다크 mode */
+      #mode {
+        cursor: pointer;
+        position: absolute;
+        bottom: 5%;
+        right: 5%;
+        background-color: var(--bg-dark);
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: all ease-in 0.2s;
+        animation: ball 1s ease-in Infinite Alternate;
+        border: double 1px rgba(255, 255, 255, 0.46);
+        z-index: 150;
+      }
+      @keyframes ball {
+        0% {
+          bottom: 5%;
+        }
+        95% {
+          width: 50px;
+        }
+        to {
+          bottom: 8%;
+          width: 50px;
+          height: 60px;
+        }
+      }
+      /* 모드 전환 버튼 호버 시 투명도 조정 */
+      #mode:hover {
+        opacity: 0.8;
+      }
+
+      /* 모드 전환 버튼 아이콘 스타일 */
+      #mode i {
+        font-size: 30px;
+        color: var(--color-nav-bg);
+      }
+
+      /* ================== [반응형] ================== */
       /* 사이드바 반응형 */
       @media (max-width: 1400px) {
         .mypage-side-menu {
@@ -482,11 +532,7 @@ pageEncoding="UTF-8"%>
         .mypage-dashboard > div:first-child > div:first-child {
           margin: 0px;
         }
-        /* .dashboard-inner_box > div:last-child{ // 내정보 버튼 가운데로 오게 해야하는데..
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        } */
+
         .mypage-dashboard > div:first-child > div:last-child > div:last-child {
           margin: 0px;
         }
@@ -511,48 +557,6 @@ pageEncoding="UTF-8"%>
         }
       }
 
-      /* -- main과 동일 -- */
-      /* 라이트 다크 mode */
-      #mode {
-        cursor: pointer;
-        position: absolute;
-        bottom: 5%;
-        right: 5%;
-        background-color: var(--bg-dark);
-        width: 50px;
-        height: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        transition: all ease-in 0.2s;
-        animation: ball 1s ease-in Infinite Alternate;
-        border: double 1px rgba(255, 255, 255, 0.46);
-        z-index: 150;
-      }
-      @keyframes ball {
-        0% {
-          bottom: 5%;
-        }
-        95% {
-          width: 50px;
-        }
-        to {
-          bottom: 8%;
-          width: 50px;
-          height: 60px;
-        }
-      }
-      /* 모드 전환 버튼 호버 시 투명도 조정 */
-      #mode:hover {
-        opacity: 0.8;
-      }
-
-      /* 모드 전환 버튼 아이콘 스타일 */
-      #mode i {
-        font-size: 30px;
-        color: var(--color-nav-bg);
-      }
       /* 태블릿 크기  */
       @media all and (min-width: 768px) and (max-width: 1023px) {
         .wolf {
@@ -737,13 +741,12 @@ pageEncoding="UTF-8"%>
           </div>
         </main>
       </div>
-
-      <div class="sun"></div>
-      <!-- mode -->
-      <div id="mode">
-        <i class="fa-regular fa-lightbulb" style="display: none"></i>
-        <i class="fa-solid fa-lightbulb"></i>
-      </div>
+    </div>
+    <div class="sun"></div>
+    <!-- mode -->
+    <div id="mode">
+      <i class="fa-regular fa-lightbulb" style="display: none"></i>
+      <i class="fa-solid fa-lightbulb"></i>
     </div>
 
     <script
@@ -752,5 +755,38 @@ pageEncoding="UTF-8"%>
       crossorigin="anonymous"
     ></script>
     <script src="/js/main.js"></script>
+
+    <!-- 스크롤 관련 -->
+    <script>
+      resize();
+      $(window).resize(function () {
+        resize();
+      });
+      function resize() {
+        const currentHeight = $("body").height() + 5;
+        const scrollHeight = $("body").prop("scrollHeight");
+        if (scrollHeight > currentHeight) {
+          $(".img_bg").css({
+            left: "0%",
+            width: "98.5%",
+          });
+        }
+      }
+      let m_navi = $(".m_navi");
+      let check = true;
+      let toggle = m_navi.find(".navbar-toggler").on("click", function () {
+        if (check) {
+          m_navi.find("#navbarToggleExternalContent").css({
+            display: "block",
+          });
+          check = false;
+        } else {
+          m_navi.find("#navbarToggleExternalContent").css({
+            display: "none",
+          });
+          check = true;
+        }
+      });
+    </script>
   </body>
 </html>
