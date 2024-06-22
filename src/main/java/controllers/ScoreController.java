@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
+import game_score.dao.GameScoreDAO;
 import rank.dao.RankDAO;
 import rank.dto.RankDTO;
 
@@ -29,6 +30,9 @@ public class ScoreController extends HttpServlet {
         request.setCharacterEncoding("UTF-8"); 
         RankDAO dao = RankDAO.getInstance();
         HttpSession session = request.getSession();
+        
+        GameScoreDAO gameScoreDAO = GameScoreDAO.getInstance();
+        
         try {
             if (cmd.equals("/rankselect.score")) {
                 int gameSeq = Integer.parseInt(request.getParameter("gameSeq"));
@@ -53,18 +57,24 @@ public class ScoreController extends HttpServlet {
             }
             
             /** 게임 종료 시 스코어 저장 **/
-            else if (cmd.equals("/update.score")) {
-            	String id = (String) session.getAttribute("WolfID");
-            	if(id == "") {
-            		// 로그인 안한 회원 DB 업데이트 필요 없음
-            	} else {
-            		
-            		// 점수가 있을 시 업데이트
-            			// 해당 페이지에 본인의 점수를 가져온다.
-            			// 가져온 점수보다 현재 플레이한 점수가 높을 경우 업데이트
-            		// 없을 시 인서트
-            			// 해당 페이지에 본인의 점수가 없다면 인서트
-            	}
+            else if (cmd.equals("/save.score")) {
+	    		String id = (String) session.getAttribute("WolfID");
+	    		int seq = Integer.parseInt(request.getParameter("game_seq"));
+	    		int score = Integer.parseInt(request.getParameter("score"));
+        		String state = request.getParameter("state");
+	    		
+        		int result = 0;
+        		if(state.equals("update")) {
+        			result = gameScoreDAO.gameScoreUpdate(score, id, seq);
+        		} else if(state.equals("insert")) {
+        			result = gameScoreDAO.gameScoreInsert(score, id, seq);
+        		}
+        		
+        		if(result > 0) {
+        			response.getWriter().append("ok");
+        		} else {
+        			response.getWriter().append("fail");
+        		}
            }
             
         } catch (Exception e) {

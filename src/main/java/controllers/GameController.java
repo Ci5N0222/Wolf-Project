@@ -44,7 +44,7 @@ public class GameController extends HttpServlet {
 				// 서버에서 thumbnail 경로 추가
 				for(GameDTO game : list) {
 					String sysname = imagesDAO.getImageName(game.getSeq(), image_code);
-					if(sysname.equals(null)) {
+					if(sysname == null) {
 						game.setThumbnail(sysname);
 					} else {
 						game.setThumbnail("thumbnails/" + sysname);
@@ -62,7 +62,7 @@ public class GameController extends HttpServlet {
 			    int image_code = 3;
 			    
 			    String sysname = imagesDAO.getImageName(seq, image_code);
-			    if(!sysname.equals(null)) {
+			    if(sysname != null) {
 					dto.setThumbnail("thumbnails/" + sysname);
 				}	
 			    

@@ -62,11 +62,11 @@ class AmongEnd extends Phaser.Scene {
             this.scene.start("AmongRun");
         });
 
-        // 점수 DB에 저장
-    }
-
-    update(){
+		// 게임 종료 시 DB에 데이터 저장
+		gameScoreSave();
         
     }
 
+    update(){}
+    
 }

@@ -48,7 +48,7 @@ public class MembersController extends HttpServlet {
 				String birth = request.getParameter("birth");
 				
 				int result = dao.insert(new MembersDTO(id,pw,name,nickname,phone,email,gender,birth,1,null,null));
-				response.sendRedirect("/index.jsp");
+				response.sendRedirect("/");
 				
 			}else if(cmd.equals("/idcheck.members")) {
 				String id = request.getParameter("id");

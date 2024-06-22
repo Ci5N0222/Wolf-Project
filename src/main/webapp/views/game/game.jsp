@@ -102,6 +102,11 @@
 								<div>${list.get(0).member_id}</div>
 								<div>${list.get(0).score}</div>
 							</div>
+							<div>
+								<input type="hidden" id="game_seq" value="${game_seq}">
+								<p id="myNickname"> ${WolfNickname}</p>
+								<p id="myGameScore">$ {myScore}</p>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -114,7 +119,6 @@
 				class="fa-solid fa-lightbulb"></i>
 		</div>
 	</div>
-	</form>
 	<script src="/js/main.js"></script>
 	<script>
 		gameCanvars(${seq});
