@@ -55,8 +55,15 @@ pageEncoding="UTF-8"%>
         background-color: var(--bg-dark);
         color: var(--bg-black);
         color: var(--color-black);
+      }
+      html {
         overflow: hidden;
       }
+      body {
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+
       body.light {
         background-color: var(--bg-light);
         color: var(--bg-black);
@@ -137,7 +144,19 @@ pageEncoding="UTF-8"%>
         /* 폰트 */
         font-family: "Noto Sans KR", sans-serif;
       }
+
+      /* PC */
       /* 메뉴 */
+      .wolf {
+        display: none;
+      }
+      .navi {
+        display: block;
+      }
+      .m_navi {
+        display: none;
+      }
+
       .navi {
         z-index: 5;
         height: 10%;
@@ -153,27 +172,58 @@ pageEncoding="UTF-8"%>
         /* 폰트 */
         font-family: "Luckiest Guy", cursive;
       }
+
       .navi i {
         font-size: 22px;
       }
+
       .navi > div {
         margin-top: 0;
-      }
-      .navi > div:nth-child(2) #wolfLogo {
-        width: 100px;
-        height: 100px;
-      }
-      /* 로고 */
-      .navi #wolfLogo > img {
-        object-fit: cover;
-        width: 100%;
         height: 100%;
       }
+
+      /* 메뉴 */
+      .navi > div:nth-child(1),
+      .navi > div:nth-child(3) {
+        width: 40%;
+      }
+
+      .navi > div:nth-child(2) {
+        width: 20%;
+      }
+
+      .navi > div:nth-child(1) > div {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        z-index: 10;
+        cursor: pointer;
+      }
+
+      .navi > div:nth-child(2) #wolfLogo {
+        width: initial;
+        height: 100%;
+      }
+
+      .navi > div:nth-child(2) #wolfLogo img {
+        width: initial;
+        height: 130%;
+        object-fit: contain;
+      }
+      .navi > div:nth-child(3) > div {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: right;
+      }
+
       /* 메뉴 버튼 */
       .naviBtn {
         cursor: pointer;
         transition: all 0.3s ease-in-out;
       }
+
       .naviBtn:hover {
         opacity: 0.5;
       }
@@ -184,7 +234,7 @@ pageEncoding="UTF-8"%>
         border-radius: 100%;
       }
 
-      /* -- main -- */
+      /* ================== [main] ================== */
       * {
         box-sizing: border-box;
         margin: 0;
@@ -311,18 +361,7 @@ pageEncoding="UTF-8"%>
         font-size: x-large;
       }
 
-      @media (max-width: 1200px) {
-        .mypage-side-menu {
-          display: none;
-        }
-      }
-      @media (max-width: 1000px) {
-        .mypage-myGameList {
-          padding: 50px 30px;
-        }
-      }
-
-      /* -- main과 동일 -- */
+            /* -- main과 동일 -- */
       /* 라이트 다크 mode */
       #mode {
         cursor: pointer;
@@ -365,13 +404,33 @@ pageEncoding="UTF-8"%>
         color: var(--color-nav-bg);
       }
 
-      /* PC */
-      .wolf {
-        display: none;
+
+      /* ================== [반응형] ================== */
+      @media (max-width: 1200px) {
+        .mypage-side-menu {
+          display: none;
+        }
+      }
+      @media (max-width: 1000px) {
+        .mypage-myGameList {
+          padding: 50px 30px;
+        }
+      }
+
+      /* 태블릿 크기  */
+      @media all and (min-width: 768px) and (max-width: 1023px) {
+        .wolf {
+          display: block;
+        }
+
+        #wolfLogo {
+          display: none;
+        }
       }
 
       /* 모바일 메뉴 */
       @media all and (max-width: 767px) {
+        /* 메뉴 */
         .wolf {
           display: block;
         }
@@ -392,6 +451,7 @@ pageEncoding="UTF-8"%>
           padding: 0;
         }
 
+        /* 내용물 */
         /* 햄버거 */
         .navbar {
           box-shadow: 0px 1px 5px white;
@@ -403,17 +463,6 @@ pageEncoding="UTF-8"%>
           height: 50px;
           line-height: 50px;
           margin: 0 2%;
-        }
-      }
-
-      /* 태블릿 크기  */
-      @media all and (min-width: 768px) and (max-width: 1023px) {
-        .wolf {
-          display: block;
-        }
-
-        #wolfLogo {
-          display: none;
         }
       }
     </style>
@@ -513,5 +562,38 @@ pageEncoding="UTF-8"%>
       crossorigin="anonymous"
     ></script>
     <script src="js/main.js"></script>
+
+    <!-- 스크롤 관련 -->
+    <script>
+      resize();
+      $(window).resize(function () {
+        resize();
+      });
+      function resize() {
+        const currentHeight = $("body").height() + 5;
+        const scrollHeight = $("body").prop("scrollHeight");
+        if (scrollHeight > currentHeight) {
+          $(".img_bg").css({
+            left: "0%",
+            width: "98.5%",
+          });
+        }
+      }
+      let m_navi = $(".m_navi");
+      let check = true;
+      let toggle = m_navi.find(".navbar-toggler").on("click", function () {
+        if (check) {
+          m_navi.find("#navbarToggleExternalContent").css({
+            display: "block",
+          });
+          check = false;
+        } else {
+          m_navi.find("#navbarToggleExternalContent").css({
+            display: "none",
+          });
+          check = true;
+        }
+      });
+    </script>
   </body>
 </html>
