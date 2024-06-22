@@ -51,6 +51,22 @@ public class ScoreController extends HttpServlet {
                  String json = g.toJson(userInfo);
                  response.getWriter().write(json);
             }
+            
+            /** 게임 종료 시 스코어 저장 **/
+            else if (cmd.equals("/update.score")) {
+            	String id = (String) session.getAttribute("WolfID");
+            	if(id == "") {
+            		// 로그인 안한 회원 DB 업데이트 필요 없음
+            	} else {
+            		
+            		// 점수가 있을 시 업데이트
+            			// 해당 페이지에 본인의 점수를 가져온다.
+            			// 가져온 점수보다 현재 플레이한 점수가 높을 경우 업데이트
+            		// 없을 시 인서트
+            			// 해당 페이지에 본인의 점수가 없다면 인서트
+            	}
+           }
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
