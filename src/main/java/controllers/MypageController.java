@@ -93,27 +93,25 @@ public class MypageController extends HttpServlet {
 				String phone = multi.getParameter("phone");
 				String email = multi.getParameter("email");
 				String avatar ="";
+				String deleteSysname=iDAO.selectMypageAvatar(id);
 				if(sysName == null) {
-					avatar = sysName;
+					avatar = (String)session.getAttribute("WolfAvatar");
 				} else {
 					avatar = "/"+id + "/" + sysName;
+					File imageFile = new File(realPath + "/" + deleteSysname);
+					 if (imageFile.exists()) {
+						   if (imageFile.delete()) {
+					         System.out.println("파일 삭제 성공");
+					         
+						   } else {
+					         System.out.println("파일 삭제 실패");
+						   }
+					 }else {
+					    System.out.println("파일이 존재하지 않습니다.");
+					 }
+			
 				}
-				
-				
-				String deleteSysname=iDAO.selectMypageAvatar(id);
-				
-				 File imageFile = new File(realPath + "/" + deleteSysname);
-				 if (imageFile.exists()) {
-					   if (imageFile.delete()) {
-				         System.out.println("파일 삭제 성공");
-				         
-					   } else {
-				         System.out.println("파일 삭제 실패");
-					   }
-				 }else {
-				    System.out.println("파일이 존재하지 않습니다.");
-				 }
-		
+			
 				if(deleteSysname.equals("")) {
 					iDAO.insert(new ImagesDTO(0,oriName,sysName,2,0,id));
 				}

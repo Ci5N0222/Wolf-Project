@@ -64,7 +64,7 @@
             font-family: "Noto Sans KR", sans-serif;
         }
       
-        .reply {
+        .reply{
             margin-top: 20px;
             width: auto;
             height: 250px;
@@ -74,6 +74,7 @@
             border: 1px solid black;
             background-color: white;
             flex-direction: column;
+            display: flex;
         }
         .reply div{
             display: flex;
@@ -158,26 +159,35 @@
         border: 1px solid black;
         overflow: hidden; 
     }
+    .board div{
+        display: flex;
+    }
     .menu{
+        margin-bottom: 10px;
         flex: 0.5;
         flex-direction: column;
-    
-        
+       
     }
     .menu_title{
-        justify-content: center; 
-        align-items: center;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             font-size: 15px;
             font-weight: bold;
             color: #333;
+            margin: 10px;
             padding: 10px 15px;
             background-color: #fff;
             border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            justify-content: center;
+            align-items: center;
     }
     .menu_title:hover{
         cursor: pointer;
         color: rgb(6, 14, 249);
+    }
+    .center{
+        justify-content: center;
+        align-items: center;
     }
     .button_css{
     	height: 30px;
@@ -273,7 +283,7 @@
                             <c:forEach var="files_dto" items="${files_list}">
                                 <div class="files_div  justify-content: flex-start; align-items: center;">
                                    <span class="files_seq">${files_dto.seq }</span>.&nbsp<a href="/download.files?sysname=${files_dto.sysname }&oriname=${files_dto.oriname}">${files_dto.oriname}</a>&nbsp&nbsp
-                                    <button class="files_delete button_css" style="display: none; font-size: 20px; background-color: white !important;" >❌</button> <!--onclick="filesDelete(${files_dto.seq })"-->
+                                    <button type="button" class="files_delete button_css" style="display: none; font-size: 20px; background-color: white !important;" >❌</button> <!--onclick="filesDelete(${files_dto.seq })"-->
                                 </div>
                             </c:forEach>
                         </div> 
@@ -295,7 +305,7 @@
                                     <input type="hidden" name="count" value="${board_dto.count}">
                                     <input type="hidden" name="board_code" value="${board_code}">
                                     <input type="hidden" name="seq" value="${board_dto.seq}" class="notuse">
-                                    <button type="submit" id="confirm" class="button_css">확인</button>
+                                    <button type="submit" id="confirm" class="button_css">확인</button>&nbsp&nbsp
                                     <button type="button" id="cancel" class="button_css">취소</button>&nbsp&nbsp
                              
                             </div>
@@ -313,9 +323,9 @@
         </div> <!--contaier 끝-->
         <form action="/insert.reply" method="get" id="replyform">
         <div class="reply" style="  border-radius: 20px; margin-bottom: 15px;">
-            <div style="flex: 1; margin-left: 15px;"> <p style="font-family: 'Courier New', Courier, monospace; font-size:small;">${WolfNickname}(${WolfID.substring(0, 4)}****) </p></div>
+            <div style="flex: 1; margin-left: 15px;" class="center"> <p style="font-family: 'Courier New', Courier, monospace; font-size:15px">${WolfNickname}(${WolfID.substring(0, 4)}****) </p></div>
             <div style="flex: 5; overflow: auto;">
-                <div style="flex-direction: column; flex: 5; border: 1px solid black; margin: 15px; word-break: break-all; overflow: auto; max-height: 183px;" contenteditable="true" class="dto reply_child_input" id="reply_insert_div"  onkeydown="handleKeyPress(this,event)"><label id="reply_child_label" style="font-size: 20px; color: gray;">주제와 무관한 댓글이나 스포일러, 악플은 경고조치 없이 삭제되며 징계 대상이 될 수 있습니다.</label></div>
+                <div style="flex-direction: column; flex: 5; border: 1px solid black; margin: 15px; word-break: break-all; overflow: auto; max-height: 183px;" contenteditable="true" class="dto reply_child_input" id="reply_insert_div"  onkeydown="handleKeyPress(this,event)"><label class="reply_child_label" style="font-size: 20px; color: gray;">주제와 무관한 댓글이나 스포일러, 악플은 경고조치 없이 삭제되며 징계 대상이 될 수 있습니다.</label></div>
                 <input type="hidden" name="contents" id="reply_insert_contents">
                 <input type="hidden" name="member_id" value="${WolfID}"class="notuse">
                 <input type="hidden" name="board_seq" value="${board_dto.seq}" class="notuse">
@@ -323,7 +333,7 @@
             <div style="flex: 1;">
                 <div style=" margin-left: 15px; flex:1; color: grey; justify-content: flex-start; align-items: center;"><span>현재 입력한 글자수 :&nbsp</span><span class="reply_child_count">0</span>/<span>전체 입력 가능한 글자수 :&nbsp</span><span class="reply_child_count_max">300</span></div>
                 <div style=" flex: 1; justify-content: flex-end; align-items: center;">
-                    <button id="reply_btn" style="width: 15% !important; height: 100% !important; background-color: #00c73c !important; color: white !important;" class="no-hover button_css">등록</button>&nbsp&nbsp&nbsp&nbsp
+                    <button id="reply_btn" style="width: 15% !important; height: 80% !important; background-color: #00c73c !important; color: white !important;" class="no-hover button_css">등록</button>&nbsp&nbsp&nbsp&nbsp
                 </div>
             </div>
         </div>
@@ -402,7 +412,7 @@
                             </c:if>
                         </c:forEach> 
                         <!---->
-                        <div style="width:100% ; border: 1px solid black; flex-direction: column; display: none;" class="reply_child_list">
+                        <div style="width:100% ; border-bottom: 1px solid gray; flex-direction: column; display: none;" class="reply_child_list">
                             <div style="flex-direction: column;">
                                 <div style="flex: 1; font-family: 'Courier New', Courier, monospace; font-size:small; font-size: 13px;" class="reply_child_list_title">  
                                 </div>
@@ -427,7 +437,7 @@
                                     <div style="flex: 1;">
                                         <p style="font-family: 'Courier New', Courier, monospace; font-size:small;">${WolfNickname}(${WolfID.substring(0, 4)}****) </p>
                                     </div>
-                                    <div style="flex: 3; border: 1px solid gray; width: 100%; max-height: 155px; flex-direction: column;" class="reply_child_input div_input" onkeydown="handleKeyPress(this,event)"><label id="reply_child_label" style="font-size: 20px; color: gray;">주제와 무관한 댓글이나 스포일러, 악플은 경고조치 없이 삭제되며 징계 대상이 될 수 있습니다.</label></div>
+                                    <div style="flex: 3; border: 1px solid gray; width: 100%; max-height: 155px; flex-direction: column;" class="reply_child_input div_input" onkeydown="handleKeyPress(this,event)"><label class="reply_child_label" style="font-size: 20px; color: gray;">주제와 무관한 댓글이나 스포일러, 악플은 경고조치 없이 삭제되며 징계 대상이 될 수 있습니다.</label></div>
                                     <div style="flex:0.5; color: grey;"><span>현재 입력한 글자수 :&nbsp</span><span class="reply_child_count">0</span>/<span>전체 입력 가능한 글자수 :&nbsp</span><span class="reply_child_count_max">300</span></div>
                                     <div style="flex: 1; justify-content: flex-end;">
                                             <button class="reply_child_insert no-hover button_css" style="color: #00c73c !important; background-color: whitesmoke !important; height: 100% !important; width: 18% !important;">등록</button>
@@ -452,7 +462,7 @@
             let reply_child_close=$(".reply_child_close");
             let reply_child_insert=$(".reply_child_insert");
             let reply_child_input=$(".reply_child_input");
-            let reply_child_labal=$("#reply_child_label").clone(true);
+            let reply_child_labal=$(".reply_child_label").eq(1).clone(true);
             console.log(reply_child_labal);
             let reply_check=true;
             reply_child_btn.on("click",function(){
@@ -528,7 +538,7 @@
                 let div=btn.parents(".reply_child_div");
                 let input=div.find(".reply_child_input");
                 let reply_seq=div.parent().parent().find(".reply_seq");
-                
+                div.find(".reply_child_label").remove();
                 $.ajax({
                     url:"/insert.reply_child",
                     type:"post",
@@ -935,7 +945,9 @@
     })
 
    
-
+        $("#reply_btn").on("click",function(){
+            $("body").find(".reply_child_label").eq(0).remove();
+        })
 
 
         btn5.on("click", function () {//cancel
@@ -1010,37 +1022,41 @@
   ></script>
   <script src="/js/main.js"></script>
   
+
   <script>
-
-resize();
-    $(window).resize(function() {
-        resize();
-    });
     
-    function resize(){
-        const currentHeight =  $("body").height();
-        const currentWidth=$("body").width();
-     console.log(currentHeight);
-        // scrollHeight는 div 요소의 스크롤이 포함된 전체 높이를 나타냅니다.
-        const scrollHeight = $("body").prop('scrollHeight');
-        if(scrollHeight>currentHeight){
-       /* $("#img_box").css({
-            width:"1200px",
-            overflow:"auto"
-        })
-        $("#img_box").children().css({
-            width:"100%",
-            position:"relative"
-        })*/
-        $(".img_bg").css({
-            left:"0%",
-            width:"98.5%"
-        })
-        
+    resize();
+        $(window).resize(function() {
+            resize();
+        }); 
+        function resize(){
+            const currentHeight =  $("body").height();
+            const scrollHeight = $("body").prop('scrollHeight');
+            if(scrollHeight>currentHeight){
+            $(".img_bg").css({
+                left:"0%",
+                width:"98.5%"
+            })
+            
+            }
         }
-    }
- </script>
-
+        let m_navi=$(".m_navi");
+        let check=true;
+        let toggle=m_navi.find(".navbar-toggler").on("click",function(){
+            if(check){
+                m_navi.find("#navbarToggleExternalContent").css({
+                    display:"block"
+                })
+                check=false;
+            }
+            else{
+                m_navi.find("#navbarToggleExternalContent").css({
+                    display:"none"
+                })
+                check=true;
+            }
+        })
+     </script>
 
 </body>
 
