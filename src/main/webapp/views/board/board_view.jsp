@@ -40,12 +40,15 @@
 
 
 <style>
+    body{
+        overflow: auto !important;
+    }
     .main{
         font-family: "Noto Sans KR", sans-serif;
         margin: auto;
-        flex-direction: column;
         position:relative;
         z-index: 100;
+        display: flex;
     }
     .main div{
         display: flex;
@@ -77,7 +80,7 @@
         background-color: white ;
     }
     .menu{
-        margin: 15px;
+        margin-top: 15px;
         flex: 1.3;
         flex-direction: column;
        
@@ -141,17 +144,16 @@
             <img src="/images/bg3.png" alt="" class="img_bg bgs">
             <%@ include file="/views/include/header.jsp" %>   
         <div class="main">
-            <div style="flex: 0.1;"></div>
-            <div style="display: flex; flex: 8;">
+            <div style="display: flex; flex: 8; flex-direction: column;">
                 <div class="menu" style="flex: 1.5;">
-                    <div style="flex: 1; flex-direction: column;">
-                        <div style=" height: 50px !important;" class="center menu_title" id="board_1">
+                    <div style="flex: 1;">
+                        <div style=" height: 50px !important; flex: 1;" class="center menu_title" id="board_1">
                             자유 게시판
                         </div>
-                        <div style=" height: 50px !important;"  class="center menu_title" id="board_2">
+                        <div style=" height: 50px !important; flex: 1;"  class="center menu_title" id="board_2">
                             공지 게시판
                         </div>
-                        <div  class="center menu_title" id="board_3">
+                        <div  style=" height: 50px !important; flex: 1;"  class="center menu_title" id="board_3">
                             QNA 게시판
                         </div>
                         <div style="flex: 1; display: none;"  class="center menu_title" id="board_4">
@@ -171,9 +173,6 @@
                                 location.href="/list.board?board_code=4";
                             })
                         </script>
-                    </div>
-                    <div style="flex: 1;">
-        
                     </div>
                 </div>    
                 <div class="board">
@@ -248,26 +247,6 @@
     </div>
 </div>
 
-    <script>
-        let m_navi=$(".m_navi");
-        let check=true;
-        let toggle=m_navi.find(".navbar-toggler").on("click",function(){
-            if(check){
-                m_navi.find("#navbarToggleExternalContent").css({
-                    display:"block"
-                })
-                check=false;
-            }
-            else{
-                m_navi.find("#navbarToggleExternalContent").css({
-                    display:"none"
-                })
-                check=true;
-            }
-        })
-        
-    </script>
-  
 
     <script>
         //
@@ -355,6 +334,47 @@
       crossorigin="anonymous"
     ></script>
     <script src="/js/main.js"></script>
+
+
+    
+    <script>
+        let m_navi=$(".m_navi");
+        let check=true;
+        let toggle=m_navi.find(".navbar-toggler").on("click",function(){
+            if(check){
+                m_navi.find("#navbarToggleExternalContent").css({
+                    display:"block"
+                })
+                check=false;
+            }
+            else{
+                m_navi.find("#navbarToggleExternalContent").css({
+                    display:"none"
+                })
+                check=true;
+            }
+        })
+        
+    </script>
+  
+    <script>
+        resize();
+            $(window).resize(function() {
+                resize();
+            }); 
+            function resize(){
+                const currentHeight =  $("body").height();
+                const scrollHeight = $("body").prop('scrollHeight');
+                if(scrollHeight>currentHeight){
+                $(".img_bg").css({
+                    left:"0%",
+                    width:"98.5%"
+                })
+                
+                }
+            }
+    </script>
+        
 
 </body>
 </html>
