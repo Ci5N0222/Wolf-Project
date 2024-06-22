@@ -40,6 +40,9 @@
 
 
 <style>
+    body{
+        overflow: auto !important;
+    }
     .main{
         font-family: "Noto Sans KR", sans-serif;
         margin: auto;
@@ -77,7 +80,7 @@
         background-color: white ;
     }
     .menu{
-        margin: 15px;
+        margin-top: 15px;
         flex: 1.3;
         flex-direction: column;
        
@@ -244,26 +247,6 @@
     </div>
 </div>
 
-    <script>
-        let m_navi=$(".m_navi");
-        let check=true;
-        let toggle=m_navi.find(".navbar-toggler").on("click",function(){
-            if(check){
-                m_navi.find("#navbarToggleExternalContent").css({
-                    display:"block"
-                })
-                check=false;
-            }
-            else{
-                m_navi.find("#navbarToggleExternalContent").css({
-                    display:"none"
-                })
-                check=true;
-            }
-        })
-        
-    </script>
-  
 
     <script>
         //
@@ -351,6 +334,47 @@
       crossorigin="anonymous"
     ></script>
     <script src="/js/main.js"></script>
+
+
+    
+    <script>
+        let m_navi=$(".m_navi");
+        let check=true;
+        let toggle=m_navi.find(".navbar-toggler").on("click",function(){
+            if(check){
+                m_navi.find("#navbarToggleExternalContent").css({
+                    display:"block"
+                })
+                check=false;
+            }
+            else{
+                m_navi.find("#navbarToggleExternalContent").css({
+                    display:"none"
+                })
+                check=true;
+            }
+        })
+        
+    </script>
+  
+    <script>
+        resize();
+            $(window).resize(function() {
+                resize();
+            }); 
+            function resize(){
+                const currentHeight =  $("body").height();
+                const scrollHeight = $("body").prop('scrollHeight');
+                if(scrollHeight>currentHeight){
+                $(".img_bg").css({
+                    left:"0%",
+                    width:"98.5%"
+                })
+                
+                }
+            }
+    </script>
+        
 
 </body>
 </html>
