@@ -85,22 +85,27 @@
 								<div>
 									<img src="/images/wolf-1.gif">
 								</div>
-								<div>${list[0].member_id}</div>
-								<div>${list[0].score}</div>
+								<div>${topRank[0].member_id}</div>
+								<div>${topRank[0].score}</div>
 							</div>
 							<div>
 								<div>
 									<img src="/images/wolf-2.gif">
 								</div>
-								<div>${list[1].member_id}</div>
-								<div>${list[1].score}</div>
+								<div>${topRank[1].member_id}</div>
+								<div>${topRank[1].score}</div>
 							</div>
 							<div>
 								<div>
 									<img src="/images/wolfLogo.png">
 								</div>
-								<div>${list.get(0).member_id}</div>
-								<div>${list.get(0).score}</div>
+								<div>${topRank.get(0).member_id}</div>
+								<div>${topRank.get(0).score}</div>
+							</div>
+							<div>
+								<input type="hidden" id="game_seq" value="${seq}">
+								<p id="myNickname"> ${WolfNickname}</p>
+								<p id="myGameScore">500</p>
 							</div>
 						</div>
 					</div>
@@ -114,7 +119,6 @@
 				class="fa-solid fa-lightbulb"></i>
 		</div>
 	</div>
-	</form>
 	<script src="/js/main.js"></script>
 	<script>
 		gameCanvars(${seq});

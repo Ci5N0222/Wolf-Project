@@ -18,6 +18,7 @@ import game.dao.GameDAO;
 import game.dao.ScoreDAO;
 import game.dto.GameDTO;
 import game.dto.ScoreDTO;
+import game_score.dao.GameScoreDAO;
 import images.dao.ImagesDAO;
 
 
@@ -28,6 +29,7 @@ public class GameController extends HttpServlet {
 		GameDAO dao = GameDAO.getInstance();
 		ImagesDAO imagesDAO = ImagesDAO.getInstance();
 		ScoreDAO scoreDAO = ScoreDAO.getInstance();
+		GameScoreDAO gameScoreDAO = GameScoreDAO.getInstance();
 		Gson g = new Gson();
 		
 		String cmd= request.getRequestURI();
@@ -44,7 +46,7 @@ public class GameController extends HttpServlet {
 				// 서버에서 thumbnail 경로 추가
 				for(GameDTO game : list) {
 					String sysname = imagesDAO.getImageName(game.getSeq(), image_code);
-					if(sysname.equals(null)) {
+					if(sysname == null) {
 						game.setThumbnail(sysname);
 					} else {
 						game.setThumbnail("thumbnails/" + sysname);
@@ -62,7 +64,7 @@ public class GameController extends HttpServlet {
 			    int image_code = 3;
 			    
 			    String sysname = imagesDAO.getImageName(seq, image_code);
-			    if(!sysname.equals(null)) {
+			    if(sysname != null) {
 					dto.setThumbnail("thumbnails/" + sysname);
 				}	
 			    
@@ -70,12 +72,16 @@ public class GameController extends HttpServlet {
 			    request.getRequestDispatcher("/views/game/gameDetail.jsp").forward(request, response);
 			    
 			}else if(cmd.equals("/gameview.game")) {
-				String game_seq= request.getParameter("seq");
+				String game_seq = request.getParameter("seq");
 				
-				List <ScoreDTO> list= scoreDAO.getThisGameRank(Integer.parseInt(game_seq));
+				// 해당 게임의 탑 랭크 3명
+				List <ScoreDTO> topRank = scoreDAO.getThisGameRank(Integer.parseInt(game_seq));
+				
+				// 나의 점수
+//				ScoreDTO myRank = gameScoreDAO.
 				
 				request.setAttribute("seq", Integer.parseInt(game_seq));
-				request.setAttribute("list", list);
+				request.setAttribute("topRank", topRank);
 				request.getRequestDispatcher("/views/game/game.jsp").forward(request, response);
 				
 				

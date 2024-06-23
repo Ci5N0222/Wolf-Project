@@ -73,3 +73,36 @@ const gameCanvars = (seq) => {
 
 
 
+// 게임 종료 시 데이터 업데이트 or 인서트
+const gameScoreSave = () => {
+	
+	const beforeScore = $("#myGameScore").html().trim();
+	const newScore = $("#score").html().trim();
+
+	let data = {
+		seq : $("#game_seq").val(),
+		score: newScore,
+		state: "none"
+	}
+	
+	if(beforeScore == "") {
+		data.state = "insert";
+	} else if(newScore > beforeScore) {
+		data.state = "update";
+	}
+	
+	// Login 상태에서만 데이터 서버로 전송
+	if($("#myNickname").html().trim() !== "" && data.state !== "none"){
+		$.ajax({
+			url: "/save.score",
+			method: "post",
+			data: data
+		})
+		.done((res) => {
+			console.log(res);
+			// res 가 "ok" 면 성공 "fail"이면 실패
+		});
+	}
+	
+}
+
