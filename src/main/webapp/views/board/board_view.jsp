@@ -49,6 +49,7 @@
         position:relative;
         z-index: 100;
         display: flex;
+        height: 800px;
     }
     .main div{
         display: flex;
@@ -116,8 +117,8 @@
         text-decoration: underline;
     }
     .page-number {
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
             line-height: 40px;
             margin: 0 5px;
             text-align: center;
@@ -228,7 +229,7 @@
                             </div>
                         </c:forEach>
                     </div>
-                    <div style="flex: 1;" class="center" id="navi"></div>
+                    <div style="flex: 1; margin-top: 10px;" class="center" id="navi"></div>
                     <c:choose>
                         <c:when test="${board_code==1 || board_code==3}">
                             <div style="flex: 1; justify-content: flex-end; align-items: center;">
@@ -286,12 +287,16 @@
 		
 		for (let i = startNavi; i <= endNavi; i++) {
             let div=$("<div class='page-number center'>");
-                div.append("<a href='/list.board?cpage="+i+"&target=${target}&keyword=${keyword}'>"+ i +"</a>");
+            let pagelink=$("<a href='/list.board?cpage="+i+"&target=${target}&keyword=${keyword}'>"+ i +"</a>");
+                div.append(pagelink);
                 if(i==cpage){
                     div.css({
                         backgroundColor:"red"
                     })
                 }
+                div.on("click",function(){
+                    pagelink[0].click();
+                })
 			navi.append(div);
 		}
 		if(needNext) {
