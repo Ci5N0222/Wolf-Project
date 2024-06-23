@@ -474,7 +474,17 @@ prefix="c" %>
             </aside>
 
             <section class="mypage-myList-form">
-              <div class="mypage-myList">ffddddddddddd</div>
+              <div class="mypage-myList">
+                <c:forEach var="board_dto" items="${list}">
+                  <div>
+
+                  </div>
+
+                </c:forEach>
+                
+                ffddddddddddd
+
+              </div>
             </section>
           </div>
         </main>

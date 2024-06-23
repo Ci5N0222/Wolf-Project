@@ -363,7 +363,7 @@
                 resize();
             }); 
             function resize(){
-                const currentHeight =  $("body").height();
+                const currentHeight =  $("body").height()+5;
                 const scrollHeight = $("body").prop('scrollHeight');
                 if(scrollHeight>currentHeight){
                 $(".img_bg").css({
