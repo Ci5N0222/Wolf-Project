@@ -75,7 +75,9 @@ public class GameDAO {
 	 */
 	public List<GameScoreDTO> gameList(String id) throws Exception {
 
-		String sql = "select * from game g left join game_score gs on g.seq = gs.game_seq and gs.member_id = ?";
+		String sql = "select g.title, coalesce(gs.score, 0) as score, gs.member_id, g.seq as game_seq, coalesce(g.thumbnail, 'default_thumbnail.png') as thumbnail " +
+                "from game g left join game_score gs on g.seq = gs.game_seq and gs.member_id = ?";
+
 
 		try (Connection con = DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
 
