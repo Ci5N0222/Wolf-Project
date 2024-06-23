@@ -637,7 +637,7 @@ pageEncoding="UTF-8"%>
               <p onclick="location.href='/mypageGameList.mypage'">
                 게임플레이 정보
               </p>
-              <p onclick="location.href='/myList.mypage'">문의내역</p>
+              <p onclick="location.href='/myList.mypage?board_code=3'">문의내역</p>
               <p onclick="location.href='/views/mypage/deleteMember.jsp'">
                 회원탈퇴
               </p>

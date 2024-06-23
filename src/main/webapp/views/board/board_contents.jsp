@@ -11,33 +11,41 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.tiny.cloud/1/9bewfouem96jjnfvuu236yinb3kp53xruh2gkkz3pkfnkw6c/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
  
+<!-- 부트스트랩 -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+	crossorigin="anonymous">
 
-<style>
-     :root {
-    --bg-light: #ffd449;
-    --bg-dark: #14213D;
-    --bg-transparent: transparent;
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
-    --color-white: #eeeeee;
-    --color-black: #14213D;
-    --bg-nav: #f9a620;
-    --color-nav-icon: #14213D;
-    --color-nav-bg: #f9a620;
-    font-size: 16px;
-}
-html,
-    
-    .container{
+<!-- icon -->
+<script src="https://kit.fontawesome.com/1ee4acc8d4.js"
+	crossorigin="anonymous"></script>
+
+<!-- bootstrap -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+	crossorigin="anonymous"></script>
+
+<!-- Project local -->
+<link rel="stylesheet" href="/css/style.css">
+
+<style> 
+    .main{
         display: flex;
         flex-direction: column;
-        max-width: 1000px;
-        margin: auto;
+        height: auto;
+        margin-top: 20px;
         
-       
+      
+         
     }
     .btn{
     	height: 30px;
@@ -59,103 +67,53 @@ html,
 
 </style>
 <style>
-      body {
-        margin: 0;
-         background-color: var(--bg-dark);
+    body {
        
-       
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+
       } 
-    /* img */
-.img_bg {
-position: absolute;
-top: 0%;
-left: 0;
-width: 100%;
-object-fit: cover;
-}
-
-.bgs {
-animation: bg 1s ease-in Infinite Alternate;
-transition: all ease-in 0.2s;
-width: 50px;
-}
-
-.bgs:nth-child(1) {
-top: 20%;
-background-color: #eee;
-left: 80%;
-}
-
-.bgs:nth-child(2) {
-top: 20%;
-left: 80%;
-width: 40px;
-}
-
-.bgs:nth-child(3) {
-top: 15%;
-left: 20%;
-}
-
-.bgs:nth-child(4) {
-top: 20%;
-left: 40%;
-width: 30px;
-}
-
-.bgs:nth-child(5) {
-top: 12%;
-left: 50%;
-}
-
-.bgs:nth-child(6) {
-top: 12%;
-left: 80%;
-width: 20px;
-}
-
-@keyframes bg {
-0% {
-    opacity: 1;
-}
-
-100% {
-    opacity: 0;
-}
-}
+  
 .index{
     z-index: 100;
-        position: relative;
+    position: relative;
 }
 </style>
 
 </head>
 <body>
-    <img  src="/images/bg1.png" alt="" class="img_bg"> 
-    <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
-    <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
-    <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
-    <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
-    <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
-    <img  src="/images/bg3.png" alt="" class="img_bg bgs">
-    <form action="/insert.board" id="fileform" method="post" enctype="multipart/form-data" >
-        <div class="container">
-            <div style="margin-top: 20px; display: flex; flex: 1; font-size: 40px; justify-content: center; background-color: white; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;" class="index">
-                자유 게시판 글 작성하기 
-            </div>
-            <div style="flex: 2; overflow: hidden; border: 0px; "class="index">
-                <input type="text" placeholder="글 제목을 입력하세요" style="border: 0; width: 100%; height: 75px; font-size:30px;" name="title">
-            </div>
-            <div style="flex: 8;"  id="contents"></div>
-            <div style="display: flex; flex: 1; justify-content: flex-end; "class="index">        
-                    <button type="button"  class="btn" id="list">목록으로</button>&nbsp&nbsp
-                    <button class="btn">작성완료</button>
-            </div>
-            <div id="files" class="index">
-            </div>
+    <div class="container-fluid d-flex flex-column">
+        <div class="container flex-grow-1 d-flex flex-column">
+            <img  src="/images/bg1.png" alt="" class="img_bg"> 
+            <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
+            <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
+            <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
+            <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
+            <img  src="/images/bg3.png" alt="" class="img_bg bgs"> 
+            <img  src="/images/bg3.png" alt="" class="img_bg bgs">
+            <%@ include file="/views/include/header.jsp" %>
+            <form action="/insert.board" id="fileform" method="post" enctype="multipart/form-data" >
+                <div class="main index">
+                    <div style="border-top-left-radius: 15px; border-top-right-radius: 15px; display: flex; flex: 1; font-size: 40px; justify-content: center; background-color: white; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;" class="index">
+                        자유 게시판 글 작성하기 
+                    </div>
+                    <div style="flex: 2; margin-bottom: 10px; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; overflow: hidden;">
+                        <input type="text" placeholder="글 제목을 입력하세요" style="border: 0; width: 100%; height: 75px; font-size:30px;" name="title">
+                    </div>
+                    <div style="flex: 8;"  id="contents"></div>
+                    <div style="display: flex; flex: 1; justify-content: flex-end; "class="index">        
+                            <button type="button"  class="btn" id="list">목록으로</button>&nbsp&nbsp
+                            <button class="btn">작성완료</button>
+                    </div>
+                    <div id="files" class="index"">
+                    </div>
+                </div>
+                <input type="hidden" value="<%= boardCode %>" name="board_code">
+            </form>
         </div>
-        <input type="hidden" value="<%= boardCode %>" name="board_code">
-    </form>
+    </div>
+
+   
 <script>
     var  myButton;
     let index=0;
@@ -230,7 +188,7 @@ width: 20px;
                         let input=$("<input type='file'class='upload'>");
                         input.attr("name","files"+index++);
                         div.append(input);
-                        let button=$("<button style='width: 50px; height: 50px; background-color: #14213D; border: 0; font-size: 20px;'>❌</button>")
+                        let button=$("<button style='width: 25px; height: 25px; border: 0; font-size: 20px;'>❌</button>")
                        
                         input.click();
                         let temp=$("<div>");
@@ -269,5 +227,59 @@ width: 20px;
 			
 		})
 </script>
+
+<div class="sun"></div>
+      <!-- mode -->
+      <div id="mode">
+        <i class="fa-regular fa-lightbulb" style="display: none"></i>
+        <i class="fa-solid fa-lightbulb"></i>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/js/main.js"></script>
+
+    <script>
+    
+        resize();
+            $(window).resize(function() {
+                resize();
+            }); 
+            $(window).change(function(){
+                resize();
+            })
+            function resize(){
+                const currentHeight =  $("body").height()+2;
+                console.log(currentHeight)
+                const scrollHeight = $("body").prop('scrollHeight');
+                console.log(scrollHeight)
+                if(scrollHeight>currentHeight){
+                $(".img_bg").css({
+                    left:"0%",
+                    width:"98.5%"
+                })
+                
+                }
+            }
+            let m_navi=$(".m_navi");
+            let check=true;
+            let toggle=m_navi.find(".navbar-toggler").on("click",function(){
+                if(check){
+                    m_navi.find("#navbarToggleExternalContent").css({
+                        display:"block"
+                    })
+                    check=false;
+                }
+                else{
+                    m_navi.find("#navbarToggleExternalContent").css({
+                        display:"none"
+                    })
+                    check=true;
+                }
+            })
+         </script>
 </body>
 </html>

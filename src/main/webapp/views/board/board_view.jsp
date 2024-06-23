@@ -78,6 +78,7 @@
         border: 1px solid black;
         margin: 15px;
         background-color: white ;
+        border-radius: 15px;
     }
     .menu{
         margin-top: 15px;
@@ -217,7 +218,7 @@
                             <div style="flex: 1;" class="center" id="a">조회</div>
                     </div>    
                     <div class="contents">
-                        <c:forEach var="dto" items="${list}" varStatus="status">
+                        <c:forEach var="dto" items="${list}" varStatus="status"> 
                             <div style="display: flex; height: 50px;  border-bottom: 2px solid #e3e3e3;" >
                                 <div style="flex: 1;" class="center"><span class="seq">${dto.seq}</span></div>
                                 <div style="flex: 5;" class="center"><span class="title">${dto.title}</span> </div>
@@ -363,7 +364,7 @@
                 resize();
             }); 
             function resize(){
-                const currentHeight =  $("body").height();
+                const currentHeight =  $("body").height()+5;
                 const scrollHeight = $("body").prop('scrollHeight');
                 if(scrollHeight>currentHeight){
                 $(".img_bg").css({

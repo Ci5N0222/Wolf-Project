@@ -17,7 +17,9 @@ import com.google.gson.Gson;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import board.dao.BoardDAO;
 import commons.EncryptionUitls;
+import commons.PageConfig;
 import game.dao.GameDAO;
 import images.dao.ImagesDAO;
 import images.dto.ImagesDTO;
@@ -37,6 +39,7 @@ public class MypageController extends HttpServlet {
 		MembersDAO mDAO = MembersDAO.getinstance();
 		MypageDAO pDAO = MypageDAO.getinstance();
 		ImagesDAO iDAO =ImagesDAO.getInstance();
+		BoardDAO bDAO = BoardDAO.getInstance();
 		
 		HttpSession session = request.getSession();
 		Gson g = new Gson();
@@ -184,7 +187,20 @@ public class MypageController extends HttpServlet {
 				
 				/* 문의내역 조회 */
 			} else if(cmd.equals("/myList.mypage")) {
+				String pcpage=request.getParameter("cpage");
+				if(pcpage==null) pcpage="1";
+				int cpage=Integer.parseInt(pcpage);
 				
+				int board_code=Integer.parseInt(request.getParameter("board_code"));
+				
+				Object[] boardList= bDAO.selectAll(PageConfig.recordCountPerPage, cpage, board_code);
+				
+				request.setAttribute("list", boardList[0]);
+				request.setAttribute("board_nickname_list", boardList[1]);//boardList[1]
+				request.setAttribute("cpage", cpage);
+				request.setAttribute("record_count_per_page", PageConfig.recordCountPerPage);
+				request.setAttribute("navi_count_per_page", PageConfig.naviCountPerPage);
+				request.setAttribute("board_code",board_code);
 				
 				request.getRequestDispatcher("/views/mypage/myList.jsp").forward(request, response);
 				
