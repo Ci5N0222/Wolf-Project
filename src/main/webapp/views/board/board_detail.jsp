@@ -35,6 +35,7 @@
     body{
         overflow-y: auto;
         overflow-x: hidden;
+        height: 100% !important;
         
     }
         * {
@@ -43,6 +44,7 @@
 
 
         .main {
+            height: 800px;
             border-radius: 20px;
             display: flex;
             flex-direction: column;
@@ -126,31 +128,38 @@
             text-align: center;
             border-radius: 20px !important;
         }
-
+        body.swal2-height-auto {
+            height: 100% !important;
+        }       
         .custom-confirm-button {
-            color: white !important;
+            color: red !important;
+          
             /* 확인 버튼 텍스트 색깔 */
         }
 
         .custom-cancel-button {
-            color: red !important;
+          
+            color: white !important;
             /* 취소 버튼 텍스트 색깔 */
         }
 
 
         .none {
-            display: none;
+            display: none !important;
         }
 
         .block {
-            display: flex;
+            display: flex !important;
         }
 
     p {
             width: 100%;
     }
+    .tox-toolbar-overlord{
+        overflow: auto;
+    }
     .tox-toolbar__primary{ 
-            width:700px !important;     
+          
      }
      .board{
         flex: 6;
@@ -158,6 +167,7 @@
         background-color: white;
         border: 1px solid black;
         overflow: hidden; 
+        border-radius: 15px;
     }
     .board div{
         display: flex;
@@ -311,8 +321,8 @@
                             </div>
                         </c:when>
                         <c:otherwise>
-                            <div style="flex: 1; justify-content: flex-end;">
-                                <button id="list" class="button_css">목록으로</button>
+                            <div style="flex: 1; justify-content: flex-end; align-items: center;">
+                                <button type="button" id="list" class="button_css">목록으로</button>&nbsp&nbsp
                             </div>
                         </c:otherwise>
                     </c:choose>
@@ -382,10 +392,10 @@
                             </c:choose>
                         </div>
                         
-                    <div class="reply_child_div_main" style="flex-direction: column; display: none; border: 1px solid dodgerblue; margin: 15px; align-items: center; justify-content: center;">
+                    <div class="reply_child_div_main" style="flex-direction: column; display: none; border: 1px solid gray; margin: 15px; align-items: center; justify-content: center;">
                         <c:forEach var="reply_child_dto" items="${reply_child_list}" varStatus="status">
                             <c:if test="${reply_child_dto.reply_seq==reply_dto.seq}">
-                                <div style="width:100% ; border: 1px solid black; flex-direction: column;" class="reply_child_list">
+                                <div style="width:100% ;border-bottom: 1.5px solid gray; flex-direction: column;" class="reply_child_list">
                                     <div style="flex-direction: column;">
                                         <div style="flex: 1; font-family: 'Courier New', Courier, monospace; font-size:small; font-size: 13px;" class="reply_child_list_title">
                                             ${reply_child_nickname[status.index]}(${reply_child_dto.member_id.substring(0, 4)}****)     
@@ -434,7 +444,7 @@
                         <!---->
                             <div class="reply_child_div"  style="width: 90%; height: 300px; flex-direction: column; margin-bottom: 10px;">
                                 <div class="reply_child_contents" style="flex-direction: column; flex: 6.5;">
-                                    <div style="flex: 1;">
+                                    <div style="flex: 1;" class="center">
                                         <p style="font-family: 'Courier New', Courier, monospace; font-size:small;">${WolfNickname}(${WolfID.substring(0, 4)}****) </p>
                                     </div>
                                     <div style="flex: 3; border: 1px solid gray; width: 100%; max-height: 155px; flex-direction: column;" class="reply_child_input div_input" onkeydown="handleKeyPress(this,event)"><label class="reply_child_label" style="font-size: 20px; color: gray;">주제와 무관한 댓글이나 스포일러, 악플은 경고조치 없이 삭제되며 징계 대상이 될 수 있습니다.</label></div>
@@ -852,7 +862,7 @@
                  //plugins: 'inlinecss  autolink charmap codesample emoticons image link lists media searchreplace table visualblocks  checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate mentions tableofcontents footnotes mergetags typography',
                 toolbar: ' fileupload | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags  | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat ',
                 max_width: 600,
-                 resize: false,
+                 resize: true,
                  //height:auto,
                 language: 'ko_KR',
                 forced_root_block : false,
@@ -981,7 +991,7 @@
                 showCancelButton: true,
                 confirmButtonText: '삭제하기',
                 cancelButtonText: '취소하기',
-                reverseButtons: true, // 확인 버튼과 취소 버튼을 반대로 표시
+                reverseButtons: false, // 확인 버튼과 취소 버튼을 반대로 표시
                 customClass: {
                     confirmButton: 'custom-confirm-button',
                     cancelButton: 'custom-cancel-button'

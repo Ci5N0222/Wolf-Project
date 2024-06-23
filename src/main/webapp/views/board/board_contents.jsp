@@ -42,7 +42,8 @@
         display: flex;
         flex-direction: column;
         height: auto;
-        border-radius: 15px;
+        margin-top: 20px;
+        
       
          
     }
@@ -67,7 +68,7 @@
 </style>
 <style>
     body {
-        margin: 0;
+       
         overflow-x: hidden !important;
         overflow-y: auto !important;
 
@@ -93,10 +94,10 @@
             <%@ include file="/views/include/header.jsp" %>
             <form action="/insert.board" id="fileform" method="post" enctype="multipart/form-data" >
                 <div class="main index">
-                    <div style="margin-top: 20px; display: flex; flex: 1; font-size: 40px; justify-content: center; background-color: white; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;" class="index">
+                    <div style="border-top-left-radius: 15px; border-top-right-radius: 15px; display: flex; flex: 1; font-size: 40px; justify-content: center; background-color: white; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;" class="index">
                         자유 게시판 글 작성하기 
                     </div>
-                    <div style="flex: 2; ">
+                    <div style="flex: 2; margin-bottom: 10px; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; overflow: hidden;">
                         <input type="text" placeholder="글 제목을 입력하세요" style="border: 0; width: 100%; height: 75px; font-size:30px;" name="title">
                     </div>
                     <div style="flex: 8;"  id="contents"></div>
@@ -104,7 +105,7 @@
                             <button type="button"  class="btn" id="list">목록으로</button>&nbsp&nbsp
                             <button class="btn">작성완료</button>
                     </div>
-                    <div id="files" class="index">
+                    <div id="files" class="index"">
                     </div>
                 </div>
                 <input type="hidden" value="<%= boardCode %>" name="board_code">
@@ -247,9 +248,14 @@
             $(window).resize(function() {
                 resize();
             }); 
+            $(window).change(function(){
+                resize();
+            })
             function resize(){
-                const currentHeight =  $("body").height()+5;
+                const currentHeight =  $("body").height()+2;
+                console.log(currentHeight)
                 const scrollHeight = $("body").prop('scrollHeight');
+                console.log(scrollHeight)
                 if(scrollHeight>currentHeight){
                 $(".img_bg").css({
                     left:"0%",
