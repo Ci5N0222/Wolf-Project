@@ -2,8 +2,10 @@ package game_score.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import commons.DBConfig;
+import game.dto.ScoreDTO;
 
 public class GameScoreDAO {
 	
@@ -16,6 +18,27 @@ public class GameScoreDAO {
 		return instance;
 	}
 	
+	// 본인 랭크 조회
+//	public ScoreDTO getMyRank(int seq, String id) throws Exception {
+//		String sql ="select * from game_score where game_seq = ?, member_id = ?";
+//		
+//		try(Connection con = DBConfig.getConnection();
+//			PreparedStatement pstat = con.prepareStatement(sql)){
+//			pstat.setInt(1, seq);
+//			pstat.setString(2, id);
+//			
+//			try(ResultSet rs = pstat.executeQuery()){
+//				if(rs.next()) {
+//					int score = rs.getInt("score");
+//					String memberId = rs.getString("member_id");
+//					int gameSeq = rs.getInt("game_seq");
+//					
+//					return new ScoreDTO(score, memberId, gameSeq);
+//							
+//				}
+//			}
+//		}
+//	}
 	
 	/**
 	 * 게임 점수 데이터 추가

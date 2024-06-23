@@ -59,9 +59,14 @@ public class ScoreController extends HttpServlet {
             /** 게임 종료 시 스코어 저장 **/
             else if (cmd.equals("/save.score")) {
 	    		String id = (String) session.getAttribute("WolfID");
-	    		int seq = Integer.parseInt(request.getParameter("game_seq"));
+	    		int seq = Integer.parseInt(request.getParameter("seq"));
 	    		int score = Integer.parseInt(request.getParameter("score"));
         		String state = request.getParameter("state");
+        		
+        		System.out.println("id ===== " + id);
+        		System.out.println("seq ===== " + seq);
+        		System.out.println("score ===== " + score);
+        		System.out.println("state ===== " + state);
 	    		
         		int result = 0;
         		if(state.equals("update")) {

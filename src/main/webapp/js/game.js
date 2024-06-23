@@ -75,12 +75,14 @@ const gameCanvars = (seq) => {
 
 // 게임 종료 시 데이터 업데이트 or 인서트
 const gameScoreSave = () => {
+	
 	const beforeScore = $("#myGameScore").html().trim();
-	const newScore = $("#score").innerHTML.trim();
+	const newScore = $("#score").html().trim();
 
 	let data = {
 		seq : $("#game_seq").val(),
-		score: newScore
+		score: newScore,
+		state: "none"
 	}
 	
 	if(beforeScore == "") {
@@ -90,7 +92,7 @@ const gameScoreSave = () => {
 	}
 	
 	// Login 상태에서만 데이터 서버로 전송
-	if($("#myNickname").html().trim() !== ""){
+	if($("#myNickname").html().trim() !== "" && data.state !== "none"){
 		$.ajax({
 			url: "/save.score",
 			method: "post",
