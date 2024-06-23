@@ -5,7 +5,7 @@ prefix="c" %>
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>문의내역</title>
+    <title>내 글 목록</title>
 
     <!-- 부트스트랩 -->
     <link
@@ -309,7 +309,6 @@ prefix="c" %>
       }
 
       .mypage-myList-form {
-        /* background-color: #bab58b; */
         flex: 13;
         display: flex;
         flex-direction: column;
@@ -325,6 +324,51 @@ prefix="c" %>
         height: auto;
         min-height: 800px;
         border-radius: 30px;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+      }
+      .mypage-myList > div {
+        /* 임시 */
+        background-color: lightgray;
+      }
+      .mypage-myList .mypage-myList-dropdown {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding-left: 10px;
+      }
+      .mypage-myList .mypage-myList-header {
+        flex: 1.5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .mypage-myList .mypage-myList-header > p {
+        margin: 0;
+        font-size: x-large;
+        font-weight: 700;
+      }
+      .mypage-myList .mypage-myList-navi {
+        flex: 1;
+        display: flex;
+      }
+      .mypage-myList .mypage-myList-navi > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .mypage-myList .mypage-myList-navi > div > p {
+        margin: 0;
+        font-weight: 600;
+      }
+
+      .mypage-myList .mypage-myList-contents {
+        flex: 15;
+      }
+      .mypage-myList .mypage-myList-paging {
+        flex: 1.3;
       }
 
       /* -- main과 동일 -- */
@@ -448,21 +492,71 @@ prefix="c" %>
 
         <!-- main -->
         <main class="mypage-myList-container">
-          <div class="mypage-myList-title">문의내역</div>
+          <div class="mypage-myList-title">내 글 목록</div>
           <div class="aside-section-form" style="display: flex">
             <%@ include file="/views/include/mypage_side.jsp"%>
 
             <section class="mypage-myList-form">
               <div class="mypage-myList">
-                <c:forEach var="board_dto" items="${list}">
-                  <div>
-
-                  </div>
-
-                </c:forEach>
-                
-                ffddddddddddd
-
+                <div class="mypage-myList-dropdown">
+                  <!-- <button
+                    class="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    내 게시글
+                  </button>
+                  <ul
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton1"
+                  >
+                    <li>
+                      <a class="dropdown-item" href="#">내 게시글</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">문의내역</a>
+                    </li>
+                  </ul> -->
+                </div>
+                <div class="mypage-myList-header"><p>내가 쓴 게시글</p></div>
+                <div class="mypage-myList-navi">
+                  <div style="flex: 1"><p>번호</p></div>
+                  <div style="flex: 5"><p>제목</p></div>
+                  <div style="flex: 1"><p>작성자</p></div>
+                  <div style="flex: 1"><p>날짜</p></div>
+                  <div style="flex: 1"><p>조회수</p></div>
+                </div>
+                <div class="mypage-myList-contents">
+                  <c:forEach var="dto" items="${list}">
+                    <div
+                      style="
+                        display: flex;
+                        height: 50px;
+                        border-bottom: 2px solid #e3e3e3;
+                      "
+                    >
+                      <div style="flex: 1" class="center">
+                        <span class="seq">${dto.seq}</span>
+                      </div>
+                      <div style="flex: 5" class="center">
+                        <span class="title">${dto.title}</span>
+                      </div>
+                      <div style="flex: 1" class="center">
+                        ${board_nickname_list[status.index]}
+                      </div>
+                      <div style="flex: 1" class="center">
+                        <fmt:formatDate
+                          value="${dto.write_date}"
+                          pattern="yyyy.MM.dd"
+                        />
+                      </div>
+                      <div style="flex: 1" class="center">${dto.count}</div>
+                    </div>
+                  </c:forEach>
+                </div>
+                <div class="mypage-myList-paging"></div>
               </div>
             </section>
           </div>

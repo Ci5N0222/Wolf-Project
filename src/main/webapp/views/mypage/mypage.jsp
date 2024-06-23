@@ -679,9 +679,11 @@ pageEncoding="UTF-8"%>
                     </div>
                     <div>
                       <div class="dashboard-inner_box">
-                        <div><p>문의내역</p></div>
+                        <div><p>내 글 목록</p></div>
                         <div>
-                          <button onclick="location.href='/myList.mypage'">
+                          <button
+                            onclick="location.href='/myList.mypage?board_code=1'"
+                          >
                             바로가기
                           </button>
                         </div>

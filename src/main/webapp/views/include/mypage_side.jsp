@@ -5,7 +5,7 @@
   <p onclick="location.href='/selectMember.mypage'">개인정보관리</p>
   <p onclick="location.href='/views/mypage/updatePW.jsp'">비밀번호 변경</p>
   <p onclick="location.href='/mypageGameList.mypage'">게임플레이 정보</p>
-  <p onclick="location.href='/myList.mypage'">문의내역</p>
+  <p onclick="location.href='/myList.mypage?board_code=1'">내 글 목록</p>
   <p onclick="location.href='/views/mypage/deleteMember.jsp'">회원탈퇴</p>
   <p
     class="logout"
