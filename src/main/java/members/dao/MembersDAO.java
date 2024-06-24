@@ -194,6 +194,20 @@ public class MembersDAO {
 		return false;
         	
         }
+    public boolean checkName (String name) throws Exception{
+    	String sql = "select * from members where name = ?";
+    	try (Connection con=DBConfig.getConnection();
+      	         PreparedStatement pstmt = con.prepareStatement(sql)){
+    		pstmt.setString(1, name);
+    		try(ResultSet rs = pstmt.executeQuery()){
+    			if(rs.next()) {
+    				rs.getString("name");
+    				return true;
+    						
+    			}
+    		}
+    	}return false;
+    }
  
 	
 	

@@ -285,7 +285,7 @@ body {
         #container {
         font-family: Arial, sans-serif;
 	background: #14213D;
-	padding: 2px;
+	padding: 15px;
 	margin: auto;
 	border-radius: 10px;
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -296,7 +296,7 @@ body {
 	position: relative;
 	z-index: 1;
 	box-sizing: border-box;
-    height:43%;
+    
         }
 .container h2 {
 	margin-top:40px;
@@ -463,9 +463,16 @@ body {
                 type: 'POST',
                 data: formData,
                 success: function(response) {
-                    alert( response );
+                	console.log("Response:", response); 
+                	if (response.startsWith("회원님의 아이디는 : ")) {
+                        alert(response);
+                        let userId = response.substring(13);
+                        window.location.href = "/views/members/login.jsp";
+                    } else {
+                        alert(response);
+                    }
                     
-                    location.href = '/views/members/login.jsp';
+                    
                 },
                 error: function(xhr, status, error) {
                     console.error('Error:', error);

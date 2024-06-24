@@ -70,7 +70,7 @@ public class MembersController extends HttpServlet {
 			else if (cmd.equals("/login.members")) {
 			    String id = request.getParameter("id");
 			    String pw = EncryptionUitls.getSHA512(request.getParameter("pw"));
-
+			    
 			    String[] result = dao.login(id, pw);
 
 			    if (result != null && result.length > 0) {
@@ -78,12 +78,16 @@ public class MembersController extends HttpServlet {
 			        if (grade == 3) {
 			            // 등급이 3일 경우
 			        	response.getWriter().write("{\"success\": false, \"message\": \"블랙리스트 회원은 로그인을 하실 수 없습니다.\"}");
-			        } else {
+			        }else if(grade == 98 || grade == 99) {
+			               request.getSession().setAttribute("WolfAdmin", true);
+			        }
+			        else {
 			            // 로그인 성공 시 세션에 정보 설정
 			            session.setAttribute("WolfID", result[0]);
 			            session.setAttribute("WolfNickname", result[1]);
 			            session.setAttribute("WolfAvatar", result[2]);
 			            response.getWriter().write("{\"success\": true}");
+	               
 			        }
 			    } 
 			
@@ -170,11 +174,22 @@ public class MembersController extends HttpServlet {
             }else if (cmd.equals("/selectId.members")) {
                 String name = request.getParameter("name");
                 String email = request.getParameter("email");
+                String id = request.getParameter("id");
                 String userId = dao.selectID(name, email);
                 if(userId != null) {
-                	response.getWriter().write("회원님의 아이디는 : " + userId);
-                }else if(userId == null) {
-                response.getWriter().write("존재하는 아이디가 없습니다.");
+                	response.getWriter().write("회원님의 아이디는 : " + userId + "입니다.");
+                	
+                }else {
+                	boolean checkname = dao.checkName(name);
+                	boolean checkemail = dao.CheckByEmail(email);
+                	
+                	if(!checkname ) {
+                		  response.getWriter().write("이름을 잘못 입력하셨습니다.");
+                	}else if(!checkemail) {
+                		  response.getWriter().write("이메일을 잘못 입력하셨습니다.");
+                	}else {
+                		  response.getWriter().write("존재하지 않는 회원입니다.");
+                	}
                 }
                 
             }else if (cmd.equals("/emailSend.members")) {
