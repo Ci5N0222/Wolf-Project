@@ -338,6 +338,7 @@ pageEncoding="UTF-8"%>
         align-items: center;
         background-color: #ffe8c1;
         border-radius: 30px;
+        border: 2px solid #14213d;
       }
 
       .mypage-myGameList .mypage-myGameList-info > div:last-child {
