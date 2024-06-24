@@ -100,32 +100,6 @@ public class GameDAO {
 		}
 
 	}
-
-	/**
-	 * 마이페이지 게임 점수 업데이트
-	 * @param member_id
-	 * @param game_seq
-	 * @return
-	 * @throws Exception
-	 */
-	public int updateGameScore(int score, String member_id, int game_seq) throws Exception {
-		String sql = "update game_score set score=? where member_id=? and game_seq =?";
-		
-		try (Connection con = DBConfig.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
-
-			pstat.setInt(1, score);
-			pstat.setString(2, member_id);
-			pstat.setInt(3, game_seq);
-			
-			return pstat.executeUpdate();
-		}
-	}
-	
-	
-	
-	
-	
-	
 	
 	
 	

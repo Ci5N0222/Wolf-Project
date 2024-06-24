@@ -63,6 +63,7 @@ public class MypageController extends HttpServlet {
 				request.setAttribute("member", dto);
 				request.getRequestDispatcher("/views/mypage/updateInfo.jsp").forward(request, response);
 
+				
 				/** 내 정보 수정 **/
 			} else if (cmd.equals("/update.mypage")) {
 				String action = request.getParameter("action");
@@ -102,6 +103,7 @@ public class MypageController extends HttpServlet {
 				String email = multi.getParameter("email");
 				String avatar ="";
 				String deleteSysname=iDAO.selectMypageAvatar(id);
+				
 				if(sysName == null) {
 					if(multi.getParameter("defaultCheck").equals("true")) {
 						if (!deleteSysname.equals("")) {
@@ -136,7 +138,6 @@ public class MypageController extends HttpServlet {
 					 }else {
 					    System.out.println("파일이 존재하지 않습니다.");
 					 }
-			
 				}
 			
 				if(deleteSysname.equals("")) {
@@ -146,9 +147,7 @@ public class MypageController extends HttpServlet {
 					iDAO.updateMypage(oriName, sysName, id);
 				}
 				
-				
 				MembersDTO dto = new MembersDTO(id, null, name, nickname, phone, email, null, null, 0, avatar, null);
-
 				mDAO.edit(dto);
 				
 				request.getSession().setAttribute("WolfAvatar", avatar);
@@ -202,17 +201,6 @@ public class MypageController extends HttpServlet {
 				request.getRequestDispatcher("/views/mypage/myGameList.jsp").forward(request, response);
 
 				
-				/** 마이페이지 게임 점수 업데이트 **/
-			} else if(cmd.equals("/updateGameScore.mypage")) {
-
-				String id = (String)session.getAttribute("WolfID");
-				int score = 7130;
-				int game_seq = 2;
-				
-				gDAO.updateGameScore(score, id, game_seq);
-				response.sendRedirect("/mypageGameList.mypage");
-				
-				
 				/** 문의내역 조회 **/
 			} else if(cmd.equals("/myList.mypage")) {
 				String pcpage=request.getParameter("cpage");
@@ -234,11 +222,21 @@ public class MypageController extends HttpServlet {
 				
 				/** 회원 탈퇴 **/
 			} else if(cmd.equals("/delete.mypage")) {
+				
 				String id = (String)session.getAttribute("WolfID");
-				
-				mDAO.deleteMember(id);
-				response.sendRedirect("/logout.members");
-				
+			    String inputPw = EncryptionUitls.getSHA512(request.getParameter("password"));
+
+			    boolean isValid = mDAO.isPWExist(id, inputPw);
+			    
+			    response.setContentType("text/html; charset=UTF-8");
+			    
+			    if(isValid) {
+			    		mDAO.deleteMember(id);
+			    		response.getWriter().append("ok");
+			    }
+				else {
+					response.getWriter().append("fail");
+				}
 			}
 			
 			
