@@ -391,15 +391,23 @@ pageEncoding="UTF-8"%>
       /* 내정보 카테고리 버튼 */
       .dashboard-inner_box .mypage_btn {
         margin-left: 380px;
-        width: 110px;
+        width: 100px;
         height: 45px;
-        border-radius: 25px;
+        border-radius: 8px;
+        /* background-color: #374c80; */
+        background-color: #fcac2d;
+        color: white;
+        border: none;
       }
       /* 나머지 카테고리 버튼 */
       .dashboard-inner_box > div:last-child > button {
-        width: 110px;
+        width: 100px;
         height: 45px;
-        border-radius: 25px;
+        border-radius: 8px;
+        /* background-color: #374c80; */
+        background-color: #fcac2d;
+        color: white;
+        border: none;
       }
 
       .mypage-dashboard > div:first-child > div:last-child {
