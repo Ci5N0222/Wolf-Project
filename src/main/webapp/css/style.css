@@ -248,6 +248,7 @@ body.light {
 	font-size: 40px;
 	height: 30%;
 	z-index: 10;
+	font-family: 'Luckiest Guy', cursive;
 }
 
 /* 모바일 main */
@@ -271,6 +272,7 @@ body.light {
 
 .item {
 	position: relative;
+	font-family: 'Luckiest Guy', cursive;
 }
 
 .item>.card {
@@ -381,6 +383,7 @@ body.light {
 	.M_main {
 		display: none;
 	}
+	.navi {font-size: 1rem;}
 	.wolfLogo {display: none;}
 
 	.navi>div:nth-child(1),
