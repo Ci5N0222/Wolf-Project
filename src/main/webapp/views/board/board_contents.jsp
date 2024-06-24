@@ -47,7 +47,7 @@
       
          
     }
-    .btn{
+    .btn_css{
     	height: 30px;
     	line-height: 30px;
     	font-size: 15px ;
@@ -57,14 +57,28 @@
     	border-radius: 5px;
     	cursor: pointer;
     }
-    .btn:hover{
+    .btn_css:hover{
         transform: scale(1.2);
         text-decoration: underline;
     }
     #files{
         color: white;
     }
+    body.swal2-height-auto {
+            height: 100% !important;
+        }       
+        .custom-confirm-button {
+            color: red !important;
+            background-color: #001021 !important;
+          
+            /* 확인 버튼 텍스트 색깔 */
+        }
 
+        .custom-cancel-button {
+          
+            color: white !important;
+            /* 취소 버튼 텍스트 색깔 */
+        }
 </style>
 <style>
     body {
@@ -78,6 +92,15 @@
     z-index: 100;
     position: relative;
 }
+.m_navi{
+        position: relative !important;
+    }
+    .navi{
+        min-height: auto !important;
+    }
+    #wolfLogo{
+        width: auto !important;
+    }
 </style>
 
 </head>
@@ -102,8 +125,8 @@
                     </div>
                     <div style="flex: 8;"  id="contents"></div>
                     <div style="display: flex; flex: 1; justify-content: flex-end; "class="index">        
-                            <button type="button"  class="btn" id="list">목록으로</button>&nbsp&nbsp
-                            <button class="btn">작성완료</button>
+                            <button type="button"  class="btn_css" id="list">목록으로</button>&nbsp&nbsp
+                            <button class="btn_css">작성완료</button>
                     </div>
                     <div id="files" class="index"">
                     </div>
@@ -113,6 +136,59 @@
         </div>
     </div>
 
+
+<script>
+		$("#list").on("click",function(){
+            let boardCode = "<%= boardCode %>";
+            swal("/list.board?board_code="+boardCode)
+            
+			
+		})
+</script>
+
+
+<script>
+         function swal(comfirm) {
+            Swal.fire({
+                title: '목록으로 돌아가시겠습니까? ',
+                // text: "You won't be able to revert this!",
+                showCancelButton: true,
+                confirmButtonText: '돌아가기',
+                cancelButtonText: '취소하기',
+                reverseButtons: false, // 확인 버튼과 취소 버튼을 반대로 표시
+                customClass: {
+                    confirmButton: 'custom-confirm-button',
+                    cancelButton: 'custom-cancel-button'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // 확인 버튼을 클릭한 경우
+                    Swal.fire(
+                        'comfirm!'
+                    ).then((result) => {
+                        if (result.isConfirmed) {
+                            
+                            location.href = comfirm;
+                            $.ajax({
+                                url:"/delete.images?board_code="+"<%= boardCode %>"
+                            }).done(function(resp){
+                            // alert(resp);
+                             location.href=comfirm;
+                            })
+                        }
+                    });
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    // 취소 버튼을 클릭한 경우
+                    Swal.fire(
+                        'Cancelled'
+                    ).then((result) => {
+
+                    });
+
+                }
+            });
+        }
+</script>
    
 <script>
     var  myButton;
@@ -215,18 +291,7 @@
         }
     });
 </script>
-<script>
-		$("#list").on("click",function(){
-            let boardCode = "<%= boardCode %>";
-            $.ajax({
-                url:"/delete.images?board_code="+boardCode
-            }).done(function(resp){
-               // alert(resp);
-                location.href="/list.board?board_code="+boardCode;
-            })
-			
-		})
-</script>
+
 
 <div class="sun"></div>
       <!-- mode -->

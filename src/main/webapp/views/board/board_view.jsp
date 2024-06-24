@@ -87,6 +87,9 @@
         flex-direction: column;
        
     }
+    .m_navi{
+        position: relative !important;
+    }
     .menu_title{
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             font-size: 15px;
@@ -280,6 +283,29 @@
 		if(startNavi==1)needPrev=false;
 		if(endNavi==page_total_count)needNext =false;
 
+        let needPrevMax=true;
+        let needNextMax=true;
+
+        if(startNavi==1)needPrevMax=false;
+		if(endNavi==page_total_count)needNextMax =false;
+
+
+        if(needPrevMax) {
+            let div=$("<div class='page-number center'>");
+            let pagelink=$("<a href='/list.board?cpage=1"+"&target=${target}&keyword=${keyword}'>«</a>");
+            pagelink.css("text-decoration","none")
+            div.append(pagelink);
+            div.on("click",function(){
+                    pagelink[0].click();
+            })
+
+
+
+			navi.append(div);
+        }
+
+
+
 		if(needPrev) {
             let div=$("<div class='page-number center'>");
             let pagelink=$("<a href='/list.board?cpage="+(startNavi-1)+"&target=${target}&keyword=${keyword}'>⏴</a>");
@@ -314,6 +340,16 @@
 		if(needNext) {
             let div=$("<div class='page-number center'>");
             let pagelink=$("<a href='/list.board?cpage="+(endNavi+1)+"&target=${target}&keyword=${keyword}'>⏵</a>");
+            div.append(pagelink);
+            pagelink.css("text-decoration","none")
+            div.on("click",function(){
+                    pagelink[0].click();
+            })
+			navi.append(div);
+		}
+        if(needNextMax) {
+            let div=$("<div class='page-number center'>");
+            let pagelink=$("<a href='/list.board?cpage="+page_total_count+"&target=${target}&keyword=${keyword}'>»</a>");
             div.append(pagelink);
             pagelink.css("text-decoration","none")
             div.on("click",function(){

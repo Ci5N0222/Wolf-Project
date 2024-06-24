@@ -222,7 +222,15 @@
         overflow-wrap: break-word; 
         overflow: auto;
     }
-
+    .m_navi{
+        position: relative !important;
+    }
+    .navi{
+        min-height: auto !important;
+    }
+    #wolfLogo{
+        width: auto !important;
+    }
     
 </style>
 

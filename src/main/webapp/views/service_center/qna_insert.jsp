@@ -38,7 +38,7 @@
 <!-- Project local -->
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/service.css">
-<script src="/js/service.js"></script>
+<script src="/js/main.js"></script>
 <script src="/js/tinymce.js"></script>
 
 </head>
@@ -94,6 +94,5 @@
 				class="fa-solid fa-lightbulb"></i>
 		</div>
 	</div>
-	<script src="/js/main.js"></script>
 </body>
 </html>

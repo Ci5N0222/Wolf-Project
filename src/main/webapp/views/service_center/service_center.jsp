@@ -34,7 +34,7 @@
 <!-- Project local -->
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/service.css">
-<script src="/js/service.js"></script>
+<script src="/js/main.js"></script>
 
 </head>
 <body>
@@ -99,6 +99,5 @@
 				class="fa-solid fa-lightbulb"></i>
 		</div>
 	</div>
-	<script src="/js/main.js"></script>
 </body>
 </html>

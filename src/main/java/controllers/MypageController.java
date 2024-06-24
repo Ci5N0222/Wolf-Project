@@ -27,6 +27,7 @@ import members.dao.MembersDAO;
 import members.dto.MembersDTO;
 import mypage.dao.MypageDAO;
 import mypage.dto.GameScoreDTO;
+import mypage.dto.MypageDTO;
 
 @WebServlet("*.mypage")
 public class MypageController extends HttpServlet {
@@ -201,23 +202,27 @@ public class MypageController extends HttpServlet {
 				request.getRequestDispatcher("/views/mypage/myGameList.jsp").forward(request, response);
 
 				
-				/** 문의내역 조회 **/
+				/** 내 게시글 조회 **/
 			} else if(cmd.equals("/myList.mypage")) {
-				String pcpage=request.getParameter("cpage");
-				if(pcpage==null) pcpage="1";
-				int cpage=Integer.parseInt(pcpage);
 				
-				int board_code=Integer.parseInt(request.getParameter("board_code"));
+				String id = (String) request.getSession().getAttribute("WolfID");
+				String pcpage = request.getParameter("cpage");
+				if(pcpage == null) pcpage = "1";
+				int cpage = Integer.parseInt(pcpage);
 				
-				Object[] boardList= bDAO.selectAll(PageConfig.recordCountPerPage, cpage, board_code);
+				List<MypageDTO.BoardListDTO> boardList = pDAO.myBoardList(
+						id,
+						cpage * PageConfig.recordCountPerPage - (PageConfig.recordCountPerPage - 1),
+						cpage * PageConfig.recordCountPerPage);
 				
-				request.setAttribute("list", boardList[0]);
-				request.setAttribute("board_nickname_list", boardList[1]);//boardList[1]
+				request.setAttribute("list", boardList);
+
 				request.setAttribute("cpage", cpage);
-				request.setAttribute("record_count_per_page", PageConfig.recordCountPerPage);
+				request.setAttribute("recode_total_count", pDAO.myBoardTotalCount(id));
+				request.setAttribute("recode_count_per_page", PageConfig.recordCountPerPage);
 				request.setAttribute("navi_count_per_page", PageConfig.naviCountPerPage);
-				request.setAttribute("board_code",board_code);
 				
+
 				request.getRequestDispatcher("/views/mypage/myList.jsp").forward(request, response);
 				
 				/** 회원 탈퇴 **/

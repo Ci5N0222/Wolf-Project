@@ -34,7 +34,7 @@
 <!-- Project local -->
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/service.css">
-<script src="/js/service.js"></script>
+<script src="/js/main.js"></script>
 
 </head>
 <body>
@@ -111,12 +111,9 @@
 						pagenation(${cpage}, ${recode_total_count}, ${recode_count_per_page}, ${navi_count_per_page}, "/qna_list.service", "${wpageName}", "${wpage}");
 					</script>
 				</div>
-				
 			</main>
 			
-			<main class="M_main">
-				
-			</main>
+			<main class="M_main"></main>
 		</div>
 
 		<div class="sun"></div>
@@ -126,6 +123,5 @@
 				class="fa-solid fa-lightbulb"></i>
 		</div>
 	</div>
-	<script src="/js/main.js"></script>
 </body>
 </html>
