@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import commons.DBConfig;
-import reply_child_dto.Reply_childDTO;
+import reply_child.dto.Reply_childDTO;
 
 public class Reply_childDAO {
 	
