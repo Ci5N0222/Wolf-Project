@@ -440,7 +440,7 @@ public class AdminController extends HttpServlet {
 			
 			
 			/** QNA 게시판 리스트 **/
-			else if(cmd.equals("/board_qna.admin")) {
+			else if(cmd.equals("/qna_list.admin")) {
 				if(!adminSession) response.sendRedirect("/page_login.admin");
 				else {
 					// 내용 작성
@@ -449,7 +449,7 @@ public class AdminController extends HttpServlet {
 					int cpage = Integer.parseInt(pcpage);
 					
 					String res = request.getParameter("res");
-					if(res == null) res = "Y";
+					if(res == null) res = "1";
 
 					List<ServiceCenterDTO> boardList = dao.getQnaList(
 							res,
@@ -460,7 +460,7 @@ public class AdminController extends HttpServlet {
 					
 					/** 페이징 **/
 					request.setAttribute("cpage", cpage);
-					request.setAttribute("recode_total_count", dao.getBoardTotalCount());
+					request.setAttribute("recode_total_count", dao.getQnaTotalCount(res));
 					request.setAttribute("recode_count_per_page", PageConfig.recordCountPerPage);
 					request.setAttribute("navi_count_per_page", PageConfig.naviCountPerPage);
 					

@@ -237,8 +237,8 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       }
 
       /* div {
-        border: 1px solid aqua;
-      } */
+          border: 1px solid aqua;
+        } */
 
       .mypage-select-container {
         display: flex;
@@ -321,7 +321,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       .select-board .select-board-list .avatar-img-area {
         height: 300px;
         display: flex;
-        margin-bottom: 50px;
+        margin-bottom: 10px;
         margin-top: 30px;
       }
       .select-board .select-board-list .avatar-img-area > div {
@@ -329,7 +329,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         position: relative;
       }
       .avatar-img-area > div:nth-child(2) {
-        background-color: cadetblue;
+        background-color: lightgray;
         border-radius: 100%;
         overflow: hidden;
         width: 100%;
@@ -343,12 +343,28 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       .pointer {
         cursor: pointer;
       }
-
       .avatar-img-area > div:nth-child(2) img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         object-position: center;
+      }
+
+      .select-board .select-board-list .avatar-defaultImg-btn {
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      .select-board .select-board-list .avatar-defaultImg-btn > button {
+        background-color: #fab74b;
+        color: white;
+        border-radius: 8px;
+        border: none;
+        width: 150px;
+        height: 40px;
+        font-weight: 500;
       }
 
       .select-board .select-board-list .row {
@@ -558,6 +574,11 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                       </div>
                       <div></div>
                     </div>
+                    <div class="avatar-defaultImg-btn" style="display: none">
+                      <button type="button" id="defaultImgBtn">
+                        기본 이미지로 변경
+                      </button>
+                    </div>
                     <div class="row">
                       <div class="txt">ID</div>
                       <div class="content" id="id" name="id">${member.id}</div>
@@ -662,6 +683,12 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                   id="hidden_email"
                   value="${member.email}"
                 />
+                <input
+                  type="hidden"
+                  name="defaultCheck"
+                  value="false"
+                  id="defaultCheck"
+                />
               </form>
             </section>
           </div>
@@ -688,6 +715,8 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       let regexName = /^[가-힣]{2,5}$/;
       let regexPhone = /^01[\d]-?\d{4}-?\d{4}$/;
       let regexEmail = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.(com|net|co\.kr)+$/;
+
+      $("#defaultImgBtn").prop("disabled", true); // 기본 이미지로 변경 버튼 비활성화
 
       // 수정버튼 눌렀을 시
       $("#edit").on("click", function () {
@@ -770,7 +799,23 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
           }
         });
 
-        $("#avatarImgArea").addClass("pointer");
+        $("#avatarImgArea").addClass("pointer"); // CSS로 이미지 클릭 활성화
+        $("#defaultImgBtn").prop("disabled", false); // 기본 이미지로 변경 버튼 활성화
+        $(".avatar-defaultImg-btn").show();
+      });
+
+      // 기본 이미지로 변경
+
+      $("#defaultImgBtn").click(function () {
+        if ($(this).prop("disabled")) {
+          return; // 버튼이 비활성화 상태라면 아무 작업도 하지 않음
+        }
+
+        if (confirm("프로필 사진을 기본 이미지로 변경하시겠습니까?")) {
+          $("#avatarImg").attr("src", "/images/default-avatar.jpg");
+          $("#inputAvatar").val(null);
+          $("#defaultCheck").val("true");
+        }
       });
 
       // 홈 버튼 눌렀을 시

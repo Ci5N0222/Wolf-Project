@@ -388,8 +388,6 @@ private static BoardDAO instance;
 	
 	public  String[] findDeletedTags(String originalHtml) {
 		Document doc = Jsoup.parse(originalHtml);
-   
-
 	    Elements imgTags = doc.select("img");
 	    ArrayList<String> sysnames=new ArrayList<>();
 

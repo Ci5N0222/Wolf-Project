@@ -75,6 +75,22 @@ public class ImagesDAO {
 		return result;
 	}
 	
+	
+	public boolean deleteMypageAvatar(String member_id) {
+		String sql="delete from images where member_id=?";
+		boolean result=false;
+		try (Connection con=DBConfig.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)){
+			pstat.setString(1, member_id);
+			if(pstat.executeUpdate()>0)result=true;
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return result;
+	}
+	
 	public String selectMypageAvatar(String member_id) {
 		String sql="select sysname from images where member_id =? and image_code =2";
 		String result="";

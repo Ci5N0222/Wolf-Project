@@ -569,6 +569,33 @@ public class AdminDAO {
 	
 	
 	/**
+	 * 문의 목록의 개수를 반환하는 메서드
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 */
+	public int getQnaTotalCount(String res) throws Exception {
+		String sql = "";
+		if(res.equals("1")) {
+			sql = "SELECT count(*) FROM board b JOIN qna q  ON b.seq = q.board_seq JOIN members m ON m.id = b.member_id WHERE q.res_ok = 'Y' OR q.res_ok = 'N'";
+		} else {
+			sql = "SELECT count(*) FROM board b JOIN qna q  ON b.seq = q.board_seq JOIN members m ON m.id = b.member_id WHERE q.res_ok = ?";
+		}
+		
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			if(!res.equals("1")) pstat.setString(1, res);
+			
+			try(ResultSet rs = pstat.executeQuery()){
+				rs.next();
+				
+				return rs.getInt(1);
+			}
+		}
+	}
+	
+	
+	/**
 	 * 문의 목록을 반환하는 메서드
 	 * @param res
 	 * @param start
@@ -577,13 +604,23 @@ public class AdminDAO {
 	 * @throws Exception
 	 */
 	public List<ServiceCenterDTO> getQnaList(String res, int start, int end) throws Exception {
-		String sql = "SELECT b.*, q.res_ok, m.nickname FROM (select board.*, row_number() over(order by seq desc) rown FROM board WHERE board_code = 3) b JOIN qna q  ON b.seq = q.board_seq JOIN members m ON m.id = b.member_id WHERE q.res_ok = ? AND rown BETWEEN ? AND ?";
+		String sql = "";
+		if(res.equals("1")) {
+			sql = "SELECT b.*, q.res_ok, m.nickname FROM (select board.*, row_number() over(order by seq desc) rown FROM board WHERE board_code = 3) b JOIN qna q  ON b.seq = q.board_seq JOIN members m ON m.id = b.member_id WHERE rown BETWEEN ? AND ?";
+		} else {
+			sql = "SELECT b.*, q.res_ok, m.nickname FROM (select board.*, row_number() over(order by seq desc) rown FROM board WHERE board_code = 3) b JOIN qna q  ON b.seq = q.board_seq JOIN members m ON m.id = b.member_id WHERE q.res_ok = ? AND rown BETWEEN ? AND ?";
+		}
 		
 		try(Connection con = DBConfig.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql)){
-			pstat.setString(1, res);
-			pstat.setInt(2, start);
-			pstat.setInt(3, end);
+			if(res.equals("1")) {
+				pstat.setInt(1, start);
+				pstat.setInt(2, end);
+			} else {
+				pstat.setString(1, res);
+				pstat.setInt(2, start);
+				pstat.setInt(3, end);
+			}
 			
 			try(ResultSet rs = pstat.executeQuery()){
 				List<ServiceCenterDTO> list = new ArrayList<>();
@@ -606,7 +643,6 @@ public class AdminDAO {
 				return list;
 			}
 		}
-		
 	}
 	
 	

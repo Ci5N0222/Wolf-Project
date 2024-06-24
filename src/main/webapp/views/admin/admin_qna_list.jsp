@@ -47,7 +47,7 @@
 							<th>제목</th>
 							<th>작성자</th>
 							<th>작성일</th>
-							<th>조회수</th>
+							<th>답변</th>
 						</tr>
 			 			<c:forEach var="boardList" items="${boardList}">
 				 			<tr>
@@ -55,7 +55,14 @@
 				 				<td><a href="/detail.board?seq=${boardList.seq}&target=&keyword=&board_code=2">${boardList.title}</a></td>
 				 				<td>${boardList.nickname}</td>
 				 				<td><fmt:formatDate value="${boardList.write_date}" pattern="yyyy-MM-dd" /></td>
-				 				<td>${boardList.count}</td>
+				 				<c:choose>
+				 					<c:when test="${boardList.res_ok eq 'Y'}">
+				 						<td>완료</td>
+				 					</c:when>
+				 					<c:otherwise>
+				 						<td>대기</td>
+				 					</c:otherwise>
+				 				</c:choose>
 				 			</tr>
 			 			</c:forEach>
 					</table>
@@ -64,7 +71,7 @@
 				<div class="page-navigation"></div>
 				<script>
 					/** 페이징 네이게이터 **/
-					pagenation(${cpage}, ${recode_total_count}, ${recode_count_per_page}, ${navi_count_per_page}, "/notice_list.admin", "${wpageName}", "${wpage}");
+					pagenation(${cpage}, ${recode_total_count}, ${recode_count_per_page}, ${navi_count_per_page}, "/qna_list.admin", "${wpageName}", "${wpage}");
 				</script>
 			</div>
         </section>
