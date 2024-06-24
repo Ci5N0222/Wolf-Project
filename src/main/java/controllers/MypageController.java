@@ -49,13 +49,13 @@ public class MypageController extends HttpServlet {
 		System.out.println("확인중 :" + cmd);
 		
 		try {
-			/* 마이페이지 메인 화면 */
+			/** 마이페이지 메인 화면 **/
 			if(cmd.equals("/main.mypage")) {
 				String nickName = (String)session.getAttribute("WolfNickname");
 				
 				request.getRequestDispatcher("/views/mypage/mypage.jsp").forward(request, response);				
 			
-				/* 마이페이지 내 정보 조회 */
+				/** 마이페이지 내 정보 조회 **/
 			} else if(cmd.equals("/selectMember.mypage")) {
 				String loginID = (String)session.getAttribute("WolfID");
 				MembersDTO dto = mDAO.selectMember(loginID);
@@ -63,8 +63,13 @@ public class MypageController extends HttpServlet {
 				request.setAttribute("member", dto);
 				request.getRequestDispatcher("/views/mypage/updateInfo.jsp").forward(request, response);
 
-				/* 내 정보 수정 */
+				/** 내 정보 수정 **/
 			} else if (cmd.equals("/update.mypage")) {
+				String action = request.getParameter("action");
+			    if ("defaultAvatar".equals(action)) {    
+			    		pw.append("success"); 
+			        
+			    } else {
 				//--- 파일 업로드
 				String id = (String)session.getAttribute("WolfID");
 				int maxSize = 1024 * 1024 * 10; // 10MB 사이즈 제한
@@ -98,7 +103,26 @@ public class MypageController extends HttpServlet {
 				String avatar ="";
 				String deleteSysname=iDAO.selectMypageAvatar(id);
 				if(sysName == null) {
-					avatar = (String)session.getAttribute("WolfAvatar");
+					if(multi.getParameter("defaultCheck").equals("true")) {
+						if (!deleteSysname.equals("")) {
+				            File imageFile = new File(realPath + "/" + deleteSysname);
+				            if (imageFile.exists()) {
+				                if (imageFile.delete()) {
+				                    System.out.println("파일 삭제 성공");
+				                } else {
+				                    System.out.println("파일 삭제 실패");
+				                }
+				            } else {
+				                System.out.println("파일이 존재하지 않습니다.");
+				            }
+				        }
+						avatar=null;
+						iDAO.deleteMypageAvatar(id);
+					}
+					else {
+						avatar = (String)session.getAttribute("WolfAvatar");
+					}
+					
 				} else {
 					avatar = "/"+id + "/" + sysName;
 					File imageFile = new File(realPath + "/" + deleteSysname);
@@ -131,7 +155,9 @@ public class MypageController extends HttpServlet {
 				request.getSession().setAttribute("WolfNickname", nickname);
 				response.sendRedirect("/selectMember.mypage");
 
-				/* 현재 비밀번호 체크 */
+			    }
+			    
+				/** 현재 비밀번호 체크 **/
 			} else if(cmd.equals("/pwCheck.mypage")){
 
 				String id = (String)session.getAttribute("WolfID");
@@ -142,6 +168,7 @@ public class MypageController extends HttpServlet {
 				response.setContentType("text/html; charset=UTF-8");			
 				if(result) response.getWriter().append("ok");
 				else response.getWriter().append("fail");
+				
 				
 				/** 비밀번호 변경 **/
 			} else if(cmd.equals("/pwUpdate.mypage")){
@@ -155,7 +182,8 @@ public class MypageController extends HttpServlet {
 				if(result > 0) response.getWriter().append("ok");
 				else response.getWriter().append("fail");
 				
-				/* 마이페이지 게임플레이 정보 조회 */
+				
+				/** 마이페이지 게임플레이 정보 조회 **/
 			} else if(cmd.equals("/mypageGameList.mypage")) {
 				String id = (String)session.getAttribute("WolfID");
 				
@@ -174,7 +202,7 @@ public class MypageController extends HttpServlet {
 				request.getRequestDispatcher("/views/mypage/myGameList.jsp").forward(request, response);
 
 				
-				/* 마이페이지 게임 점수 업데이트 */
+				/** 마이페이지 게임 점수 업데이트 **/
 			} else if(cmd.equals("/updateGameScore.mypage")) {
 
 				String id = (String)session.getAttribute("WolfID");
@@ -185,7 +213,7 @@ public class MypageController extends HttpServlet {
 				response.sendRedirect("/mypageGameList.mypage");
 				
 				
-				/* 문의내역 조회 */
+				/** 문의내역 조회 **/
 			} else if(cmd.equals("/myList.mypage")) {
 				String pcpage=request.getParameter("cpage");
 				if(pcpage==null) pcpage="1";
@@ -204,7 +232,7 @@ public class MypageController extends HttpServlet {
 				
 				request.getRequestDispatcher("/views/mypage/myList.jsp").forward(request, response);
 				
-				/* 회원 탈퇴 */
+				/** 회원 탈퇴 **/
 			} else if(cmd.equals("/delete.mypage")) {
 				String id = (String)session.getAttribute("WolfID");
 				

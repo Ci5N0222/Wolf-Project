@@ -44,12 +44,21 @@ public class MypageDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
-		
-		
-		
-		
 		return avatar;
+	}
+	
+	public void updateAvatar(String id) {
+		String sql="update members set avatar=null where id=?";
+		
+		try (Connection con =DBConfig.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)){
+			
+			pstat.setString(1, id);
+		
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 }
