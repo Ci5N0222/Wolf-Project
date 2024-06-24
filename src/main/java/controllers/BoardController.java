@@ -67,12 +67,9 @@ public class BoardController extends HttpServlet {
 					}
 				}
 				
-					
-				
-				
-				
 				int board_code=0;
 				if(request.getParameter("board_code")==null) board_code=PageConfig.board;
+				else if(request.getParameter("board_code").equals("3")) board_code=PageConfig.board;
 				else board_code=Integer.parseInt(request.getParameter("board_code"));
 				
 				String target=request.getParameter("target");
@@ -117,8 +114,11 @@ public class BoardController extends HttpServlet {
 				Object replyList[] =replyDAO.select(seq);
 				Object reply_childList[]=reply_childDAO.selectAll();
 				List<FilesDTO> fileList=filesDAO.select(seq);
+				String login_id= (String)session.getAttribute("WolfID");
 				
+				boolean checkGrade=boardDAO.checkGrade(login_id);
 				
+				request.setAttribute("checkGrade",checkGrade);
 				request.setAttribute("target",target);
 				request.setAttribute("keyword",keyword);
 				request.setAttribute("board_code",board_code);

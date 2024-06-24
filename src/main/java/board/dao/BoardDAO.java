@@ -439,6 +439,26 @@ private static BoardDAO instance;
 		return contents;
 	}
 	
+	public boolean checkGrade(String id) {
+		String sql="select grade from members where grade in(98,99) and id=?";
+		boolean check=false;
+		try (Connection con=DBConfig.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)){
+			pstat.setString(1, id);
+			
+			try (ResultSet rs=pstat.executeQuery()){
+				check=rs.next();
+				
+			} catch (Exception e) {
+			}
+			
+		} catch (Exception e) {
+			
+		}
+		return check;
+	}
+	
+	
 	public void dumidata() {
 		String sql="insert into board values(board_seq.nextval,?,?,0,?,?,sysdate,?)";
 		for (int i = 0; i < 150; i++) {
