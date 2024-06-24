@@ -62,7 +62,7 @@
 										</c:otherwise>
 									</c:choose>
 								</div>
-								<form action='/detail.game' method='post'>
+								<form action='/detail.game' method='get'>
 									<input type="hidden" name="seq" value="${l.seq}">
 									<button>${l.title}</button>
 									<div class="discription">${l.discription}</div>
