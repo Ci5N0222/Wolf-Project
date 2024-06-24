@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Noto+Sans+KR:wght@100..900&display=swap");
 
 
@@ -18,7 +19,7 @@
 	--color-nav-bg: #f9a620;
 	font-size: 16px;
 }
-
+.fa-user {color: white;}
 
 html,
 body {
@@ -545,7 +546,7 @@ body.light {
 	/* 내용물 */
 	/* 햄버거 */
 	.navbar {
-		background-color: var(--lightNav);
+		background-color: var(--darkNav);
 
 	}
 
