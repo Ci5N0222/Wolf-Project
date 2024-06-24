@@ -460,6 +460,13 @@ font-family: Arial, sans-serif;
             if($("#email").val()==""){
             	alert("이메일을 입력해주세요.")
             	return false;
+            }else{
+            	 let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+				let result = regex.test(email);
+				if (!result) {
+					alert("이메일의 형식을 맞춰 입력해주세요.");
+					return false;
+				}
             }
             
             
