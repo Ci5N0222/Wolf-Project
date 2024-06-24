@@ -132,34 +132,16 @@ body.light {
 	width: 20px;
 }
 
-@
-keyframes bg { 0% {
-	opacity: 1;
+@keyframes bg { 
+	0% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
 }
 
-100
-
-
-
-
-%
-{
-opacity
-
-
-
-
-:
-
-
-
-
-0
-
-
-;
-}
-}
 .container-fluid, .container, .main {
 	height: 100%;
 }

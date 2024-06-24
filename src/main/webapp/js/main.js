@@ -26,9 +26,14 @@ function toggleMode() {
 // 페이지 로드 시 모드 상태 복원
 document.addEventListener("DOMContentLoaded", function () {
     // 저장된 모드 상태 확인 및 설정
-    if (localStorage.getItem("mode") === "light") {
-        toggleMode();
-    }
+   	var mode = localStorage.getItem("mode");
+      if (mode === "light") {
+          toggleMode(); // light 모드인 경우 토글 함수 호출하여 변경
+      }
+  
+  	  // 모드 변경 이벤트 리스너 등록
+	  let modeEvent = document.getElementById("mode"); //버튼
+	  modeEvent.addEventListener("click", toggleMode);
   
     // 현재 페이지 주소
     var pathname = window.location.pathname;
@@ -48,9 +53,6 @@ document.addEventListener("DOMContentLoaded", function () {
   
 });
 
-// 모드 변경 이벤트 리스너 등록
-document.getElementById("mode").addEventListener("click", toggleMode);
-  
   /** Home 입장 시 게임 데이터 받아서 카드에 바인딩 **/
   const homeBinding = () => {
       $.ajax({
