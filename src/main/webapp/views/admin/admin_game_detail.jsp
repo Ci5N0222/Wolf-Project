@@ -54,14 +54,17 @@
 				    </select>
 					
 					<div class="admin-game-insert-title">
+						<p>Title</p>
 						<input type="text" id="game_title" name="game_title" value="${game.title}" readonly>
 					</div>
 					
 					<div class="admin-game-insert-discription">
+						<p>Discription</p>
 						<div id="div_game_discription" contenteditable="false">${game.discription}</div>
 					</div>
 					
 					<div class="admin-game-insert-contents">
+						<p>Contents</p>
 						<div id="div_game_contents" contenteditable="false">${game.contents}</div>
 					</div>
 					
@@ -70,7 +73,6 @@
 					<input type="hidden" name="game_contents" id="game_contents">
 					<input type="hidden" name="before_thumbnail_name" value="${beforeThumbnail}">
 					<input type="hidden" name="before_thumbnail" id="before_thumbnail" value="${game.thumbnail}">
-					
 					
 		        	<div class="admin-game-btn">
 		        		<button type="button" onclick="adminGameEdit(${game.service_code})">수정</button>

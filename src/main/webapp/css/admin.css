@@ -360,7 +360,14 @@ td > img {
 	height: 55px;
 	font-size: 18px;
 	font-weight: 800;
+	
+	border-radius: 10px;
 	padding: 10px;
+}
+
+.admin-game-insert-title > p {
+	font-size: 24px;
+	font-weight: 700;
 }
 
 .admin-game-insert-discription {
@@ -373,7 +380,13 @@ td > img {
 	height: 100%;
 	font-size: 16px;
 	border: 1px solid black;
+	border-radius: 10px;
 	padding: 10px;
+}
+
+.admin-game-insert-discription > p {
+	font-size: 24px;
+	font-weight: 700;
 }
 
 .admin-game-insert-contents {
@@ -386,7 +399,13 @@ td > img {
 	height: 100%;
 	font-size: 14px;
 	border: 1px solid black;
+	border-radius: 10px;
 	padding: 10px;
+}
+
+.admin-game-insert-contents > p {
+	font-size: 24px;
+	font-weight: 700;
 }
 
 .admin_game_insert_btn {

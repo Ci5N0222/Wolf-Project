@@ -23,13 +23,31 @@ public class ServiceCenterDAO {
 	
 	
 	/**
-	 * 문의 게시판에 글 작성시 QNA 테이블에 데이터 추가
+	 * 문의 게시판에 글 작성시 QNA 테이블에 데이터를 추가하는 메서드
 	 * @param boardSeq
 	 * @return
 	 * @throws Exception
 	 */
 	public int qnaResInsert(int boardSeq) throws Exception {
 		String sql = "insert into qna values(qna_seq.nextval, ?, 'N')";
+		
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setInt(1, boardSeq);
+			
+			return pstat.executeUpdate();
+		}
+	}
+	
+	
+	/**
+	 * 문의 게시판 답변 작성시 QNA RES가 'Y'(답변 완료)로 변경되는 메서드
+	 * @param boardSeq
+	 * @return
+	 * @throws Exception
+	 */
+	public int qnaResUpdate(int boardSeq) throws Exception {
+		String sql = "update qna set res_ok = 'Y where board_seq = ?";
 		
 		try(Connection con = DBConfig.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql)){
