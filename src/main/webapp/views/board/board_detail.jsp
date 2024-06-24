@@ -283,12 +283,11 @@
                         <div style="flex: 1;" class="center">${board_nickname}(${board_dto.member_id.substring(0, 4)}****)</div>
                         <div style="flex: 1;"  class="center"> <fmt:formatDate value="${board_dto.write_date}" pattern="yyyy.MM.dd HH:mm" /></div>
                         <div style="flex: 1;"  class="center"> 조회 ${board_dto.count}</div>
-                </div>  
-        
+                </div>
                 <div style="flex: 5; flex-direction: column; overflow: auto; height: 100% ; width: 100%;" class="dto" id="board_contents" >${board_dto.contents}</div>
                 <div style="flex: 0.8; overflow-y: auto;">
                     <form action="/update.board" method="post" id="joinform" enctype="multipart/form-data" style="flex: 1; display: flex;">
-                    <div style="flex: 2;">
+                    <div style="flex: 1.5;">
                         <div style="flex: 0.7; flex-direction: column; overflow: auto; color: gray;" id="files_div_main">
                             <c:forEach var="files_dto" items="${files_list}">
                                 <div class="files_div  justify-content: flex-start; align-items: center;">
@@ -302,10 +301,10 @@
                     </div>
                     <c:choose>
                         <c:when test="${WolfID eq board_dto.member_id}">
-                            <div style="display: flex; justify-content:flex-end; align-items: center; flex: 1;" id="div1">
-                                <div><button type="button" id="update" class="button_css">글수정</button></div>&nbsp&nbsp
-                                <div><button type="button" id="delete" class="button_css">글삭제</button></div>&nbsp&nbsp
-                                <div><button type="button" id="list" class="button_css">목록보기</button></div>&nbsp&nbsp
+                            <div style="display: flex; justify-content:flex-end; align-items: center; flex: 1.5;" id="div1">
+                                <button type="button" id="update" class="button_css">글수정</button>&nbsp&nbsp
+                                <button type="button" id="delete" class="button_css">글삭제</button>&nbsp&nbsp
+                                <button type="button" id="list" class="button_css">목록보기</button>&nbsp&nbsp
                             </div>
                             <div style="border: 0; display: none; flex: 1; justify-content:flex-end; align-items: center;" id="div2">
                                 
@@ -962,6 +961,7 @@
 
         btn5.on("click", function () {//cancel
             $(this).parent().parent().find("#files").empty();
+            data=[];
             files_delete.css("display","none");
             $("#div1").css({
                 display: "flex"

@@ -626,28 +626,7 @@ pageEncoding="UTF-8"%>
         <main class="mypage-container">
           <div class="mypage-main-title">마이페이지</div>
           <div class="aside-section-form" style="display: flex">
-            <aside class="mypage-side-menu">
-              <p onclick="location.href='/views/mypage/mypage.jsp'">
-                내정보 홈
-              </p>
-              <p onclick="location.href='/selectMember.mypage'">개인정보관리</p>
-              <p onclick="location.href='/views/mypage/updatePW.jsp'">
-                비밀번호 변경
-              </p>
-              <p onclick="location.href='/mypageGameList.mypage'">
-                게임플레이 정보
-              </p>
-              <p onclick="location.href='/myList.mypage?board_code=3'">문의내역</p>
-              <p onclick="location.href='/views/mypage/deleteMember.jsp'">
-                회원탈퇴
-              </p>
-              <p
-                class="logout"
-                onclick="if(confirm('로그아웃을 하시겠습니까?')) { location.href='/logout.members'; }"
-              >
-                로그아웃
-              </p>
-            </aside>
+            <%@ include file="/views/include/mypage_side.jsp"%>
 
             <section class="mypage-main-form">
               <div class="mypage-dashboard">
@@ -700,9 +679,11 @@ pageEncoding="UTF-8"%>
                     </div>
                     <div>
                       <div class="dashboard-inner_box">
-                        <div><p>문의내역</p></div>
+                        <div><p>내 글 목록</p></div>
                         <div>
-                          <button onclick="location.href='/myList.mypage'">
+                          <button
+                            onclick="location.href='/myList.mypage?board_code=1'"
+                          >
                             바로가기
                           </button>
                         </div>
