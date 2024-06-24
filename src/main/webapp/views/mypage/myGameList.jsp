@@ -507,7 +507,7 @@ pageEncoding="UTF-8"%>
                         </div>
                         <div class="mypage-myGameList-score">
                           <c:choose>
-                            <c:when test="${i.score != null}">
+                            <c:when test="${i.score != 0}">
                                 <p>최고점수 :
                                   <p class="score_txt">${i.score}</p>
                                   점
