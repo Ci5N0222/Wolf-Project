@@ -217,6 +217,30 @@ body.light {
 	border-radius: 100%;
 }
 
+/* 로그인 팝업 스타일 */
+#loginPopup {
+    position: absolute;
+    z-index: 100;
+    width: 200px;
+    /* height: 150px; */
+    right: 0%;
+    top: 100%;
+    border: 1px solid var(--darkNav);
+    background-color: #eeeeee63;
+    border-radius: 5px;
+    box-shadow: 0px 5px 20px #444;
+    border: 1px solid white;
+    display: flex;flex-direction: column;align-items: center;justify-content: space-between;
+    margin: 0; padding: 0;
+}
+#loginPopup > div {border: 1px solid white;width: 100%;}
+#loginPopup > div button {border: 1px solid white;}
+
+/* 모바일 네비게이션 스타일 */
+.m_navi .login-popup {
+    right: 20px;
+} 
+
 /* 컨텐츠 */
 #contents {
 	color: var(--color-white);
