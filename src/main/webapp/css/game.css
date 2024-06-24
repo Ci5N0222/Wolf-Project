@@ -472,6 +472,7 @@ body.light {
 	cursor: pointer;
 	position: absolute;
 	bottom: 5%;
+	z-index: 100;
 	right: 5%;
 	background-color: var(--bg-dark);
 	width: 50px;

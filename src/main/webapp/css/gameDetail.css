@@ -541,7 +541,7 @@ body.light {
 #mode {
 	cursor: pointer;
 	position: absolute;
-	z-index: 0;
+	z-index: 100;
 	bottom: 5%;
 	right: 5%;
 	background-color: var(--bg-dark);
