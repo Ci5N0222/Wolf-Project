@@ -213,7 +213,6 @@ public class MembersDAO {
 	
 	/**
 	 * "내정보" 출력
-	 * 
 	 * @param loginID
 	 * @return
 	 * @throws Exception

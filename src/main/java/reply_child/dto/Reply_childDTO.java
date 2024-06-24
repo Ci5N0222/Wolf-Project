@@ -1,4 +1,4 @@
-package reply_child_dto;
+package reply_child.dto;
 
 import java.sql.Timestamp;
 
