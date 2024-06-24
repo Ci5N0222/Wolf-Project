@@ -78,10 +78,8 @@
 			            	<button class="btn">작성완료</button>        
 		                    <button type="button" onclick="location.href='/qna_list.service'">취소</button>
 			            </div>
-			            <input type="hidden" name="board_code" value="${board_code}">
 					</div>
 				</form>
-				
 			</main>
 			
 			<main class="M_main">

@@ -10,13 +10,16 @@
         </div>
     </div>
     <div class="col-4 d-flex justify-content-center align-items-center">
-            <div id="wolfLogo" onclick="location.href='/index.jsp'">
+            <div id="wolfLogo" onclick="location.href='/'">
                 <img src="/images/wolfLogo.png" alt="">
             </div>
     </div>
     <div class="col-4 d-flex justify-content-end">
         <div class="d-flex flex-row">
             <div class="me-3 naviBtn" onclick="location.href='/main.service'">Service</div>
+            <c:if test="${ WolfAdmin == true }">
+            	<div class="me-3 naviBtn" onclick="location.href='/main.admin'">Admin</div>
+            </c:if>
             <c:if test="${WolfID != null}">
 	            <div class="naviBtn" onclick="location.href ='/views/mypage/mypage.jsp'">
 	            	<c:choose>
