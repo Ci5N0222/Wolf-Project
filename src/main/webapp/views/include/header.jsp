@@ -10,7 +10,7 @@
         </div>
     </div>
     <div class="col-4 d-flex justify-content-center align-items-center">
-            <div id="wolfLogo" onclick="location.href='/index.jsp'">
+            <div id="wolfLogo" onclick="location.href='/'">
                 <img src="/images/wolfLogo.png" alt="">
             </div>
     </div>
