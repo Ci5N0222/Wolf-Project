@@ -15,6 +15,7 @@ import board.dao.BoardDAO;
 import files.dao.FilesDAO;
 import reply.dao.ReplyDAO;
 import reply.dto.ReplyDTO;
+import service_center.dao.ServiceCenterDAO;
 
 /**
  * Servlet implementation class ReplyController
@@ -31,34 +32,42 @@ public class ReplyController extends HttpServlet {
 		BoardDAO boardDAO= BoardDAO.getInstance();
 		FilesDAO filesDAO= FilesDAO.getInstance();
 		ReplyDAO replyDAO= ReplyDAO.getInstance();
+		ServiceCenterDAO scDAO = ServiceCenterDAO.getInstance();
 		List<ReplyDTO> list = new ArrayList<>();
-		
-		if(cmd.equals("/insert.reply")) {
-			String contents=request.getParameter("contents");
-			String member_id=request.getParameter("member_id");
-			int board_code=Integer.parseInt(request.getParameter("board_code"));
-			int board_seq=Integer.parseInt( request.getParameter("board_seq"));
-			replyDAO.insert(new ReplyDTO(0,member_id,contents,board_seq,null));
-			response.sendRedirect("/detail.board?seq="+board_seq+"&board_code="+board_code);
-			
-		} else if(cmd.equals("/delete.reply")) {
-			int seq=Integer.parseInt(request.getParameter("seq"));
-			int board_seq=Integer.parseInt(request.getParameter("board_seq"));	
-			replyDAO.delete(seq);
-			
-			
-		} else if(cmd.equals("/update.reply")) {
-			int seq=Integer.parseInt(request.getParameter("seq"));
-			int board_seq=Integer.parseInt(request.getParameter("board_seq"));
-			String contents =request.getParameter("contents");
-			replyDAO.update(new ReplyDTO(seq,null,contents,0,null));
+		try {
+			if(cmd.equals("/insert.reply")) {
+				String contents=request.getParameter("contents");
+				String member_id=request.getParameter("member_id");
+				int board_code=Integer.parseInt(request.getParameter("board_code"));
+				int board_seq=Integer.parseInt( request.getParameter("board_seq"));
+				if(board_code==3) {
+					scDAO.qnaResUpdate(board_seq);
+				}
+				replyDAO.insert(new ReplyDTO(0,member_id,contents,board_seq,null));
+				response.sendRedirect("/detail.board?seq="+board_seq+"&board_code="+board_code);
+				
+			} else if(cmd.equals("/delete.reply")) {
+				int seq=Integer.parseInt(request.getParameter("seq"));
+				int board_seq=Integer.parseInt(request.getParameter("board_seq"));	
+				replyDAO.delete(seq);
+				
+				
+			} else if(cmd.equals("/update.reply")) {
+				int seq=Integer.parseInt(request.getParameter("seq"));
+				int board_seq=Integer.parseInt(request.getParameter("board_seq"));
+				String contents =request.getParameter("contents");
+				replyDAO.update(new ReplyDTO(seq,null,contents,0,null));
 
-			
-		} else if(cmd.equals("/3.reply")) {
-			
-		} else if(cmd.equals("/4.reply")) {
-			
+				
+			} else if(cmd.equals("/3.reply")) {
+				
+			} else if(cmd.equals("/4.reply")) {
+				
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
+		
 	}
 
 

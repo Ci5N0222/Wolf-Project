@@ -1,6 +1,5 @@
 package controllers;
 
-import java.io.Console;
 import java.io.IOException;
 import java.util.List;
 
@@ -10,12 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.jasper.tagplugins.jstl.core.ForTokens;
-
 import com.google.gson.Gson;
 
 import game.dao.GameDAO;
-import game.dao.ScoreDAO;
 import game.dto.GameDTO;
 import game.dto.ScoreDTO;
 import game_score.dao.GameScoreDAO;
@@ -30,7 +26,6 @@ public class GameController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		GameDAO dao = GameDAO.getInstance();
 		ImagesDAO imagesDAO = ImagesDAO.getInstance();
-		ScoreDAO scoreDAO = ScoreDAO.getInstance();
 		RankDAO rankDAO = RankDAO.getInstance();
 		GameScoreDAO gameScoreDAO = GameScoreDAO.getInstance();
 		Gson g = new Gson();
@@ -77,10 +72,7 @@ public class GameController extends HttpServlet {
 			}else if(cmd.equals("/gameview.game")) {
 				String game_seq = request.getParameter("seq");
 				String id = (String)request.getSession().getAttribute("WolfID");
-				
-				// 해당 게임의 탑 랭크 3명
-//				List <ScoreDTO> topRank = scoreDAO.getThisGameRank(Integer.parseInt(game_seq));
-				
+
 				List<RankDTO> topRank = rankDAO.selectRank(Integer.parseInt(game_seq));
 
 				int score = 0;
@@ -96,10 +88,9 @@ public class GameController extends HttpServlet {
 				request.setAttribute("myScore", score);
 				request.getRequestDispatcher("/views/game/game.jsp").forward(request, response);
 				
-				
 			}
+			
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 	}

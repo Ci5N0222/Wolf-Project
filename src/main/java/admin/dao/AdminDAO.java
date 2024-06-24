@@ -529,26 +529,28 @@ public class AdminDAO {
 	
 	
 	/**
-	 * 게시물의 개수를 반환하는 메서드
+	 * 게시물(공지, FAQ)의 개수를 반환하는 메서드
 	 * @param code
 	 * @return
 	 * @throws Exception
 	 */
-	public int getBoardTotalCount() throws Exception {
-		String sql = "select count(*) from board where board_code = 2";
+	public int getBoardTotalCount(int code) throws Exception {
+		String sql = "select count(*) from board where board_code = ?";
 				
 		try(Connection con = DBConfig.getConnection();
-			PreparedStatement pstat = con.prepareStatement(sql);
-			ResultSet rs = pstat.executeQuery()){
-			rs.next();
-			
-			return rs.getInt(1);
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setInt(1, code);
+			try(ResultSet rs = pstat.executeQuery()){
+				rs.next();
+				
+				return rs.getInt(1);
+			}
 		}
 	}
 	
 	
 	/**
-	 * 게시물의 목록을 반환하는 메서드
+	 * 게시물(공지, FAQ)의 목록을 반환하는 메서드
 	 * @param start
 	 * @param end
 	 * @return

@@ -369,7 +369,7 @@ public class AdminController extends HttpServlet {
 
 // ============================================ [ 게시판 ] =============================================
 			
-			/** 게시판 리스트 **/
+			/** 게시판 리스트( 공지, FAQ ) **/
 			else if(cmd.equals("/notice_list.admin")) {
 				if(!adminSession) response.sendRedirect("/page_login.admin");
 				else {
@@ -390,7 +390,7 @@ public class AdminController extends HttpServlet {
 					
 					/** 페이징 **/
 					request.setAttribute("cpage", cpage);
-					request.setAttribute("recode_total_count", dao.getBoardTotalCount());
+					request.setAttribute("recode_total_count", dao.getBoardTotalCount(Integer.parseInt(boardCode)));
 					request.setAttribute("recode_count_per_page", PageConfig.recordCountPerPage);
 					request.setAttribute("navi_count_per_page", PageConfig.naviCountPerPage);
 					
@@ -401,7 +401,7 @@ public class AdminController extends HttpServlet {
 				}
 			}
 
-			/** 공지사항 작성 **/
+			/** 공지사항, FAQ 작성 **/
 			else if(cmd.equals("/page_notice_insert.admin")) {
 				if(!adminSession) response.sendRedirect("/page_login.admin");
 				String code = request.getParameter("code");
