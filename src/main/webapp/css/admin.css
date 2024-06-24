@@ -175,7 +175,7 @@ td > img {
 
 
 .admin-members-info {
-	width: 350px;
+	width: 450px;
 	height: 100%;
 }
 .admin-members-info > div > button {
@@ -202,16 +202,17 @@ td > img {
 .admin-members-info > label {
 	text-align: left;
 	display: inline-block;
-	width: 90px;
-	padding: 5px;	
+	width: 120px;
+	padding: 5px;
+	font-size: 18px;
 }
 
 .admin-members-info > input {
     padding: 10px;
     margin: 10px;
-    width: 200px;
+    width: 250px;
     border: none;
-    font-size: 16px;
+    font-size: 18px;
 }
 .admin-members-info > input:focus {
 	outline: none;
@@ -360,7 +361,14 @@ td > img {
 	height: 55px;
 	font-size: 18px;
 	font-weight: 800;
+	
+	border-radius: 10px;
 	padding: 10px;
+}
+
+.admin-game-insert-title > p {
+	font-size: 24px;
+	font-weight: 700;
 }
 
 .admin-game-insert-discription {
@@ -373,7 +381,13 @@ td > img {
 	height: 100%;
 	font-size: 16px;
 	border: 1px solid black;
+	border-radius: 10px;
 	padding: 10px;
+}
+
+.admin-game-insert-discription > p {
+	font-size: 24px;
+	font-weight: 700;
 }
 
 .admin-game-insert-contents {
@@ -386,7 +400,13 @@ td > img {
 	height: 100%;
 	font-size: 14px;
 	border: 1px solid black;
+	border-radius: 10px;
 	padding: 10px;
+}
+
+.admin-game-insert-contents > p {
+	font-size: 24px;
+	font-weight: 700;
 }
 
 .admin_game_insert_btn {

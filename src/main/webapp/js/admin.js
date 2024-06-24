@@ -14,6 +14,18 @@ $(() => {
 	$("#board-code-select").on("change", () => {
 		location.href="/notice_list.admin?board_code=" + $("#board-code-select").val();
 	});
+	
+	
+	if(pathname === "/qna_list.admin"){
+		const searchParams = new URLSearchParams(window.location.search);
+    	const response = searchParams.get('res');
+    	if(response !== null) $("#admin-qna-select").val(response);
+	}
+	
+	// Admin memeber list select bar change
+	$("#admin-qna-select").on("change", () => {
+		location.href="/qna_list.admin?res=" + $("#admin-qna-select").val();
+	});
 
 	// ================================ [ Members ] ================================
 	
@@ -220,11 +232,30 @@ const adminMemberUpdate = (id) => {
 		}
 	})
 	.done((res)=> {
-		console.log("res === ", res);
 		if(res === "ok"){
 			location.href = `members_detail.admin?id=${id}`;
 		}
 	});
+}
+
+// Member Delete
+const adminMemberDelete = (id) => {
+	if(confirm("정말로 삭제하시겠습니까?")){
+		$.ajax({
+			url: "/members_delete.admin",
+			method: "post",
+			data: {
+				id
+			}
+		})
+		.done((res) => {
+			console.log("res ==== ", res);
+			if(res === "ok"){
+				alert("해당 해원을 탈퇴시켰습니다.");
+				location.href="/members_list.admin";
+			}
+		});
+	}
 }
 
 // Search member list
