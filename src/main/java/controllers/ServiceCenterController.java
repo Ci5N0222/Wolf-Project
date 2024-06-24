@@ -1,6 +1,9 @@
 package controllers;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,7 +12,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
+import board.dao.BoardDAO;
+import board.dto.BoardDTO;
 import commons.PageConfig;
+import files.dao.FilesDAO;
+import files.dto.FilesDTO;
+import images.dao.ImagesDAO;
 import service_center.dao.ServiceCenterDAO;
 import service_center.dto.ServiceCenterDTO;
 
@@ -24,6 +35,9 @@ public class ServiceCenterController extends HttpServlet {
 		String cmd = request.getRequestURI();
 		
 		ServiceCenterDAO dao = ServiceCenterDAO.getInstance();
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		FilesDAO filesDAO = FilesDAO.getInstance();
+		ImagesDAO imagesDAO = ImagesDAO.getInstance();
 		
 		try {
 			
@@ -84,7 +98,51 @@ public class ServiceCenterController extends HttpServlet {
 				String id = (String)request.getSession().getAttribute("WolfID");
 				if(id == "") response.sendRedirect("/views/members/login.jsp");
 				else {
-					request.getRequestDispatcher("/views/service_center/qna_insert.jsp").forward(request, response);
+	
+					int maxSize = 1024 * 1024 * 10; // 10mb
+					String realPath = request.getServletContext().getRealPath("files");
+					File uploadPath = new File(realPath);
+					
+					if (!uploadPath.exists()) {
+						uploadPath.mkdir();// 메이크 디렉토리
+					}
+					
+					MultipartRequest multi = new MultipartRequest(request, realPath, maxSize, "UTF8", new DefaultFileRenamePolicy());
+					
+					String secret = "";
+					if(multi.getParameter("secret") == null) secret = "Y";
+					else secret=multi.getParameter("secret");
+					
+					String title = multi.getParameter("title");
+					String contents = multi.getParameter("contents");
+					String member_id = (String)request.getSession().getAttribute("WolfID");
+					int board_code = 3;
+					
+					BoardDTO dto = new BoardDTO(0, title, contents, 0, member_id, board_code ,null, secret);
+					int board_seq = boardDAO.insert(dto);
+
+					int result = dao.qnaResInsert(board_seq);
+					
+					Enumeration<String> names = multi.getFileNames();
+			        while(names.hasMoreElements()) {
+						String name = names.nextElement();
+						String oriname = multi.getOriginalFileName(name);
+						String sysname = multi.getFilesystemName(name);
+						System.out.println(name);
+						if(oriname != null) {
+							filesDAO.insert(new FilesDTO(0, oriname, sysname, board_seq));
+						 }
+			        }
+			        
+			        imagesDAO.updateTemp(board_seq);
+			        String new_contents=boardDAO.board_contents(board_seq);
+			        System.out.println(new_contents);
+			        String[] sysnames=boardDAO.findDeletedTags(new_contents);
+			        ArrayList<String> fileList= imagesDAO.delete(board_seq, board_code, sysnames);
+			        imagesDAO.deleteImageFile(request.getServletContext().getRealPath("upload_images"), fileList);
+			        
+					response.sendRedirect("/list.board?board_code="+board_code);
+					
 				}
 			}
 			

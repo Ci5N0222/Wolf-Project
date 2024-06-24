@@ -23,6 +23,24 @@ public class ServiceCenterDAO {
 	
 	
 	/**
+	 * 문의 게시판에 글 작성시 QNA 테이블에 데이터 추가
+	 * @param boardSeq
+	 * @return
+	 * @throws Exception
+	 */
+	public int qnaResInsert(int boardSeq) throws Exception {
+		String sql = "insert into qna values(qna_seq.nextval, ?, 'N')";
+		
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setInt(1, boardSeq);
+			
+			return pstat.executeUpdate();
+		}
+	}
+	
+	
+	/**
 	 * 해당 회원의 문의 내역 개수를 반환하는 메서드
 	 * @param id
 	 * @param res (문의 OK 여부 [0: 전체, Y: 답변완료, N:대기중])

@@ -7,7 +7,7 @@ class GameOver extends Phaser.Scene{
 
     }
 
-    create(){
+    create(data){
         const width = this.scale.width
 		const height = this.scale.height
 
@@ -19,6 +19,8 @@ class GameOver extends Phaser.Scene{
 		this.input.keyboard.once('keydown-SPACE', () => {
 			this.scene.start('Project')
 		})
+		
+		gameScoreSave(data.score);
         
     }
 

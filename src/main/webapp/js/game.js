@@ -74,10 +74,9 @@ const gameCanvars = (seq) => {
 
 
 // 게임 종료 시 데이터 업데이트 or 인서트
-const gameScoreSave = () => {
+const gameScoreSave = (newScore) => {
 	
 	const beforeScore = $("#myGameScore").html().trim();
-	const newScore = $("#score").html().trim();
 
 	let data = {
 		seq : $("#game_seq").val(),
@@ -85,9 +84,9 @@ const gameScoreSave = () => {
 		state: "none"
 	}
 	
-	if(beforeScore == "") {
+	if(beforeScore === "0") {
 		data.state = "insert";
-	} else if(newScore > beforeScore) {
+	} else if(parseInt(newScore) > parseInt(beforeScore)) {
 		data.state = "update";
 	}
 	
@@ -100,7 +99,9 @@ const gameScoreSave = () => {
 		})
 		.done((res) => {
 			console.log(res);
-			// res 가 "ok" 면 성공 "fail"이면 실패
+			if(res !== "fail"){
+				$("#myGameScore").html(res);
+			}
 		});
 	}
 	

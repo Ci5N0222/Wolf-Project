@@ -33,7 +33,7 @@ public class ScoreDAO {
 			try(ResultSet rs= ps.executeQuery()){
 				while(rs.next()) {
 					ScoreDTO score = new ScoreDTO();
-					score.setScore(Integer.toString(rs.getInt(1)));
+					score.setScore(rs.getInt(1));
 					score.setMember_id(rs.getString(2));
 					score.setGame_seq(game_seq);
 					dto.add(score);
@@ -45,7 +45,7 @@ public class ScoreDAO {
 		if(dtoSize < 3) {
 			while(dtoSize < 3) {
 				ScoreDTO score = new ScoreDTO();
-				score.setScore("");
+				score.setScore(0);
 				score.setMember_id("");
 				score.setGame_seq(game_seq);
 				dto.add(score);

@@ -85,27 +85,28 @@
 								<div>
 									<img src="/images/wolf-1.gif">
 								</div>
-								<div>${topRank[0].member_id}</div>
+								<div>${topRank[0].nickname}</div>
 								<div>${topRank[0].score}</div>
 							</div>
 							<div>
 								<div>
 									<img src="/images/wolf-2.gif">
 								</div>
-								<div>${topRank[1].member_id}</div>
+								<div>${topRank[1].nickname}</div>
 								<div>${topRank[1].score}</div>
 							</div>
 							<div>
 								<div>
 									<img src="/images/wolfLogo.png">
 								</div>
-								<div>${topRank.get(0).member_id}</div>
-								<div>${topRank.get(0).score}</div>
+								<div>${topRank[2].nickname}</div>
+								<div>${topRank[2].score}</div>
 							</div>
+							<br/><br/>
 							<div>
 								<input type="hidden" id="game_seq" value="${seq}">
 								<p id="myNickname"> ${WolfNickname}</p>
-								<p id="myGameScore">500</p>
+								<p id="myGameScore">${myScore}</p>
 							</div>
 						</div>
 					</div>
