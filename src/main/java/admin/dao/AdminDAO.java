@@ -321,6 +321,23 @@ public class AdminDAO {
 	
 	
 	/**
+	 * 멤버를 탈퇴시키는 메서드
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	public int memberDelete(String id) throws Exception {
+		String sql = "delete from members where id = ?";
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, id);
+			
+			return pstat.executeUpdate();
+		}
+	}
+	
+	
+	/**
 	 * 게임의 총 개수를 반환하는 메서드
 	 * @return
 	 * @throws Exception

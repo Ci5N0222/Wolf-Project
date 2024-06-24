@@ -29,7 +29,7 @@
         <%@ include file="/views/include/admin_side.jsp" %>
         
         <section class="admin-main-form">
-        	<h1 class="admin-main-title">Member Info</h1>
+        	<h1 class="admin-main-title">회원 상세정보</h1>
              <div class="admin-members-info">
              
              	<label for="id">아이디</label>
@@ -92,6 +92,7 @@
 
 				<div class="btn-box1">
 					<button onclick="adminMemberEdit(${member.grade})">등급 수정</button>
+					<button onclick="adminMemberDelete('${member.id}')">회원 삭제</button>
 	            	<button onclick="location.href='/members_list.admin'">목록보기</button>
 				</div>
 				<div class="btn-box2">
