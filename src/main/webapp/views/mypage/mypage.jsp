@@ -789,7 +789,7 @@ pageEncoding="UTF-8"%>
                         <div><p>내 글 목록</p></div>
                         <div>
                           <button
-                            onclick="location.href='/myList.mypage?board_code=1'"
+                            onclick="location.href='/myList.mypage'"
                           >
                             바로가기
                           </button>

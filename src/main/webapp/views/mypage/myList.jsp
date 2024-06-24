@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core"
-prefix="c" %>
+pageEncoding="UTF-8"%> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -243,9 +244,6 @@ prefix="c" %>
         margin: 0;
         padding: 0;
       }
-      div {
-        border: 1px solid #67ffd1;
-      }
 
       .mypage-myList-container {
         display: flex;
@@ -359,7 +357,7 @@ prefix="c" %>
       .mypage-myList .mypage-myList-contents {
         flex: 15;
       }
-      .mypage-myList .mypage-myList-paging {
+      .mypage-myList .page-navigation {
         flex: 1.3;
       }
 
@@ -618,6 +616,7 @@ prefix="c" %>
                   <div style="flex: 1"><p>조회수</p></div>
                 </div>
                 <div class="mypage-myList-contents">
+                
                   <c:forEach var="dto" items="${list}">
                     <div
                       style="
@@ -633,19 +632,17 @@ prefix="c" %>
                         <span class="title">${dto.title}</span>
                       </div>
                       <div style="flex: 1" class="center">
-                        ${board_nickname_list[status.index]}
+                        ${dto.nickname}
                       </div>
                       <div style="flex: 1" class="center">
-                        <fmt:formatDate
-                          value="${dto.write_date}"
-                          pattern="yyyy.MM.dd"
-                        />
+                        <fmt:formatDate value="${dto.write_date}" pattern="yyyy.MM.dd" />
                       </div>
                       <div style="flex: 1" class="center">${dto.count}</div>
                     </div>
                   </c:forEach>
+                  
                 </div>
-                <div class="mypage-myList-paging"></div>
+                <div class="page-navigation"></div>
               </div>
             </section>
           </div>
@@ -664,10 +661,17 @@ prefix="c" %>
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-    <script src="js/main.js"></script>
+    <script src="/js/main.js"></script>
 
+
+	<!-- 페이지 네비게이터 -->
+	<script>
+		pagenation(${cpage}, ${recode_total_count}, ${recode_count_per_page}, ${navi_count_per_page}, "/myList.mypage");
+	</script>
+	
     <!-- 스크롤 관련 -->
     <script>
+    
       resize();
       $(window).resize(function () {
         resize();
@@ -697,6 +701,7 @@ prefix="c" %>
           check = true;
         }
       });
+      
     </script>
   </body>
 </html>
