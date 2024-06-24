@@ -33,9 +33,6 @@
         		<c:when test="${ wpage eq 2 }">
         			<h1 class="admin-main-title">공 지 사 항</h1>
         		</c:when>
-        		<c:when test="${ wpage eq 3 }">
-        			<h1 class="admin-main-title">Q & A</h1>
-        		</c:when>
         		<c:otherwise>
         		<h1 class="admin-main-title">F A Q</h1>
         		</c:otherwise>
@@ -45,15 +42,11 @@
 				<div class="admin-game-insert-btn">
 					<select id="board-code-select">
 						<option value="2">공지사항</option>
-						<option value="3">Q&A</option>
 				        <option value="4">FAQ</option>
 					</select>
 					<c:choose>
 		        		<c:when test="${ wpage eq 2 }">
 		        			<button onclick="location.href='/page_notice_insert.admin?code=2'">공지 작성</button>
-		        		</c:when>
-		        		<c:when test="${ wpage eq 3 }">
-		        			<button onclick="location.href='/page_notice_insert.admin?code=3'">Q&A 작성</button>
 		        		</c:when>
 		        		<c:otherwise>
 		        			<button onclick="location.href='/page_notice_insert.admin?code=4'">FAQ 작성</button>
@@ -76,7 +69,7 @@
 				 				<td>${boardList.seq}</td>
 				 				<td><a href="/detail.board?seq=${boardList.seq}&target=&keyword=&board_code=2">${boardList.title}</a></td>
 				 				<td>${boardList.nickname}</td>
-				 				<td>${boardList.write_date}</td>
+				 				<td><fmt:formatDate value="${boardList.write_date}" pattern="yyyy-MM-dd" /></td>
 				 				<td>${boardList.count}</td>
 				 			</tr>
 			 			</c:forEach>
