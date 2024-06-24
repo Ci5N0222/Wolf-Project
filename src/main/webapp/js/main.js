@@ -62,17 +62,20 @@ const homeBinding = () => {
         method: "post",
         dataType: "json"
     })
-        .done((res) => {
-            console.log("res === ", res);
-            if (res.result === "ok") {
-                res.data.forEach(item => homeCardSetting(item));
-            } else {
-                console.log("No 'data' property found in response.");
-            }
-        });
+    .done((res) => {
+        console.log("res === ", res);
+        if (res.result === "ok") {
+            res.data.forEach(item => homeCardSetting(item));
+        } else {
+            console.log("No 'data' property found in response.");
+        }
+    });
 }
 
 const homeCardSetting = (res) => {
+	let discription = res.discription;
+	if(discription.length > 20) discription = discription.slice(0, 19) + "...";
+	
     let item = `
 		<div class="item flex-grow-1" onclick="location.href='/detail.game?seq=${res.seq}'">
 			<div class="card d-flex">
@@ -80,6 +83,7 @@ const homeCardSetting = (res) => {
 					style="flex: 7;">
 				<div class="card-body" style="flex: 3;">
 					<p class="card-text">${res.title}</p>
+					<p class="card-text">${discription}</p>
 				</div>
 			</div>
 		</div>`
