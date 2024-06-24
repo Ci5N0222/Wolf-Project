@@ -78,14 +78,15 @@ public class MembersController extends HttpServlet {
 			        if (grade == 3) {
 			            // 등급이 3일 경우
 			        	response.getWriter().write("{\"success\": false, \"message\": \"블랙리스트 회원은 로그인을 하실 수 없습니다.\"}");
-			        }else if(grade == 98 || grade == 99) {
-			               request.getSession().setAttribute("WolfAdmin", true);
 			        }
 			        else {
 			            // 로그인 성공 시 세션에 정보 설정
 			            session.setAttribute("WolfID", result[0]);
 			            session.setAttribute("WolfNickname", result[1]);
 			            session.setAttribute("WolfAvatar", result[2]);
+			            if(grade == 98 || grade == 99) {
+				               request.getSession().setAttribute("WolfAdmin", true);
+				        }
 			            response.getWriter().write("{\"success\": true}");
 	               
 			        }
