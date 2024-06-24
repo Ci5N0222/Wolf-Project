@@ -238,8 +238,8 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       }
 
       /* div {
-        border: 1px solid aqua;
-      } */
+                border: 1px solid aqua;
+              } */
 
       .mypage-delete-container {
         display: flex;
@@ -426,11 +426,53 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         .mypage-side-menu {
           display: none;
         }
+        .delete-warning-text {
+          margin-left: 50px;
+        }
+        .mypage-delete-innerBoard {
+          margin-left: 130px;
+        }
+        .btn-box {
+          margin-left: 230px;
+        }
+        .mypage-delete-notice {
+          margin-left: 180px;
+        }
+      }
+
+      @media (max-width: 990px) {
+        .mypage-side-menu {
+          display: none;
+        }
+        .delete-warning-text {
+          margin-left: 0;
+        }
+        .mypage-delete-innerBoard {
+          margin-left: 30px;
+        }
+        .btn-box {
+          margin-left: 130px;
+        }
+        .mypage-delete-notice {
+          margin-left: 0;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .mypage-side-menu {
+          display: none;
+        }
+        .delete-warning-text {
+          margin-left: 0;
+        }
         .mypage-delete-innerBoard {
           margin-left: 0;
         }
-        .mypage-delete-form > div {
-          align-items: center;
+        .btn-box {
+          margin-left: 90px;
+        }
+        .mypage-delete-notice {
+          margin-left: 0;
         }
       }
 
@@ -514,26 +556,28 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                   </p>
                 </div>
 
-                <form action="/delete.mypage">
-                  <div class="mypage-delete-innerBoard">
-                    <p class="id-txt">아이디 입력</p>
-                    <input
-                      type="text"
-                      placeholder="ID를 입력해주세요"
-                      class="inputID"
-                    />
-                    <p class="pw-txt">비밀번호 입력</p>
-                    <input
-                      type="password"
-                      placeholder="PW를 입력해주세요"
-                      class="inputPW"
-                    />
-                  </div>
-                  <div class="btn-box">
-                    <button type="submit" class="deleteBtn">탈퇴하기</button>
-                    <button type="button" class="cancelBtn">취소</button>
-                  </div>
-                </form>
+                <div class="mypage-delete-innerBoard">
+                  <p class="id-txt">아이디 입력</p>
+                  <input
+                    type="text"
+                    name="id"
+                    placeholder="ID를 입력해주세요"
+                    class="inputID"
+                    required
+                  />
+                  <p class="pw-txt">비밀번호 입력</p>
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="PW를 입력해주세요"
+                    class="inputPW"
+                    required
+                  />
+                </div>
+                <div class="btn-box">
+                  <button type="button" class="deleteBtn">탈퇴하기</button>
+                  <button type="button" class="cancelBtn">취소</button>
+                </div>
               </div>
               <div class="mypage-delete-notice">
                 <p>탈퇴 시 주의사항</p>
@@ -563,6 +607,27 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       $(".cancelBtn").on("click", function () {
         $(".inputID").val("");
         $(".inputPW").val("");
+      });
+
+      $(".deleteBtn").on("click", function (event) {
+        if (confirm("탈퇴를 진행하시겠습니까?")) {
+          $.ajax({
+            url: "/delete.mypage",
+            type: "post",
+            data: { password: $(".inputPW").val() },
+          })
+            .done(function (resp) {
+              if (resp === "ok") {
+                alert("계정이 삭제되었습니다.");
+                window.location.href = "/logout.members";
+              } else {
+                alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
+              }
+            })
+            .fail(function (xhr, status, error) {
+              console.error("Error:", error);
+            });
+        }
       });
     </script>
 
