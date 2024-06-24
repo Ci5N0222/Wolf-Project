@@ -52,7 +52,7 @@ public class ImagesDAO {
 	}
 	
 	/**
-	 * 마이페이지_ 아바타 사진 업데이트
+	 * 마이페이지 아바타 사진 업데이트
 	 * @param oriname
 	 * @param sysname
 	 * @param member_id
