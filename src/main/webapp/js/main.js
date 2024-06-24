@@ -55,6 +55,39 @@ document.addEventListener("DOMContentLoaded", function() {
 	navbarToggle();
 });
 
+
+// 팝업 토글 함수
+function togglePopup() {
+    let popup = document.querySelector(".login-popup");
+    if (popup.style.display === "none" || popup.style.display === "") {
+        popup.style.display = "block";
+    } else {
+        popup.style.display = "none";
+    }
+}
+
+// 페이지 전환 시 팝업 닫기
+function closePopupOnPageChange() {
+    let popup = document.querySelector(".login-popup");
+    popup.style.display = "none";
+}
+
+// 팝업 외부 클릭 시 팝업 닫기
+function closePopupOnClickOutside(event) {
+    let popup = document.querySelector(".login-popup");
+    if (popup.style.display === "block" && !popup.contains(event.target) && !document.querySelector(".loginBtn").contains(event.target)) {
+        popup.style.display = "none";
+    }
+}
+
+// 팝업 클릭 시 토글 효과
+document.querySelector(".loginBtn").addEventListener("click", togglePopup);
+// 페이지 전환 감지 및 팝업 닫기
+window.addEventListener("beforeunload", closePopupOnPageChange);
+// 팝업 외부 클릭 감지 및 팝업 닫기
+document.addEventListener("click", closePopupOnClickOutside);
+
+
 /** Home 입장 시 게임 데이터 받아서 카드에 바인딩 **/
 const homeBinding = () => {
 	$.ajax({
