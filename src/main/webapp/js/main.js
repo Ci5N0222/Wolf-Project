@@ -31,6 +31,7 @@ function toggleMode() {
       sun.style.background = "var(--darkMode)";
       sun.style.boxShadow = ` 0px 5px 20px #444`;
     }
+
   }
   
   // 페이지 로드 시 모드 상태 복원

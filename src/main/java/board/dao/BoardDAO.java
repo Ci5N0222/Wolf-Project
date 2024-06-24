@@ -224,12 +224,13 @@ private static BoardDAO instance;
 	
 	public Object[] selectBoard(int seq,int board_code){
 		BoardDTO dto= new BoardDTO();
-		String sql="select b.*, m.nickname from board b join members m on m.id =b.member_id where b.seq=?";
+		String sql="select b.*, m.nickname from board b join members m on m.id =b.member_id where b.seq=? and b.board_code=?";
 		Object [] boardList=new Object[2];
 		String nickname="";
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat= con.prepareStatement(sql);){
 			pstat.setInt(1, seq);
+			pstat.setInt(2, board_code);
 			try(ResultSet rs=pstat.executeQuery()) {
 				rs.next();
 					String title=rs.getString(2);
@@ -388,8 +389,6 @@ private static BoardDAO instance;
 	
 	public  String[] findDeletedTags(String originalHtml) {
 		Document doc = Jsoup.parse(originalHtml);
-   
-
 	    Elements imgTags = doc.select("img");
 	    ArrayList<String> sysnames=new ArrayList<>();
 
