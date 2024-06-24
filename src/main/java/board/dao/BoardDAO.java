@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -437,6 +438,28 @@ private static BoardDAO instance;
 			// TODO: handle exception
 		}
 		return contents;
+	}
+	
+	public void dumidata() {
+		String sql="insert into board values(board_seq.nextval,?,?,0,?,?,sysdate,?)";
+		for (int i = 0; i < 150; i++) {
+			try (Connection con=DBConfig.getConnection();
+					PreparedStatement pstat=con.prepareStatement(sql)){
+				pstat.setString(1, "test"+i);
+				pstat.setString(2, "test"+i);
+				pstat.setString(3, "haram0704");
+				pstat.setInt(4, 1);
+				pstat.setString(5, "N");
+				pstat.executeUpdate();
+			
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+		
+	
+		
 	}
 	
 }

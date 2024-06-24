@@ -195,7 +195,7 @@
                         </c:choose>
                        
                     </div>
-                    <div style="flex: 0.7; justify-content: flex-end;">
+                    <div style="flex: 0.7; justify-content: flex-end; margin-right: 10px;">
                         <form action="/list.board" method="get" >
                             <select name="target" title="검색선택" style="height: 30px;" id="targetSelect">
                                 <option value="">선택</option>
@@ -232,7 +232,7 @@
                     <div style="flex: 1; margin-top: 10px;" class="center" id="navi"></div>
                     <c:choose>
                         <c:when test="${board_code==1 || board_code==3}">
-                            <div style="flex: 1; justify-content: flex-end; align-items: center;">
+                            <div style="flex: 1; justify-content: flex-end; align-items: center; margin-bottom: 10px;">
                                 <button id="new" class="button_css">글쓰기</button>&nbsp&nbsp
                                 <button id="index" class="button_css">뒤로가기</button>&nbsp&nbsp&nbsp
                             </div>
@@ -281,26 +281,45 @@
 		if(endNavi==page_total_count)needNext =false;
 
 		if(needPrev) {
-			navi.append("<a href='/list.board?cpage="+(startNavi-1)+"'><</a>");
+            let div=$("<div class='page-number center'>");
+            let pagelink=$("<a href='/list.board?cpage="+(startNavi-1)+"&target=${target}&keyword=${keyword}'>⏴</a>");
+            pagelink.css("text-decoration","none")
+            div.append(pagelink);
+            div.on("click",function(){
+                    pagelink[0].click();
+            })
+
+
+
+			navi.append(div);
 			}
 		
 		
 		for (let i = startNavi; i <= endNavi; i++) {
             let div=$("<div class='page-number center'>");
             let pagelink=$("<a href='/list.board?cpage="+i+"&target=${target}&keyword=${keyword}'>"+ i +"</a>");
-                div.append(pagelink);
-                if(i==cpage){
-                    div.css({
-                        backgroundColor:"red"
-                    })
-                }
-                div.on("click",function(){
-                    pagelink[0].click();
+            pagelink.css("text-decoration","none")
+            div.append(pagelink);
+            if(i==cpage){
+                div.css({
+                    backgroundColor:"#C8FFFF"
                 })
+            }
+            div.on("click",function(){
+                pagelink[0].click();
+            })
+            div.css("color","white");
 			navi.append(div);
 		}
 		if(needNext) {
-			navi.append("<a href='/list.board?cpage="+(endNavi+1)+"'>></a>");
+            let div=$("<div class='page-number center'>");
+            let pagelink=$("<a href='/list.board?cpage="+(endNavi+1)+"&target=${target}&keyword=${keyword}'>⏵</a>");
+            div.append(pagelink);
+            pagelink.css("text-decoration","none")
+            div.on("click",function(){
+                    pagelink[0].click();
+            })
+			navi.append(div);
 		}
 
         //

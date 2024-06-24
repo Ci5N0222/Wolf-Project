@@ -53,7 +53,7 @@ public class BoardController extends HttpServlet {
 		try {
 			if(cmd.equals("/list.board")) {
 				String login_id= (String)session.getAttribute("WolfID");
-				
+				//boardDAO.dumidata();
 				if(request.getSession().getAttribute("WolfAdmin")==null) {
 					if(login_id==null) {
 						request.setAttribute("WolfCheckLogin",true);
