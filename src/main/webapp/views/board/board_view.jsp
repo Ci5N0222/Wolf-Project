@@ -155,7 +155,7 @@
                         <div style=" height: 50px !important; flex: 1;"  class="center menu_title" id="board_2">
                             공지 게시판
                         </div>
-                        <div  style=" height: 50px !important; flex: 1;"  class="center menu_title" id="board_3">
+                        <div  style=" height: 50px !important; flex: 1; display: none;"  class="center menu_title" id="board_3">
                             QNA 게시판
                         </div>
                         <div style="flex: 1; display: none;"  class="center menu_title" id="board_4">

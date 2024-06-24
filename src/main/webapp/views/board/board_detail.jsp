@@ -256,7 +256,7 @@
                         <div style=" height: 50px !important;  flex: 1;"  class="center menu_title" id="board_2">
                             공지 게시판
                         </div>
-                        <div style=" height: 50px !important;  flex: 1;" class="center menu_title" id="board_3">
+                        <div style=" height: 50px !important;  flex: 1; display: none;" class="center menu_title" id="board_3">
                             QNA 게시판
                         </div>
                         <div style="flex: 1; display: none;"  class="center menu_title" id="board_4">
@@ -349,6 +349,11 @@
         </div>
         <input type="hidden" value="${board_code}" name="board_code">
         </form>
+        <script>
+            if("${checkGrade}"=="false" &&"${board_code==3}"){
+                $("#replyform").remove();
+            }
+        </script>
         <div id="reply_contents">
             <c:forEach var="reply_dto" items="${reply_list}" varStatus="status">
                 <div class="reply_contents">
