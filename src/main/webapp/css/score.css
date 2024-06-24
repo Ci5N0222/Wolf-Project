@@ -2,34 +2,46 @@
 @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Noto+Sans+KR:wght@100..900&display=swap');
 
 :root {
+	--darkMode: linear-gradient(to top, #001021, #00264f, #FCF6F5);
+	--darkNav: #00264f;
+	--lightMode: linear-gradient(to top, #ffd449, #f9a620, #FCF6F5);
+	--lightNav: #f9a620;
+
 	--bg-light: #ffd449;
-	--bg-dark: #14213D;
+	--bg-dark: #14213d;
 	--bg-transparent: transparent;
 
 	--color-white: #eeeeee;
-	--color-black: #14213D;
+	--color-black: #14213d;
 	--bg-nav: #f9a620;
-	--color-nav-icon: #14213D;
+	--color-nav-icon: #14213d;
 	--color-nav-bg: #f9a620;
 	font-size: 16px;
 }
+.fa-user {color: white;}
 
 html,
 body {
 	height: 100%;
 	margin: 0;
-	background-color: var(--bg-dark);
+	background-color: #00264f;
 	color: var(--bg-black);
 	color: var(--color-black);
 	overflow: hidden;
 	/* 폰트 */
-	font-family: "Noto Sans KR", sans-serif;
-	font-family: "Luckiest Guy", cursive;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'Luckiest Guy', cursive;
 }
 
+
 body.light {
-	background-color: var(--bg-light);
-	color: var(--bg-black);
+	background-color: var(--lightMode);
+	/* color: var(--darkNav); */
+}
+
+/* 하단 원 */
+.sun {
+	display: none;
 }
 
 /* 모드 변경시 부드럽게 넘어가는 효과 */
@@ -105,16 +117,26 @@ body.light {
 }
 
 /* 메뉴 */
+.navi {
+	display: block;
+}
+
+.m_navi {
+	display: none;
+}
+
 .wolf {
 	display: none;
 }
-.m_navi {display: none;}
+
 .navi {
+	min-height: 50px;
 	z-index: 5;
 	height: 10%;
 	display: flex;
 	align-items: center;
-	background-color: var(--bg-nav);
+	background-color: var(--darkNav);
+	box-shadow: 0px 5px 20px #444;
 	padding: 0 3%;
 	font-size: 20px;
 	color: var(--color-white);
@@ -133,61 +155,58 @@ body.light {
 	height: 100%;
 }
 
-
 /* 메뉴 */
-.navi > div:nth-child(1),
-.navi > div:nth-child(3) {
-  width: 40%;
+.navi>div:nth-child(1),
+.navi>div:nth-child(3) {
+	width: 30%;
 }
 
-.navi > div:nth-child(2) {
-  width: 20%;
+.navi>div:nth-child(2) {
+	width: 40%;
 }
 
-.navi > div:nth-child(1) > div {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: left;
-   z-index: 10;
-   cursor: pointer;
+.navi>div:nth-child(1)>div {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: left;
 }
 
-.navi > div:nth-child(2) #wolfLogo {
-  width: initial;
-  height: 100%;
+.navi>div:nth-child(2) #wolfLogo {
+	width: 100%;
+	height: 100%;
 }
 
-.navi > div:nth-child(2) #wolfLogo img {
-  width: initial;
-  height: 130%;
-  object-fit: contain;
+.navi>div:nth-child(2) #wolfLogo img {
+	width: initial;
+	height: 130%;
+	object-fit: contain;
 }
-.navi > div:nth-child(3) > div {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: right;
+
+.navi>div:nth-child(3)>div {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: right;
 }
 
 /* 메뉴 버튼 */
 .naviBtn {
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
 }
 
 .naviBtn:hover {
-  opacity: 0.5;
+	opacity: 0.5;
 }
 
-.naviBtn > img {
-  width: 50px;
-  height: 50px;
-  border-radius: 100%;
+.naviBtn>img {
+	width: 50px;
+	height: 50px;
+	border-radius: 100%;
 }
 
 /* -- main과 동일 -- */
-
 
 
 
@@ -281,24 +300,123 @@ body.light {
 	.container {
 		padding: 0
 	}
+	#wolfLogo {
+		display: none;
+	}
+
+	/* 하단 원 */
+	.sun {
+		display: none;
+	}
+
+	/* 메뉴 */
 	.wolf {
 		display: block;
 	}
-	.m_navi {display: block;}
-	.navi {display: none;}
-		/* 내용물 */
+
+	.navi {
+		display: none;
+	}
+
+	.m_navi {
+		display: block;
+		position: relative !important;
+	}
+
+	.container-fluid,
+	.container {
+		padding: 0;
+	}
+
+	/* 내용물 */
 	/* 햄버거 */
 	.navbar {
-		box-shadow: 0px 1px 5px white;
+		background-color: var(--darkNav);
 	}
-	
-	.navbar div {
-		width: 50px;
-		width: 50px;
-		height: 50px;
-		line-height: 50px;
-		margin: 0 2%;
+
+	/* 햄버거 클릭시 나오는 메뉴 화면 */
+	.offcanvas-body {
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
+
+	.offcanvas-body .navbar-nav {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+	}
+
+	.offcanvas-body .navbar-nav .nav-item {
+		position: relative;
+		margin-bottom: 0;
+		flex: 1;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		margin-bottom: 10%;
+	}
+
+	.offcanvas-body .navbar-nav .nav-item:last-child {
+		margin-bottom: 0;
+	}
+
+	.offcanvas-body .navbar-nav .nav-item>div:first-child {
+		flex: 1;
+	}
+
+	.offcanvas-body .navbar-nav .nav-item>div:first-child i {
+		font-size: 1.3rem;
+	}
+
+	.offcanvas-body .navbar-nav .nav-item>div:last-child {
+		flex: 9;
+		cursor: pointer;
+		letter-spacing: 2px;
+	}
+
+	/* 가상요소 추가 밑줄 */
+	.offcanvas-body .navbar-nav .nav-item::after {
+		content: "";
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		height: 3px;
+		width: calc(100%);
+		background: #cccccc63;
+		;
+	}
+
+	/* 가상 요소 호버 */
+	@media (hover) {
+		.offcanvas-body .navbar-nav .nav-item:hover::after {
+			transform: scaleX(1);
+			margin-left: 0;
+		}
+
+		.offcanvas-body .navbar-nav .nav-item::after {
+			transform: scaleX(0);
+			margin-left: 50%;
+			transform-origin: left;
+			transition: transform 500ms ease, margin-left .5s ease;
+		}
+	}
+
+	ul,
+	li {
+		list-style: none;
+	}
+
+	.offcanvas-header {
+		border-bottom: 1px solid #cccccc63;
+	}
+
+	.offcanvas-title {
+		letter-spacing: 2px;
+	}
+
 }
 
 
@@ -346,5 +464,5 @@ body.light {
 /* 모드 전환 버튼 아이콘 스타일 */
 #mode i {
 	font-size: 30px;
-	color: var(--color-nav-bg);
+	color: white;
 }

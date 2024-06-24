@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 
 import reply_child.dao.Reply_childDAO;
-import reply_child_dto.Reply_childDTO;
+import reply_child.dto.Reply_childDTO;
 
 /**
  * Servlet implementation class Reply_childController
