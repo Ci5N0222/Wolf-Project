@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -223,12 +224,13 @@ private static BoardDAO instance;
 	
 	public Object[] selectBoard(int seq,int board_code){
 		BoardDTO dto= new BoardDTO();
-		String sql="select b.*, m.nickname from board b join members m on m.id =b.member_id where b.seq=?";
+		String sql="select b.*, m.nickname from board b join members m on m.id =b.member_id where b.seq=? and b.board_code=?";
 		Object [] boardList=new Object[2];
 		String nickname="";
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat= con.prepareStatement(sql);){
 			pstat.setInt(1, seq);
+			pstat.setInt(2, board_code);
 			try(ResultSet rs=pstat.executeQuery()) {
 				rs.next();
 					String title=rs.getString(2);
@@ -387,8 +389,6 @@ private static BoardDAO instance;
 	
 	public  String[] findDeletedTags(String originalHtml) {
 		Document doc = Jsoup.parse(originalHtml);
-   
-
 	    Elements imgTags = doc.select("img");
 	    ArrayList<String> sysnames=new ArrayList<>();
 
@@ -437,6 +437,28 @@ private static BoardDAO instance;
 			// TODO: handle exception
 		}
 		return contents;
+	}
+	
+	public void dumidata() {
+		String sql="insert into board values(board_seq.nextval,?,?,0,?,?,sysdate,?)";
+		for (int i = 0; i < 150; i++) {
+			try (Connection con=DBConfig.getConnection();
+					PreparedStatement pstat=con.prepareStatement(sql)){
+				pstat.setString(1, "test"+i);
+				pstat.setString(2, "test"+i);
+				pstat.setString(3, "haram0704");
+				pstat.setInt(4, 1);
+				pstat.setString(5, "N");
+				pstat.executeUpdate();
+			
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+		
+	
+		
 	}
 	
 }
