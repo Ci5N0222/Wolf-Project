@@ -20,6 +20,8 @@ import game.dto.GameDTO;
 import game.dto.ScoreDTO;
 import game_score.dao.GameScoreDAO;
 import images.dao.ImagesDAO;
+import rank.dao.RankDAO;
+import rank.dto.RankDTO;
 
 
 @WebServlet("*.game")
@@ -29,6 +31,7 @@ public class GameController extends HttpServlet {
 		GameDAO dao = GameDAO.getInstance();
 		ImagesDAO imagesDAO = ImagesDAO.getInstance();
 		ScoreDAO scoreDAO = ScoreDAO.getInstance();
+		RankDAO rankDAO = RankDAO.getInstance();
 		GameScoreDAO gameScoreDAO = GameScoreDAO.getInstance();
 		Gson g = new Gson();
 		
@@ -73,15 +76,24 @@ public class GameController extends HttpServlet {
 			    
 			}else if(cmd.equals("/gameview.game")) {
 				String game_seq = request.getParameter("seq");
+				String id = (String)request.getSession().getAttribute("WolfID");
 				
 				// 해당 게임의 탑 랭크 3명
-				List <ScoreDTO> topRank = scoreDAO.getThisGameRank(Integer.parseInt(game_seq));
+//				List <ScoreDTO> topRank = scoreDAO.getThisGameRank(Integer.parseInt(game_seq));
 				
-				// 나의 점수
-//				ScoreDTO myRank = gameScoreDAO.
+				List<RankDTO> topRank = rankDAO.selectRank(Integer.parseInt(game_seq));
+
+				int score = 0;
+				if(id != null) {
+					ScoreDTO myScore = gameScoreDAO.getMyRank(Integer.parseInt(game_seq), id);
+					if(myScore != null) {
+						score = myScore.getScore();
+					}
+				}
 				
 				request.setAttribute("seq", Integer.parseInt(game_seq));
 				request.setAttribute("topRank", topRank);
+				request.setAttribute("myScore", score);
 				request.getRequestDispatcher("/views/game/game.jsp").forward(request, response);
 				
 				
