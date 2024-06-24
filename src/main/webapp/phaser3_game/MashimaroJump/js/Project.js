@@ -8,7 +8,7 @@ class Carrot extends Phaser.Physics.Arcade.Sprite
 
 		this.setScale(0.5)
 	}
-}s
+}
 
 class Wolf extends Phaser.Physics.Arcade.Sprite
 {
@@ -123,7 +123,7 @@ class Project extends Phaser.Scene{
             wolf.anims.play("left");
         });
         this.physics.add.collider(this.player,this.wolfs,()=>{
-            this.scene.start('GameOver');
+                this.scene.start('GameOver', {score : this.carrotsCollected});
         })
 		
 		this.physics.add.collider(this.platforms, this.carrots);
@@ -212,7 +212,7 @@ class Project extends Phaser.Scene{
             const bottomPlatform = this.findBottomMostPlatform()
             if (this.player.y > bottomPlatform.y + 200)
             {
-                this.scene.start('GameOver');
+                this.scene.start('GameOver', {score : this.carrotsCollected});
             }
     }
 

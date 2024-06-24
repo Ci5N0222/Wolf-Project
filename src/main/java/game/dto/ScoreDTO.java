@@ -1,28 +1,15 @@
 package game.dto;
 
 public class ScoreDTO {
-	/*
-	 *     score number default 0,
-    member_id varchar(20) not null,
-    game_seq number not null
-    */
-	private String score;
+
+	private int score;
 	private String member_id;
 	private int game_seq;
 	
-	public ScoreDTO() {
-		super();
-	}
-	public ScoreDTO(String score, String member_id, int game_seq) {
-		super();
-		this.score = score;
-		this.member_id = member_id;
-		this.game_seq = game_seq;
-	}
-	public String getScore() {
+	public int getScore() {
 		return score;
 	}
-	public void setScore(String score) {
+	public void setScore(int score) {
 		this.score = score;
 	}
 	public String getMember_id() {
@@ -37,6 +24,17 @@ public class ScoreDTO {
 	public void setGame_seq(int game_seq) {
 		this.game_seq = game_seq;
 	}
+	
+	public ScoreDTO() {}
+	
+	public ScoreDTO(int score, String member_id, int game_seq) {
+		super();
+		this.score = score;
+		this.member_id = member_id;
+		this.game_seq = game_seq;
+	}
+	
+	
 	
 	
 }

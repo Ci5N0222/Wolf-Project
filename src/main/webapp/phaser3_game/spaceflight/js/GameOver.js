@@ -26,18 +26,19 @@ class GameOver extends Phaser.Scene {
             this.scene.start('Game');
         });
     
-           
-
         // 실제 점수 텍스트 추가
        // SCORE 텍스트 추가
        let scoreText = this.add.text(this.cameras.main.width / 2 - 30, this.cameras.main.height / 2 + 50, 'SCORE: ', {
-        fontFamily: 'Impact', fontSize: '72px', fill: 'red'
-    }).setOrigin(0.5);
-
-    // 실제 점수 텍스트 추가
-    let scoreValue = this.add.text(scoreText.x + scoreText.width * 0.5, this.cameras.main.height / 2 + 50, this.score, {
-        fontFamily: 'Impact', fontSize: '72px', fill: 'white'
-    }).setOrigin(0, 0.5);
+	        fontFamily: 'Impact', fontSize: '72px', fill: 'red'
+	    }).setOrigin(0.5);
+	
+	    // 실제 점수 텍스트 추가
+	    let scoreValue = this.add.text(scoreText.x + scoreText.width * 0.5, this.cameras.main.height / 2 + 50, this.score, {
+	        fontFamily: 'Impact', fontSize: '72px', fill: 'white'
+	    }).setOrigin(0, 0.5);
+	    
+	    gameScoreSave(this.score);
+    
     }
 
     update(){

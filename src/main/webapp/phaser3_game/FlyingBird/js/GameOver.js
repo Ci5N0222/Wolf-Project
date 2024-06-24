@@ -63,9 +63,11 @@ class GameOver extends Phaser.Scene {
             exitBtn.setScale(0.5);
             this.game.canvas.style.cursor = "default";
         });
-
+        
+        gameScoreSave(data.score);
+	
     }
-
+	
     update() {
 
     }
