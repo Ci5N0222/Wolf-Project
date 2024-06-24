@@ -47,7 +47,7 @@ public class ServiceCenterDAO {
 	 * @throws Exception
 	 */
 	public int qnaResUpdate(int boardSeq) throws Exception {
-		String sql = "update qna set res_ok = 'Y where board_seq = ?";
+		String sql = "update qna set res_ok = 'Y' where board_seq = ?";
 		
 		try(Connection con = DBConfig.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql)){
