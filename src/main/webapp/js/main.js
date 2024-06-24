@@ -74,7 +74,7 @@ const homeBinding = () => {
 
 const homeCardSetting = (res) => {
     let item = `
-		<div class="item flex-grow-1">
+		<div class="item flex-grow-1" onclick="location.href='/detail.game?seq=${res.seq}'">
 			<div class="card d-flex">
 				<img src="${res.thumbnail}" class="card-img-top" alt="..."
 					style="flex: 7;">
