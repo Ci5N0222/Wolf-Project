@@ -74,6 +74,9 @@ class GameOver extends Phaser.Scene {
 		restartBtn.on("pointerdown", () => {
 			this.scene.start("Main"); // Main 씬으로 이동
 		});
+		
+		gameScoreSave(data.score);
+		
 	}
 
 	update() { }

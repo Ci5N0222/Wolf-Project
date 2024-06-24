@@ -63,7 +63,7 @@ class AmongEnd extends Phaser.Scene {
         });
 
 		// 게임 종료 시 DB에 데이터 저장
-		gameScoreSave();
+		gameScoreSave(document.querySelector("#score").innerHTML.trim());
         
     }
 
