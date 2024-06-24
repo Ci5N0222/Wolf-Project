@@ -312,13 +312,20 @@ body {
 }
 .btn-group>.btn-group:not(:first-child)>.btn, .btn-group>.btn:nth-child(n+3), .btn-group>:not(.btn-check)+.btn {
 border-radius:20px;}
-    
-        .btn {
-    margin: 20px;
-    padding: 20px;
+    .btn-group {
+    display: flex;
+    justify-content: space-between;
+}
+.btn-group .btn {
+    flex: 1;
+    margin: 10px;
+    padding: 15px;
     background-color: #f9a620;
-    border: #f9a620;
-    border-radius: 5px; /* 모든 모서리에 적용될 둥근 모서리 설정 */
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    transition: background-color 0.3s;
 }
 
         .game-rank {
@@ -444,7 +451,6 @@ border-radius:20px;}
 	.wolf {
 		display: block;
 	}
-	
 	.navi {
 		display: none;
 	}
@@ -472,7 +478,31 @@ border-radius:20px;}
 		height: 50px;
 		line-height: 50px;
 		margin: 0 2%;
-	} }
+	}  .container-fluid, .container, .main {
+        padding: 0;
+    }
+    
+    /* 랭킹 컨테이너와 버튼 그룹 레이아웃 조정 */
+    .rankcontainer {
+        padding: 10px;
+    }
+    
+    .btn-group .btn {
+        margin: 3px; /* 모바일 화면에서 버튼 간격을 줄임 */
+    padding: 1px; /* 모바일 화면에서 버튼 패딩을 줄임 */
+    padding-bottom : 8px;
+    padding-top :8px;
+    flex: 1; /* 버튼들이 flex 박스를 채우도록 설정 */
+    }
+    
+    /* 랭킹 박스 레이아웃 조정 */
+    .toprank .firstbox,
+    .toprank .secondbox,
+    .toprank .thirdbox {
+        width: 100%;
+        margin-bottom: 10px;
+        order: 0;
+    }}
 .wolf {display: none;}
 
 
