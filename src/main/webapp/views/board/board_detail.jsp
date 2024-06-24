@@ -133,6 +133,7 @@
         }       
         .custom-confirm-button {
             color: red !important;
+            background-color: #001021 !important;
           
             /* 확인 버튼 텍스트 색깔 */
         }
