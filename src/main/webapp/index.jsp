@@ -65,26 +65,7 @@
 			</main>
 			<main class="M_main">
 				<div id="carouselExample" class="carousel slide">
-					<div class="carousel-inner">
-						<div class="carousel-item active">
-							<img src="/images/img01.png" alt="...">
-						</div>
-						<div class="carousel-item">
-							<img src="/images/img02.png" alt="...">
-						</div>
-						<div class="carousel-item">
-							<img src="/images/img03.png" alt="...">
-						</div>
-						<div class="carousel-item">
-							<img src="/images/img02.png" alt="...">
-						</div>
-						<div class="carousel-item">
-							<img src="/images/img03.png" alt="...">
-						</div>
-						<div class="carousel-item">
-							<img src="/images/img03.png" alt="...">
-						</div>
-					</div>
+					<div class="carousel-inner" id="mobile-contents"></div>
 					<button class="carousel-control-prev" type="button"
 						data-bs-target="#carouselExample" data-bs-slide="prev">
 						<span class="carousel-control-prev-icon" aria-hidden="true"></span>

@@ -64,8 +64,12 @@ function toggleMode() {
       })
       .done((res) => {
           console.log("res === ", res);
+          console.log(res.result);
           if (res.result === "ok") {
-              res.data.forEach(item => homeCardSetting(item));
+			  res.data.forEach((item, i) => {
+				  homeCardSetting(item);
+				  homeMobileSetting(item, i);
+			  });
           } else {
               console.log("No 'data' property found in response.");
           }
@@ -90,3 +94,22 @@ function toggleMode() {
   
       $("#card-form").append(item);
   }
+  
+  const homeMobileSetting = (res, i) => {
+	let item = "";
+	if(i === 0){
+		item = `
+			<div class="carousel-item active" onclick="location.href='/detail.game?seq=${res.seq}'">
+				<img src="${res.thumbnail}" alt="...">
+			</div>`
+	} else {
+		item = `
+			<div class="carousel-item" onclick="location.href='/detail.game?seq=${res.seq}'">
+				<img src="${res.thumbnail}" alt="...">
+			</div>`
+	}
+	
+	$('#mobile-contents').append(item);
+  }
+  
+  
