@@ -175,7 +175,7 @@ td > img {
 
 
 .admin-members-info {
-	width: 350px;
+	width: 450px;
 	height: 100%;
 }
 .admin-members-info > div > button {
@@ -202,16 +202,17 @@ td > img {
 .admin-members-info > label {
 	text-align: left;
 	display: inline-block;
-	width: 90px;
-	padding: 5px;	
+	width: 120px;
+	padding: 5px;
+	font-size: 18px;
 }
 
 .admin-members-info > input {
     padding: 10px;
     margin: 10px;
-    width: 200px;
+    width: 250px;
     border: none;
-    font-size: 16px;
+    font-size: 18px;
 }
 .admin-members-info > input:focus {
 	outline: none;

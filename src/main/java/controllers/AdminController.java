@@ -194,6 +194,21 @@ public class AdminController extends HttpServlet {
 			}
 			
 			
+			/** 멤버 탈퇴 **/
+			else if(cmd.equals("/members_delete.admin")) {
+				if(!adminSession) response.sendRedirect("/page_login.admin");
+				else {
+					// 선택된 회원의 DTO 가져와서 수정할 수 있어야 됨
+					String id = request.getParameter("id");
+					
+					int result = dao.memberDelete(id);
+					
+					if(result > 0) response.getWriter().append("ok");
+					else  response.getWriter().append("fail");
+				}
+			}
+			
+			
 // ============================================ [ 게임 ] =============================================
 			
 			/** 서비스중인 게임 목록 **/

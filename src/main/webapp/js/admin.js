@@ -232,11 +232,30 @@ const adminMemberUpdate = (id) => {
 		}
 	})
 	.done((res)=> {
-		console.log("res === ", res);
 		if(res === "ok"){
 			location.href = `members_detail.admin?id=${id}`;
 		}
 	});
+}
+
+// Member Delete
+const adminMemberDelete = (id) => {
+	if(confirm("정말로 삭제하시겠습니까?")){
+		$.ajax({
+			url: "/members_delete.admin",
+			method: "post",
+			data: {
+				id
+			}
+		})
+		.done((res) => {
+			console.log("res ==== ", res);
+			if(res === "ok"){
+				alert("해당 해원을 탈퇴시켰습니다.");
+				location.href="/members_list.admin";
+			}
+		});
+	}
 }
 
 // Search member list
