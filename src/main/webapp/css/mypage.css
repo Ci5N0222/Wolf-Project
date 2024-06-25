@@ -432,7 +432,7 @@ li {
 }
 
 .mypage-myList {
-  background-color: #f7f7f7;
+  background-color: white;
   display: flex;
   width: 100%;
   max-width: 950px;
@@ -457,6 +457,8 @@ li {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 60px;
 }
 
 .mypage-myList .mypage-myList-header > p {
@@ -468,7 +470,6 @@ li {
 .mypage-myList .mypage-myList-navi {
   flex: 1;
   display: flex;
-  margin-top: 50px;
   margin-bottom: 10px;
 }
 
