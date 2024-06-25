@@ -36,19 +36,40 @@ public class ImagesDAO {
 		}
 	}
 	
-	public boolean delete(int image_code) {
-		String sql="delete from images where parent_seq=999999 and image_code=?";
-		boolean result=false;
+	public ArrayList<String> delete(int image_code) {
+		String sql_select="select sysname from images where parent_seq=999999 and image_code=?";
+		ArrayList<String> list= new ArrayList<>();
 		try (Connection con=DBConfig.getConnection();
-				PreparedStatement pstat=con.prepareStatement(sql)){
+				PreparedStatement pstat=con.prepareStatement(sql_select)){
 			pstat.setInt(1, image_code);
-			if(pstat.executeUpdate()>0)result=true;
+			try (ResultSet rs=pstat.executeQuery()){
+				while(rs.next()) {
+					list.add(rs.getString(1));
+				}
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		
-		return result;
+		String sql="delete from images where parent_seq=999999 and image_code=?";
+		
+		try (Connection con=DBConfig.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)){
+			pstat.setInt(1, image_code);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		String[] result=new String[list.size()];
+	    int i=0;
+	    for (String string : list) {
+			result[i++]=string;
+		}
+		return list;
 	}
 	
 	/**
@@ -77,6 +98,8 @@ public class ImagesDAO {
 	
 	
 	public boolean deleteMypageAvatar(String member_id) {
+		
+		
 		String sql="delete from images where member_id=?";
 		boolean result=false;
 		try (Connection con=DBConfig.getConnection();

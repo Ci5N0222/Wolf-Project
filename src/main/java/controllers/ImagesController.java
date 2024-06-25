@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Enumeration;
 
 import javax.imageio.ImageIO;
@@ -119,16 +120,20 @@ public class ImagesController extends HttpServlet {
 		else if(cmd.equals("/delete.images")) {
 			String board_code=request.getParameter("board_code");
 			int image_code=Integer.parseInt(board_code);
+			ArrayList<String> fileList=imagesDAO.delete(image_code);
+			imagesDAO.deleteImageFile(request.getServletContext().getRealPath("upload_images"), fileList);	
+			pw.append("success");
 			
-			if(imagesDAO.delete(image_code)) {
-				pw.append("success");
-				System.out.println("success");
-			}
-			else {
-				pw.append("fail");
-				System.out.println("fail");
-			}
 			
+		}
+		else if(cmd.equals("/detail_cancel.images")) {
+			int board_code=Integer.parseInt(request.getParameter("board_code"));
+			int board_seq=Integer.parseInt(request.getParameter("board_seq"));
+			String new_contents=boardDAO.board_contents(board_seq,board_code);
+	        System.out.println(new_contents);
+	        String[] sysnames=boardDAO.findDeletedTags(new_contents);
+	        ArrayList<String> fileList= imagesDAO.delete(board_seq, board_code, sysnames);
+	        imagesDAO.deleteImageFile(request.getServletContext().getRealPath("upload_images"), fileList);
 		}
 	}
 

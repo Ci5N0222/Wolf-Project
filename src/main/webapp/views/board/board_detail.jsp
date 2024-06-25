@@ -211,7 +211,6 @@
     	cursor: pointer;
     }
     .button_css:hover{
-        transform: scale(1.2);
         text-decoration: underline;
     }
     .no-hover:hover{
@@ -322,7 +321,7 @@
                                     <input type="hidden" name="contents" class="update_input" id="board_contents_input"> 
                                     <input type="hidden" name="count" value="${board_dto.count}">
                                     <input type="hidden" name="board_code" value="${board_code}">
-                                    <input type="hidden" name="seq" value="${board_dto.seq}" class="notuse">
+                                    <input type="hidden" name="seq" value="${board_dto.seq}" class="notuse" id="board_dto_seq">
                                     <button type="submit" id="confirm" class="button_css">확인</button>&nbsp&nbsp
                                     <button type="button" id="cancel" class="button_css">취소</button>&nbsp&nbsp
                              
@@ -365,13 +364,13 @@
         <div id="reply_contents">
             <c:forEach var="reply_dto" items="${reply_list}" varStatus="status">
                 <div class="reply_contents">
-                        <div style="flex: 6; word-break: break-all; white-space: pre-wrap; flex-direction: column;">
+                        <div style="flex: 6; word-break: break-all; white-space: pre-wrap; flex-direction: column; margin-left:15px">
                             <div>${reply_nickname_list[status.index]}(${reply_dto.member_id.substring(0, 4)}****) </div>
                             <div class="reply_div" style="flex-direction: column;">${reply_dto.contents}</div>
                             <div><p style="color: gray;"><fmt:formatDate value="${reply_dto.write_date}" pattern="yyyy.MM.dd HH:mm" /></p></div>
                         </div>
                         <div style="flex: 1; font-size: x-small; justify-content: flex-end; align-items: flex-end;">
-                            <div style="flex: 1;"> 
+                            <div style="flex: 1; margin-left:15px"> 
                                 <button  class="reply_child_btn button_css">답글</button>
                             </div>
                             <div id="check" style="flex: 1; justify-content: flex-end;">
@@ -408,7 +407,7 @@
                     <div class="reply_child_div_main" style="flex-direction: column; display: none; border: 1px solid gray; margin: 15px; align-items: center; justify-content: center;">
                         <c:forEach var="reply_child_dto" items="${reply_child_list}" varStatus="status">
                             <c:if test="${reply_child_dto.reply_seq==reply_dto.seq}">
-                                <div style="width:100% ;border-bottom: 1.5px solid gray; flex-direction: column;" class="reply_child_list">
+                                <div style="width:100% ;border-bottom: 1.5px solid gray; flex-direction: column; margin-left: 15px; margin-top: 10px;" class="reply_child_list">
                                     <div style="flex-direction: column;">
                                         <div style="flex: 1; font-family: 'Courier New', Courier, monospace; font-size:small; font-size: 13px;" class="reply_child_list_title">
                                             ${reply_child_nickname[status.index]}(${reply_child_dto.member_id.substring(0, 4)}****)     
@@ -435,7 +434,7 @@
                             </c:if>
                         </c:forEach> 
                         <!---->
-                        <div style="width:100% ; border-bottom: 1px solid gray; flex-direction: column; display: none;" class="reply_child_list">
+                        <div style="width:100% ; border-bottom: 1px solid gray; flex-direction: column; display: none; margin-left: 15px; margin-top: 10px;" class="reply_child_list">
                             <div style="flex-direction: column;">
                                 <div style="flex: 1; font-family: 'Courier New', Courier, monospace; font-size:small; font-size: 13px;" class="reply_child_list_title">  
                                 </div>
@@ -868,7 +867,7 @@
            let index=0;
             tinymce.init({
                 selector: 'div#board_contents',
-                plugins:'wordcount anchor image',
+                plugins:'wordcount anchor image code  media',
                 images_file_types:'jpg,svg,webp',
                 file_picker_types: 'file image media',
                 statusbar: false,
@@ -992,6 +991,15 @@
             $(".files_div").css({
                 display:"flex"
             });
+
+            $.ajax({
+                url:"/detail_cancel.images",
+                type:"post",
+                data:{
+                    board_seq:$("#board_dto_seq").val(),
+                    board_code:"${board_code}"
+                }
+            })
         })
 
 

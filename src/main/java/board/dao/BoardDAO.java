@@ -6,11 +6,14 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.jsoup.Jsoup;
+import java.util.List;
+
+
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
+
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -399,7 +402,7 @@ private static BoardDAO instance;
 	        String regex = "upload_images/(.+)"; // 여기에 적절한 정규 표현식을 넣어야 합니다.
 	        Pattern pattern = Pattern.compile(regex);
 	        Matcher matcher = pattern.matcher(src);
-
+	        
 	        if (matcher.find()) {
 	            String matchedString = matcher.group(1);
 	            //System.out.println("매칭된 문자열: " + matchedString);
@@ -419,14 +422,15 @@ private static BoardDAO instance;
 	}
 	
 	
-	public String board_contents(int seq) {
-		String sql="select contents from board where seq=?";
+	public String board_contents(int seq,int board_code) {
+		String sql="select contents from board where seq=? and board_code=?";
 		String contents="";
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
 			pstat.setInt(1, seq);
+			pstat.setInt(2, board_code);
 			try (ResultSet rs=pstat.executeQuery()){
-				rs.next();
+				rs.next(); 
 				contents=rs.getString(1);
 				
 			} catch (Exception e) {
