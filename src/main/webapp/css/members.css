@@ -1,0 +1,289 @@
+body, html {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-size: cover;
+}
+
+.overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.7);
+	z-index: -1;
+}
+
+.login-container {
+	background: #14213D;
+	padding: 40px;
+	margin: auto;
+	border-radius: 10px;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+	text-align: center;
+	max-width: 400px;
+	width: 100%;
+	color: #fff;
+	position: relative;
+	z-index: 1;
+	font-family: 'Roboto', sans-serif;
+	box-sizing: border-box;
+}
+
+.login-container h2 {
+	margin-bottom: 20px;
+	font-size: 32px;
+	color: #f9a620;
+	font-family: 'Orbitron', sans-serif;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+}
+
+.input-group {
+	margin-bottom: 20px;
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+
+.password-toggle {
+	display: flex;
+	align-items: center;
+	color: white;
+	font-weight: bold;
+	margin-top: 10px;
+	width: 300px;
+}
+
+.password-toggle input[type="checkbox"] {
+	margin-left: 5px;
+	margin-bottom: 10px;
+	/* 체크박스 왼쪽 여백 */
+}
+
+.form-check-label {
+	margin-left: 20px;
+}
+
+.input-group input {
+	width: calc(100% - 30px);
+	padding: 12px 15px;
+	border: none;
+	border-radius: 5px;
+	background: rgba(255, 255, 255, 0.2);
+	color: #fff;
+	font-size: 16px;
+	transition: background 0.3s ease;
+	margin: 0 auto;
+	display: block;
+}
+
+.input-group input::placeholder {
+	color: white;
+}
+
+.input-group input:focus {
+	outline: none;
+	background: rgba(255, 255, 255, 0.3);
+}
+
+#togglePassword, #rememberid {
+	color: white;
+	display: block;
+	margin-top: 10px;
+	cursor: pointer;
+}
+
+.login-container::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: url('https://example.com/wolf-overlay.png') no-repeat center
+		center;
+	background-size: contain;
+	opacity: 0.1;
+	z-index: -1;
+}
+
+.login-container .login-buttons {
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+}
+
+.login-container .login-buttons button {
+	width: 100%;
+}
+
+.login-container .links {
+	text-align: center;
+	margin-top: 20px;
+}
+
+.login-container .links a {
+	margin-right: 10px;
+	color: #f9a620;
+	text-decoration: none;
+}
+
+.login-container .links span {
+	margin-right: 5px;
+	color: #f9a620;
+	text-decoration: none;
+}
+
+.rankcontainer {
+	width: 100%;
+	max-width: 800px;
+	margin: auto;
+	z-index: 1;
+}
+
+.btn-group>.btn-group>.btn, .btn-group>.btn.dropdown-toggle-split:first-child,
+	.btn-group>.btn:not(:last-child):not(.dropdown-toggle) {
+	border-radius: 20px;
+}
+
+.btn-group>.btn-group:not(:first-child)>.btn, .btn-group>.btn:nth-child(n+3),
+	.btn-group>:not(.btn-check)+.btn {
+	border-radius: 20px;
+}
+
+.btn-group {
+	display: flex;
+	justify-content: space-between;
+}
+
+.btn-group .btn {
+	flex: 1;
+	margin: 10px;
+	padding: 15px;
+	background-color: #f9a620;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	font-size: 16px;
+	transition: background-color 0.3s;
+}
+
+.game-rank {
+	background-color: #fff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	padding: 20px;
+	border-radius: 5px;
+	margin-bottom: 20px;
+}
+
+.game-rank-header {
+	background-color: #007bff;
+	color: #fff;
+	padding: 10px;
+	text-align: center;
+	border-radius: 5px 5px 0 0;
+}
+
+.rank-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border: 1px solid black;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+.rank-item>div {
+	flex: 1;
+	text-align: center;
+}
+
+.rank-item .avatar img {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+}
+
+.user-info {
+	color: white;
+	font-size: 14px;
+	text-align: right;
+	margin-bottom: 10px;
+}
+
+/* 추가된 스타일 */
+.toprank {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 20px;
+}
+
+.toprank .firstbox, .toprank .secondbox, .toprank .thirdbox {
+	width: calc(33.33% - 10px);
+	border: 1px solid black;
+	padding: 10px;
+	text-align: center;
+	border-radius: 5px;
+	background-color: #fff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.toprank .firstbox {
+	order: 2;
+	background-size: cover;
+	background-position: center;
+}
+
+.toprank .secondbox {
+	order: 1;
+	background-size: cover;
+	background-position: center;
+}
+
+.toprank .thirdbox {
+	order: 3;
+	background-size: cover;
+	background-position: center;
+}
+
+.toprank .box-title, .toprank .box-score {
+	margin-bottom: 10px;
+}
+
+.lowrank {
+	border: 1px solid black;
+	padding: 10px;
+	background-color: #14213D;
+	color: #f9a620;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	border-radius: 5px;
+}
+
+.ranklist {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.ranklist .lownum, .ranklist .lowname, .ranklist .lowscore {
+	flex: 1;
+	text-align: center;
+	padding: 5px;
+}
+
+.ranklist .lowimg {
+	flex: 1;
+	text-align: center;
+}
+
+.ranklist .lowimg img {
+	max-width: 50px;
+	max-height: 50px;
+	border-radius: 50%;
+}
