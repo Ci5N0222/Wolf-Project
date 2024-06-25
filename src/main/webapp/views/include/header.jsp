@@ -16,12 +16,11 @@
     </div>
     <div class="col-4 d-flex justify-content-end">
         <div class="d-flex flex-row">
-            <div class="me-3 naviBtn" onclick="location.href='/main.service'">Service</div>
             <c:if test="${ WolfAdmin == true }">
             	<div class="me-3 naviBtn" onclick="location.href='/main.admin'">Admin</div>
             </c:if>
             <c:if test="${WolfID != null}">
-	            <div class="naviBtn" onclick="location.href ='/views/mypage/mypage.jsp'">
+	            <div class="naviBtn signBtn">
 	            	<c:choose>
 	            		<c:when test="${WolfAvatar != null}">
 	            			<img src="${WolfAvatar}">
@@ -34,23 +33,42 @@
 	            </div>
             </c:if>
             <c:if test="${WolfID == null}">
-	            <div class="naviBtn" onclick="location.href ='/views/members/login.jsp'"><i class="fa-solid fa-user menus"></i></div>
+	            <div class="naviBtn signBtn"><i class="fa-solid fa-user menus"></i></div>
             </c:if>
         </div>
     </div>
     
-    <!-- Login Popup -->
-    <div id="loginPopup" class="login-popup" style="display: none;">
-        <div>
-            <button class="btn btn-primary">test</button>
-        </div>
-        <div>
-            <button class="btn btn-primary">test</button>
-        </div>
-        <div>
-            <button class="btn btn-primary">test</button>
-        </div>
-    </div>
+    <c:if test="${WolfID == null}">
+	    <!-- Login Popup -->
+	    <div id="loginPopup" class="login-popup" style="display: none;">
+	        <div>
+	            <p>
+	            	로그인이 필요한<br/>
+	            	서비스입니다.
+	            </p>
+	        </div>
+	        <div>
+	            <button class="btn btn-primary" onclick="location.href='/views/members/login.jsp'">Sign-In</button> 
+	            <button class="btn btn-primary" onclick="location.href='/views/members/signup.jsp'">Sign-Up</button>
+	        </div>
+	    </div>
+    </c:if>
+    
+    <c:if test="${ WolfAdmin == true }">
+    	<!-- Login Popup -->
+	    <div id="loginPopup" class="login-popup" style="display: none;">
+	        <div>
+	        	<p onclick="location.href ='/views/mypage/mypage.jsp'">My page</p>
+	        </div>
+	        <div>
+	       		<p onclick="location.href ='/main.service'">Service Center</p>
+	        </div>
+	        <div>
+	            <button class="btn btn-primary" onclick="location.href='/logout.members'">Sign-Out</button>
+	        </div>
+	    </div>
+    </c:if>
+    
 </div>
 
 <!-- Mobile Navigation -->

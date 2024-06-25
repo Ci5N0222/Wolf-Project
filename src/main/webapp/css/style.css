@@ -221,20 +221,38 @@ body.light {
 #loginPopup {
     position: absolute;
     z-index: 100;
-    width: 200px;
-    /* height: 150px; */
-    right: 0%;
-    top: 100%;
+    width: 220px;
+    height: 150px;
+    right: 10%;
+    top: 10%;
     border: 1px solid var(--darkNav);
     background-color: #eeeeee63;
     border-radius: 5px;
     box-shadow: 0px 5px 20px #444;
     border: 1px solid white;
-    display: flex;flex-direction: column;align-items: center;justify-content: space-between;
+    display: flex;flex-direction: column;align-items: center;justify-content: space-evenly;
     margin: 0; padding: 0;
 }
-#loginPopup > div {border: 1px solid white;width: 100%;}
-#loginPopup > div button {border: 1px solid white;}
+
+#loginPopup > div > button {
+	padding: 10px;
+	margin: 2px;
+	transition: all 0.8s ease;
+}
+#loginPopup > div > button:hover {
+	cursor: pointer;
+}
+
+#loginPopup > div > p {
+	padding: 2px;
+	margin: 2px;
+	transition: all 0.8s ease;
+}
+
+#loginPopup > div > p:hover {
+	cursor: pointer;
+	color: var(--lightNav);
+}
 
 /* 모바일 네비게이션 스타일 */
 .m_navi .login-popup {
@@ -247,7 +265,7 @@ body.light {
 	letter-spacing: 3px;
 	font-size: 40px;
 	height: 30%;
-	z-index: 10;
+	z-index: 1;
 	font-family: 'Luckiest Guy', cursive;
 }
 

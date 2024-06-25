@@ -53,14 +53,24 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	resize();
 	navbarToggle();
-});
+	
+	// 팝업 클릭 시 토글 효과
+	$(".signBtn").on("click", togglePopup);
+	
+	// 페이지 전환 감지 및 팝업 닫기
+	$(window).on("beforeunload", closePopupOnPageChange);
+	
+	// 팝업 외부 클릭 감지 및 팝업 닫기
+	$(document).on("click", closePopupOnClickOutside);
 
+	
+});
 
 // 팝업 토글 함수
 function togglePopup() {
     let popup = document.querySelector(".login-popup");
     if (popup.style.display === "none" || popup.style.display === "") {
-        popup.style.display = "block";
+        popup.style.display = "flex";
     } else {
         popup.style.display = "none";
     }
@@ -80,13 +90,6 @@ function closePopupOnClickOutside(event) {
     }
 }
 
-// 팝업 클릭 시 토글 효과
-document.querySelector(".loginBtn").addEventListener("click", togglePopup);
-// 페이지 전환 감지 및 팝업 닫기
-window.addEventListener("beforeunload", closePopupOnPageChange);
-// 팝업 외부 클릭 감지 및 팝업 닫기
-document.addEventListener("click", closePopupOnClickOutside);
-
 
 /** Home 입장 시 게임 데이터 받아서 카드에 바인딩 **/
 const homeBinding = () => {
@@ -95,18 +98,16 @@ const homeBinding = () => {
 		method: "post",
 		dataType: "json"
 	})
-		.done((res) => {
-			console.log("res === ", res);
-			console.log(res.result);
-			if (res.result === "ok") {
-				res.data.forEach((item, i) => {
-					homeCardSetting(item);
-					homeMobileSetting(item, i);
-				});
-			} else {
-				console.log("No 'data' property found in response.");
-			}
-		});
+	.done((res) => {
+		if (res.result === "ok") {
+			res.data.forEach((item, i) => {
+				homeCardSetting(item);
+				homeMobileSetting(item, i);
+			});
+		} else {
+			console.log("No 'data' property found in response.");
+		}
+	});
 }
 /** index card binding **/
 const homeCardSetting = (res) => {
