@@ -37,6 +37,7 @@
             </c:if>
         </div>
     </div>
+<<<<<<< HEAD
     
     <c:if test="${WolfID == null}">
 	    <!-- Login Popup -->
@@ -69,6 +70,8 @@
 	    </div>
     </c:if>
     
+=======
+>>>>>>> 69e6537076b9291639a19a62f9020fff8adf6d91
 </div>
 
 <!-- Mobile Navigation -->
@@ -90,25 +93,30 @@
 			</div>
 		</c:if>
 		<c:if test="${WolfID == null}">
-			<div class="naviBtn loginBtn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasLogin" aria-controls="offcanvasLogin"
+			<div class="naviBtn"
 				onclick="location.href ='/views/members/login.jsp'">
 				<i class="fa-solid fa-user menus"></i>
 			</div>
 		</c:if>
-        <!-- 햄버거 버튼 -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <!-- 햄버거 버튼 클릭시 나오는 화면 -->
-        <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-            <!-- 제목 wolf -->
-            <div class="offcanvas-header" style="height: 58px;">
-                <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">wolf</h5>
-                <!-- 취소버튼 -->
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <!-- 메뉴 -->
-            <div class="offcanvas-body">
+		</a>
+		<!-- 햄버거 버튼 -->
+		<button class="navbar-toggler" type="button"
+			data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
+			aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<!-- 햄버거 버튼 클릭시 나오는 화면 -->
+		<div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1"
+			id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+			<!-- 제목 wolf -->
+			<div class="offcanvas-header" style="height: 58px;">
+				<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">wolf</h5>
+				<!-- 취소버튼 -->
+				<button type="button" class="btn-close btn-close-white"
+					data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			</div>
+			<!-- 메뉴 -->
+			<div class="offcanvas-body">
 				<ul class="navbar-nav">
 					<li class="nav-item" onclick="location.href='/'">
 						<div>
@@ -152,33 +160,3 @@
 		</div>
 	</div>
 </nav>
-<!-- 로그인 오프캔버스 -->
-<div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasLogin" aria-labelledby="offcanvasLoginLabel">
-    <div class="offcanvas-header" style="height: 58px;">
-        <h5 class="offcanvas-title" id="offcanvasLoginLabel">Login</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        		<!-- 로그인 -->
-		<c:if test="${WolfID != null}">
-			<div class="naviBtn loginBtn"
-				onclick="location.href ='/views/mypage/mypage.jsp'">
-				<c:choose>
-					<c:when test="${WolfAvatar != null}">
-						<img src="${WolfAvatar}">
-					</c:when>
-					<c:otherwise>
-						<img src="/images/default-avatar.jpg" width="50" alt="기본 아바타">
-					</c:otherwise>
-				</c:choose>
-
-			</div>
-		</c:if>
-		<c:if test="${WolfID == null}">
-			<div class="naviBtn"
-				onclick="location.href ='/views/members/login.jsp'">
-				<i class="fa-solid fa-user menus"></i>
-			</div>
-		</c:if>
-    </div>
-</div>

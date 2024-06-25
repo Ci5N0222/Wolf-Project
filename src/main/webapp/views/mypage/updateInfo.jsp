@@ -32,7 +32,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     ></script>
 	<link rel="stylesheet" href="/css/style.css">
 	<link rel="stylesheet" href="/css/mypage.css">
-    <script src="/js/main.js"></script>
+
   </head>
 
   <body>
@@ -371,6 +371,40 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       $("td").on("keydown", function (e) {
         if (e.key == "Enter") {
           return false;
+        }
+      });
+    </script>
+    <script src="js/main.js"></script>
+
+    <!-- 스크롤 관련 -->
+    <script>
+      resize();
+      $(window).resize(function () {
+        resize();
+      });
+      function resize() {
+        const currentHeight = $("body").height() + 5;
+        const scrollHeight = $("body").prop("scrollHeight");
+        if (scrollHeight > currentHeight) {
+          $(".img_bg").css({
+            left: "0%",
+            width: "98.5%",
+          });
+        }
+      }
+      let m_navi = $(".m_navi");
+      let check = true;
+      let toggle = m_navi.find(".navbar-toggler").on("click", function () {
+        if (check) {
+          m_navi.find("#navbarToggleExternalContent").css({
+            display: "block",
+          });
+          check = false;
+        } else {
+          m_navi.find("#navbarToggleExternalContent").css({
+            display: "none",
+          });
+          check = true;
         }
       });
     </script>
