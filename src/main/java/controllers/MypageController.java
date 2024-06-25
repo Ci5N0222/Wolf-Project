@@ -47,7 +47,6 @@ public class MypageController extends HttpServlet {
 		PrintWriter pw= response.getWriter();
 		
 		String cmd= request.getRequestURI();
-		System.out.println("확인중 :" + cmd);
 		
 		try {
 			/** 마이페이지 메인 화면 **/
@@ -95,7 +94,6 @@ public class MypageController extends HttpServlet {
 					oriName= multi.getOriginalFileName(name); // 원본 파일 이름
 					sysName = multi.getFilesystemName(name); // 서버에 저장된 파일의 이름
 
-					System.out.println(sysName);
 				}
 				
 				String name = multi.getParameter("name");
