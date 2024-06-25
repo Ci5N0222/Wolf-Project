@@ -1,215 +1,3 @@
-@charset "UTF-8";
-@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Noto+Sans+KR:wght@100..900&display=swap');
-
-:root {
-	--darkMode: linear-gradient(to top, #001021, #00264f, #FCF6F5);
-	--darkNav: #00264f;
-	--lightMode: linear-gradient(to top, #ffd449, #f9a620, #FCF6F5);
-	--lightNav: #f9a620;
-
-	--bg-light: #ffd449;
-	--bg-dark: #14213d;
-	--bg-transparent: transparent;
-
-	--color-white: #eeeeee;
-	--color-black: #14213d;
-	--bg-nav: #f9a620;
-	--color-nav-icon: #14213d;
-	--color-nav-bg: #f9a620;
-	font-size: 16px;
-}
-.fa-user {color: white;}
-
-html,
-body {
-	height: 100%;
-	margin: 0;
-	background-color: #00264f;
-	color: var(--bg-black);
-	color: var(--color-black);
-	overflow: hidden;
-	/* 폰트 */
-	font-family: 'Noto Sans KR', sans-serif;
-	font-family: 'Luckiest Guy', cursive;
-}
-
-
-body.light {
-	background-color: var(--lightMode);
-	/* color: var(--darkNav); */
-}
-
-/* 하단 원 */
-.sun {
-	display: none;
-}
-
-/* 모드 변경시 부드럽게 넘어가는 효과 */
-.sun,
-.navi {
-	transition: background-color 0.5s ease, box-shadow 0.5s ease;
-}
-.wolf {display: none;}
-
-/* img */
-.img_bg {
-	position: absolute;
-	top: 0%;
-	left: 0;
-	width: 100%;
-	object-fit: cover;
-}
-
-.bgs {
-	animation: bg 1s ease-in Infinite Alternate;
-	transition: all ease-in 0.2s;
-	width: 50px;
-}
-
-.bgs:nth-child(1) {
-	top: 20%;
-	background-color: #eee;
-	left: 80%;
-}
-
-.bgs:nth-child(2) {
-	top: 20%;
-	left: 80%;
-	width: 40px;
-}
-
-.bgs:nth-child(3) {
-	top: 15%;
-	left: 20%;
-}
-
-.bgs:nth-child(4) {
-	top: 20%;
-	left: 40%;
-	width: 30px;
-}
-
-.bgs:nth-child(5) {
-	top: 12%;
-	left: 50%;
-}
-
-.bgs:nth-child(6) {
-	top: 12%;
-	left: 80%;
-	width: 20px;
-}
-
-@keyframes bg {
-	0% {
-		opacity: 1;
-	}
-
-	100% {
-		opacity: 0;
-	}
-}
-
-.container-fluid,
-.container,
-.main {
-	height: 100%;
-}
-
-/* 메뉴 */
-.navi {
-	display: block;
-}
-
-.m_navi {
-	display: none;
-}
-
-.wolf {
-	display: none;
-}
-
-.navi {
-	min-height: 50px;
-	z-index: 5;
-	height: 10%;
-	display: flex;
-	align-items: center;
-	background-color: var(--darkNav);
-	box-shadow: 0px 5px 20px #444;
-	padding: 0 3%;
-	font-size: 20px;
-	color: var(--color-white);
-	text-shadow: 1px 1px 1px gray;
-	letter-spacing: 1px;
-
-	border-radius: 40px 80px / 80px 40px;
-}
-
-.navi i {
-	font-size: 22px;
-}
-
-.navi>div {
-	margin-top: 0;
-	height: 100%;
-}
-
-/* 메뉴 */
-.navi>div:nth-child(1),
-.navi>div:nth-child(3) {
-	width: 30%;
-}
-
-.navi>div:nth-child(2) {
-	width: 40%;
-}
-
-.navi>div:nth-child(1)>div {
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: left;
-}
-
-.navi>div:nth-child(2) #wolfLogo {
-	width: 100%;
-	height: 100%;
-}
-
-.navi>div:nth-child(2) #wolfLogo img {
-	width: initial;
-	height: 130%;
-	object-fit: contain;
-}
-
-.navi>div:nth-child(3)>div {
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: right;
-}
-
-/* 메뉴 버튼 */
-.naviBtn {
-	cursor: pointer;
-	transition: all 0.3s ease-in-out;
-}
-
-.naviBtn:hover {
-	opacity: 0.5;
-}
-
-.naviBtn>img {
-	width: 50px;
-	height: 50px;
-	border-radius: 100%;
-}
-
-/* -- main과 동일 -- */
-
-
-
 
 /* main */
 .main {
@@ -218,7 +6,7 @@ body.light {
 }
 
 .main>.datail {
-	padding: 20px;
+	padding: 50px 38px;
 	width: 100%;
 	height: 100%;
 	display: flex;
@@ -231,16 +19,17 @@ body.light {
 	flex-direction: column;
 	border-radius: 5px;
 	flex: 1;
-	height: 700px;
+	height: 600px;
 }
 
 .main>.datail>div:first-child {
+	height: 600px;
 	border: 1px solid #eeeeee32;
 }
 
 .main>.datail>div:first-child>div {
-	padding: 20px;
-	height: 600px;
+	padding: 30px;
+	height: 500px;
 }
 
 .main>.datail>div:first-child>div img {
@@ -252,13 +41,10 @@ body.light {
 }
 
 .main>.datail>div:first-child>form {
-	/* flex: 1; */
 	height: 100px;
-	/* line-height: 80px; */
 }
 .main>.datail>div:first-child>form > button{
 	height: 50px;
-	/* width: 100%; */
 	font-size:1rem;
 	border-radius:10px;
 	background-color: var(--color-nav-bg); 
@@ -267,17 +53,17 @@ body.light {
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
-	transition: border-color 0.4s ease-in-out, color 0.4s ease-in-out;
+	transition: border-color 0.2s ease, color 0.4s ease-in-out;
 }
 
 .main>.datail>div:first-child>form > button:hover {
-	border-color: var(--bg-dark);
-	color: var(--color-nav-icon);
+	border-color: white;
 
 }
 
 .main>.datail>div:last-child {
-	background-color: #eeeeee;
+	height: 600px;
+	background-color: #eeeeee50;
 	color: white;
 	text-align: left;
 
@@ -286,18 +72,18 @@ body.light {
 .main>.datail>div:last-child div {
 	padding: 20px;
 }
+.main>.datail>div:last-child div div:last-child {
+	padding-bottom: 0;
+}
+.main>.datail>div:last-child div div:first-child {
+	padding-top: 0;
+}
 
 
 
 /* 테블릿 가로, 테블릿 세로 (해상도 768px ~ 1023px)*/
 @media all and (min-width:768px) and (max-width: 1023px) {
-	.wolf {
-		display: block;
-	}
 	
-	#wolfLogo {
-		display: none;
-	}
 	.main>.datail {
 		padding: 20px;
 		width: 100%;
@@ -313,15 +99,15 @@ body.light {
 		flex-direction: column;
 		border-radius: 5px;
 		flex: 1;
-		height: 400px;
+		height: 300px;
 		width: 500px;
 	}
 
 	.main>.datail>div:first-child {
 		border: 1px solid #eeeeee32;
-		;
 		display: flex;
 		flex-direction: column;
+		height: 300px;
 	}
 
 	.main>.datail>div:first-child>div:first-child {
@@ -345,16 +131,34 @@ body.light {
 	}
 
 	.main>.datail>div:last-child {
-		height: 400px;
-		background-color: #eeeeee32;
 		display: flex;
 		flex-direction: column;
-		color: white;
-		text-align: left;
+		align-items: start;
+		justify-content: center;
+		height: 300px;
+		padding: 10px;
+		background-color:#eeeeee50;
+		color: #ccc;
+		overflow-y: auto;
+	}
+	/* 아래의 모든 코드는 영역::코드로 사용 */
+	.main>.datail>div:last-child::-webkit-scrollbar {
+	    width: 10px;  /* 스크롤바의 너비 */
+	}
+	
+	.main>.datail>div:last-child::-webkit-scrollbar-thumb {
+	    height: 30%; /* 스크롤바의 길이 */
+	    background: var(--lightNav); /* 스크롤바의 색상 */
+	    
+	    border-radius: 10px;
+	}
+	
+	.main>.datail>div:last-child::-webkit-scrollbar-track {
+	    background: var(--darkNav);  /*스크롤바 뒷 배경 색상*/
 	}
 
 	.main>.datail>div:last-child div {
-		padding: 20px;
+		padding: 0;
 	}
 }
 
@@ -363,7 +167,11 @@ body.light {
 	/* #wolfLogo {
 		display: none;
 	} */
-
+	.main {
+		display: block;
+		height: 90%;
+		margin-top: 10%;
+	}
 	.main>.datail {
 		font-size: 1rem;
 		padding: 30px;
@@ -380,15 +188,15 @@ body.light {
 		flex-direction: column;
 		border-radius: 5px;
 		flex: 1;
-		height: 50%;
+		height: 100%;
 		width: 100%;
 	}
 
 	.main>.datail>div:first-child {
-		border: 1px solid #eeeeee32;
-		;
+		border: 1px solid #eeeeee32;;
 		display: flex;
 		flex-direction: column;
+		flex: 1;
 	}
 
 	.main>.datail>div:first-child>div:first-child {
@@ -405,180 +213,34 @@ body.light {
 		object-fit: cover;
 		background-color: #ccc;
 	}
-	.main>.datail>div:first-child> form{height: 15%;display: flex;justify-content: center;background-color: white;}
+	.main>.datail>div:first-child> form{height: 15%;display: flex;justify-content: center;}
 	.main>.datail>div:first-child> form button {height: 100%;}
 
 	.main>.datail>div:last-child {
-		background-color: #eeeeee32;
+		background-color: #eeeeee50;
+		flex: 1;
 		display: flex;
 		flex-direction: column;
-		color: white;
+		color: #ccc;
 		text-align: left;
 		margin-top: 5px;
+		height: 300px;
+		overflow-y: auto;
 	}
-	#wolfLogo {
-		display: none;
+	/* 아래의 모든 코드는 영역::코드로 사용 */
+	.main>.datail>div:last-child::-webkit-scrollbar {
+	    width: 10px;  /* 스크롤바의 너비 */
 	}
-
-	/* 하단 원 */
-	.sun {
-		display: none;
+	
+	.main>.datail>div:last-child::-webkit-scrollbar-thumb {
+	    height: 30%; /* 스크롤바의 길이 */
+	    background: var(--lightNav); /* 스크롤바의 색상 */
+	    
+	    border-radius: 10px;
 	}
-
-	/* 메뉴 */
-	.wolf {
-		display: block;
-	}
-
-	.navi {
-		display: none;
-	}
-
-	.m_navi {
-		display: block;
-		position: relative !important;
+	
+	.main>.datail>div:last-child::-webkit-scrollbar-track {
+	    background: var(--darkNav);  /*스크롤바 뒷 배경 색상*/
 	}
 
-	.container-fluid,
-	.container {
-		padding: 0;
-	}
-
-	/* 내용물 */
-	/* 햄버거 */
-	.navbar {
-		background-color: var(--darkNav);
-	}
-
-	/* 햄버거 클릭시 나오는 메뉴 화면 */
-	.offcanvas-body {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-
-	.offcanvas-body .navbar-nav {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		height: 100%;
-	}
-
-	.offcanvas-body .navbar-nav .nav-item {
-		position: relative;
-		margin-bottom: 0;
-		flex: 1;
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		align-items: center;
-		margin-bottom: 10%;
-	}
-
-	.offcanvas-body .navbar-nav .nav-item:last-child {
-		margin-bottom: 0;
-	}
-
-	.offcanvas-body .navbar-nav .nav-item>div:first-child {
-		flex: 1;
-	}
-
-	.offcanvas-body .navbar-nav .nav-item>div:first-child i {
-		font-size: 1.3rem;
-	}
-
-	.offcanvas-body .navbar-nav .nav-item>div:last-child {
-		flex: 9;
-		cursor: pointer;
-		letter-spacing: 2px;
-	}
-
-	/* 가상요소 추가 밑줄 */
-	.offcanvas-body .navbar-nav .nav-item::after {
-		content: "";
-		position: absolute;
-		left: 0;
-		bottom: 0;
-		height: 3px;
-		width: calc(100%);
-		background: #cccccc63;
-		;
-	}
-
-	/* 가상 요소 호버 */
-	@media (hover) {
-		.offcanvas-body .navbar-nav .nav-item:hover::after {
-			transform: scaleX(1);
-			margin-left: 0;
-		}
-
-		.offcanvas-body .navbar-nav .nav-item::after {
-			transform: scaleX(0);
-			margin-left: 50%;
-			transform-origin: left;
-			transition: transform 500ms ease, margin-left .5s ease;
-		}
-	}
-
-	ul,
-	li {
-		list-style: none;
-	}
-
-	.offcanvas-header {
-		border-bottom: 1px solid #cccccc63;
-	}
-
-	.offcanvas-title {
-		letter-spacing: 2px;
-	}
-
-}
-
-
-/* -- main과 동일 -- */
-/* 라이트 다크 mode */
-#mode {
-	cursor: pointer;
-	position: absolute;
-	z-index: 100;
-	bottom: 5%;
-	right: 5%;
-	background-color: var(--bg-dark);
-	width: 50px;
-	height: 50px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border-radius: 50%;
-	transition: all ease-in 0.2s;
-	animation: ball 1s ease-in Infinite Alternate;
-	border: double 1px rgba(255, 255, 255, 0.46);
-}
-
-@keyframes ball {
-	0% {
-		bottom: 5%;
-	}
-
-	95% {
-		width: 50px;
-	}
-
-	to {
-		bottom: 8%;
-		width: 50px;
-		height: 60px
-	}
-}
-
-/* 모드 전환 버튼 호버 시 투명도 조정 */
-#mode:hover {
-	opacity: 0.8;
-}
-
-/* 모드 전환 버튼 아이콘 스타일 */
-#mode i {
-	font-size: 30px;
-	color: white;
 }
