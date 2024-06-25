@@ -444,11 +444,6 @@ li {
   padding: 20px;
 }
 
-.mypage-myList > div {
-  /* 임시 */
-  background-color: lightgray;
-}
-
 .mypage-myList .mypage-myList-dropdown {
   flex: 1;
   display: flex;
@@ -466,13 +461,15 @@ li {
 
 .mypage-myList .mypage-myList-header > p {
   margin: 0;
-  font-size: x-large;
+  font-size: xx-large;
   font-weight: 700;
 }
 
 .mypage-myList .mypage-myList-navi {
   flex: 1;
   display: flex;
+  margin-top: 50px;
+  margin-bottom: 10px;
 }
 
 .mypage-myList .mypage-myList-navi > div {
@@ -484,14 +481,40 @@ li {
 .mypage-myList .mypage-myList-navi > div > p {
   margin: 0;
   font-weight: 600;
+  font-size: larger;
 }
 
 .mypage-myList .mypage-myList-contents {
   flex: 15;
 }
+.mypage-myList .mypage-myList-contents > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mypage-myList .mypage-myList-contents .center .title a {
+  text-decoration-line: none;
+}
+.mypage-myList .mypage-myList-contents .center .title a:link {
+  color: black;
+}
+.mypage-myList .mypage-myList-contents .center .title a:visited {
+  color: purple;
+}
+.mypage-myList .mypage-myList-contents .center .title a:hover {
+  color: red;
+}
 
 .mypage-myList .page-navigation {
   flex: 1.3;
+}
+.mypage-myList .page-navigation > a {
+  text-decoration-line: none;
+  margin-left: 5px;
+  color: black;
+}
+.mypage-myList .page-navigation > a:hover {
+  color: red;
 }
 
 .mypage-myGame-container {
