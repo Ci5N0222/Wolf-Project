@@ -21,6 +21,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import board.dao.BoardDAO;
+import commons.DBConfig;
 import commons.PageConfig;
 import files.dao.FilesDAO;
 import images.dao.ImagesDAO;
@@ -49,7 +50,7 @@ public class ImagesController extends HttpServlet {
 		if(cmd.equals("/upload.images")) {
 			int maxSize = 1024 * 1024 * 10; // 10mb
 			String Path = "upload_images";
-			String realPath = getServletContext().getRealPath(Path);
+			String realPath = DBConfig.realPath+Path;
 			System.out.println(realPath);
 			File uploadPath = new File(realPath);
 			if (!uploadPath.exists()) {
@@ -121,7 +122,7 @@ public class ImagesController extends HttpServlet {
 			String board_code=request.getParameter("board_code");
 			int image_code=Integer.parseInt(board_code);
 			ArrayList<String> fileList=imagesDAO.delete(image_code);
-			imagesDAO.deleteImageFile(request.getServletContext().getRealPath("upload_images"), fileList);	
+			imagesDAO.deleteImageFile(DBConfig.realPath+"upload_images", fileList);	
 			pw.append("success");
 			
 			
@@ -133,7 +134,7 @@ public class ImagesController extends HttpServlet {
 	        System.out.println(new_contents);
 	        String[] sysnames=boardDAO.findDeletedTags(new_contents);
 	        ArrayList<String> fileList= imagesDAO.delete(board_seq, board_code, sysnames);
-	        imagesDAO.deleteImageFile(request.getServletContext().getRealPath("upload_images"), fileList);
+	        imagesDAO.deleteImageFile(DBConfig.realPath+"upload_images", fileList);
 		}
 	}
 

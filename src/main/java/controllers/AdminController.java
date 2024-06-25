@@ -19,6 +19,7 @@ import admin.dao.AdminDAO;
 import admin.dto.AdminDTO;
 import board.dao.BoardDAO;
 import board.dto.BoardDTO;
+import commons.DBConfig;
 import commons.EncryptionUitls;
 import commons.PageConfig;
 import files.dao.FilesDAO;
@@ -280,7 +281,7 @@ public class AdminController extends HttpServlet {
 				else {
 					
 					int maxSize = 1024 * 1024 * 10;
-					String realPath = request.getServletContext().getRealPath("thumbnails");
+					String realPath = DBConfig.realPath+"thumbnails";
 					File uploadPath = new File(realPath);
 					
 					if(!uploadPath.exists()) {
@@ -310,7 +311,7 @@ public class AdminController extends HttpServlet {
 				else {
 					
 					int maxSize = 1024 * 1024 * 10;
-					String realPath = request.getServletContext().getRealPath("thumbnails");
+					String realPath = DBConfig.realPath+"thumbnails";
 					File uploadPath = new File(realPath);
 					
 					if(!uploadPath.exists()) {
@@ -413,7 +414,7 @@ public class AdminController extends HttpServlet {
 				else {
 					
 					int maxSize = 1024 * 1024 * 10; // 10mb
-					String realPath = request.getServletContext().getRealPath("files");
+					String realPath = DBConfig.realPath+"files";
 					File uploadPath = new File(realPath);
 					if (!uploadPath.exists()) {
 						uploadPath.mkdir();// 메이크 디렉토리
@@ -446,7 +447,7 @@ public class AdminController extends HttpServlet {
 			        System.out.println(new_contents);
 			        String[] sysnames = boardDAO.findDeletedTags(new_contents);
 			        ArrayList<String> fileList = imagesDAO.delete(board_seq, Integer.parseInt(boardCode), sysnames);
-			        imagesDAO.deleteImageFile(request.getServletContext().getRealPath("upload_images"), fileList);
+			        imagesDAO.deleteImageFile(DBConfig.realPath+"upload_images", fileList);
 			        
 			        response.sendRedirect("/detail.board?seq="+board_seq+"&target=&keyword=&board_code=" + Integer.parseInt(boardCode));
 				}

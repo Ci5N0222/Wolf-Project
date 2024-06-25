@@ -18,6 +18,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import board.dao.BoardDAO;
+import commons.DBConfig;
 import commons.EncryptionUitls;
 import commons.PageConfig;
 import game.dao.GameDAO;
@@ -74,7 +75,7 @@ public class MypageController extends HttpServlet {
 				//--- 파일 업로드
 				String id = (String)session.getAttribute("WolfID");
 				int maxSize = 1024 * 1024 * 10; // 10MB 사이즈 제한
-				String realPath = request.getServletContext().getRealPath(id); // 파일이 저장될 위치
+				String realPath = DBConfig.realPath+id; // 파일이 저장될 위치
 				System.out.println(realPath);
 				File uploadPath = new File(realPath); // 저장 위치 폴더를 파일 인스턴스로 생성
 
