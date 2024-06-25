@@ -218,7 +218,7 @@ body.light {
 }
 
 /* 로그인 팝업 스타일 */
-.login-popup {
+#loginPopup {
     position: absolute;
     z-index: 10;
     width: 220px;
@@ -234,22 +234,22 @@ body.light {
     margin: 0; padding: 0;
 }
 
-.login-popup > div > button {
+#loginPopup > div > button {
 	padding: 10px;
 	margin: 2px;
 	transition: all 0.8s ease;
 }
-.login-popup > div > button:hover {
+#loginPopup > div > button:hover {
 	cursor: pointer;
 }
 
-.login-popup > div > p {
+#loginPopup > div > p {
 	padding: 2px;
 	margin: 2px;
 	transition: all 0.8s ease;
 }
 
-.login-popup > div > p:hover {
+#loginPopup > div > p:hover {
 	cursor: pointer;
 	color: var(--lightNav);
 }
