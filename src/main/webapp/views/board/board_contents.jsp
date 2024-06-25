@@ -194,7 +194,7 @@
     let index=0;
     tinymce.init({
       selector: 'div#contents',
-      plugins:'wordcount anchor image',
+      plugins:'wordcount anchor image media code',
       //toolbar:'image',
       images_file_types:'jpg,svg,webp',
       file_picker_types: 'file image media',
