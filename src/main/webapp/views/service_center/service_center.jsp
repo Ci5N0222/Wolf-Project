@@ -63,7 +63,7 @@
 			<!-- main -->
 			<main class="service-main">
 				<nav class="service-navi">
-					<p onclick="location.href='/faq_list.service'">F A Q</p>
+					<p onclick="location.href='#'">F A Q</p>
 					<p onclick="serviceFormMove('/qna_list.service')">Q & A</p>
 				</nav>
 				<section class="servie-content-box">
@@ -80,7 +80,7 @@
 					<div class="service-main-row">
 						<div class="service-main-row">
 							<p>자주 묻는 질문들은 여기서 확인하세요!</p>
-							<button onclick="location.href='/faq_list.service'">자주 묻는 질문</button>
+							<button onclick="location.href='#'">자주 묻는 질문</button>
 						</div>
 					</div>
 				</section>
