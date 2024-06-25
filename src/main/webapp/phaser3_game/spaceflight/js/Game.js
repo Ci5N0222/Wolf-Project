@@ -14,24 +14,31 @@ class Game extends Phaser.Scene {
         this.offScreenEnemies = 0;
         this.isEnemy3Active = false; // enemy3이 활성화되었는지 여부를 나타내는 변수
         this.enemy3Direction = 1; // enemy3의 초기 방향
-        this.enemy3Timer = 0; // enemy3의 방향 전환을 위한 타이머
+        this.enemy3Timer = null; // enemy3의 방향 전환을 위한 타이머
         this.scoreValue;
+        
     }
 
     init() {
         this.score = 0;  // 점수 초기화
         this.offScreenEnemies = 0; // offScreenEnemies 초기화
+        this.score = 0;
+        this.offScreenEnemies = 0;
+        this.isEnemy3Active = false;  // 적절히 초기화
+        this.enemy3Direction = 1;
+        this.lastFired = 0;
+        this.enemy3Timer = null;
     }
 
     preload() {
-        this.load.image('sky', '/phaser3_game/spaceflight/images/sky.jpg');
-        this.load.image('player', '/phaser3_game/spaceflight/images/player.png');
-        this.load.image('bullet', '/phaser3_game/spaceflight/images/bullet.png');
-        this.load.image('enemy', '/phaser3_game/spaceflight/images/enemy.png');
-        this.load.image('enemy2', '/phaser3_game/spaceflight/images/enemy2.png');
-        this.load.image('enemy3', '/phaser3_game/spaceflight/images/enemy3.png'); 
-        this.load.image('star', '/phaser3_game/spaceflight/images/star.png');
-        
+        this.load.image('sky', 'sky.jpg');
+        this.load.image('player', 'player.png');
+        this.load.image('bullet', 'bullet.png');
+        this.load.image('enemy', 'enemy.png');
+        this.load.image('enemy2', 'enemy2.png');
+        this.load.image('enemy3', 'enemy3.png'); 
+        this.load.image('star', 'star.png');
+        this.load.spritesheet('font', 'font.png', { frameWidth: 16, frameHeight: 16 });
     }
 
     create() {
@@ -67,7 +74,7 @@ class Game extends Phaser.Scene {
             createCallback: function (enemy) {
                 enemy.setScale(1.5);
                 enemy.setActive(false).setVisible(false);
-                enemy.health = 25; // enemy3의 health 설정
+                enemy.health = 20; // enemy3의 health 설정
                 enemy.body.immovable = true; // enemy3이 밀리지 않도록 설정
             }
         });
@@ -91,7 +98,7 @@ class Game extends Phaser.Scene {
         });
 
         this.time.addEvent({
-            delay: 20000, // 20초마다 enemy3 생성 시도
+            delay: 30000, // 30초마다 enemy3 생성 시도
             callback: this.createEnemy3,
             callbackScope: this,
             loop: true
@@ -102,9 +109,9 @@ class Game extends Phaser.Scene {
         this.background.tilePositionY -= 2;
         this.player.setVelocity(0);
         if (this.cursors.left.isDown) {
-            this.player.setVelocityX(-200);
+            this.player.setVelocityX(-300);
         } else if (this.cursors.right.isDown) {
-            this.player.setVelocityX(200);
+            this.player.setVelocityX(300);
         }
 
         if (this.cursors.space.isDown && this.time.now > this.lastFired) {
@@ -112,8 +119,8 @@ class Game extends Phaser.Scene {
             if (bullet) {
                 bullet.setActive(true).setVisible(true);
                 bullet.setPosition(this.player.x, this.player.y - 20);
-                bullet.setVelocityY(-250);
-                this.lastFired = this.time.now + 300;
+                bullet.setVelocityY(-300);
+                this.lastFired = this.time.now + 250;
             }
         }
 
@@ -130,6 +137,15 @@ class Game extends Phaser.Scene {
                 // 화면 우측 끝에 도달하면 좌측으로 내려오도록 설정
                 if (enemy3.x >= this.cameras.main.width) {
                     enemy3.setVelocityX(-80); // 좌측으로 내려오는 속도 설정
+                }
+                if (enemy3.y > this.cameras.main.height) {
+                    enemy3.destroy();
+                    this.isEnemy3Active = false;
+                    this.enemy3Timer = this.time.addEvent({
+                        delay: 40000, // 0초 후 다시 enemy3 생성 시도
+                        callback: this.createEnemy3,
+                        callbackScope: this
+                    });
                 }
             }
         }
@@ -152,9 +168,9 @@ class Game extends Phaser.Scene {
             enemy.destroy();
 
             if (enemy.texture.key === 'enemy') {
-                this.score += 20;
+                this.score += 30;
             } else if (enemy.texture.key === 'enemy2') {
-                this.score += 10;
+                this.score += 15;
             }
 
             this.updateScore();
@@ -169,7 +185,7 @@ class Game extends Phaser.Scene {
         if (enemy3.health <= 0) {
             enemy3.destroy();
             this.isEnemy3Active = false; // enemy3이 사라졌음을 표시
-            this.score += 50; // enemy3을 파괴하면 추가 점수
+            this.score += 300; // enemy3을 파괴하면 추가 점수
             this.updateScore();
         }
     }
@@ -209,13 +225,14 @@ class Game extends Phaser.Scene {
             enemy3.setPosition(this.cameras.main.width / 2, 0);
             enemy3.setVelocityX(Phaser.Math.RND.integerInRange(50, 80)); // 초기 X축 속도 설정
             enemy3.setVelocityY(30); // Y축 속도 설정
-            enemy3.health = 50;
+            enemy3.health = 35;
 
             // enemy3를 활성화할 때 body 속성 설정
             enemy3.body.allowGravity = false; // 중력 비활성화
             enemy3.body.collideWorldBounds = false; // 화면 경계 충돌 비활성화
 
             this.isEnemy3Active = true;
+            
         }
     }
 
