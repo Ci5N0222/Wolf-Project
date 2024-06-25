@@ -18,7 +18,7 @@ body {
 	flex-direction: column;
 	height: 100vh;
 	width: 100%;
-	z-index: 100;
+	z-index: 1;
 }
 
 .mypage-main-title {
@@ -224,7 +224,7 @@ body {
 	flex-direction: column;
 	height: 100vh;
 	width: 100%;
-	z-index: 100;
+	z-index: 1;
 }
 
 .mypage-updatePW-title {
@@ -301,7 +301,7 @@ body {
 	flex-direction: column;
 	height: 100vh;
 	width: 100%;
-	z-index: 100;
+	z-index: 1;
 }
 
 .mypage-delete-title {
@@ -391,7 +391,7 @@ body {
 	flex-direction: column;
 	height: 100vh;
 	width: 100%;
-	z-index: 100;
+	z-index: 1;
 }
 
 .mypage-myList-title {
@@ -481,7 +481,7 @@ body {
 	flex-direction: column;
 	height: 100vh;
 	width: 100%;
-	z-index: 100;
+	z-index: 1;
 }
 
 .mypage-myGame-title {
@@ -565,7 +565,7 @@ body {
 	min-height: 100vh;
 	height: 100%;
 	width: 100%;
-	z-index: 100;
+	z-index: 1;
 }
 
 .mypage-select-title {
