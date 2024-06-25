@@ -29,26 +29,26 @@
 	<script src="/js/game.js"></script>
 
 	<c:choose>
-		<c:when test="${seq == 6 }">
+		<c:when test="${seq == 1 }">
 			<script src="/phaser3_game/among_run/js/AmongStart.js"></script>
 			<script src="/phaser3_game/among_run/js/AmongRun.js"></script>
 			<script src="/phaser3_game/among_run/js/AmongBent.js"></script>
 			<script src="/phaser3_game/among_run/js/AmongEnd.js"></script>
 		</c:when>
-		<c:when test="${seq == 8 }">
+		<c:when test="${seq == 2 }">
 			<script src="/phaser3_game/FlyingBird/js/Exam03.js"></script>
 			<script src="/phaser3_game/FlyingBird/js/GameOver.js"></script>
 		</c:when>
-		<c:when test="${seq == 9 }">
+		<c:when test="${seq == 4 }">
 			<script src="/phaser3_game/Roadkill/js/GameStart.js"></script>
 			<script src="/phaser3_game/Roadkill/js/Main.js"></script>
 			<script src="/phaser3_game/Roadkill/js/GameOver.js"></script>
 		</c:when>
-			<c:when test="${seq == 10 }">
+			<c:when test="${seq == 3 }">
 			<script src="/phaser3_game/MashimaroJump/js/Project.js"></script>
 			<script src="/phaser3_game/MashimaroJump/js/GameOver.js"></script>
 		</c:when>
-		<c:when test="${seq == 11 }">
+		<c:when test="${seq == 5 }">
 			<script src="/phaser3_game/spaceflight/js/StartScene.js"></script>
 			<script src="/phaser3_game/spaceflight/js/Game.js"></script>
 			<script src="/phaser3_game/spaceflight/js/GameOver.js"></script>
