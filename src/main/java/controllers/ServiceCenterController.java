@@ -122,8 +122,7 @@ public class ServiceCenterController extends HttpServlet {
 					BoardDTO dto = new BoardDTO(0, title, contents, 0, member_id, board_code ,null, secret);
 					int board_seq = boardDAO.insert(dto);
 
-					int result = dao.qnaResInsert(board_seq);
-					
+					dao.qnaResInsert(board_seq);
 					Enumeration<String> names = multi.getFileNames();
 			        while(names.hasMoreElements()) {
 						String name = names.nextElement();

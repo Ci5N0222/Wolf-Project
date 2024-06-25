@@ -159,7 +159,7 @@
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-              <!-- 로그인 -->
+      <!-- 로그인 -->
       <c:if test="${WolfID != null}">
          <div class="naviBtn loginBtn"
             onclick="location.href ='/views/mypage/mypage.jsp'">
