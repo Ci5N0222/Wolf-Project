@@ -358,7 +358,7 @@
         <input type="hidden" value="${board_code}" name="board_code">
         </form>
         <script>
-            if("${checkGrade}"=="false" &&"${board_code==3}"){
+            if("${checkGrade}"=="false" &&${board_code==3}){
                 $("#replyform").remove();
             }
         </script>
