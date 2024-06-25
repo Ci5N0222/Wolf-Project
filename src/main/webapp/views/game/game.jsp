@@ -25,7 +25,8 @@
 		crossorigin="anonymous"></script>
 
 	<!-- Project local -->
-	<link rel="stylesheet" href="/css/score.css">
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/game.css">
 	<script src="/js/game.js"></script>
 
 	<c:choose>
@@ -75,8 +76,8 @@
 			<%@ include file="/views/include/header.jsp"%>
 			
 			<!-- main -->
-			<main class="main">
-				<div>
+			<main class="main gameView">
+				<div class="gameview-container">
 					<div class="game" id="game_play_form"></div>
 					<div class="ranking">
 						<div>ranking</div>

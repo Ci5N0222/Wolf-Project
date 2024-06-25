@@ -27,7 +27,7 @@
 
 <!-- Project local -->
 <link rel="stylesheet" href="/css/style.css">
-<link rel="stylesheet" href="/css/gameDetail.css">
+<link rel="stylesheet" href="/css/game.css">
 </head>
 <body>
 	<!-- container -->

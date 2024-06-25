@@ -1,254 +1,43 @@
-@charset "UTF-8";
-@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Noto+Sans+KR:wght@100..900&display=swap');
-
-:root {
-	--darkMode: linear-gradient(to top, #001021, #00264f, #FCF6F5);
-	--darkNav: #00264f;
-	--lightMode: linear-gradient(to top, #ffd449, #f9a620, #FCF6F5);
-	--lightNav: #f9a620;
-
-	--bg-light: #ffd449;
-	--bg-dark: #14213d;
-	--bg-transparent: transparent;
-
-	--color-white: #eeeeee;
-	--color-black: #14213d;
-	--bg-nav: #f9a620;
-	--color-nav-icon: #14213d;
-	--color-nav-bg: #f9a620;
-	font-size: 16px;
-}
-.fa-user {color: white;}
-
-html,
-body {
-	height: 100%;
-	margin: 0;
-	background-color: #00264f;
-	color: var(--bg-black);
-	color: var(--color-black);
-	overflow: hidden;
-	/* 폰트 */
-	font-family: 'Noto Sans KR', sans-serif;
-	font-family: 'Luckiest Guy', cursive;
-}
-
-
-body.light {
-	background-color: var(--lightMode);
-	/* color: var(--darkNav); */
-}
-
-/* 하단 원 */
-.sun {
-	display: none;
-}
-
-/* 모드 변경시 부드럽게 넘어가는 효과 */
-.sun,
-.navi {
-	transition: background-color 0.5s ease, box-shadow 0.5s ease;
-}
-
-/* img */
-.img_bg {
-	position: absolute;
-	top: 0%;
-	left: 0;
-	width: 100%;
-	object-fit: cover;
-}
-
-.bgs {
-	animation: bg 1s ease-in Infinite Alternate;
-	transition: all ease-in 0.2s;
-	width: 50px;
-}
-
-.bgs:nth-child(1) {
-	top: 20%;
-	background-color: #eee;
-	left: 80%;
-}
-
-.bgs:nth-child(2) {
-	top: 20%;
-	left: 80%;
-	width: 40px;
-}
-
-.bgs:nth-child(3) {
-	top: 15%;
-	left: 20%;
-}
-
-.bgs:nth-child(4) {
-	top: 20%;
-	left: 40%;
-	width: 30px;
-}
-
-.bgs:nth-child(5) {
-	top: 12%;
-	left: 50%;
-}
-
-.bgs:nth-child(6) {
-	top: 12%;
-	left: 80%;
-	width: 20px;
-}
-
-@keyframes bg {
-	0% {
-		opacity: 1;
-	}
-
-	100% {
-		opacity: 0;
-	}
-}
-
-.container-fluid,
-.container,
-.main {
-	height: 100%;
-}
-
-/* 메뉴 */
-.navi {
-	display: block;
-}
-
-.m_navi {
-	display: none;
-}
-
-.wolf {
-	display: none;
-}
-
-.navi {
-	min-height: 50px;
-	z-index: 5;
-	height: 10%;
-	display: flex;
-	align-items: center;
-	background-color: var(--darkNav);
-	box-shadow: 0px 5px 20px #444;
-	padding: 0 3%;
-	font-size: 20px;
-	color: var(--color-white);
-	text-shadow: 1px 1px 1px gray;
-	letter-spacing: 1px;
-
-	border-radius: 40px 80px / 80px 40px;
-}
-
-.navi i {
-	font-size: 22px;
-}
-
-.navi>div {
-	margin-top: 0;
-	height: 100%;
-}
-
-/* 메뉴 */
-.navi>div:nth-child(1),
-.navi>div:nth-child(3) {
-	width: 30%;
-}
-
-.navi>div:nth-child(2) {
-	width: 40%;
-}
-
-.navi>div:nth-child(1)>div {
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: left;
-}
-
-.navi>div:nth-child(2) #wolfLogo {
-	width: 100%;
-	height: 100%;
-}
-
-.navi>div:nth-child(2) #wolfLogo img {
-	width: initial;
-	height: 130%;
-	object-fit: contain;
-}
-
-.navi>div:nth-child(3)>div {
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: right;
-}
-
-/* 메뉴 버튼 */
-.naviBtn {
-	cursor: pointer;
-	transition: all 0.3s ease-in-out;
-}
-
-.naviBtn:hover {
-	opacity: 0.5;
-}
-
-.naviBtn>img {
-	width: 50px;
-	height: 50px;
-	border-radius: 100%;
-}
-
-/* -- main과 동일 -- */
-
-
-
-
-
 /* main */
 .main {
 	height: 90%;
+	z-index: 10;
 }
 
-.main .row {
+/* gameList */
+.list-container {
 	height: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center
 }
 
-.main .row>div {
+.list-container>div {
 	display: flex;
 	justify-content: center;
 }
 
-.card {
+.list-container .card {
 	height: 300px;
 	border: 5px solid rgba(255, 255, 255, 0.41);
 }
 
 /* 이미지가 카드를 넘어가면 잘림 */
-.card>div {
+.list-container .card>div {
 	height: 200px;
 	border: 1px solid #ccc;
 }
-.card:hover{
+.list-container .card:hover{
 	transform: rotate(3deg);
 }
 
 /* 이미지가 가로로 꽉 차게 설정 */
-.card>div img {
+.list-container .card>div img {
 	height: 100%;
 	object-fit: cover;
 }
 
-.card>form {
+.list-container .card>form {
 	height: 100px;
 	background-color: #f9a620;
 	height: 100px;
@@ -257,7 +46,7 @@ body.light {
 /* .card>form button {
 	height: 50px;
 } */
-.card>form button {
+.list-container .card>form button {
 	height: 50px;
 	width: 100%;
 	font-size:1rem;
@@ -272,243 +61,368 @@ body.light {
 	transition: border-color 0.4s ease-in-out, color 0.4s ease-in-out;
 }
 
-.card>form button:hover {
+.list-container .card>form button:hover {
 	border-color: #f9a620;
 	color: var(--color-white);
 
 }
 
 
-.card>form div {
+.list-container .card>form div {
 	height: 50px;
 	line-height: 50px;
 }
+/* gameList */
 
-/* 이미지가 가로로 꽉 차게 설정 */
-.card>div:last-child {
+/* gameDetail */
+.datail {
+	padding: 50px 38px;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.datail>div {
+	display: flex;
+	flex-direction: column;
+	border-radius: 5px;
+	flex: 1;
+	height: 600px;
+}
+
+.datail>div:first-child {
+	height: 600px;
+	border: 1px solid #eeeeee32;
+}
+
+.datail>div:first-child>div {
+	padding: 30px;
+	height: 500px;
+}
+
+.datail>div:first-child>div img {
+	width: 100%;
+	height: 100%;
+	border-radius: 5px;
+	object-fit: cover;
+	background-color: #ccc;
+}
+
+.datail>div:first-child>form {
 	height: 100px;
 }
-
-@media (max-width: 1000px) {
-	#wolfLogo {
-		display: none;
-	}
-
-	body {
-		overflow-y: scroll;
-	}
-
-	.main {
-		padding-top: 3%;
-	}
+.datail>div:first-child>form > button{
+	height: 50px;
+	font-size:1rem;
+	border-radius:10px;
+	background-color: var(--color-nav-bg); 
+	border: 5px solid transparent;
+	color: var(--color-white);
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	transition: border-color 0.2s ease, color 0.4s ease-in-out;
 }
 
+.datail>div:first-child>form > button:hover {
+	border-color: white;
+
+}
+
+.datail>div:last-child {
+	height: 600px;
+	background-color: #eeeeee50;
+	color: white;
+	text-align: left;
+
+}
+
+.datail>div:last-child div {
+	padding: 20px;
+}
+.datail>div:last-child div div:last-child {
+	padding-bottom: 0;
+}
+.datail>div:last-child div div:first-child {
+	padding-top: 0;
+}
+/* gameDetail */
+
+/* game */
+.gameView {display: flex;justify-content: center;align-items: center;}
+.gameview-container {
+	display: flex;
+	width: 1200px;
+	height: 500px;
+}
+
+.gameview-container .game {
+	width: 1000px;
+	height: 100%;
+	
+}
+
+.gameview-container .ranking {
+	margin-left: 20px;
+	width: 200px;
+	height: 100%;
+	background-color: var(--bg-nav);
+	border-radius: 5px;
+}
+
+.gameview-container .ranking>div:first-child {
+	height: 50px;
+	line-height: 50px;
+	letter-spacing: 5px;
+}
+
+.gameview-container .ranking>div:last-child {
+	height: 450px;
+	display: flex;
+	flex-direction: column;
+}
+
+.gameview-container .ranking>div:last-child>div {
+	flex: 1;
+	background-color: #eeeeee;
+	height: 150px;
+	border-radius: 5px;
+}
+
+.gameview-container .ranking>div:last-child>div>div:nth-child(1) {
+	height: 100px;
+	border-top: 1px solid #f9a620;
+}
+
+.gameview-container .ranking>div:last-child>div>div:nth-child(2) {
+	height: 25px;
+	border-top: 1px solid #f9a620;
+}
+
+.gameview-container .ranking>div:last-child>div>div:nth-child(3) {
+	height: 25px;
+}
+
+.gameview-container .ranking>div:last-child>div>div img {
+	width: 100px;
+	height: 100px;
+	object-fit: contain;
+}
+/* game */
 
 /* 테블릿 가로, 테블릿 세로 (해상도 768px ~ 1023px)*/
 @media all and (min-width:768px) and (max-width: 1023px) {
-	.wolf {
-		display: block;
+	body {
+		overflow-y: auto;
+		position: relative;
+		z-index: 0;
 	}
 	
-	#wolfLogo {
-		display: none;
-	}
-}
-
-/* 모바일 */
-@media all and (max-width: 767px) {
-	body {
-		overflow-y: overlay;
-	}
-
 	body::-webkit-scrollbar {
-
 		width: 1vw;
-
 	}
 
 	body::-webkit-scrollbar-thumb {
-
 		background-color: hsla(0, 0%, 42%, 0.49);
 		border-radius: 100px;
-
 	}
-
-	.main {
-		height: 90%;
-	}
-
-	.main .row {
+	.sun {display: none;}
+	/* 별 숨기기 */
+	.bgs {display: none;}
+	
+	/* gameList */
+	.list-container {margin-top: 5%}
+	.list-container .card:last-child{margin-bottom: 5%;}
+	/* gameList */
+	
+	/* gameDetail */
+	.datail {
 		padding: 20px;
-	}
-
-	#mode {
-		z-index: 100;
-	}
-
-
-	#wolfLogo {
-		display: none;
-	}
-
-	/* 하단 원 */
-	.sun {
-		display: none;
-	}
-
-	/* 메뉴 */
-	.wolf {
-		display: block;
-	}
-
-	.navi {
-		display: none;
-	}
-
-	.m_navi {
-		display: block;
-		position: relative !important;
-	}
-
-	.container-fluid,
-	.container {
-		padding: 0;
-	}
-
-	/* 내용물 */
-	/* 햄버거 */
-	.navbar {
-		background-color: var(--darkNav);
-	}
-
-	/* 햄버거 클릭시 나오는 메뉴 화면 */
-	.offcanvas-body {
+		width: 100%;
+		height: 100%;
 		display: flex;
+		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 	}
 
-	.offcanvas-body .navbar-nav {
+	.datail>div {
+		display: flex;
+		flex-direction: column;
+		border-radius: 5px;
+		flex: 1;
+		height: 300px;
+		width: 500px;
+	}
+
+	.datail>div:first-child {
+		border: 1px solid #eeeeee32;
+		display: flex;
+		flex-direction: column;
+		height: 300px;
+	}
+
+	.datail>div:first-child>div:first-child {
+		padding: 20px;
+		flex: 1;
+		height: 300px;
+	}
+
+	.datail>div:first-child>div:first-child img {
+		width: 100%;
+		height: 100%;
+		border-radius: 5px;
+		object-fit: cover;
+		background-color: #ccc;
+	}
+
+	.datail>div:first-child>div:last-child {
+		flex: 1;
+		height: 100px;
+		line-height: 80px;
+	}
+
+	.datail>div:last-child {
+		display: flex;
+		flex-direction: column;
+		align-items: start;
+		justify-content: center;
+		height: 300px;
+		padding: 10px;
+		background-color:#eeeeee50;
+		color: #ccc;
+		overflow-y: auto;
+	}
+	/* 아래의 모든 코드는 영역::코드로 사용 */
+	.datail>div:last-child::-webkit-scrollbar {
+	    width: 10px;  /* 스크롤바의 너비 */
+	}
+	
+	.datail>div:last-child::-webkit-scrollbar-thumb {
+	    height: 30%; /* 스크롤바의 길이 */
+	    background: var(--lightNav); /* 스크롤바의 색상 */
+	    
+	    border-radius: 10px;
+	}
+	
+	.datail>div:last-child::-webkit-scrollbar-track {
+	    background: var(--darkNav);  /*스크롤바 뒷 배경 색상*/
+	}
+
+	.datail>div:last-child div {
+		padding: 0;
+	}
+	/* gameDetail */
+}
+/* 모바일 */
+@media all and (max-width: 767px) {
+	/* 공통 */
+	.main {
+		display: block;
+		height: 90%;
+		margin-top: 10%;
+	}
+	
+	body {
+		overflow-y: auto;
+		position: relative;
+		z-index: 1;
+	}
+	
+	body::-webkit-scrollbar {
+		width: 1vw;
+	}
+
+	body::-webkit-scrollbar-thumb {
+		background-color: hsla(0, 0%, 42%, 0.49);
+		border-radius: 100px;
+	}
+	.sun {display: none;}
+	.bgs {display: none;}
+	
+	
+	/* gameList */
+	.list-container {
+		margin: 5% 0;
+	}
+
+	.list-container {
+		padding: 20px;
+	}
+	/* gameList */
+	
+	/* gameDetail */
+	.datail {
+		font-size: 1rem;
+		padding: 30px;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.datail>div {
+		display: flex;
+		flex-direction: column;
+		border-radius: 5px;
+		flex: 1;
+		height: 100%;
+		width: 100%;
+	}
+
+	.datail>div:first-child {
+		border: 1px solid #eeeeee32;;
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+	}
+
+	.datail>div:first-child>div:first-child {
+		padding: 20px;
+		flex: 1;
+		width: 100%;
+		height: 85%;
+	}
+
+	.datail>div:first-child>div:first-child img {
+		width: 100%;
+		height: 100%;
+		border-radius: 5px;
+		object-fit: cover;
+		background-color: #ccc;
+	}
+	.datail>div:first-child> form{height: 15%;display: flex;justify-content: center;}
+	.datail>div:first-child> form button {height: 100%;}
+
+	.datail>div:last-child {
+		background-color: #eeeeee50;
 		flex: 1;
 		display: flex;
 		flex-direction: column;
-		height: 100%;
+		color: #ccc;
+		text-align: left;
+		margin-top: 5px;
+		height: 300px;
+		overflow-y: auto;
 	}
-
-	.offcanvas-body .navbar-nav .nav-item {
-		position: relative;
-		margin-bottom: 0;
-		flex: 1;
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		align-items: center;
-		margin-bottom: 10%;
+	/* 아래의 모든 코드는 영역::코드로 사용 */
+	.datail>div:last-child::-webkit-scrollbar {
+	    width: 10px;  /* 스크롤바의 너비 */
 	}
-
-	.offcanvas-body .navbar-nav .nav-item:last-child {
-		margin-bottom: 0;
+	
+	.datail>div:last-child::-webkit-scrollbar-thumb {
+	    height: 30%; /* 스크롤바의 길이 */
+	    background: var(--lightNav); /* 스크롤바의 색상 */
+	    
+	    border-radius: 10px;
 	}
-
-	.offcanvas-body .navbar-nav .nav-item>div:first-child {
-		flex: 1;
+	
+	.datail>div:last-child::-webkit-scrollbar-track {
+	    background: var(--darkNav);  /*스크롤바 뒷 배경 색상*/
 	}
-
-	.offcanvas-body .navbar-nav .nav-item>div:first-child i {
-		font-size: 1.3rem;
-	}
-
-	.offcanvas-body .navbar-nav .nav-item>div:last-child {
-		flex: 9;
-		cursor: pointer;
-		letter-spacing: 2px;
-	}
-
-	/* 가상요소 추가 밑줄 */
-	.offcanvas-body .navbar-nav .nav-item::after {
-		content: "";
-		position: absolute;
-		left: 0;
-		bottom: 0;
-		height: 3px;
-		width: calc(100%);
-		background: #cccccc63;
-		;
-	}
-
-	/* 가상 요소 호버 */
-	@media (hover) {
-		.offcanvas-body .navbar-nav .nav-item:hover::after {
-			transform: scaleX(1);
-			margin-left: 0;
-		}
-
-		.offcanvas-body .navbar-nav .nav-item::after {
-			transform: scaleX(0);
-			margin-left: 50%;
-			transform-origin: left;
-			transition: transform 500ms ease, margin-left .5s ease;
-		}
-	}
-
-	ul,
-	li {
-		list-style: none;
-	}
-
-	.offcanvas-header {
-		border-bottom: 1px solid #cccccc63;
-	}
-
-	.offcanvas-title {
-		letter-spacing: 2px;
-	}
-
-
-}
-/* -- main과 동일 -- */
-/* 라이트 다크 mode */
-#mode {
-	cursor: pointer;
-	position: absolute;
-	bottom: 5%;
-	z-index: 100;
-	right: 5%;
-	background-color: var(--bg-dark);
-	width: 50px;
-	height: 50px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border-radius: 50%;
-	transition: all ease-in 0.2s;
-	animation: ball 1s ease-in Infinite Alternate;
-	border: double 1px rgba(255, 255, 255, 0.46);
-}
-
-@keyframes ball {
-	0% {
-		bottom: 5%;
-	}
-
-	95% {
-		width: 50px;
-	}
-
-	to {
-		bottom: 8%;
-		width: 50px;
-		height: 60px
-	}
-}
-
-/* 모드 전환 버튼 호버 시 투명도 조정 */
-#mode:hover {
-	opacity: 0.8;
-}
-
-/* 모드 전환 버튼 아이콘 스타일 */
-#mode i {
-	font-size: 30px;
-	color: white;
+	/* gameDetail */
 }

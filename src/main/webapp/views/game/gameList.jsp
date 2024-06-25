@@ -26,6 +26,7 @@
 	crossorigin="anonymous"></script>
 
 <!-- Project local -->
+<link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/game.css">
 </head>
 <body>
@@ -46,7 +47,7 @@
 			<%@ include file="/views/include/header.jsp"%>
 
 			<main class="main container flex-grow-1">
-				<section class="row">
+				<section class="row list-container">
 					<c:forEach var='l' items='${list}'>
 						<div class="col-lg-4 col-md-6 mb-4">
 							<div class="card" style="width: 18rem;">

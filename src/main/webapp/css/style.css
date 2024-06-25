@@ -687,7 +687,7 @@ body.light {
 #mode {
    z-index: 100;
    cursor: pointer;
-   position: absolute;
+   position: fixed; 
    bottom: 5%;
    right: 5%;
    background-color: var(--darkNav);
