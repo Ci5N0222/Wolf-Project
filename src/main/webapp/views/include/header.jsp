@@ -140,12 +140,15 @@
 						</div>
 						<div class="naviBtn">Service</div>
 					</li>
-					<li class="nav-item" onclick="location.href='/main.admin'">
-						<div>
-							<i class="fa-solid fa-comment-dots"></i>
-						</div>
-						<div class="naviBtn">Admin</div>
-					</li>
+					
+    				<c:if test="${WolfAdmin == true}">
+						<li class="nav-item" onclick="location.href='/main.admin'">
+							<div>
+								<i class="fa-solid fa-comment-dots"></i>
+							</div>
+							<div class="naviBtn">Admin</div>
+						</li>
+					</c:if>
 				</ul>
 
 			</div>
