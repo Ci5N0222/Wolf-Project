@@ -85,11 +85,12 @@ public class BoardController extends HttpServlet {
 				if(target==null||keyword.equals("")||target.equals("")) {
 					boardList = boardDAO.selectAll( PageConfig.recordCountPerPage, cpage,board_code);
 					request.setAttribute("record_total_count", boardDAO.getRecordCount("","",board_code));
-					System.out.println("검색안할떄");
+					System.out.println("listboard 검색안함");
 				}
 				else {
 					boardList = boardDAO.selectType( PageConfig.recordCountPerPage, cpage,board_code,target,keyword);
 					request.setAttribute("record_total_count", boardDAO.getRecordCount(target,keyword,board_code));
+					System.out.println("listboard 검색중");
 				}
 			
 				
@@ -222,7 +223,7 @@ public class BoardController extends HttpServlet {
 				String member_id= (String)session.getAttribute("WolfID");
 				int count =Integer.parseInt(multi.getParameter("count"));
 				boolean check=boardDAO.update(new BoardDTO(seq,title,contents,count,member_id,board_code,null,secret));
-				if(check)System.out.println("업데이트 성공!!!!!!!");
+				if(check)System.out.println("보드 업데이트 성공");
 				Enumeration<String> names = multi.getFileNames();
 		        while(names.hasMoreElements()) {
 		               String name = names.nextElement();
@@ -234,7 +235,7 @@ public class BoardController extends HttpServlet {
 		            	   filesDAO.insert(new FilesDTO(0, oriname, sysname, seq));
 		               }
 		        }
-		        String new_contents=boardDAO.board_contents(seq);
+		        String new_contents=boardDAO.board_contents(seq,board_code);
 		        System.out.println(new_contents);
 		        String[] sysnames=boardDAO.findDeletedTags(new_contents);
 		        ArrayList<String> fileList= imagesDAO.delete(seq, PageConfig.board, sysnames);
