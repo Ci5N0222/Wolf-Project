@@ -31,14 +31,13 @@ class Game extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('sky', 'sky.jpg');
-        this.load.image('player', 'player.png');
-        this.load.image('bullet', 'bullet.png');
-        this.load.image('enemy', 'enemy.png');
-        this.load.image('enemy2', 'enemy2.png');
-        this.load.image('enemy3', 'enemy3.png'); 
-        this.load.image('star', 'star.png');
-        this.load.spritesheet('font', 'font.png', { frameWidth: 16, frameHeight: 16 });
+        this.load.image('sky', '/phaser3_game/spaceflight/images/sky.jpg');
+        this.load.image('player', '/phaser3_game/spaceflight/images/player.png');
+        this.load.image('bullet', '/phaser3_game/spaceflight/images/bullet.png');
+        this.load.image('enemy', '/phaser3_game/spaceflight/images/enemy.png');
+        this.load.image('enemy2', '/phaser3_game/spaceflight/images/enemy2.png');
+         this.load.image('enemy3', '/phaser3_game/spaceflight/images/enemy3.png'); 
+        
     }
 
     create() {
@@ -225,7 +224,7 @@ class Game extends Phaser.Scene {
             enemy3.setPosition(this.cameras.main.width / 2, 0);
             enemy3.setVelocityX(Phaser.Math.RND.integerInRange(50, 80)); // 초기 X축 속도 설정
             enemy3.setVelocityY(30); // Y축 속도 설정
-            enemy3.health = 35;
+            enemy3.health = 25;
 
             // enemy3를 활성화할 때 body 속성 설정
             enemy3.body.allowGravity = false; // 중력 비활성화

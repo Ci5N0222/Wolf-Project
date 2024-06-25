@@ -56,28 +56,6 @@ prefix="c" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
             <section class="mypage-myList-form">
               <div class="mypage-myList">
-                <div class="mypage-myList-dropdown">
-                  <!-- <button
-                    class="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    내 게시글
-                  </button>
-                  <ul
-                    class="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
-                    <li>
-                      <a class="dropdown-item" href="#">내 게시글</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">문의내역</a>
-                    </li>
-                  </ul> -->
-                </div>
                 <div class="mypage-myList-header"><p>내가 쓴 게시글</p></div>
                 <div class="mypage-myList-navi">
                   <div style="flex: 1"><p>번호</p></div>
