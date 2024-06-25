@@ -37,7 +37,7 @@
             </c:if>
         </div>
     </div>
-<<<<<<< HEAD
+
     
     <c:if test="${WolfID == null}">
 	    <!-- Login Popup -->
@@ -69,9 +69,7 @@
 	        </div>
 	    </div>
     </c:if>
-    
-=======
->>>>>>> 69e6537076b9291639a19a62f9020fff8adf6d91
+
 </div>
 
 <!-- Mobile Navigation -->
