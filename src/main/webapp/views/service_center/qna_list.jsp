@@ -63,7 +63,7 @@
 			<!-- main -->
 			<main class="service-main">
 				<nav class="service-navi">
-					<p onclick="location.href='#'">F A Q</p>
+					<p onclick="location.href='/faq_list.service'">F A Q</p>
 					<p onclick="location.reload()">Q & A</p>
 				</nav>
 				<section class="servie-content-box">
