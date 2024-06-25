@@ -55,7 +55,7 @@
 	    </div>
     </c:if>
     
-    <c:if test="${ WolfAdmin == true }">
+    <c:if test="${ WolfID != null }">
     	<!-- Login Popup -->
 	    <div id="loginPopup" class="login-popup" style="display: none;">
 	        <div>
