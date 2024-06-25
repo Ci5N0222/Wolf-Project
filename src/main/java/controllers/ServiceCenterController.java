@@ -146,6 +146,31 @@ public class ServiceCenterController extends HttpServlet {
 				}
 			}
 			
+			/** FAQ 목록 **/
+			else if(cmd.equals("/faq_list.service")) {
+				String id = (String)request.getSession().getAttribute("WolfID");
+				if(id == "") response.sendRedirect("/views/members/login.jsp");
+				else {
+					
+					String pcpage = request.getParameter("cpage");
+					if(pcpage == null) pcpage = "1";
+					int cpage = Integer.parseInt(pcpage);
+					List<ServiceCenterDTO> faqList = dao.getFaqList(
+							cpage * PageConfig.recordCountPerPage - (PageConfig.recordCountPerPage - 1),
+							cpage * PageConfig.recordCountPerPage);
+					
+					request.setAttribute("faqList", faqList);
+					
+					/** 페이징 **/
+					request.setAttribute("cpage", cpage);
+					request.setAttribute("recode_total_count", dao.getFaqTotalCount());
+					request.setAttribute("recode_count_per_page", PageConfig.recordCountPerPage);
+					request.setAttribute("navi_count_per_page", PageConfig.naviCountPerPage);
+					
+					request.getRequestDispatcher("/views/service_center/faq_list.jsp").forward(request, response);
+				}
+			}
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
