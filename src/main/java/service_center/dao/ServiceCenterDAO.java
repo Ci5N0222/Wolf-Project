@@ -7,7 +7,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import board.dto.BoardDTO;
 import commons.DBConfig;
 import service_center.dto.ServiceCenterDTO;
 
@@ -195,4 +194,6 @@ public class ServiceCenterDAO {
 			}
 		}
 	}
+	
+	
 }

@@ -140,7 +140,7 @@ body.light {
 }
 
 .navi {
-	min-height: 50px;
+	min-height: 90px;
 	z-index: 5;
 	height: 10%;
 	display: flex;
@@ -259,7 +259,6 @@ body.light {
     right: 20px;
 } 
 
-
 /* 컨텐츠 */
 #contents {
 	color: var(--color-white);
@@ -268,7 +267,6 @@ body.light {
 	height: 30%;
 	z-index: 1;
 	font-family: 'Luckiest Guy', cursive;
-	z-index: 10;
 }
 
 /* 모바일 main */
@@ -292,6 +290,7 @@ body.light {
 
 .item {
 	position: relative;
+	font-family: 'Luckiest Guy', cursive;
 }
 
 .item>.card {
@@ -402,6 +401,7 @@ body.light {
 	.M_main {
 		display: none;
 	}
+	.navi {font-size: 1rem;}
 	.wolfLogo {display: none;}
 
 	.navi>div:nth-child(1),
