@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -9,23 +9,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>게임 랭킹</title>
 <link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-	crossorigin="anonymous">
+   href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+   rel="stylesheet"
+   integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+   crossorigin="anonymous">
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
 <!-- icon -->
 <script src="https://kit.fontawesome.com/1ee4acc8d4.js"
-	crossorigin="anonymous"></script>
+   crossorigin="anonymous"></script>
 
 <!-- bootstrap -->
 <script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-	crossorigin="anonymous"></script>
+   src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+   integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+   crossorigin="anonymous"></script>
 
 <!-- Project local -->
 <link rel="stylesheet" href="/css/style.css">
@@ -35,81 +35,81 @@
 
 <style>
 html, body {
-	height: 100%;
-	margin: 0;
-	background-color: var(- -bg-dark);
-	color: var(- -bg-black);
-	color: var(- -color-black);
-	overflow: hidden;
-	/* 폰트 */
-	font-family: "Noto Sans KR", sans-serif;
-	font-family: "Luckiest Guy", cursive;
+   height: 100%;
+   margin: 0;
+   background-color: var(- -bg-dark);
+   color: var(- -bg-black);
+   color: var(- -color-black);
+   overflow: hidden;
+   /* 폰트 */
+   font-family: "Noto Sans KR", sans-serif;
+   font-family: "Luckiest Guy", cursive;
 }
 
 body {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-	margin: 0;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100vh;
+   margin: 0;
 }
 
 </style>
 </head>
 
 <body>
-	<div class="container-fluid d-flex flex-column">
-		<div class="container text-center flex-grow-1 d-flex flex-column">
-			<img src="/images/bg1.png" alt="" class="img_bg"> <img
-				src="/images/bg3.png" alt="" class="img_bg bgs"> <img
-				src="/images/bg3.png" alt="" class="img_bg bgs"> <img
-				src="/images/bg3.png" alt="" class="img_bg bgs"> <img
-				src="/images/bg3.png" alt="" class="img_bg bgs"> <img
-				src="/images/bg3.png" alt="" class="img_bg bgs"> <img
-				src="/images/bg3.png" alt="" class="img_bg bgs">
-			<!-- nav -->
-			<%@ include file="/views/include/header.jsp"%>
+   <div class="container-fluid d-flex flex-column">
+      <div class="container text-center flex-grow-1 d-flex flex-column">
+         <img src="/images/bg1.png" alt="" class="img_bg"> <img
+            src="/images/bg3.png" alt="" class="img_bg bgs"> <img
+            src="/images/bg3.png" alt="" class="img_bg bgs"> <img
+            src="/images/bg3.png" alt="" class="img_bg bgs"> <img
+            src="/images/bg3.png" alt="" class="img_bg bgs"> <img
+            src="/images/bg3.png" alt="" class="img_bg bgs"> <img
+            src="/images/bg3.png" alt="" class="img_bg bgs">
+         <!-- nav -->
+         <%@ include file="/views/include/header.jsp"%>
 
 
-			<div class="rankcontainer">
-				<!-- 사용자 정보 표시 -->
-				<div id="userInfo" class="user-info">
-					<!-- 사용자 정보 업데이트 스크립트에서 동적으로 업데이트 -->
-				</div>
+         <div class="rankcontainer">
+            <!-- 사용자 정보 표시 -->
+            <div id="userInfo" class="user-info">
+               <!-- 사용자 정보 업데이트 스크립트에서 동적으로 업데이트 -->
+            </div>
 
-				<!-- 게임 선택 버튼 그룹 -->
-				<div class="btn-group mb-4">
-		            <button type="button" class="btn btn-primary mr-2" onclick="loadRank(1)">Among_Run</button>
-		            <button type="button" class="btn btn-primary mr-2" onclick="loadRank(2)">FlyingBird</button>
-		            <button type="button" class="btn btn-primary mr-2" onclick="loadRank(3)">MashimaroJump</button>
-		            <button type="button" class="btn btn-primary mr-2" onclick="loadRank(4)">RoadKill</button>
-		            <button type="button" class="btn btn-primary" onclick="loadRank(5)">SpaceFlight</button>
-				</div>
+            <!-- 게임 선택 버튼 그룹 -->
+            <div class="btn-group mb-4">
+                  <button type="button" class="btn btn-primary mr-2" onclick="loadRank(1)">Among_Run</button>
+                  <button type="button" class="btn btn-primary mr-2" onclick="loadRank(2)">FlyingBird</button>
+                  <button type="button" class="btn btn-primary mr-2" onclick="loadRank(3)">MashimaroJump</button>
+                  <button type="button" class="btn btn-primary mr-2" onclick="loadRank(4)">RoadKill</button>
+                  <button type="button" class="btn btn-primary" onclick="loadRank(5)">SpaceFlight</button>
+            </div>
 
-				<!-- 상위 랭크 박스 -->
-				<div class="toprank" id="topRankSection">
-					<!-- 동적으로 업데이트될 부분 -->
-				</div>
+            <!-- 상위 랭크 박스 -->
+            <div class="toprank" id="topRankSection">
+               <!-- 동적으로 업데이트될 부분 -->
+            </div>
 
-				<!-- 하위 랭킹 리스트 -->
-				<div class="lowrank" id="lowRankSection">
-					<!-- 동적으로 업데이트될 부분 -->
-				</div>
+            <!-- 하위 랭킹 리스트 -->
+            <div class="lowrank" id="lowRankSection">
+               <!-- 동적으로 업데이트될 부분 -->
+            </div>
 
-			</div>
-			<div class="sun"></div>
-			<!-- mode -->
-			<div id="mode">
-				<i class="fa-regular fa-lightbulb" style="display: none;"></i> <i
-					class="fa-solid fa-lightbulb"></i>
-			</div>
-		</div>
-	</div>
+         </div>
+         <div class="sun"></div>
+         <!-- mode -->
+         <div id="mode">
+            <i class="fa-regular fa-lightbulb" style="display: none;"></i> <i
+               class="fa-solid fa-lightbulb"></i>
+         </div>
+      </div>
+   </div>
 
-	<!-- 스크립트 부분은 변경하지 않음 -->
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-	<script>
+   <!-- 스크립트 부분은 변경하지 않음 -->
+   <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   <script>
 function updateUserStats(nickname, score, rank) {
     var userInfoElement = $("#userInfo");
 
