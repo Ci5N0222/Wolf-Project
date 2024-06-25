@@ -66,7 +66,11 @@
 					<p onclick="location.href='/faq_list.service'">F A Q</p>
 					<p onclick="location.reload()">Q & A</p>
 				</nav>
+<<<<<<< HEAD
 				
+=======
+
+>>>>>>> c5a05a23fc1042991d8f2878e00f87648c41be89
 				<div class="service-qna-list">
 					<c:if test="${faqList.size() > 0}">
 						<table>
@@ -93,7 +97,11 @@
 					</script>
 				</div>
 			</main>
+<<<<<<< HEAD
 			
+=======
+
+>>>>>>> c5a05a23fc1042991d8f2878e00f87648c41be89
 			<main class="M_main"></main>
 		</div>
 

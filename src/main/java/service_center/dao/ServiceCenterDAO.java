@@ -7,7 +7,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import board.dto.BoardDTO;
 import commons.DBConfig;
 import service_center.dto.ServiceCenterDTO;
 
@@ -141,7 +140,6 @@ public class ServiceCenterDAO {
 		}
 	}
 	
-	
 	/**
 	 * FAQ 목록의 개수를 반환하는 메서드
 	 * @return
@@ -149,19 +147,19 @@ public class ServiceCenterDAO {
 	 */
 	public int getFaqTotalCount() throws Exception {
 		String sql ="select count(*) from board where board_code = 4";
-		
+
 		try(Connection con = DBConfig.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql)){
-			
+
 			try(ResultSet rs = pstat.executeQuery()){
 				rs.next();
-				
+
 				return rs.getInt(1);
 			}
 		}
 	}
-	
-	
+
+
 	/**
 	 * FAQ 목록을 반환하는 메서드
 	 * @param start
@@ -171,15 +169,15 @@ public class ServiceCenterDAO {
 	 */
 	public List<ServiceCenterDTO> getFaqList(int start, int end) throws Exception {
 		String sql = "SELECT a.*,m.nickname FROM (SELECT  board.*, ROW_NUMBER() OVER (ORDER BY seq DESC) AS rown FROM board where board_code=4)a join members m on m.id=a.member_id WHERE rown between ? and ?";
-		
+
 		try(Connection con = DBConfig.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql)){
 			pstat.setInt(1, start);
 			pstat.setInt(2, end);
-			
+
 			try(ResultSet rs = pstat.executeQuery()){
 				List<ServiceCenterDTO> list = new ArrayList<>();
-				
+
 				while(rs.next()) {
 					int seq = rs.getInt("seq");
 					String title = rs.getString("title");
@@ -189,7 +187,7 @@ public class ServiceCenterDAO {
 					int boardCode = rs.getInt("board_code");
 					Timestamp writeDate = rs.getTimestamp("write_date");
 					String nickName = rs.getString("nickname");
-					
+
 					list.add(new ServiceCenterDTO(seq, title, contents, count, memberId, boardCode, writeDate, null, null, nickName));
 				}
 				return list;
