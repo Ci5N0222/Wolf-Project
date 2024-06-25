@@ -211,7 +211,6 @@
     	cursor: pointer;
     }
     .button_css:hover{
-        transform: scale(1.2);
         text-decoration: underline;
     }
     .no-hover:hover{
@@ -365,13 +364,13 @@
         <div id="reply_contents">
             <c:forEach var="reply_dto" items="${reply_list}" varStatus="status">
                 <div class="reply_contents">
-                        <div style="flex: 6; word-break: break-all; white-space: pre-wrap; flex-direction: column;">
+                        <div style="flex: 6; word-break: break-all; white-space: pre-wrap; flex-direction: column; margin-left:15px">
                             <div>${reply_nickname_list[status.index]}(${reply_dto.member_id.substring(0, 4)}****) </div>
                             <div class="reply_div" style="flex-direction: column;">${reply_dto.contents}</div>
                             <div><p style="color: gray;"><fmt:formatDate value="${reply_dto.write_date}" pattern="yyyy.MM.dd HH:mm" /></p></div>
                         </div>
                         <div style="flex: 1; font-size: x-small; justify-content: flex-end; align-items: flex-end;">
-                            <div style="flex: 1;"> 
+                            <div style="flex: 1; margin-left:15px"> 
                                 <button  class="reply_child_btn button_css">답글</button>
                             </div>
                             <div id="check" style="flex: 1; justify-content: flex-end;">

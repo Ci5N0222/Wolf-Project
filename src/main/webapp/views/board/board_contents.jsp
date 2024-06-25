@@ -58,7 +58,6 @@
     	cursor: pointer;
     }
     .btn_css:hover{
-        transform: scale(1.2);
         text-decoration: underline;
     }
     #files{

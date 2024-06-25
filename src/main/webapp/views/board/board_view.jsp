@@ -116,7 +116,6 @@
     	cursor: pointer;
     }
     .button_css:hover{
-        transform: scale(1.2);
         text-decoration: underline;
     }
     .page-number {
@@ -181,7 +180,7 @@
                     </div>
                 </div>    
                 <div class="board">
-                    <div class="center" style="flex: 1; font-family: 'Gugi', sans-serif; font-size: 30px;">
+                    <div class="center" style="flex: 1; font-family: 'Gugi', sans-serif; font-size: 30px; magin-top:10px">
                         <c:choose>
                             <c:when test="${board_code==1}">
                                 자유 게시판
@@ -198,7 +197,7 @@
                         </c:choose>
                        
                     </div>
-                    <div style="flex: 0.7; justify-content: flex-end; margin-right: 10px;">
+                    <div style="flex: 0.7; justify-content: flex-end; margin-right: 10px; margin-bottom:15px">
                         <form action="/list.board" method="get" >
                             <select name="target" title="검색선택" style="height: 30px;" id="targetSelect">
                                 <option value="">선택</option>
