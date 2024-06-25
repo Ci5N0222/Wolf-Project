@@ -30,8 +30,8 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-	<link rel="stylesheet" href="/css/style.css">
-	<link rel="stylesheet" href="/css/mypage.css">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/mypage.css" />
     <script src="/js/main.js"></script>
   </head>
 
@@ -169,7 +169,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                 new_password: newPassword,
               },
             }).done(function (resp) {
-              console.log(resp);
               if (resp == "ok") {
                 alert("비밀번호 변경이 완료되었습니다.");
                 location.href = "/views/mypage/mypage.jsp";
