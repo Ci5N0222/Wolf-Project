@@ -26,6 +26,7 @@
 	crossorigin="anonymous"></script>
 
 <!-- Project local -->
+<link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/gameDetail.css">
 </head>
 <body>
