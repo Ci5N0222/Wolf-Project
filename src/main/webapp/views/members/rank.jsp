@@ -79,15 +79,11 @@ body {
 
 				<!-- 게임 선택 버튼 그룹 -->
 				<div class="btn-group mb-4">
-					<button type="button" class="btn btn-primary mr-2"
-						onclick="loadRank(1)">Among_Run</button>
-					<button type="button" class="btn btn-primary mr-2"
-						onclick="loadRank(2)">FlyingBird</button>
-					<button type="button" class="btn btn-primary mr-2"
-						onclick="loadRank(3)">MashimaroJump</button>
-					<button type="button" class="btn btn-primary mr-2"
-						onclick="loadRank(4)">RoadKill</button>
-					<button type="button" class="btn btn-primary" onclick="loadRank(5)">SpaceFlight</button>
+		            <button type="button" class="btn btn-primary mr-2" onclick="loadRank(1)">Among_Run</button>
+		            <button type="button" class="btn btn-primary mr-2" onclick="loadRank(2)">FlyingBird</button>
+		            <button type="button" class="btn btn-primary mr-2" onclick="loadRank(3)">MashimaroJump</button>
+		            <button type="button" class="btn btn-primary mr-2" onclick="loadRank(4)">RoadKill</button>
+		            <button type="button" class="btn btn-primary" onclick="loadRank(5)">SpaceFlight</button>
 				</div>
 
 				<!-- 상위 랭크 박스 -->

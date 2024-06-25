@@ -6,14 +6,14 @@ $(() => {
 const gameConfig = (seq) => {
 	let config = {};
 	switch(seq){
-		case 6:
+		case 1: // 시온
 			config = {
 				width: 700,
 				height: 400,
 				scene: [AmongStart, AmongRun, AmongEnd, AmongBent]
 			}
 			break;
-		case 8 :
+		case 2 : // 유나
 			config = {
 				width: 800,
 				height: 500,
@@ -21,21 +21,21 @@ const gameConfig = (seq) => {
 			}
 			
 			break;
-		case 9:
+		case 4: // 은미
 			config = {
 				width: 1000,
 				height:500,
 				scene:[GameStart,Main,GameOver]
 			}
 			break;
-		case 10:
+		case 3: // 하람
 			config = {
 				width: 800,
 				height:500,
 				scene:[ Project,GameOver]
 			}
 			break;
-		case 11:
+		case 5: // 상혁
 			config = {
 				width: 800,
 				height:500,
