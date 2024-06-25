@@ -38,9 +38,10 @@
         </div>
     </div>
     
-    <c:if test="${WolfID == null}">
-	    <!-- Login Popup -->
-	    <div id="loginPopup" class="login-popup" style="display: none;">
+    
+    <!-- Login Popup -->
+    <div id="loginPopup" class="login-popup" style="display: none;">
+	    <c:if test="${WolfID == null}">
 	        <div>
 	            <p>
 	            	로그인이 필요한<br/>
@@ -51,13 +52,9 @@
 	            <button class="btn btn-primary" onclick="location.href='/views/members/login.jsp'">Sign-In</button> 
 	            <button class="btn btn-primary" onclick="location.href='/views/members/signup.jsp'">Sign-Up</button>
 	        </div>
-	    </div>
-    </c:if>
-    
-    <c:if test="${ WolfAdmin == true }">
-    	<!-- Login Popup -->
-	    <div id="loginPopup" class="login-popup" style="display: none;">
-	        <div>
+           </c:if>
+           <c:if test="${ WolfID != null }">
+           	<div>
 	        	<p onclick="location.href ='/views/mypage/mypage.jsp'">My page</p>
 	        </div>
 	        <div>
@@ -66,9 +63,9 @@
 	        <div>
 	            <button class="btn btn-primary" onclick="location.href='/logout.members'">Sign-Out</button>
 	        </div>
-	    </div>
-    </c:if>
-    
+           </c:if>
+    </div>
+
 </div>
 
 <!-- Mobile Navigation -->
