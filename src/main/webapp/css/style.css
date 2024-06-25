@@ -220,7 +220,7 @@ body.light {
 /* 로그인 팝업 스타일 */
 #loginPopup {
     position: absolute;
-    z-index: 100;
+    z-index: 10;
     width: 220px;
     height: 150px;
     right: 10%;
