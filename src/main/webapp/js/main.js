@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	$(window).on("beforeunload", closePopupOnPageChange);
 	
 	// 팝업 외부 클릭 감지 및 팝업 닫기
-	$(document).on("click", closePopupOnClickOutside);
+	$(document).on("click",closePopupOnClickOutside);
 
 	
 });
@@ -85,7 +85,7 @@ function closePopupOnPageChange() {
 // 팝업 외부 클릭 시 팝업 닫기
 function closePopupOnClickOutside(event) {
     let popup = document.querySelector(".login-popup");
-    if (popup.style.display === "block" && !popup.contains(event.target) && !document.querySelector(".loginBtn").contains(event.target)) {
+    if (popup.style.display === "flex" && !popup.contains(event.target) && !document.querySelector(".signBtn").contains(event.target)) {
         popup.style.display = "none";
     }
 }
