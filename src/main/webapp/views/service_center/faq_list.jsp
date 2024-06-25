@@ -66,7 +66,7 @@
 					<p onclick="location.href='/faq_list.service'">F A Q</p>
 					<p onclick="location.reload()">Q & A</p>
 				</nav>
-				
+
 				<div class="service-qna-list">
 					<c:if test="${faqList.size() > 0}">
 						<table>
@@ -93,7 +93,7 @@
 					</script>
 				</div>
 			</main>
-			
+
 			<main class="M_main"></main>
 		</div>
 
