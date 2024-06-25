@@ -237,3 +237,4 @@ const pagenation = (cpage, recordTotalCount, recordCountPerPage, naviCountPerPag
 	}
 
 }
+

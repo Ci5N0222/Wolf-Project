@@ -23,7 +23,7 @@ public class WebController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=UTF-8");
 		
-		String cmd = request.getRequestURI();
+		String cmd = request.getRequestURI(); 
 		
 		GameDAO gameDAO = GameDAO.getInstance();
 		ImagesDAO imagesDAO = ImagesDAO.getInstance();

@@ -5,9 +5,9 @@
 <html lang="ko">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게임 랭킹</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>게임 랭킹</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -29,29 +29,11 @@
 
 <!-- Project local -->
 <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/members.css">
+<script src="/js/main.js"></script>
 
-<script src="https://kit.fontawesome.com/1ee4acc8d4.js" crossorigin="anonymous"></script>
 
-<script src="https://code.jquery.com/jquery-3.7.1.js">
-	
-</script>
 <style>
-@import
-	url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Noto+Sans+KR:wght@100..900&display=swap')
-	;
-
-:root { -
-	-bg-light: #ffd449; -
-	-bg-dark: #14213D; -
-	-bg-transparent: transparent; -
-	-color-white: #eeeeee; -
-	-color-black: #14213D; -
-	-bg-nav: #f9a620; -
-	-color-nav-icon: #14213D; -
-	-color-nav-bg: #f9a620;
-	font-size: 16px;
-}
-
 html, body {
 	height: 100%;
 	margin: 0;
@@ -62,220 +44,9 @@ html, body {
 	/* 폰트 */
 	font-family: "Noto Sans KR", sans-serif;
 	font-family: "Luckiest Guy", cursive;
-}
-
-body.light {
-	background-color: var(- -bg-light);
-	color: var(- -bg-black);
-}
-/* 하단 원 */
-.sun {
-	position: absolute;
-	width: 120%;
-	height: 100%;
-	background-color: var(- -color-nav-bg);
-	box-shadow: 5px -5px 10px var(- -bg-light);
-	border-radius: 50%;
-	top: 40%;
-	left: 50%;
-	transform: translateX(-50%);
-}
-/* 모드 변경시 부드럽게 넘어가는 효과 */
-.sun, .navi {
-	transition: background-color 0.5s ease, box-shadow 0.5s ease;
-}
-/* img */
-.img_bg {
-	position: absolute;
-	top: -60%;
-	left: 0;
-	width: 100%;
-	object-fit: cover;
-}
-
-.bgs {
-	animation: bg 1s ease-in Infinite Alternate;
-	transition: all ease-in 0.2s;
-	width: 50px;
-}
-
-.bgs:nth-child(1) {
-	top: 15%;
-	left: 80%;
-}
-
-.bgs:nth-child(2) {
-	top: 20%;
-	left: 80%;
-	width: 40px;
-}
-
-.bgs:nth-child(3) {
-	top: 15%;
-	left: 20%;
-}
-
-.bgs:nth-child(4) {
-	top: 27%;
-	left: 70%;
-	width: 20px;
-}
-
-.bgs:nth-child(5) {
-	top: 12%;
-	left: 50%;
-}
-
-.bgs:nth-child(6) {
-	top: 12%;
-	left: 80%;
-	width: 20px;
-}
-
-@keyframes bg { 
-	0% {
-		opacity: 1;
-	}
-
-	100% {
-		opacity: 0;
-	}
-}
-
-.container-fluid, .container, .main {
-	height: 100%;
-}
-/* 메뉴 */
-.navi {
-	border: 1px solid white;
-	z-index: 5;
-	height: 10%;
-	display: flex;
-	align-items: center;
-	background-color: var(- -bg-nav);
-	padding: 0 3%;
-	font-size: 20px;
-	color: var(- -color-white);
-	text-shadow: 1px 1px 1px gray;
-	letter-spacing: 1px;
-	border-radius: 40px 80px/80px 40px;
-}
-
-.navi i {
-	font-size: 22px;
-}
-
-.navi>div {
-	margin-top: 0;
-}
-
-.navi>div:nth-child(2) #wolfLogo {
-	width: 100px;
-	height: 100px;
-}
-/* 로고 */
-.navi #wolfLogo>img {
-	object-fit: cover;
-	width: 100%;
-	height: 100%;
-}
-/* 메뉴 버튼 */
-.naviBtn {
-	cursor: pointer;
-	transition: all 0.3s ease-in-out;
-}
-
-.naviBtn:hover {
-	opacity: 0.5;
-}
-/* -- main과 동일 -- */
-/* 라이트 다크 mode */
-#mode {
-	cursor: pointer;
-	position: absolute;
-	bottom: 5%;
-	right: 5%;
-	background-color: var(- -bg-dark);
-	width: 50px;
-	height: 50px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border-radius: 50%;
-	transition: all ease-in 0.2s;
-	animation: ball 1s ease-in Infinite Alternate;
-	border: double 1px rgba(255, 255, 255, 0.46);
-}
-
-@
-keyframes ball { 0% {
-	bottom: 5%;
-}
-
-95
-
-
-
-
-%
-{
-width
-
-
-
-
-:
-
-
-
-
-50px
-
-
-;
-}
-to {
-	bottom: 8%;
-	width: 50px;
-	height: 60px
-}
-
-}
-/* 모드 전환 버튼 호버 시 투명도 조정 */
-#mode:hover {
-	opacity: 0.8;
-}
-
-/* 모드 전환 버튼 아이콘 스타일 */
-#mode i {
-	font-size: 30px;
-	color: var(—color-nav-bg);
-}
-
-html, body {
-	height: 100%;
-	margin: 0;
-	background-color: var(- -bg-dark);
-	color: var(- -bg-black);
-	color: var(- -color-black);
-	overflow: hidden;
-	/* 폰트 */
-	font-family: "Noto Sans KR", sans-serif;
-	font-family: "Luckiest Guy", cursive;
-}
-
-.overlay {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: rgba(0, 0, 0, 0.7);
-	z-index: -1;
 }
 
 body {
-	
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -283,220 +54,7 @@ body {
 	margin: 0;
 }
 
-        .rankcontainer {
-        	width:100%;
-            max-width: 800px;
-            margin: auto;
-            z-index: 1;
-        }
-.btn-group>.btn-group>.btn, .btn-group>.btn.dropdown-toggle-split:first-child, .btn-group>.btn:not(:last-child):not(.dropdown-toggle) {
-	border-radius:20px;
-}
-.btn-group>.btn-group:not(:first-child)>.btn, .btn-group>.btn:nth-child(n+3), .btn-group>:not(.btn-check)+.btn {
-border-radius:20px;}
-    .btn-group {
-    display: flex;
-    justify-content: space-between;
-}
-.btn-group .btn {
-    flex: 1;
-    margin: 10px;
-    padding: 15px;
-    background-color: #f9a620;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 16px;
-    transition: background-color 0.3s;
-}
-
-        .game-rank {
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-
-        .game-rank-header {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-            border-radius: 5px 5px 0 0;
-        }
-
-        .rank-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid black;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-
-        .rank-item > div {
-            flex: 1;
-            text-align: center;
-        }
-
-        .rank-item .avatar img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-        }
-
-        .user-info {
-        	color:white;
-            font-size: 14px;
-            text-align: right;
-            margin-bottom: 10px;
-        }
-
-        /* 추가된 스타일 */
-        .toprank {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
-        .toprank .firstbox,
-        .toprank .secondbox,
-        .toprank .thirdbox {
-            width: calc(33.33% - 10px);
-            border: 1px solid black;
-            padding: 10px;
-            text-align: center;
-            border-radius: 5px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .toprank .firstbox {
-      		  order: 2; 
-            background-size: cover;
-            background-position: center;
-        }
-
-        .toprank .secondbox {
-      		   order: 1;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .toprank .thirdbox {
-      		   order: 3;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .toprank .box-title,
-        .toprank .box-score {
-            margin-bottom: 10px;
-        }
-
-        .lowrank {
-        
-            border: 1px solid black;
-            padding: 10px;
-            background-color: #14213D;
-          color: #f9a620;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-        }
-
-        .ranklist {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .ranklist .lownum,
-        .ranklist .lowname,
-        .ranklist .lowscore {
-            flex: 1;
-            text-align: center;
-            padding: 5px;
-        }
-
-        .ranklist .lowimg {
-            flex: 1;
-            text-align: center;
-        }
-
-        .ranklist .lowimg img {
-            max-width: 50px;
-            max-height: 50px;
-            border-radius: 50%;
-        }
-        /* 모바일 메뉴 */ @media all and (max-width: 767px) { 
-	.wolf {
-		display: block;
-	}
-	.navi {
-		display: none;
-	}
-	
-	.m_navi {
-		display: block;
-	}
-	
-	.container-fluid {
-		padding: 0;
-	}
-	
-	.container {
-		padding: 0;
-	}
-	
-	/* 햄버거 */
-	.navbar {
-		box-shadow: 0px 1px 5px white;
-	}
-	
-	.navbar div {
-		width: 50px;
-		width: 50px;
-		height: 50px;
-		line-height: 50px;
-		margin: 0 2%;
-	}  .container-fluid, .container, .main {
-        padding: 0;
-    }
-    
-    /* 랭킹 컨테이너와 버튼 그룹 레이아웃 조정 */
-    .rankcontainer {
-        padding: 10px;
-    }
-    
-    .btn-group .btn {
-        margin: 3px; /* 모바일 화면에서 버튼 간격을 줄임 */
-    padding: 1px; /* 모바일 화면에서 버튼 패딩을 줄임 */
-    padding-bottom : 8px;
-    padding-top :8px;
-    flex: 1; /* 버튼들이 flex 박스를 채우도록 설정 */
-    }
-    
-    /* 랭킹 박스 레이아웃 조정 */
-    .toprank .firstbox,
-    .toprank .secondbox,
-    .toprank .thirdbox {
-        width: 100%;
-        margin-bottom: 10px;
-        order: 0;
-    }}
-.wolf {display: none;}
-
-
- @media all and (min-width:768px) and (max-width: 1023px) {
-	.wolf {
-		display: block;
-	}
-	
-	#wolfLogo {
-		display: none;
-	}}
-    </style>
+</style>
 </head>
 
 <body>
@@ -510,38 +68,16 @@ border-radius:20px;}
 				src="/images/bg3.png" alt="" class="img_bg bgs"> <img
 				src="/images/bg3.png" alt="" class="img_bg bgs">
 			<!-- nav -->
-		<%@ include file="/views/include/header.jsp"%>
-		
-		
-             <div class="rankcontainer">
-                <!-- 사용자 정보 표시 -->
-                <div id="userInfo" class="user-info">
-                    <!-- 사용자 정보 업데이트 스크립트에서 동적으로 업데이트 -->
-                </div>
+			<%@ include file="/views/include/header.jsp"%>
 
-        <!-- 게임 선택 버튼 그룹 -->
-        <div class="btn-group mb-4">
-            <button type="button" class="btn btn-primary mr-2" onclick="loadRank(1)">Among_Run</button>
-            <button type="button" class="btn btn-primary mr-2" onclick="loadRank(2)">FlyingBird</button>
-            <button type="button" class="btn btn-primary mr-2" onclick="loadRank(3)">MashimaroJump</button>
-            <button type="button" class="btn btn-primary mr-2" onclick="loadRank(4)">RoadKill</button>
-            <button type="button" class="btn btn-primary" onclick="loadRank(5)">SpaceFlight</button>
-        </div>
 
-        <!-- 상위 랭크 박스 -->
-        <div class="toprank" id="topRankSection">
-            <!-- 동적으로 업데이트될 부분 -->
-        </div>
+			<div class="rankcontainer">
+				<!-- 사용자 정보 표시 -->
+				<div id="userInfo" class="user-info">
+					<!-- 사용자 정보 업데이트 스크립트에서 동적으로 업데이트 -->
+				</div>
 
-<<<<<<< HEAD
-        <!-- 하위 랭킹 리스트 -->
-        <div class="lowrank" id="lowRankSection">
-            <!-- 동적으로 업데이트될 부분 -->
-        </div>
-        
-    </div>
-    			<div class="sun"></div>
-=======
+
 				<!-- 게임 선택 버튼 그룹 -->
 				<div class="btn-group mb-4">
 		            <button type="button" class="btn btn-primary mr-2" onclick="loadRank(1)">Among_Run</button>
@@ -563,17 +99,19 @@ border-radius:20px;}
 
 			</div>
 			<div class="sun"></div>
->>>>>>> c5a05a23fc1042991d8f2878e00f87648c41be89
+
 			<!-- mode -->
 			<div id="mode">
 				<i class="fa-regular fa-lightbulb" style="display: none;"></i> <i
 					class="fa-solid fa-lightbulb"></i>
 			</div>
+		</div>
+	</div>
 
-    <!-- 스크립트 부분은 변경하지 않음 -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
+	<!-- 스크립트 부분은 변경하지 않음 -->
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script>
 function updateUserStats(nickname, score, rank) {
     var userInfoElement = $("#userInfo");
 
@@ -683,8 +221,6 @@ $(document).ready(function() {
 });
 </script>
 
-
-    <script src="/js/main.js"></script>
 </body>
 
 </html>
