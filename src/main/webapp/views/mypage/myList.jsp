@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%> 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+pageEncoding="UTF-8"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core"
+prefix="c" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -31,9 +30,8 @@ pageEncoding="UTF-8"%>
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-	<link rel="stylesheet" href="/css/style.css">
-	<link rel="stylesheet" href="/css/mypage.css">
-
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/mypage.css" />
   </head>
   <body>
     <!-- container -->
@@ -46,7 +44,7 @@ pageEncoding="UTF-8"%>
         <img src="/images/bg3.png" alt="" class="img_bg bgs" />
         <img src="/images/bg3.png" alt="" class="img_bg bgs" />
         <img src="/images/bg3.png" alt="" class="img_bg bgs" />
-        
+
         <!-- nav -->
         <%@ include file="/views/include/header.jsp"%>
 
@@ -89,7 +87,6 @@ pageEncoding="UTF-8"%>
                   <div style="flex: 1"><p>조회수</p></div>
                 </div>
                 <div class="mypage-myList-contents">
-                
                   <c:forEach var="dto" items="${list}">
                     <div
                       style="
@@ -102,18 +99,23 @@ pageEncoding="UTF-8"%>
                         <span class="seq">${dto.seq}</span>
                       </div>
                       <div style="flex: 5" class="center">
-                        <span class="title">${dto.title}</span>
+                        <span class="title"
+                          ><a
+                            href="/detail.board?seq=${dto.seq}&target=&keyword=&board_code=1"
+                            >${dto.title}</a
+                          ></span
+                        >
                       </div>
+                      <div style="flex: 1" class="center">${dto.nickname}</div>
                       <div style="flex: 1" class="center">
-                        ${dto.nickname}
-                      </div>
-                      <div style="flex: 1" class="center">
-                        <fmt:formatDate value="${dto.write_date}" pattern="yyyy.MM.dd" />
+                        <fmt:formatDate
+                          value="${dto.write_date}"
+                          pattern="yyyy.MM.dd"
+                        />
                       </div>
                       <div style="flex: 1" class="center">${dto.count}</div>
                     </div>
                   </c:forEach>
-                  
                 </div>
                 <div class="page-navigation"></div>
               </div>
@@ -136,10 +138,9 @@ pageEncoding="UTF-8"%>
     ></script>
     <script src="/js/main.js"></script>
 
-
-	<!-- 페이지 네비게이터 -->
-	<script>
-		pagenation(${cpage}, ${recode_total_count}, ${recode_count_per_page}, ${navi_count_per_page}, "/myList.mypage");
-	</script>
+    <!-- 페이지 네비게이터 -->
+    <script>
+      pagenation(${cpage}, ${recode_total_count}, ${recode_count_per_page}, ${navi_count_per_page}, "/myList.mypage");
+    </script>
   </body>
 </html>
