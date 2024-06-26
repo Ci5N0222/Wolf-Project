@@ -35,6 +35,7 @@ public class ScoreController extends HttpServlet {
         
         try {
             if (cmd.equals("/rankselect.score")) {
+            	String id = request.getParameter("id");
                 int gameSeq = Integer.parseInt(request.getParameter("gameSeq"));
                 List<RankDTO> rankList = dao.selectRank(gameSeq);
                 String json = g.toJson(rankList);
