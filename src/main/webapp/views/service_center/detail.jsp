@@ -57,15 +57,15 @@
 			<div id="serivce-title"
 				class="d-flex align-items-center justify-content-center my-3">
 				<div>
-					내 문의 글
+					My "QnA" List
 				</div>
 			</div>
 
 			<!-- board contents -->
 			<main class="service-main">
-				<section class="service-contents">
+				<form class="service-contents" action="" method="post">
 					<div class="service-contents-title">
-						<input type="text" name="title" value="제목">
+						<input type="text" id="qna_title" name="title" value="제목" readonly>
 					</div>
 					<div class="service-contents-board">
 						<div class="service-contents-info-box">
@@ -80,12 +80,14 @@
 							edit 기능
 						</div>
 						<div class="service-contents-board-btn">
-							<button>목록으로</button>
-							<button>수정하기</button>
-							<button>삭제하기</button>
+							<button type="button" id="qna_list" onclick="location.href='/qna_list.service'">목록으로</button>
+							<button type="button" id="qna_edit" onclick="qnaEditForm()">수정하기</button>
+							<button type="button" id="qna_delete" onclick="qnaDelete()">삭제하기</button>
+							<button id="qna_ok">확인</button>
+							<button type="button" id="qna_cancel" onclick="location.reload()">취소</button>
 						</div>
 					</div>
-				</section>
+				</form>
 			</main>
 			
 			<!-- board reply -->
