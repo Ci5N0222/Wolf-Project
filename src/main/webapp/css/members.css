@@ -235,13 +235,13 @@ body, html {
 }
 
 .toprank .firstbox {
-	order: 2;
+	order: 1;
 	background-size: cover;
 	background-position: center;
 }
 
 .toprank .secondbox {
-	order: 1;
+	order: 2;
 	background-size: cover;
 	background-position: center;
 }

@@ -143,8 +143,10 @@ function loadRank(gameSeq) {
                     '<div class="box-score"> ' + rankDTO.score + '</div>';
                 if (i === 1) {
                     topRankHtml += '<div class="secondbox">' + boxHtml + '</div>';
-                } else if (i === 0 || i === 2) {
+                } else if (i === 0) {
                     topRankHtml += '<div class="firstbox">' + boxHtml + '</div>';
+                }else{
+                	  topRankHtml += '<div class="thirdbox">' + boxHtml + '</div>';
                 }
             } else {
                 // 게임 기록이 없는 경우 처리
