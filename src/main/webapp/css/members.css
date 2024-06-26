@@ -143,7 +143,7 @@ body, html {
 .rankcontainer {
 	width: 100%;
 	max-width: 800px;
-	margin: auto;
+	margin: 0 auto;
 	z-index: 1;
 }
 
@@ -245,13 +245,13 @@ body, html {
 }
 
 .toprank .firstbox {
-	order: 2;
+	order: 1;
 	background-size: cover;
 	background-position: center;
 }
 
 .toprank .secondbox {
-	order: 1;
+	order: 2;
 	background-size: cover;
 	background-position: center;
 }

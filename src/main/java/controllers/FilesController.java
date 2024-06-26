@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import board.dao.BoardDAO;
+import commons.DBConfig;
 import files.dao.FilesDAO;
 import reply.dao.ReplyDAO;
 
@@ -39,7 +40,7 @@ public class FilesController extends HttpServlet {
 		else if(cmd.equals("/download.files")) {
 			response.reset();
 
-			String filepath = request.getServletContext().getRealPath("files"); // 위치 확보
+			String filepath = DBConfig.realPath+"files"; // 위치 확보
 			String sysname = request.getParameter("sysname"); // 이름 확보
 			String oriname = request.getParameter("oriname");
 			System.out.println(filepath + ":" + sysname);

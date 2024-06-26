@@ -17,6 +17,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import board.dao.BoardDAO;
 import board.dto.BoardDTO;
+import commons.DBConfig;
 import commons.PageConfig;
 import files.dao.FilesDAO;
 import files.dto.FilesDTO;
@@ -100,7 +101,7 @@ public class ServiceCenterController extends HttpServlet {
 				else {
 	
 					int maxSize = 1024 * 1024 * 10; // 10mb
-					String realPath = request.getServletContext().getRealPath("files");
+					String realPath = DBConfig.realPath+"files";
 					File uploadPath = new File(realPath);
 					
 					if (!uploadPath.exists()) {
@@ -138,7 +139,7 @@ public class ServiceCenterController extends HttpServlet {
 			        System.out.println(new_contents);
 			        String[] sysnames=boardDAO.findDeletedTags(new_contents);
 			        ArrayList<String> fileList= imagesDAO.delete(board_seq, board_code, sysnames);
-			        imagesDAO.deleteImageFile(request.getServletContext().getRealPath("upload_images"), fileList);
+			        imagesDAO.deleteImageFile(DBConfig.realPath+"upload_images", fileList);
 			        
 					response.sendRedirect("/list.board?board_code="+board_code);
 					

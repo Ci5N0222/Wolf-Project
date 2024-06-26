@@ -8,7 +8,8 @@ pageEncoding="UTF-8"%>
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>First-Project</title>
+    <title>Wolf</title>
+	<link rel="icon" href="/images/favicon.png">
     <!-- 부트스트랩 -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"

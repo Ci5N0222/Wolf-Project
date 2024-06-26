@@ -12,4 +12,5 @@ public class DBConfig {
 		DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
 		return ds.getConnection();
 	}
+	public static String realPath="C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\images\\";
 }

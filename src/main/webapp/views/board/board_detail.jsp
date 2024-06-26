@@ -8,7 +8,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Insert title here</title>
+    <title>Wolf</title>
+	<link rel="icon" href="/images/favicon.png">
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.tiny.cloud/1/9bewfouem96jjnfvuu236yinb3kp53xruh2gkkz3pkfnkw6c/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
@@ -869,7 +870,7 @@
             tinymce.init({
                 selector: 'div#board_contents',
                 plugins:'wordcount anchor image code  media',
-                images_file_types:'jpg,svg,webp',
+                images_file_types:'jpg,svg,webp,jfif',
                 file_picker_types: 'file image media',
                 statusbar: false,
                  //plugins: 'inlinecss  autolink charmap codesample emoticons image link lists media searchreplace table visualblocks  checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate mentions tableofcontents footnotes mergetags typography',
