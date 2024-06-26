@@ -112,12 +112,8 @@
 										<img src="/images/wolfLogo.png">
 									</div>
 									<input type="hidden" id="game_seq" value="${seq}">
-									<div>
-										${WolfNickname}
-									</div>
-									<div>
-										${myScore}
-									</div>
+									<div id="myNickname">${WolfNickname}</div>
+									<div id="myGameScore">${myScore}</div>
 								</div>
 							</div>
 						</div>
