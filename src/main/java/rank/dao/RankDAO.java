@@ -40,8 +40,8 @@ public class RankDAO {
                     String avatar = rs.getString("avatar");
                     int score = rs.getInt("score");
                     int rank = rs.getInt("rank");
-
-                    RankDTO dto = new RankDTO(nickname, avatar, score, rank);
+                    String avatarPath = "/avatar" + avatar;
+                    RankDTO dto = new RankDTO(nickname, avatarPath, score, rank);
                     list.add(dto);
                 }
             }
