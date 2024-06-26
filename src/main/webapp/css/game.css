@@ -26,6 +26,7 @@
 }
 
 .list-container .card {
+	overflow: hidden;
 	height: 300px;
 	border: 5px solid rgba(255, 255, 255, 0.41);
 }
