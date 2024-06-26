@@ -77,38 +77,48 @@
 			<%@ include file="/views/include/header.jsp"%>
 			
 			<!-- main -->
-			<main class="main gameView">
+			<main class="main">
+			<div class="gameView">
 				<div class="gameview-container">
-					<div class="game" id="game_play_form"></div>
-					<div class="ranking">
-						<div>ranking</div>
-						<div>
+						<div class="game-inner">
+							<div class="game" id="game_play_form"></div>
+						</div>
+						
+						<div class="ranking">
 							<div>
 								<div>
-									<img src="/images/wolf-1.gif">
+									<div>
+										<img src="/images/wolf-1.gif">
+									</div>
+									<div>${topRank[0].nickname}</div>
+									<div>${topRank[0].score}</div>
 								</div>
-								<div>${topRank[0].nickname}</div>
-								<div>${topRank[0].score}</div>
-							</div>
-							<div>
 								<div>
-									<img src="/images/wolf-2.gif">
+									<div>
+										<img src="/images/wolf-2.gif">
+									</div>
+									<div>${topRank[1].nickname}</div>
+									<div>${topRank[1].score}</div>
 								</div>
-								<div>${topRank[1].nickname}</div>
-								<div>${topRank[1].score}</div>
-							</div>
-							<div>
 								<div>
-									<img src="/images/wolfLogo.png">
+									<div>
+										<img src="/images/wolfLogo.png">
+									</div>
+									<div>${topRank[2].nickname}</div>
+									<div>${topRank[2].score}</div>
 								</div>
-								<div>${topRank[2].nickname}</div>
-								<div>${topRank[2].score}</div>
-							</div>
-							<br/><br/>
-							<div>
-								<input type="hidden" id="game_seq" value="${seq}">
-								<p id="myNickname"> ${WolfNickname}</p>
-								<p id="myGameScore">${myScore}</p>
+								<div class="score">
+									<div>
+										<img src="/images/wolfLogo.png">
+									</div>
+									<input type="hidden" id="game_seq" value="${seq}">
+									<div>
+										${WolfNickname}
+									</div>
+									<div>
+										${myScore}
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>

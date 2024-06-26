@@ -2,6 +2,9 @@
 .main {
 	height: 90%;
 	z-index: 10;
+	/* 폰트 */
+	font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'Luckiest Guy', cursive;
 }
 
 /* gameList */
@@ -27,7 +30,8 @@
 	height: 200px;
 	border: 1px solid #ccc;
 }
-.list-container .card:hover{
+
+.list-container .card:hover {
 	transform: rotate(3deg);
 }
 
@@ -49,9 +53,9 @@
 .list-container .card>form button {
 	height: 50px;
 	width: 100%;
-	font-size:1rem;
+	font-size: 1rem;
 	/* border-radius:10px; */
-	background-color: var(--bg-dark); 
+	background-color: var(--bg-dark);
 	border: 5px solid transparent;
 	color: var(--color-white);
 	text-align: center;
@@ -72,6 +76,7 @@
 	height: 50px;
 	line-height: 50px;
 }
+
 /* gameList */
 
 /* gameDetail */
@@ -107,17 +112,18 @@
 	height: 100%;
 	border-radius: 5px;
 	object-fit: cover;
-	background-color: #ccc;
+	background-color: #eeeeee80;
 }
 
 .datail>div:first-child>form {
 	height: 100px;
 }
-.datail>div:first-child>form > button{
+
+.datail>div:first-child>form>button {
 	height: 50px;
-	font-size:1rem;
-	border-radius:10px;
-	background-color: var(--color-nav-bg); 
+	font-size: 1rem;
+	border-radius: 10px;
+	background-color: var(--color-nav-bg);
 	border: 5px solid transparent;
 	color: var(--color-white);
 	text-align: center;
@@ -126,15 +132,18 @@
 	transition: border-color 0.2s ease, color 0.4s ease-in-out;
 }
 
-.datail>div:first-child>form > button:hover {
+.datail>div:first-child>form>button:hover {
 	border-color: white;
 
 }
 
 .datail>div:last-child {
+	font-family: 'Noto Sans KR', sans-serif;
 	height: 600px;
-	background-color: #eeeeee50;
-	color: white;
+	background-color: #eeeeee80;
+	color: black;
+	font-weight: 500;
+	letter-spacing: 1px;
 	text-align: left;
 
 }
@@ -142,73 +151,120 @@
 .datail>div:last-child div {
 	padding: 20px;
 }
+
 .datail>div:last-child div div:last-child {
 	padding-bottom: 0;
 }
+
 .datail>div:last-child div div:first-child {
 	padding-top: 0;
 }
+
 /* gameDetail */
 
 /* game */
-.gameView {display: flex;justify-content: center;align-items: center;}
-.gameview-container {
+.gameView {
+	height: 100%;
+	width: 100%;
 	display: flex;
-	width: 1200px;
-	height: 500px;
+	align-items: center;
+	justify-content: center;
 }
 
-.gameview-container .game {
+.gameview-container {
+	height: 700px;
 	width: 1000px;
-	height: 100%;
-	
-}
-
-.gameview-container .ranking {
-	margin-left: 20px;
-	width: 200px;
-	height: 100%;
-	background-color: var(--bg-nav);
-	border-radius: 5px;
-}
-
-.gameview-container .ranking>div:first-child {
-	height: 50px;
-	line-height: 50px;
-	letter-spacing: 5px;
-}
-
-.gameview-container .ranking>div:last-child {
-	height: 450px;
 	display: flex;
 	flex-direction: column;
 }
 
-.gameview-container .ranking>div:last-child>div {
-	flex: 1;
-	background-color: #eeeeee;
-	height: 150px;
+canvas {
+	margin: 0 auto;
+}
+
+.gameview-container .game-inner #game_play_form canvas {
+	border: 5px solid #eeeeee32;
 	border-radius: 5px;
 }
 
-.gameview-container .ranking>div:last-child>div>div:nth-child(1) {
-	height: 100px;
-	border-top: 1px solid #f9a620;
+.gameview-container .game-inner {
+	height: 500px;
 }
 
-.gameview-container .ranking>div:last-child>div>div:nth-child(2) {
-	height: 25px;
-	border-top: 1px solid #f9a620;
+.gameview-container .game-inner .game {
+	width: 1000px;
+	height: 500px;
+	display: flex;
+	align-items: center;
 }
 
-.gameview-container .ranking>div:last-child>div>div:nth-child(3) {
-	height: 25px;
+.gameview-container .game-inner .score {
+	margin: 0 auto;
 }
 
-.gameview-container .ranking>div:last-child>div>div img {
-	width: 100px;
-	height: 100px;
+.gameview-container .ranking {
+	height: 200px; width: 1000px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.gameview-container .ranking div:first-child {
+	height: 50px;
+}
+
+.gameview-container .ranking div:last-child {
+	height: 150px;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	background-color: var(--darkNav);
+	border-radius: 5px;
+}
+
+.gameview-container .ranking div:last-child>div {
+	height: 150px;
+	width: 100%;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	color: white;
+	text-align: center;
+}
+
+.gameview-container .ranking div:last-child>div>div {
+	height: 150px;
+	width: 100%;
+	text-align: center;
+}
+
+.gameview-container .ranking div:last-child>div>div:nth-child(1) {
+	height: 80px;
+}
+
+.gameview-container .ranking div:last-child>div>div:nth-child(1) img {
+	width: 100%;
+	height: 100%;
 	object-fit: contain;
+}
+
+.gameview-container .ranking div:last-child>div>div:nth-child(2) {
+	height: 35px;
+}
+
+.gameview-container .ranking div:last-child>div>div:nth-child(3) {
+	height: 35px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.gameview-container .ranking div:last-child>div>div:nth-child(4) {
+	height: 35px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #eeeeee50;
 }
 /* game */
 
@@ -219,7 +275,7 @@
 		position: relative;
 		z-index: 0;
 	}
-	
+
 	body::-webkit-scrollbar {
 		width: 1vw;
 	}
@@ -228,15 +284,27 @@
 		background-color: hsla(0, 0%, 42%, 0.49);
 		border-radius: 100px;
 	}
-	.sun {display: none;}
+
+	.sun {
+		display: none;
+	}
+
 	/* 별 숨기기 */
-	.bgs {display: none;}
-	
+	.bgs {
+		display: none;
+	}
+
 	/* gameList */
-	.list-container {margin-top: 5%}
-	.list-container .card:last-child{margin-bottom: 5%;}
+	.list-container {
+		margin-top: 5%
+	}
+
+	.list-container .card:last-child {
+		margin-bottom: 5%;
+	}
+
 	/* gameList */
-	
+
 	/* gameDetail */
 	.datail {
 		padding: 20px;
@@ -291,46 +359,54 @@
 		justify-content: center;
 		height: 300px;
 		padding: 10px;
-		background-color:#eeeeee50;
+		background-color: #eeeeee50;
 		color: #ccc;
 		overflow-y: auto;
 	}
+
 	/* 아래의 모든 코드는 영역::코드로 사용 */
 	.datail>div:last-child::-webkit-scrollbar {
-	    width: 10px;  /* 스크롤바의 너비 */
+		width: 10px;
+		/* 스크롤바의 너비 */
 	}
-	
+
 	.datail>div:last-child::-webkit-scrollbar-thumb {
-	    height: 30%; /* 스크롤바의 길이 */
-	    background: var(--lightNav); /* 스크롤바의 색상 */
-	    
-	    border-radius: 10px;
+		height: 30%;
+		/* 스크롤바의 길이 */
+		background: var(--lightNav);
+		/* 스크롤바의 색상 */
+
+		border-radius: 10px;
 	}
-	
+
 	.datail>div:last-child::-webkit-scrollbar-track {
-	    background: var(--darkNav);  /*스크롤바 뒷 배경 색상*/
+		background: var(--darkNav);
+		/*스크롤바 뒷 배경 색상*/
 	}
 
 	.datail>div:last-child div {
 		padding: 0;
 	}
+
 	/* gameDetail */
 }
+
 /* 모바일 */
 @media all and (max-width: 767px) {
+
 	/* 공통 */
 	.main {
 		display: block;
 		height: 90%;
 		margin-top: 10%;
 	}
-	
+
 	body {
 		overflow-y: auto;
 		position: relative;
 		z-index: 1;
 	}
-	
+
 	body::-webkit-scrollbar {
 		width: 1vw;
 	}
@@ -339,10 +415,16 @@
 		background-color: hsla(0, 0%, 42%, 0.49);
 		border-radius: 100px;
 	}
-	.sun {display: none;}
-	.bgs {display: none;}
-	
-	
+
+	.sun {
+		display: none;
+	}
+
+	.bgs {
+		display: none;
+	}
+
+
 	/* gameList */
 	.list-container {
 		margin: 5% 0;
@@ -351,8 +433,9 @@
 	.list-container {
 		padding: 20px;
 	}
+
 	/* gameList */
-	
+
 	/* gameDetail */
 	.datail {
 		font-size: 1rem;
@@ -375,7 +458,8 @@
 	}
 
 	.datail>div:first-child {
-		border: 1px solid #eeeeee32;;
+		border: 1px solid #eeeeee32;
+		;
 		display: flex;
 		flex-direction: column;
 		flex: 1;
@@ -395,8 +479,16 @@
 		object-fit: cover;
 		background-color: #ccc;
 	}
-	.datail>div:first-child> form{height: 15%;display: flex;justify-content: center;}
-	.datail>div:first-child> form button {height: 100%;}
+
+	.datail>div:first-child>form {
+		height: 15%;
+		display: flex;
+		justify-content: center;
+	}
+
+	.datail>div:first-child>form button {
+		height: 100%;
+	}
 
 	.datail>div:last-child {
 		background-color: #eeeeee50;
@@ -409,20 +501,26 @@
 		height: 300px;
 		overflow-y: auto;
 	}
+
 	/* 아래의 모든 코드는 영역::코드로 사용 */
 	.datail>div:last-child::-webkit-scrollbar {
-	    width: 10px;  /* 스크롤바의 너비 */
+		width: 10px;
+		/* 스크롤바의 너비 */
 	}
-	
+
 	.datail>div:last-child::-webkit-scrollbar-thumb {
-	    height: 30%; /* 스크롤바의 길이 */
-	    background: var(--lightNav); /* 스크롤바의 색상 */
-	    
-	    border-radius: 10px;
+		height: 30%;
+		/* 스크롤바의 길이 */
+		background: var(--lightNav);
+		/* 스크롤바의 색상 */
+
+		border-radius: 10px;
 	}
-	
+
 	.datail>div:last-child::-webkit-scrollbar-track {
-	    background: var(--darkNav);  /*스크롤바 뒷 배경 색상*/
+		background: var(--darkNav);
+		/*스크롤바 뒷 배경 색상*/
 	}
+
 	/* gameDetail */
 }
