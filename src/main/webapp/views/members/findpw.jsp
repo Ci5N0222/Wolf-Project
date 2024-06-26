@@ -26,7 +26,8 @@
 	crossorigin="anonymous"></script>
 
 <!-- Project local -->
-<title>비밀번호 찾기</title>
+<title>Wolf</title>
+<link rel="icon" href="/images/favicon.png">
 
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/members.css">

@@ -6,7 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Wolf</title>
+<link rel="icon" href="/images/favicon.png">
 <!-- 부트스트랩 -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -47,7 +48,7 @@
         font-family: "Noto Sans KR", sans-serif;
         margin: auto;
         position:relative;
-        z-index: 100;
+        z-index: 1;
         display: flex;
         height: 800px;
     }
