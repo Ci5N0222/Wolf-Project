@@ -117,7 +117,7 @@ private static BoardDAO instance;
 		
 	}
 	
-	public Object[] selectType(int recordCountPerPage,int cpage,int board_code,String target,String keyword){
+	public Object[] selectType(int recordCountPerPage,int cpage,int board_code,String target,String keyword) throws Exception{
 		List<BoardDTO> list=new ArrayList<>();
 	
 		Object [] boardList=new Object[2];
@@ -148,8 +148,8 @@ private static BoardDAO instance;
 						list.add(dto);
 						
 					}
-				} catch (Exception e) {}
-			} catch (Exception e) {}
+				} 
+			}
 		} else if(target.equals("contents")) {
 			String sql="SELECT * FROM (SELECT c.*, ROW_NUMBER() OVER (ORDER BY seq DESC) AS rown FROM (SELECT * FROM (select b.*,m.nickname from board b join members m on b.member_id =m.id where REGEXP_REPLACE(b.contents, '<[^>]+>', '') like ?))c where board_code=? )a WHERE rown between ? and ? ";
 			try (Connection con=DBConfig.getConnection();
@@ -175,8 +175,8 @@ private static BoardDAO instance;
 						BoardDTO dto=new BoardDTO(seq,title,contents,count,member_id,board_code,write_date,secret);
 						list.add(dto);
 					}
-				} catch (Exception e) {}
-			} catch (Exception e) {}
+				} 
+			} 
 			
 		} else if(target.equals("nickname")) {
 			String sql="SELECT * FROM (SELECT c.*, ROW_NUMBER() OVER (ORDER BY seq DESC) AS rown FROM (SELECT * FROM (select b.*,m.nickname from board b join members m on b.member_id =m.id where m.nickname=?))c where board_code=?)a WHERE rown between ? and ?";
@@ -202,8 +202,8 @@ private static BoardDAO instance;
 						BoardDTO dto=new BoardDTO(seq,title,contents,count,member_id,board_code,write_date,secret);
 						list.add(dto);
 					}
-				} catch (Exception e) {}
-			} catch (Exception e) {}
+				} 
+			} 
 			
 		}
 		
@@ -268,10 +268,8 @@ private static BoardDAO instance;
 			pstat.setString(2, dto.getContents());
 			pstat.setString(3, dto.getSecret());
 			pstat.setInt(4, dto.getSeq());
-			pstat.setInt(5, dto.getBoard_code());
-			
-			if(pstat.executeUpdate()>0)check=true;;
-			
+			pstat.setInt(5, dto.getBoard_code());		
+			if(pstat.executeUpdate()>0)check=true;;		
 			
 		}
 		
@@ -427,14 +425,10 @@ private static BoardDAO instance;
 				pstat.setString(3, "haram0704");
 				pstat.setInt(4, 1);
 				pstat.setString(5, "N");
-				pstat.executeUpdate();
-			
+				pstat.executeUpdate();	
 				
 			} 
-		}
-		
-	
-		
+		}	
 	}
 	
 }
