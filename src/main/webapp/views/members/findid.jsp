@@ -28,7 +28,8 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>아이디 찾기</title>
+<title>Wolf</title>
+<link rel="icon" href="/images/favicon.png">
 <!-- Project local -->
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/members.css">

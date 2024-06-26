@@ -6,7 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Game</title>
+<title>Wolf</title>
+<link rel="icon" href="/images/favicon.png">
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<!-- phaser3 -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.80.1/phaser.min.js"></script>

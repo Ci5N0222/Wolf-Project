@@ -75,8 +75,10 @@ public class MypageController extends HttpServlet {
 				//--- 파일 업로드
 				String id = (String)session.getAttribute("WolfID");
 				int maxSize = 1024 * 1024 * 10; // 10MB 사이즈 제한
+
 				String realPath = DBConfig.realPath+"avatar/"+id; // 파일이 저장될 위치
 				System.out.println(realPath);
+
 				File uploadPath = new File(realPath); // 저장 위치 폴더를 파일 인스턴스로 생성
 
 				if (!uploadPath.exists()) { // 파일 업로드 할 폴더가 존재하지 않는다면
@@ -108,15 +110,6 @@ public class MypageController extends HttpServlet {
 					if(multi.getParameter("defaultCheck").equals("true")) {
 						if (!deleteSysname.equals("")) {
 				            File imageFile = new File(realPath + "/" + deleteSysname);
-				            if (imageFile.exists()) {
-				                if (imageFile.delete()) {
-				                    System.out.println("파일 삭제 성공");
-				                } else {
-				                    System.out.println("파일 삭제 실패");
-				                }
-				            } else {
-				                System.out.println("파일이 존재하지 않습니다.");
-				            }
 				        }
 						avatar=null;
 						iDAO.deleteMypageAvatar(id);
@@ -128,16 +121,6 @@ public class MypageController extends HttpServlet {
 				} else {
 					avatar = "/avatar/"+id + "/" + sysName;
 					File imageFile = new File(realPath + "/" + deleteSysname);
-					 if (imageFile.exists()) {
-						   if (imageFile.delete()) {
-					         System.out.println("파일 삭제 성공");
-					         
-						   } else {
-					         System.out.println("파일 삭제 실패");
-						   }
-					 }else {
-					    System.out.println("파일이 존재하지 않습니다.");
-					 }
 				}
 			
 				if(deleteSysname.equals("")) {
@@ -186,9 +169,7 @@ public class MypageController extends HttpServlet {
 			} else if(cmd.equals("/mypageGameList.mypage")) {
 				String id = (String)session.getAttribute("WolfID");
 				
-				System.out.println(id);
 				List<GameScoreDTO> result = gDAO.gameList(id);
-				System.out.println(result.size());
 				
 				for(GameScoreDTO dto : result) {
 					String sysname = iDAO.getImageName(dto.getGame_seq(), 3);

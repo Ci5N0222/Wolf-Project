@@ -11,7 +11,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Wolf</title>
+<title>Wolf-Admin</title>
+<link rel="icon" href="/images/favicon.png">
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
