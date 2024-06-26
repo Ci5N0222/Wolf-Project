@@ -5,7 +5,8 @@ prefix="c" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>내 글 목록</title>
+    <title>Wolf</title>
+	<link rel="icon" href="/images/favicon.png">
 
     <!-- 부트스트랩 -->
     <link
