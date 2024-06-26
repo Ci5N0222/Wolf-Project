@@ -65,10 +65,15 @@
 			<main class="service-main">
 				<section class="service-contents">
 					<div class="service-contents-title">
-						제목
+						<input type="text" name="title" value="제목">
 					</div>
 					<div class="service-contents-board">
-						<div class="service-contents-info">
+						<div class="service-contents-info-box">
+							<div class="service-contents-info-box-col-2">작성자 : test</div>
+							<div class="service-contents-info-box-col-1"> 조회수 : 5 </div>
+							<div class="service-contents-info-box-col-2">작성일 : 2024-06-26 </div>
+						</div>
+						<div class="service-contents-form">
 							내용
 						</div>
 						<div class="service-contents-edit">
@@ -82,26 +87,96 @@
 					</div>
 				</section>
 			</main>
+			
+			<!-- board reply -->
 			<main class="service-main">
 				<!-- board reply insert -->
 				<section class="service-reply">
+					<div class="service-reply-title">
+						댓글작성
+					</div>
 					<div class="service-reply-info">
 						<div class="service-reply-writer-avater">
 							이미지
 						</div>
 						<div class="service-reply-writer">
-							작성자
+							작성자(ID...)
 						</div>
-						<div class="service-reply-write-date">
-							(2024-06-26)
-						</div>
-						
 					</div>
 					<div class="service-reply-contents">
+						<div class="service-reply-contents-board">
+							내용
+						</div>
+						<div class="service-reply-contents-btn">
+							<button>작성하기</button>
+						</div>
 					</div>
 				</section>
 			</main>
 			
+			<!-- board reply -->
+			<main class="service-main">
+				<section class="service-reply-list">
+					<div class="service-reply-info">
+						<div class="service-reply-writer-avater">
+							이미지
+						</div>
+						<div class="service-reply-writer">
+							작성자(ID...)
+						</div>
+						<div class="service-reply-write-date">
+							(2024-06-26)
+						</div>
+						<div class="service-reply-info-btn">
+							<button>수정</button>
+							<button>삭제</button>
+						</div>
+					</div>
+					<div class="service-reply-contents">
+						<div class="service-reply-list-contents">
+							내용
+						</div>
+					</div>
+				</section>
+				
+				<section class="service-reply-list">
+					<div class="service-reply-info">
+						<div class="service-reply-writer-avater">
+							이미지
+						</div>
+						<div class="service-reply-writer">
+							작성자(ID...)
+						</div>
+						<div class="service-reply-write-date">
+							(2024-06-26)
+						</div>
+					</div>
+					<div class="service-reply-contents">
+						<div class="service-reply-list-contents">
+							내용
+						</div>
+					</div>
+				</section>
+				
+				<section class="service-reply-list">
+					<div class="service-reply-info">
+						<div class="service-reply-writer-avater">
+							이미지
+						</div>
+						<div class="service-reply-writer">
+							작성자(ID...)
+						</div>
+						<div class="service-reply-write-date">
+							(2024-06-26)
+						</div>
+					</div>
+					<div class="service-reply-contents">
+						<div class="service-reply-list-contents">
+							내용
+						</div>
+					</div>
+				</section>
+			</main>
 			
 			<main class="M_main">
 				
