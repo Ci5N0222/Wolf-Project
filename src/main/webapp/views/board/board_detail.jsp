@@ -170,6 +170,7 @@
         border: 1px solid black;
         overflow: hidden; 
         border-radius: 15px;
+        
     }
     .board div{
         display: flex;
@@ -293,7 +294,7 @@
                         <div style="flex: 1;"  class="center"> <fmt:formatDate value="${board_dto.write_date}" pattern="yyyy.MM.dd HH:mm" /></div>
                         <div style="flex: 1;"  class="center"> 조회 ${board_dto.count}</div>
                 </div>
-                <div style="flex: 5; flex-direction: column; overflow: auto; height: 100% ; width: 100%;" class="dto" id="board_contents" >${board_dto.contents}</div>
+                <div style="flex: 5; flex-direction: column; overflow: auto; height: 100% ; width: 100%; " class="dto" id="board_contents" >${board_dto.contents}</div>
                 <div style="flex: 0.8; overflow-y: auto;">
                     <form action="/update.board" method="post" id="joinform" enctype="multipart/form-data" style="flex: 1; display: flex;">
                     <div style="flex: 1.5;">
