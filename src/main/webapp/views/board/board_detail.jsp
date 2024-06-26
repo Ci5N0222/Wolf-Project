@@ -171,6 +171,7 @@
         border: 1px solid black;
         overflow: hidden; 
         border-radius: 15px;
+        
     }
     .board div{
         display: flex;
