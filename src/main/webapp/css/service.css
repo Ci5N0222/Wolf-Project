@@ -17,6 +17,7 @@
 	width: 100%;
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	align-items: center;
 	z-index: 2;
 	margin: 0 auto;
@@ -59,9 +60,103 @@
 
 .service-navi>p:hover {
 	color: var(--color-nav-bg);
-
 }
 
+.service-contents {
+	width: 100%;
+	max-width: 1200px;
+	height: 100%;
+	background-color: white;
+	display: flex;
+    flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+}
+
+div {
+	border: 1px solid black;
+}
+
+.service-contents-title {
+	width: 98%;
+	height: 60px;
+	margin: 2px;
+	padding: 2px;
+}
+
+.service-contents-board {
+	width: 98%;
+	height: 100%;
+}
+
+.service-contents-info {
+	min-height: 600px;
+	padding: 10px;
+}
+
+.service-contents-board-btn {
+	width: 98%;
+	height: 80px;
+	margin: 0 20px;
+	display: flex;
+	justify-content: end;
+	align-items: center;
+}
+
+.service-contents-board-btn > button {
+	width: 120px;
+	height: 60px;
+	border: none;
+	border-radius: 10px;
+	margin: 5px;
+}
+
+.service-reply {
+	width: 100%;
+	max-width: 1200px;
+	height: 100%;
+	background-color: white;
+	display: flex;
+    flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+}
+
+.service-reply-info {
+	width: 98%;
+	height: 60px;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	padding: 10px;
+}
+
+.service-reply-writer-avater {
+	width: 60px;
+	height: 60px;
+	margin: 10px;	
+}
+
+.service-reply-writer {
+	font-size: 20px;
+	font-weight: 800;
+	margin: 10px;
+}
+
+.service-reply-write-date {
+	font-size: 20px;
+	margin: 10px;
+}
+
+.service-reply-contents {
+	width: 98%;
+	height: 200px;
+	font-size: 20px;
+	font-weight: 800;
+	overflow-y: auto;
+}
 
 .servie-content-box {
 	width: 100%;
