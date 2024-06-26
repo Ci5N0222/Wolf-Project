@@ -272,7 +272,7 @@
                         let input=$("<input type='file'class='upload'>");
                         input.attr("name","files"+index++);
                         div.append(input);
-                        let button=$("<button style='width: 25px; height: 25px; border: 0; font-size: 20px;'>❌</button>")
+                        let button=$("<button style='width: 25px; height: 25px; border: 0; font-size: 20px; background-color: rgba(0, 0, 0, 0);'>❌</button>")
                        
                         input.click();
                         let temp=$("<div>");
