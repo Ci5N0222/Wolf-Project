@@ -140,7 +140,7 @@
             /* 확인 버튼 텍스트 색깔 */
         }
 
-        .custom-cancel-button {
+        .custom-cancel-buttson {
           
             color: white !important;
             /* 취소 버튼 텍스트 색깔 */

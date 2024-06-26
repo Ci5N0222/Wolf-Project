@@ -121,12 +121,12 @@
                         자유 게시판 글 작성하기 
                     </div>
                     <div style="flex: 2; margin-bottom: 10px; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; overflow: hidden;">
-                        <input type="text" placeholder="글 제목을 입력하세요" style="border: 0; width: 100%; height: 75px; font-size:30px;" name="title">
+                        <input type="text" placeholder="글 제목을 입력하세요" style="border: 0; width: 100%; height: 75px; font-size:30px;" name="title" id="insert_title">
                     </div>
                     <div style="flex: 8;"  id="contents"></div>
                     <div style="display: flex; flex: 1; justify-content: flex-end; "class="index">        
                             <button type="button"  class="btn_css" id="list">목록으로</button>&nbsp&nbsp
-                            <button class="btn_css">작성완료</button>
+                            <button class="btn_css" id="insert_btn">작성완료</button>
                     </div>
                     <div id="files" class="index"">
                     </div>
@@ -144,6 +144,14 @@
             
 			
 		})
+        
+        $("#fileform").on("submit",function(event){
+            if($("#insert_title").val()=="" ||$("#contents").html().trim()==""){
+                console.log($("#contents").html().trim());
+                event.preventDefault();
+            alert("제목 혹은 내용을 채워주세요");
+            }
+        })
 </script>
 
 
