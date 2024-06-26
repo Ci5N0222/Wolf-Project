@@ -47,7 +47,7 @@
         font-family: "Noto Sans KR", sans-serif;
         margin: auto;
         position:relative;
-        z-index: 100;
+        z-index: 1;
         display: flex;
         height: 800px;
     }

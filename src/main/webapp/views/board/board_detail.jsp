@@ -61,7 +61,7 @@
             height: auto;
             width: auto;
             display: block;
-            z-index: 100;
+            z-index: 1;
             position: relative;
             font-family: "Noto Sans KR", sans-serif;
         }

@@ -88,7 +88,7 @@
       } 
   
 .index{
-    z-index: 100;
+    z-index: 1;
     position: relative;
 }
 .m_navi{
