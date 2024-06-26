@@ -1,18 +1,23 @@
 /* main */
 .main {
-	height: 90%;
+
+	height: 90%; width: 100%;
 	z-index: 1;
+
 	/* 폰트 */
 	font-family: 'Noto Sans KR', sans-serif;
 	font-family: 'Luckiest Guy', cursive;
 }
-
+.img_bg{
+	width: 100% !important;
+}
 /* gameList */
 .list-container {
+	width: 100%;
 	height: 100%;
 	display: flex;
 	justify-content: center;
-	align-items: center
+	align-items: center;
 }
 
 .list-container>div {

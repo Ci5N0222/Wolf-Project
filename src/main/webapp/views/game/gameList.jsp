@@ -10,7 +10,7 @@
 <!--  MDN에 나와있는 모바일 최적화된 사이트들이 포함하고 있다는 코드 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Wolf</title>
-<link rel="icon" href="/images/favicon.png">e>
+<link rel="icon" href="/images/favicon.png">
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <!-- 부트스트랩 -->
 <link
@@ -29,6 +29,12 @@
 <!-- Project local -->
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/game.css">
+<style>
+.row {
+    margin-right: 0;
+    margin-left: 0;
+}
+</style>
 </head>
 <body>
 	<!-- container -->
