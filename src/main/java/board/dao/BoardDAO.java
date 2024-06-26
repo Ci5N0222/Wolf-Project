@@ -31,7 +31,7 @@ private static BoardDAO instance;
 	
 	private BoardDAO() {}
 	
-	public int insert(BoardDTO dto) {
+	public int insert(BoardDTO dto) throws Exception{
 		String sql="insert into board values(board_seq.nextval,?,?,0,?,?,sysdate,?)";
 		int seq=0;
 		try (Connection con=DBConfig.getConnection();
@@ -46,18 +46,13 @@ private static BoardDAO instance;
 			try (ResultSet rs=pstat.getGeneratedKeys()){
 				rs.next();
 				seq=rs.getInt(1);
-			} catch (Exception e) {
-				// TODO: handle exception
 			}
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		} 
 		return seq;
 	}
 	
 	
-	public Object[] selectAll(int board_code){
+	public Object[] selectAll(int board_code) throws Exception {
 		List<BoardDTO> list = new ArrayList<>();
 		String sql="select b.*, m.nickname from board b join members m on m.id =b.member_id";
 		Object [] boardList=new Object[2];
@@ -77,17 +72,14 @@ private static BoardDAO instance;
 				nickname.add(rs.getString(8));
 				//list.add(new BoardDTO(seq,title,contents,count,member_id,board_code,write_date));			
 			}		
-		} catch (Exception e) {
-			// TODO: handle exception
 		}
-		
 		
 		boardList[0]= list;
 		boardList[1]= nickname;
 		return boardList;
 		
 	}
-	public Object[] selectAll(int recordCountPerPage,int cpage,int board_code){
+	public Object[] selectAll (int recordCountPerPage,int cpage,int board_code)throws Exception{
 		String sql="SELECT a.*,m.nickname FROM (SELECT  board.*, ROW_NUMBER() OVER (ORDER BY seq DESC) AS rown FROM board where board_code=?)a join members m on m.id=a.member_id WHERE rown between ? and ? ";
 		List<BoardDTO> list=new ArrayList<>();
 		Object [] boardList=new Object[2];
@@ -112,19 +104,17 @@ private static BoardDAO instance;
 					BoardDTO dto=new BoardDTO(seq,title,contents,count,member_id,board_code,write_date,secret);
 					list.add(dto);
 				}
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
+				boardList[0]= list;
+				boardList[1]= nickname;
+				
+				return boardList;
+			} 
 			
 			
 			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		boardList[0]= list;
-		boardList[1]= nickname;
+		} 
 		
-		return boardList;
+		
 	}
 	
 	public Object[] selectType(int recordCountPerPage,int cpage,int board_code,String target,String keyword){
@@ -225,7 +215,7 @@ private static BoardDAO instance;
 	}
 	
 	
-	public Object[] selectBoard(int seq,int board_code){
+	public Object[] selectBoard (int seq,int board_code) throws Exception{
 		BoardDTO dto= new BoardDTO();
 		String sql="select b.*, m.nickname from board b join members m on m.id =b.member_id where b.seq=? and b.board_code=?";
 		Object [] boardList=new Object[2];
@@ -244,40 +234,32 @@ private static BoardDAO instance;
 					String secret=rs.getString(8);
 					nickname=rs.getString(9);
 					dto=(new BoardDTO(seq,title,contents,count,member_id,board_code,write_date,secret));
-			} catch (Exception e) {
-				
-			}
-		} catch (Exception e) {
-			
-		}
+			} 
+		} 
 		
 		boardList[0]=dto;
 		boardList[1]= nickname;
 		return boardList;
 	}
 	
-	public void delete(int seq,int board_code) {
+	public void delete(int seq,int board_code)throws Exception {
 		String sql="delete from board where seq=?";
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
 			pstat.setInt(1, seq);
 			pstat.executeUpdate();
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		} 
 	}
 	
-	public void deleteMember(String member_id) {
+	public void deleteMember(String member_id) throws Exception{
 		String sql="delete from board where member_id=?";
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
 			pstat.setString(1, member_id);
-		} catch (Exception e) {
-			// TODO: handle exception
 		}
 	}
 	
-	public boolean update(BoardDTO dto) {
+	public boolean update(BoardDTO dto)throws Exception {
 		String sql="update board set title=?,contents=? , secret=? ,write_date=sysdate where seq=? and board_code=?";
 		boolean check=false;
 		try (Connection con=DBConfig.getConnection();
@@ -291,14 +273,12 @@ private static BoardDAO instance;
 			if(pstat.executeUpdate()>0)check=true;;
 			
 			
-		} catch (Exception e) {
-			// TODO: handle exception
 		}
 		
 		return check;
 	}
 	
-	public int getRecordCount(String type,String keyword,int board_code) {
+	public int getRecordCount(String type,String keyword,int board_code) throws Exception{
 		int recordTotalCount=0;
 		if(type.equals("")) {
 			String sql="select count(*) from board where board_code=?";
@@ -308,12 +288,8 @@ private static BoardDAO instance;
 				try (ResultSet rs=pstat.executeQuery()){
 					rs.next();
 					recordTotalCount=rs.getInt(1);	
-				} catch (Exception e) {
-					// TODO: handle exception
-				}
+				} 
 				
-			} catch (Exception e) {
-				// TODO: handle exception
 			}
 		}
 		else if(type.equals("title")) {
@@ -325,13 +301,9 @@ private static BoardDAO instance;
 				try (ResultSet rs=pstat.executeQuery()){
 					rs.next();
 					recordTotalCount=rs.getInt(1);	
-				} catch (Exception e) {
-					// TODO: handle exception
-				}
+				} 
 			
 				
-			} catch (Exception e) {
-				// TODO: handle exception
 			}
 			
 		} else if(type.equals("contents")) {
@@ -343,14 +315,10 @@ private static BoardDAO instance;
 				try (ResultSet rs=pstat.executeQuery()){
 					rs.next();
 					recordTotalCount=rs.getInt(1);	
-				} catch (Exception e) {
-					// TODO: handle exception
-				}
+				} 
 			
 				
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
+			} 
 			
 		} else if(type.equals("nickname")) {
 			String sql="select count(*) from board b join members m on b.member_id =m.id where m.nickname=? and board_code=?";
@@ -362,14 +330,9 @@ private static BoardDAO instance;
 					rs.next();
 					recordTotalCount=rs.getInt(1);	
 					
-				} catch (Exception e) {
-					// TODO: handle exception
 				}
-			
 				
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
+			} 
 			
 		}
 		
@@ -378,19 +341,17 @@ private static BoardDAO instance;
 		return recordTotalCount;
 	}
 	
-	public void countUp(int seq) {
+	public void countUp(int seq) throws Exception{
 		String sql="update board set count= count+1 where seq=?";
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
 			pstat.setInt(1, seq);
 			pstat.executeUpdate();
 			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		} 
 	}
 	
-	public  String[] findDeletedTags(String originalHtml) {
+	public  String[] findDeletedTags(String originalHtml)throws Exception {
 		Document doc = Jsoup.parse(originalHtml);
 	    Elements imgTags = doc.select("img");
 	    ArrayList<String> sysnames=new ArrayList<>();
@@ -422,7 +383,7 @@ private static BoardDAO instance;
 	}
 	
 	
-	public String board_contents(int seq,int board_code) {
+	public String board_contents(int seq,int board_code) throws Exception{
 		String sql="select contents from board where seq=? and board_code=?";
 		String contents="";
 		try (Connection con=DBConfig.getConnection();
@@ -433,17 +394,13 @@ private static BoardDAO instance;
 				rs.next(); 
 				contents=rs.getString(1);
 				
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
+			} 
 			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		} 
 		return contents;
 	}
 	
-	public boolean checkGrade(String id) {
+	public boolean checkGrade(String id)throws Exception {
 		String sql="select grade from members where grade in(98,99) and id=?";
 		boolean check=false;
 		try (Connection con=DBConfig.getConnection();
@@ -453,17 +410,14 @@ private static BoardDAO instance;
 			try (ResultSet rs=pstat.executeQuery()){
 				check=rs.next();
 				
-			} catch (Exception e) {
-			}
+			} 
 			
-		} catch (Exception e) {
-			
-		}
+		} 
 		return check;
 	}
 	
 	
-	public void dumidata() {
+	public void dumidata() throws Exception{
 		String sql="insert into board values(board_seq.nextval,?,?,0,?,?,sysdate,?)";
 		for (int i = 0; i < 150; i++) {
 			try (Connection con=DBConfig.getConnection();
@@ -476,9 +430,7 @@ private static BoardDAO instance;
 				pstat.executeUpdate();
 			
 				
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
+			} 
 		}
 		
 	
