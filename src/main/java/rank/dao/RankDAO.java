@@ -40,7 +40,7 @@ public class RankDAO {
                     String avatar = rs.getString("avatar");
                     int score = rs.getInt("score");
                     int rank = rs.getInt("rank");
-                    String avatarPath = "/avatar" + avatar;
+                    String avatarPath = (avatar != null && !avatar.isEmpty()) ? "/avatar" + avatar : "/images/default-avatar.jpg";
                     RankDTO dto = new RankDTO(nickname, avatarPath, score, rank);
                     list.add(dto);
                 }
