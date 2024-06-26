@@ -162,35 +162,38 @@ function loadRank(gameSeq) {
         $("#topRankSection").append(topRankHtml);
 
         // 하위 랭킹 리스트 업데이트
-         $("#lowRankSection").empty();
-                let lowRankHtml = '';
-                for (let i = 3; i < 10; i++) {
-                    if (i < response.length) {
-                        let rankDTO = response[i];
-                        let rankItemHtml = '<div class="ranklist">' +
-                            '<div class="lownum">' + rankDTO.rank + '</div>' +
-                            '<div class="lowimg"><img src="' + rankDTO.avatar + '" alt="아바타"></div>' +
-                            '<div class="lowname">' + rankDTO.nickname + '</div>' +
-                            '<div class="lowscore">' + rankDTO.score + '</div>' +
-                            '</div>';
-                        lowRankHtml += rankItemHtml;
-                    } else {
-                        let emptyRankItemHtml = '<div class="ranklist">' +
-                            '<div class="lownum"></div>' +
-                            '<div class="lowimg"></div>' +
-                            '<div class="lowname">기록 없음</div>' +
-                            '<div class="lowscore">0</div>' +
-                            '</div>';
-                        lowRankHtml += emptyRankItemHtml;
-                    }
-                }
-                $("#lowRankSection").append(lowRankHtml);
+        $("#lowRankSection").empty();
+        let lowRankHtml = ''; // 변수 정의 및 초기화
+        for (let i = 3; i < 10; i++) {
+            if (i < response.length) {
+                let rankDTO = response[i];
+                let avatar = rankDTO.avatar ? rankDTO.avatar : '/images/default-avatar.jpg';
+                let rankItemHtml = '<div class="ranklist">' +
+                    '<div class="lownum">' + rankDTO.rank + '</div>' +
+                    '<div class="lowimg"><img src="' + avatar + '" alt="아바타"></div>' +
+                    '<div class="lowname">' + rankDTO.nickname + '</div>' +
+                    '<div class="lowscore">' + rankDTO.score + '</div>' +
+                    '</div>';
+                lowRankHtml += rankItemHtml;
+            } else {
+                let emptyRankItemHtml = '<div class="ranklist">' +
+                    '<div class="lownum"></div>' +
+                    '<div class="lowimg"></div>' +
+                    '<div class="lowname">기록 없음</div>' +
+                    '<div class="lowscore">0</div>' +
+                    '</div>';
+                lowRankHtml += emptyRankItemHtml;
+            }
+        }
+        $("#lowRankSection").append(lowRankHtml);
+
         // 랭킹을 로드한 후 사용자 정보 업데이트
         updateUserStatsFromDatabase(gameSeq);
     }).fail(function(xhr, status, error) {
         console.error("Error loading rank:", error);
     });
 }
+
 
 // 데이터베이스에서 사용자 정보 업데이트
 function updateUserStatsFromDatabase(gameSeq) {
