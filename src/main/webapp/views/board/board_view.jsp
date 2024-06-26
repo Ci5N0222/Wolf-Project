@@ -33,9 +33,10 @@
  <style> @import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');</style>
 
 <script>
-    if("${board_code}"==5  || "${board_code}"==4){
-        location.href="/index.jsp";
+    if(${board_code}==3  || ${board_code}==4){
         alert("잘못된 접근입니다");
+        location.href="/index.jsp";
+        
     }
 </script>
 

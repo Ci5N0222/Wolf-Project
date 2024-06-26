@@ -110,6 +110,9 @@ public class MypageController extends HttpServlet {
 					if(multi.getParameter("defaultCheck").equals("true")) {
 						if (!deleteSysname.equals("")) {
 				            File imageFile = new File(realPath + "/" + deleteSysname);
+				            if (imageFile.exists()) {
+								  imageFile.delete();
+							 } 
 				        }
 						avatar=null;
 						iDAO.deleteMypageAvatar(id);
@@ -121,6 +124,9 @@ public class MypageController extends HttpServlet {
 				} else {
 					avatar = "/avatar/"+id + "/" + sysName;
 					File imageFile = new File(realPath + "/" + deleteSysname);
+					  if (imageFile.exists()) {
+						  imageFile.delete();
+					  } 
 				}
 			
 				if(deleteSysname.equals("")) {

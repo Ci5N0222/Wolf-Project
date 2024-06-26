@@ -112,7 +112,7 @@ const homeBinding = () => {
 /** index card binding **/
 const homeCardSetting = (res) => {
 	let discription = res.discription;
-	if (discription.length > 20) discription = discription.slice(0, 19) + "...";
+	if (discription.length > 50) discription = discription.slice(0, 49) + "...";
 
 	let item = `
           <div class="item flex-grow-1" onclick="location.href='/detail.game?seq=${res.seq}'">
