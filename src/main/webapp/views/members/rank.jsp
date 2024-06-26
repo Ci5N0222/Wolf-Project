@@ -72,6 +72,7 @@ body {
 
 
          <div class="rankcontainer">
+         	<div class="ranking-title">Ranking!</div>
             <!-- 사용자 정보 표시 -->
             <div id="userInfo" class="user-info">
                <!-- 사용자 정보 업데이트 스크립트에서 동적으로 업데이트 -->
