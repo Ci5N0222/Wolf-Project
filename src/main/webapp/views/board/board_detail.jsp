@@ -69,7 +69,7 @@
         .reply{
             margin-top: 20px;
             width: auto;
-            height: 250px;
+            height: 300px;
             margin-bottom: auto;
             margin-left: auto;
             margin-right: auto;
@@ -80,6 +80,7 @@
         }
         .reply div{
             display: flex;
+            margin-bottom: 10px;
         }
 
         #reply_contents {
@@ -117,7 +118,7 @@
             z-index: 100;
             position: relative;
             border-radius: 20px;
-           
+            padding: 0 10px;
         }
         
 
@@ -292,7 +293,7 @@
                         <div style="flex: 1;"  class="center"> <fmt:formatDate value="${board_dto.write_date}" pattern="yyyy.MM.dd HH:mm" /></div>
                         <div style="flex: 1;"  class="center"> 조회 ${board_dto.count}</div>
                 </div>
-                <div style="flex: 5; flex-direction: column; overflow: auto; height: 100% ; width: 100%;" class="dto" id="board_contents" >${board_dto.contents}</div>
+                <div style="flex: 5; flex-direction: column; overflow: auto; height: 100% ; width: 100%; padding: 20px;" class="dto" id="board_contents" >${board_dto.contents}</div>
                 <div style="flex: 0.8; overflow-y: auto;">
                     <form action="/update.board" method="post" id="joinform" enctype="multipart/form-data" style="flex: 1; display: flex;">
                     <div style="flex: 1.5;">
@@ -340,9 +341,9 @@
         </div> <!--contaier 끝-->
         <form action="/insert.reply" method="get" id="replyform">
         <div class="reply" style="  border-radius: 20px; margin-bottom: 15px;">
-            <div style="flex: 1; margin-left: 15px;" class="center"> <p style="font-family: 'Courier New', Courier, monospace; font-size:15px">${WolfNickname}(${WolfID.substring(0, 4)}****) </p></div>
+            <div style="flex: 1; margin-left: 15px;" class="center"> <p style="font-family: 'Courier New', Courier, monospace; font-size:18px; margin: 25px 10px 0 10px; font-weight: bolder;">${WolfNickname}(${WolfID.substring(0, 4)}****) </p></div>
             <div style="flex: 5; overflow: auto;">
-                <div style="flex-direction: column; flex: 5; border: 1px solid black; margin: 15px; word-break: break-all; overflow: auto; max-height: 183px;" contenteditable="true" class="dto reply_child_input" id="reply_insert_div"  onkeydown="handleKeyPress(this,event)"><label class="reply_child_label" style="font-size: 20px; color: gray;">주제와 무관한 댓글이나 스포일러, 악플은 경고조치 없이 삭제되며 징계 대상이 될 수 있습니다.</label></div>
+                <div style="flex-direction: column; flex: 5; border: 1px solid black; margin: 0 20px 10px; border-radius: 8px; word-break: break-all; overflow: auto; max-height: 183px;" contenteditable="true" class="dto reply_child_input" id="reply_insert_div"  onkeydown="handleKeyPress(this,event)"><label class="reply_child_label" style="font-size: 20px; color: gray; margin: 5px 10px;">주제와 무관한 댓글이나 스포일러, 악플은 경고조치 없이 삭제되며 징계 대상이 될 수 있습니다.</label></div>
                 <input type="hidden" name="contents" id="reply_insert_contents">
                 <input type="hidden" name="member_id" value="${WolfID}"class="notuse">
                 <input type="hidden" name="board_seq" value="${board_dto.seq}" class="notuse">
@@ -350,7 +351,7 @@
             <div style="flex: 1;">
                 <div style=" margin-left: 15px; flex:1; color: grey; justify-content: flex-start; align-items: center;"><span>현재 입력한 글자수 :&nbsp</span><span class="reply_child_count">0</span>/<span>전체 입력 가능한 글자수 :&nbsp</span><span class="reply_child_count_max">300</span></div>
                 <div style=" flex: 1; justify-content: flex-end; align-items: center;">
-                    <button id="reply_btn" style="width: 15% !important; height: 80% !important; background-color: #00c73c !important; color: white !important;" class="no-hover button_css">등록</button>&nbsp&nbsp&nbsp&nbsp
+                    <button id="reply_btn" style="width: 80px !important; height: 35px !important; background-color: #fabf61  !important; color: white !important;" class="no-hover button_css">등록</button>&nbsp&nbsp&nbsp&nbsp
                 </div>
             </div>
         </div>
@@ -365,15 +366,15 @@
             <c:forEach var="reply_dto" items="${reply_list}" varStatus="status">
                 <div class="reply_contents">
                         <div style="flex: 6; word-break: break-all; white-space: pre-wrap; flex-direction: column; margin-left:15px">
-                            <div>${reply_nickname_list[status.index]}(${reply_dto.member_id.substring(0, 4)}****) </div>
-                            <div class="reply_div" style="flex-direction: column;">${reply_dto.contents}</div>
+                            <div style="margin-bottom:8px;">${reply_nickname_list[status.index]}(${reply_dto.member_id.substring(0, 4)}****) </div>
+                            <div class="reply_div" style="flex-direction: column; margin-bottom: 8px;">${reply_dto.contents}</div>
                             <div><p style="color: gray;"><fmt:formatDate value="${reply_dto.write_date}" pattern="yyyy.MM.dd HH:mm" /></p></div>
                         </div>
                         <div style="flex: 1; font-size: x-small; justify-content: flex-end; align-items: flex-end;">
                             <div style="flex: 1; margin-left:15px"> 
                                 <button  class="reply_child_btn button_css">답글</button>
                             </div>
-                            <div id="check" style="flex: 1; justify-content: flex-end;">
+                            <div id="check" style="flex: 1; justify-content: flex-end; margin-right: 20px;">
                                 <div stylse=" display: flex; width: 110px;" class="reply_div1">
                                     <button  class="reply_update button_css">수정</button>&nbsp&nbsp
                                     <button  class="reply_delete button_css">삭제</button>&nbsp&nbsp
