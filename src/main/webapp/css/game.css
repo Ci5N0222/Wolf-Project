@@ -1,7 +1,9 @@
 /* main */
 .main {
+
 	height: 90%; width: 100%;
-	z-index: 10;
+	z-index: 1;
+
 	/* 폰트 */
 	font-family: 'Noto Sans KR', sans-serif;
 	font-family: 'Luckiest Guy', cursive;
