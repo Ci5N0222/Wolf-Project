@@ -90,6 +90,10 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	
+	/* 폰트 */
+    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Luckiest Guy', cursive;
 }
 
 .datail>div {
@@ -103,6 +107,8 @@
 .datail>div:first-child {
 	height: 600px;
 	border: 1px solid #eeeeee32;
+	background-color: rgba(255,255,192,0.1);
+    backdrop-filter: blur(10px);
 }
 
 .datail>div:first-child>div {
@@ -146,11 +152,11 @@
 }
 
 .datail>div:last-child {
-	margin: 5%;
 	height: 600px;
-	background-color: #eeeeee80;
+	backdrop-filter: blur(10px);
 	color: black;
-	font-weight: 500;
+	background-color: rgba(255,255,192,0.1);
+    backdrop-filter: blur(10px);
 	letter-spacing: 1px;
 	text-align: left;
 	padding: 10px;
@@ -162,9 +168,23 @@
 	font-family: 'Luckiest Guy', cursive;
 }
 
-.datail>div:last-child .title{flex: 2;display: flex;justify-content: center;align-items: center; background-color: var(--darkNav);font-size: 2rem;color: white;}
-.datail>div:last-child .contents{flex: 8;display: flex;flex-direction: column;background-color: white; padding: 5%;}
+.datail>div:last-child .title {
+	flex: 2;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: var(--darkNav);
+	font-size: 2rem;
+	color: white;
+}
 
+.datail>div:last-child .contents {
+	flex: 8;
+	display: flex;
+	flex-direction: column;
+	background-color: white;
+	padding: 5%;
+}
 /* gameDetail */
 
 /* game */
@@ -213,6 +233,10 @@ canvas {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	
+	/* 폰트 */
+    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Luckiest Guy', cursive;
 }
 
 .gameview-container .ranking div:first-child {
