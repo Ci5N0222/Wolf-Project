@@ -91,6 +91,7 @@
 				 			<c:forEach var="qnaList" items="${qnaList}">
 					 			<tr>
 					 				<td>${qnaList.seq}</td>
+					 				
 					 				<td><a href="/detail.board?seq=${qnaList.seq}&target=&keyword=&board_code=3">${qnaList.title}</a></td>
 					 				<td>${qnaList.nickname}</td>
 					 				<td><fmt:formatDate value="${qnaList.write_date}" pattern="yyyy.MM.dd"/></td>

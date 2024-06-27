@@ -3,6 +3,7 @@
 
 <!-- JSTL Core -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -18,6 +19,10 @@
 	rel="stylesheet"
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	crossorigin="anonymous">
+
+<!-- tinymce -->
+<script src="https://cdn.tiny.cloud/1/9bewfouem96jjnfvuu236yinb3kp53xruh2gkkz3pkfnkw6c/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
@@ -35,6 +40,7 @@
 <!-- Project local -->
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/service.css">
+<script src="/js/tinymce.js"></script>
 <script src="/js/main.js"></script>
 
 </head>
@@ -63,58 +69,60 @@
 
 			<!-- board contents -->
 			<main class="service-main">
-				<form class="service-contents" action="" method="post">
+				<form class="service-contents" action="/qna_update.service" method="post" enctype="multipart/form-data">
 					<div class="service-contents-title">
-						<input type="text" id="qna_title" name="title" value="제목" readonly>
+						<input type="text" id="qna_title" name="title" value="${qnaDetail.title}" readonly>
 					</div>
 					<div class="service-contents-board">
 						<div class="service-contents-info-box">
-							<div class="service-contents-info-box-col-2">작성자 : test</div>
-							<div class="service-contents-info-box-col-1"> 조회수 : 5 </div>
-							<div class="service-contents-info-box-col-2">작성일 : 2024-06-26 </div>
+							<div class="service-contents-info-box-col-2">작성자 : ${qnaDetail.nickname}</div>
+							<div class="service-contents-info-box-col-1"> 조회수 : ${qnaDetail.count} </div>
+							<div class="service-contents-info-box-col-2">작성일 : <fmt:formatDate value="${qnaDetail.write_date}" pattern="yyyy.MM.dd"/></div>
 						</div>
-						<div class="service-contents-form">
-							내용
+						<div class="service-contents-form">${qnaDetail.contents}</div>
+						<div class="service-contents-edit" id="contents"></div>
+						<div class="service-contents-under-box">
+							<div class="service-contents-files">
+								file list 있으면 출력
+							</div>
+							<div class="service-contents-board-btn">
+								<button type="button" id="qna_list" onclick="location.href='/qna_list.service'">목록으로</button>
+								<button type="button" id="qna_edit" onclick="qnaEditForm()">수정하기</button>
+								<button type="button" id="qna_delete" onclick="qnaDelete(${qnaDetail.seq})">삭제하기</button>
+								<button id="qna_ok">확인</button>
+								<button type="button" id="qna_cancel" onclick="location.reload()">취소</button>
+							</div>
 						</div>
-						<div class="service-contents-edit">
-							edit 기능
-						</div>
-						<div class="service-contents-board-btn">
-							<button type="button" id="qna_list" onclick="location.href='/qna_list.service'">목록으로</button>
-							<button type="button" id="qna_edit" onclick="qnaEditForm()">수정하기</button>
-							<button type="button" id="qna_delete" onclick="qnaDelete()">삭제하기</button>
-							<button id="qna_ok">확인</button>
-							<button type="button" id="qna_cancel" onclick="location.reload()">취소</button>
-						</div>
+						
 					</div>
 				</form>
 			</main>
 			
-			<!-- board reply -->
-			<main class="service-main">
-				<!-- board reply insert -->
-				<section class="service-reply">
-					<div class="service-reply-title">
-						댓글작성
-					</div>
-					<div class="service-reply-info">
-						<div class="service-reply-writer-avater">
-							이미지
+			<!-- board reply 관리자만 작성 가능 -->
+			<c:if test="${admin eq true}">
+				<main class="service-main">
+					<!-- board reply insert -->
+					<section class="service-reply">
+						<div class="service-reply-title">
+							댓글작성
 						</div>
-						<div class="service-reply-writer">
-							작성자(ID...)
+						<div class="service-reply-info">
+							<div class="service-reply-writer-avater">
+								이미지
+							</div>
+							<div class="service-reply-writer">
+								${qnaDetail.nickname}
+							</div>
 						</div>
-					</div>
-					<div class="service-reply-contents">
-						<div class="service-reply-contents-board">
-							내용
+						<div class="service-reply-contents">
+							<div class="service-reply-contents-board" contenteditable="true">내용</div>
+							<div class="service-reply-contents-btn">
+								<button onclick="qnaReplySubmit()">작성하기</button>
+							</div>
 						</div>
-						<div class="service-reply-contents-btn">
-							<button>작성하기</button>
-						</div>
-					</div>
-				</section>
-			</main>
+					</section>
+				</main>
+			</c:if>
 			
 			<!-- board reply -->
 			<main class="service-main">
@@ -135,54 +143,12 @@
 						</div>
 					</div>
 					<div class="service-reply-contents">
-						<div class="service-reply-list-contents">
-							내용
-						</div>
-					</div>
-				</section>
-				
-				<section class="service-reply-list">
-					<div class="service-reply-info">
-						<div class="service-reply-writer-avater">
-							이미지
-						</div>
-						<div class="service-reply-writer">
-							작성자(ID...)
-						</div>
-						<div class="service-reply-write-date">
-							(2024-06-26)
-						</div>
-					</div>
-					<div class="service-reply-contents">
-						<div class="service-reply-list-contents">
-							내용
-						</div>
-					</div>
-				</section>
-				
-				<section class="service-reply-list">
-					<div class="service-reply-info">
-						<div class="service-reply-writer-avater">
-							이미지
-						</div>
-						<div class="service-reply-writer">
-							작성자(ID...)
-						</div>
-						<div class="service-reply-write-date">
-							(2024-06-26)
-						</div>
-					</div>
-					<div class="service-reply-contents">
-						<div class="service-reply-list-contents">
-							내용
-						</div>
+						<div class="service-reply-list-contents">내용</div>
 					</div>
 				</section>
 			</main>
 			
-			<main class="M_main">
-				
-			</main>
+			<main class="M_main"></main>
 		</div>
 
 		<div class="sun"></div>

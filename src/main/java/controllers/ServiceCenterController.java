@@ -87,6 +87,67 @@ public class ServiceCenterController extends HttpServlet {
 				}
 			}
 			
+			/** Q & A 디테일 **/
+			else if(cmd.equals("/qna_detail.service")) {
+				String id = (String)request.getSession().getAttribute("WolfID");
+				if(id == "") response.sendRedirect("/views/members/login.jsp");
+				else {
+					int code = 3;
+					int seq = Integer.parseInt(request.getParameter("board_seq"));
+					ServiceCenterDTO qnaDetail = dao.getMyQnaDetail(code, seq);
+					boolean admin = (Boolean)request.getSession().getAttribute("WolfAdmin");
+					if(admin == true) {
+						request.setAttribute("admin", admin);
+					}
+					
+					if(qnaDetail.getMember_id().equals((String)request.getSession().getAttribute("WolfID"))) {
+						request.setAttribute("qnaDetail", qnaDetail);
+						request.getRequestDispatcher("/views/service_center/qna_detail.jsp").forward(request, response);
+					} else {
+						// 잘못된 접근
+						response.sendRedirect("/qna_list.service");
+					}
+				}
+			}
+			
+			/** Q & A 수정 **/
+			else if(cmd.equals("/qna_update.service")) {
+				String id = (String)request.getSession().getAttribute("WolfID");
+				if(id == "") response.sendRedirect("/views/members/login.jsp");
+				else {
+					// 여기 밑에 다 수정해야됨
+					int code = 3;
+					int seq = Integer.parseInt(request.getParameter("board_seq"));
+					ServiceCenterDTO qnaDetail = dao.getMyQnaDetail(code, seq);
+					
+					if(qnaDetail.getMember_id().equals((String)request.getSession().getAttribute("WolfID"))) {
+						request.setAttribute("qnaDetail", qnaDetail);
+						request.getRequestDispatcher("/views/service_center/qna_detail.jsp").forward(request, response);
+					} else {
+						// 잘못된 접근
+						response.sendRedirect("/qna_list.service");
+					}
+				}
+			}
+			
+			/** Q & A 수정 **/
+			else if(cmd.equals("/qna_delete.service")) {
+				String id = (String)request.getSession().getAttribute("WolfID");
+				if(id == "") response.sendRedirect("/views/members/login.jsp");
+				else {
+					int code = 3;
+					int seq = Integer.parseInt(request.getParameter("board_seq"));
+					int qnaDelete = dao.qnaDelete(code, seq);
+					
+					if(qnaDelete > 0) {
+						response.getWriter().append("ok");
+					} else {
+						response.getWriter().append("fail");
+					}
+				}
+			}
+			
+			
 			/** Q & A 작성 **/
 			else if(cmd.equals("/page_qna_insert.service")) {
 				String id = (String)request.getSession().getAttribute("WolfID");
