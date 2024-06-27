@@ -178,55 +178,49 @@ button:hover {
 	</div>
 
 	<script>
-    $(document).ready(function() {
-        var timerInterval; // 타이머를 저장할 변수
+	$(document).ready(function() {
+		function isValidEmail(email) {
+	
+		    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		    return emailRegex.test(email);
+		}
+	    $('#sendEmailForm').submit(function(e) {
+	        e.preventDefault();
 
-        $('#sendEmailForm').submit(function(e) {
-            e.preventDefault();
-            
-            if($("#id").val()==""){
-            	alert("아이디를 입력해주세요.");
-            	return false;
-            }
-            	
-            if($("#email").val()==""){
-            	alert("이메일을 입력해주세요.")
-            	return false;
-            }else{
-            	 let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-				let result = regex.test(email);
-				if (!result) {
-					alert("이메일의 형식을 맞춰 입력해주세요.");
-					return false;
-				}
-            }
-            
-            
-            var formData = {
-                id: $('#id').val(),
-                email: $('#email').val()
-            };
+	        var id = $('#id').val();
+	        var email = $('#email').val();
 
-            $.ajax({
-                url: '/sendEmail.members',
-                type: 'POST',
-                data: formData,
-                success: function(data) {
-                    if (data === 'true') {
-                        startTimer(); // 인증 코드 발송 성공 시 타이머 시작
-                        $('#passwordChangeForm').show();
-                        $('#sendEmailForm').hide();
-                        $('#email').prop('disabled', true); // 이메일 입력 필드 비활성화
-                    } else {
-                        alert('아이디와 이메일이 일치하지 않습니다.');
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error:', error);
-                }
-            });
-        });
+	        if (id === "" || email === "" || !isValidEmail(email)) {
+	            alert("이메일 형식이 유효하지 않습니다.");
+	            return;
+	        }
 
+	        var formData = {
+	            id: id,
+	            email: email
+	        };
+
+	        $.ajax({
+	            url: '/sendEmail.members',
+	            type: 'POST',
+	            data: formData,
+	            success: function(data) {
+	                if (data.trim() === 'true') {
+	                    startTimer();
+	                    $('#passwordChangeForm').show();
+	                    $('#sendEmailForm').hide();
+	                    $('#email').prop('disabled', true);
+	                    alert('인증 코드가 이메일로 전송되었습니다.');
+	                } else {
+	                    alert('아이디와 이메일이 일치하지 않습니다.');
+	                }
+	            },
+	            error: function(xhr, status, error) {
+	                console.error('Error:', error);
+	                alert('서버와의 통신 중 오류가 발생했습니다.');
+	            }
+	        });
+	    });
         $('#CertificationCodeBtn').click(function() {
             var formData = $('#passwordChangeForm').serialize();
             

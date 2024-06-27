@@ -33,7 +33,7 @@
 <script src="/js/main.js"></script>
 
 <style>
-button {
+#login {
 	background: #f9a620;
 	width: 100%;
 	padding: 12px 15px;

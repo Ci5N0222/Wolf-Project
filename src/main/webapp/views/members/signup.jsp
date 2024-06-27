@@ -70,6 +70,9 @@ body {
 	position: relative;
 	z-index: 1;
 	box-sizing: border-box;
+	height:90%;
+	margin-bottom:20px;
+	margin-top:20px;
 }
 
 #membership {
@@ -221,7 +224,7 @@ button {
 					<label for="id" id="id1">아이디</label>
 					<div class="form-group">
 						<input type="text" class="form-control" id="id" name="id"
-							placeholder="소문자와 숫자만 사용가능 최소 8자 이상 입력">
+							placeholder="소문자와 숫자를 포함한 최소 8자 이상 입력">
 						<button type="button" id="idCheck">중복 확인</button>
 					</div>
 					<div id="msg"></div>
@@ -247,7 +250,7 @@ button {
 					<label for="nickname" id="nickname1">닉네임</label>
 					<div class="form-group">
 						<input type="text" class="form-control" id="nickname"
-							name="nickname" placeholder="닉네임">
+							name="nickname" placeholder="한글,영문포함 숫자 사용가능 최대 7글자">
 						<button type="button" id="nicknameCheck">중복 확인</button>
 					</div>
 					<label for="phone" id="phone1">전화번호</label>
@@ -290,6 +293,7 @@ button {
 					<div class="form-group">
 						<input type="text" class="form-control" id="birth" name="birth"
 							placeholder="YYYYMMDD">
+				
 					</div>
 
 					<button type="submit" id="enterbtn">가입하기</button>
@@ -326,7 +330,7 @@ button {
 										let email = $("#email").val();
 										
 
-									    let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+									    let regex = /^[^\s@]+@[^\s@]+\.(com|net)$/;
 										let result = regex.test(email);
 										if (!result) {
 											alert("사용할 수 없는 형식의 이메일입니다");
@@ -385,10 +389,10 @@ button {
 										if ($("#id").val() == "") {
 											alert("ID를 먼저 입력해주세요.");
 											return;
-										}
+										}	
 										let id = $("#id").val();
 										
-										let regex = /^[a-z0-9_]{8,}$/;
+										let regex = /^(?=.*[a-z])(?=.*\d)[a-z0-9_]{8,}$/;
 										let result = regex.test(id);
 										if (!result) {
 											alert("사용할 수 없는 형식의 ID입니다");
@@ -409,15 +413,24 @@ button {
 										});
 									});
 
+									
 									$("#nicknameCheck").on("click", function() {
-										if ($("#nickname").val() == "") {
+										let nickname = $("#nickname").val();
+										if (nickname == "") {
 											alert("닉네임을 먼저 입력해주세요.");
 											return;
+										}
+										
+										let regex = /^(?=.*[가-힣a-zA-Z])[가-힣a-zA-Z0-9]{0,7}$/;
+										let result = regex.test(nickname);
+										if (!result) {
+											alert("사용할 수 없는 형식의 닉네임입니다");
+											return false;
 										}
 										$.ajax({
 											url : "/nicknamecheck.members",
 											data : {
-												nickname : $("#nickname").val()
+												nickname : nickname
 											}
 										}).done(function(resp) {
 											if (resp == "true") {
@@ -475,7 +488,7 @@ button {
 															let id = $("#id")
 																	.val();
 															
-															let regex = /^[a-z0-9_]{8,}$/;
+															let regex = /^(?=.*[a-z])(?=.*\d)[a-z0-9_]{8,}$/;
 															let result = regex
 																	.test(id);
 															if (!result) {
