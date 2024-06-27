@@ -14,13 +14,10 @@ function toggleMode() {
 	// 색상 변경
 	let navColor = body.classList.contains("light") ? "var(--lightNav)" : "var(--darkNav)";
 	let sunColor = body.classList.contains("light") ? "var(--lightMode)" : "var(--darkMode)";
-	let boxShadow = body.classList.contains("light") ? "0px 5px 20px #999" : "0px 5px 20px #444";
 
 	document.querySelector(".navi").style.backgroundColor = navColor;
 	document.querySelector(".m_navi").style.backgroundColor = navColor;
-	let sun = document.querySelector(".sun");
-	sun.style.background = sunColor;
-	sun.style.boxShadow = boxShadow;
+	document.querySelector(".sun").style.background = sunColor;
 }
 
 // 페이지 로드 시 모드 상태 복원
