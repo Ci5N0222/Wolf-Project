@@ -133,8 +133,7 @@ private static BoardDAO instance;
 				
 				
 				try(ResultSet rs=pstat.executeQuery()) {
-					for (int i = 0; i < recordCountPerPage; i++) {
-						rs.next();
+					while(rs.next()) {
 						int seq=rs.getInt(1);
 						String title=rs.getString(2);
 						String contents=rs.getString(3);
@@ -160,8 +159,7 @@ private static BoardDAO instance;
 				
 			
 				try(ResultSet rs=pstat.executeQuery()) {
-					for (int i = 0; i < recordCountPerPage; i++) {
-						rs.next();
+					while(rs.next()) {
 						int seq=rs.getInt(1);
 						String title=rs.getString(2);
 						String contents=rs.getString(3);
@@ -174,6 +172,7 @@ private static BoardDAO instance;
 						BoardDTO dto=new BoardDTO(seq,title,contents,count,member_id,board_code,write_date,secret);
 						list.add(dto);
 					}
+					
 				} 
 			} 
 			
@@ -188,8 +187,7 @@ private static BoardDAO instance;
 				
 			
 				try(ResultSet rs=pstat.executeQuery()) {
-					for (int i = 0; i < recordCountPerPage; i++) {
-						rs.next();
+					while (rs.next()) {
 						int seq=rs.getInt(1);
 						String title=rs.getString(2);
 						String contents=rs.getString(3);
