@@ -140,6 +140,65 @@ public class ServiceCenterDAO {
 		}
 	}
 	
+	
+	/**
+	 * 문의 사항의 디테일을 반환하는메서드
+	 * @param code
+	 * @param idx
+	 * @return
+	 * @throws Exception
+	 */
+	public ServiceCenterDTO getMyQnaDetail(int code, int idx) throws Exception {
+		String sql = "SELECT b.*, q.res_ok, m.nickname FROM board b JOIN qna q  ON b.seq = q.board_seq JOIN members m ON m.id = b.member_id WHERE board_code = ? AND b.seq = ?";
+		
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setInt(1, code);
+			pstat.setInt(2, idx);
+				
+			try(ResultSet rs = pstat.executeQuery()){
+				if(rs.next()) {
+					int seq = rs.getInt("seq");
+					String title = rs.getString("title");
+					String contents = rs.getString("contents");
+					int count = rs.getInt("count");
+					String memberId = rs.getString("member_id");
+					int boardCode = rs.getInt("board_code");
+					Timestamp writeDate = rs.getTimestamp("write_date");
+					String secret = rs.getString("secret");
+					String resOk = rs.getString("res_ok");
+					String nickName = rs.getString("nickname");
+					
+					return new ServiceCenterDTO(seq, title, contents, count, memberId, boardCode, writeDate, secret, resOk, nickName);
+				} else {
+					
+					return null;
+				}
+			}
+		}
+	}
+	
+	
+	/**
+	 * 문의 글을 삭제하는 메서드
+	 * @param code
+	 * @param idx
+	 * @return
+	 * @throws Exception
+	 */
+	public int qnaDelete(int code, int idx) throws Exception {
+		String sql = "delete from board where board_code = ? and seq = ?";
+		
+		try(Connection con = DBConfig.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setInt(1, code);
+			pstat.setInt(2, idx);
+			
+			return pstat.executeUpdate();
+		}
+	}
+	
+	
 	/**
 	 * FAQ 목록의 개수를 반환하는 메서드
 	 * @return

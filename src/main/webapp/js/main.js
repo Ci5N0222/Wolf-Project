@@ -170,14 +170,34 @@ const qnaEditForm = () => {
 	$("#qna_delete").hide();
 	$("#qna_ok").show();
 	$("#qna_cancel").show();
+	
+	tinymceEdit();
+	
 }
 
 const qnaUpdate = () => {
 	
 }
 
-const qnaDelete = (seq) => {
-	
+const qnaDelete = (board_seq) => {
+	// 게시글 삭제에 필요한 시퀀스
+	$.ajax({
+		url: "/qna_delete.service",
+		method: "post",
+		data: {
+			board_seq
+		}
+	})
+	.done((res) => {
+		console.log("res === ", res);
+		if(res === "ok") location.href = "";
+		else alert("오류 발생!");
+	});
+}
+
+const qnaReplySubmit = () => {
+	// 댓글 내용
+	const contents = $(".service-reply-contents-board").html().trim();
 }
 
 
