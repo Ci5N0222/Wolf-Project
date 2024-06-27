@@ -81,7 +81,7 @@ public class BoardController extends HttpServlet {
 				int cpage=Integer.parseInt(pcpage);
 				
 				
-
+				System.out.println(board_code);
 		
 				if(target==null||keyword.equals("")||target.equals("")) {
 					boardList = boardDAO.selectAll( PageConfig.recordCountPerPage, cpage,board_code);
