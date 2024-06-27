@@ -57,25 +57,27 @@
 				<section class="row list-container">
 					<c:forEach var='l' items='${list}'>
 						<div class="col-lg-4 col-md-6 mb-4">
-							<div class="card" style="width: 18rem;">
-								<div>
-									<c:choose>
-										<c:when test="${l.thumbnail != null}">
-											<img class="card-img-top" src="/${l.thumbnail}"
-												alt="게임 섬네일 이미지">
-										</c:when>
-										<c:otherwise>
-											<img class="card-img-top" src="/images/default-game.png"
-												alt="게임 섬네일 이미지">
-										</c:otherwise>
-									</c:choose>
+							<form action='/detail.game' method='get'>
+								<div class="card" style="width: 18rem;" onclick="this.parentNode.submit()";>
+									<div>
+										<c:choose>
+											<c:when test="${l.thumbnail != null}">
+												<img class="card-img-top" src="/${l.thumbnail}"
+													alt="게임 섬네일 이미지">
+											</c:when>
+											<c:otherwise>
+												<img class="card-img-top" src="/images/default-game.png"
+													alt="게임 섬네일 이미지">
+											</c:otherwise>
+										</c:choose>
+									</div>
+									<div>
+										<input type="hidden" name="seq" value="${l.seq}">
+										<button type='button'>${l.title}</button>
+										<div class="discription">${l.discription}</div>
+									</div>
 								</div>
-								<form action='/detail.game' method='get'>
-									<input type="hidden" name="seq" value="${l.seq}">
-									<button>${l.title}</button>
-									<div class="discription">${l.discription}</div>
-								</form>
-							</div>
+							</form>
 						</div>
 					</c:forEach>
 				</section>
@@ -90,17 +92,23 @@
 	</div>
 	<script src="js/main.js"></script>
 	<script>
-	 document.addEventListener('DOMContentLoaded', function() {
-		    const divs = document.querySelectorAll('.discription');
-		  
-		    divs.forEach(div => {
-		      const text = div.innerText;
-		      
-		      if (text.length > 10) {
-		        div.innerText = text.substring(0, 10) + ' ...';
-		      }
-		    });
-	});
+		 document.addEventListener('DOMContentLoaded', function() {
+			 	/* detail.game */
+			    function submitForm(form) {
+			        form.submit();
+			    }
+			    
+			    const divs = document.querySelectorAll('.discription');
+			  
+			    divs.forEach(div => {
+			      const text = div.innerText;
+			      
+			      if (text.length > 10) {
+			        div.innerText = text.substring(0, 10) + ' ...';
+			      }
+			    });
+			    
+		});
 	</script>
 </body>
 </html>
