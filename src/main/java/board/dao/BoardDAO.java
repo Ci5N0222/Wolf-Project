@@ -80,7 +80,7 @@ private static BoardDAO instance;
 		
 	}
 	public Object[] selectAll (int recordCountPerPage,int cpage,int board_code)throws Exception{
-		String sql="SELECT a.*,m.nickname FROM (SELECT  board.*, ROW_NUMBER() OVER (ORDER BY seq DESC) AS rown FROM board where board_code=?)a join members m on m.id=a.member_id WHERE rown between ? and ? ";
+		String sql="SELECT a.*,m.nickname FROM (SELECT  board.*, ROW_NUMBER() OVER (ORDER BY seq DESC) AS rown FROM board where board_code=?)a join members m on m.id=a.member_id WHERE rown between ? and ?";
 		List<BoardDTO> list=new ArrayList<>();
 		Object [] boardList=new Object[2];
 		ArrayList<String> nickname=new ArrayList<>();
@@ -91,8 +91,7 @@ private static BoardDAO instance;
 			pstat.setInt(3, cpage*recordCountPerPage);
 		
 			try(ResultSet rs=pstat.executeQuery()) {
-				for (int i = 0; i < recordCountPerPage; i++) {
-					rs.next();
+				while(rs.next()) {		
 					int seq=rs.getInt(1);
 					String title=rs.getString(2);
 					String contents=rs.getString(3);

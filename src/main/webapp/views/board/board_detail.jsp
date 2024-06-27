@@ -860,7 +860,16 @@
 
         })
         btn2.on("click", function () { //list
-            location.href = "/list.board?target=${target}&keyword=${keyword}&board_code=${board_code}";
+            if(${board_code==4}){
+                location.href="/faq_list.service";
+            }
+            else if(${board_code==3}){
+                location.href="/qna_list.service";
+            }
+            else{
+                location.href = "/list.board?target=${target}&keyword=${keyword}&board_code=${board_code}";
+            }
+           
 
         })
         btn3.on("click", function () { //update
