@@ -113,6 +113,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                       <div class="content" id="nickname">
                         ${member.nickname}
                       </div>
+                      <button type="button" id="nicknameCheck">중복 확인</button>
                     </div>
                     <div class="correct">
                       <div class="correct_left"></div>
@@ -130,7 +131,15 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
                     <div class="row">
                       <div class="txt">Email</div>
-                      <div class="content" id="email">${member.email}</div>
+                      <div class="content" id="email" name="email">${member.email}
+                      
+                      </div>
+                      <button type="button" id="CertificationCodeSend">인증하기</button>
+                    <div class="form-group" id="certificationCodeGroup"style="display: none;">
+						<input type="text" id="CertificationCode" name="CertificationCode"
+							placeholder="인증번호를 입력해주세요">
+						<button id="CertificationCodeBtn" type="button">인증번호 확인</button>
+					</div>  
                     </div>
                     <div class="correct">
                       <div class="correct_left"></div>
@@ -233,7 +242,75 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       let regexEmail = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.(com|net|co\.kr)+$/;
 
       $("#defaultImgBtn").prop("disabled", true); // 기본 이미지로 변경 버튼 비활성화
-
+      $("#nicknameCheck").on("click", function() {
+    	    let nickname = $("#nickname").text().trim();
+    	    if (nickname == "") {
+    	        alert("닉네임을 먼저 입력해주세요.");
+    	        return;
+    	    }
+    	    
+    	    let regex = /^(?=.*[가-힣a-zA-Z])[가-힣a-zA-Z0-9]{0,7}$/;
+    	    let result = regex.test(nickname);
+    	    if (!result) {
+    	        alert("사용할 수 없는 형식의 닉네임입니다");
+    	        return false;
+    	    }
+    	    
+    	    $.ajax({
+    	        url: "/nicknamecheck.members",
+    	        data: {
+    	            nickname: nickname
+    	        }
+    	    }).done(function(resp) {
+    	        if (resp == "true") {
+    	            alert("이미 사용중인 닉네임 입니다.");
+    	        } else {
+    	            alert("사용가능한 닉네임 입니다.");
+    	            // 사용 가능한 경우 처리할 로직 추가
+    	        }
+    	    });
+    	});
+      $("#CertificationCodeSend").on("click", function() {
+    	    let email = $("#email").text().trim();
+    	    $.ajax({
+    	        url: "/emailSend.members",
+    	        data: {
+    	            email: email // 이메일 주소를 URL 인코딩하여 공백과 특수문자를 처리
+    	        }
+    	    }).done(function(res) {
+    	    	console.log(email);
+    	        if (res === "true") {
+    	            alert("이메일로 인증번호가 전송되었습니다.");
+    	            $("#certificationCodeGroup").show();
+    	        } else {
+    	            alert("이미 존재하는 이메일입니다.");    	        
+    	            }
+    	    });
+    	});
+  	$('#CertificationCodeBtn').on("click", function() {
+        if($("#CertificationCode").val() == ""){
+        	alert("인증번호를 입력해주세요.");
+        }
+        
+        $.ajax({
+            url: '/CertificationCode.members',
+            
+            data: {
+            	CertificationCode:$("#CertificationCode").val()
+            }
+		}).done(function(res){
+			if(res=="true"){
+				 alert("인증에 성공하였습니다.");
+				 emailCheckFlag = true;
+				 $('#CertificationCode').prop('disabled', true);
+			}else{
+				alert("인증에 실패하였습니다.");
+			}
+		});
+	});
+      
+      
+      
       // 수정버튼 눌렀을 시
       $("#edit").on("click", function () {
         $("#edit, #home").hide();
