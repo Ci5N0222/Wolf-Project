@@ -140,7 +140,7 @@
             /* 확인 버튼 텍스트 색깔 */
         }
 
-        .custom-cancel-button {
+        .custom-cancel-buttson {
           
             color: white !important;
             /* 취소 버튼 텍스트 색깔 */
@@ -367,9 +367,9 @@
         <div id="reply_contents">
             <c:forEach var="reply_dto" items="${reply_list}" varStatus="status">
                 <div class="reply_contents">
-                        <div style="flex: 6; word-break: break-all; white-space: pre-wrap; flex-direction: column; margin-left:15px">
+                        <div style="flex: 6; word-break: break-all; white-space: pre-wrap; flex-direction: column; margin-left:15px ;overflow: auto;">
                             <div style="margin-bottom:8px;">${reply_nickname_list[status.index]}(${reply_dto.member_id.substring(0, 4)}****) </div>
-                            <div class="reply_div" style="flex-direction: column; margin-bottom: 8px;">${reply_dto.contents}</div>
+                            <div class="reply_div" style="flex-direction: column; margin-bottom: 8px; overflow: auto; max-height: 100px;">${reply_dto.contents}</div>
                             <div><p style="color: gray;"><fmt:formatDate value="${reply_dto.write_date}" pattern="yyyy.MM.dd HH:mm" /></p></div>
                         </div>
                         <div style="flex: 1; font-size: x-small; justify-content: flex-end; align-items: flex-end;">
@@ -650,14 +650,17 @@
 
 
             function reply_child_delete(e){
-                let parent= $(e).parent().parent();
-                let seq= parent.find(".reply_child_seq").val();
-                console.log(seq);
-                $.ajax({
-                    url:"/delete.reply_child?seq="+seq
-                }).done(function(){
-                    parent.remove();
-                })
+                
+                    let parent= $(e).parent().parent();
+                    let seq= parent.find(".reply_child_seq").val();
+                    console.log(seq);
+                    $.ajax({
+                        url:"/delete.reply_child?seq="+seq
+                    }).done(function(){
+                        parent.remove();
+                    })
+                
+              
             }
 
              function handleKeyPress(a,event) {
@@ -733,15 +736,19 @@
         })
 
         reply_delete.each(function (index, e) {
-            $(e).on("click", function () {
-                //location.href = 
-                $.ajax({
-                    url:"/delete.reply?seq=" + reply_seq.eq(index).val() +
-                    "&board_seq=${board_dto.seq}"
-                }).done(function(){
-                    reply_div.eq(index).parent().parent().remove();
-                })
+            
+                $(e).on("click", function () {
+                    if(confirm("댓글을 삭제하시겠습니까?")){
+                        $.ajax({
+                        url:"/delete.reply?seq=" + reply_seq.eq(index).val() +
+                        "&board_seq=${board_dto.seq}"
+                        }).done(function(){
+                            reply_div.eq(index).parent().parent().remove();
+                        })
+                    }
             })
+            
+            
         })
 
         reply_update.each(function (index, e) { //0
@@ -849,7 +856,7 @@
         })
 
         btn1.on("click", function () { //delete
-            swal("/delete.board?seq=${board_dto.seq}");
+            swal("/delete.board?seq=${board_dto.seq}",'게시물을 삭제 하시겠습니까?');
 
         })
         btn2.on("click", function () { //list
@@ -1009,9 +1016,9 @@
 
 
 
-        function swal(comfirm) {
+        function swal(comfirm,title) {
             Swal.fire({
-                title: '게시물을 삭제 하시겠습니까?',
+                title: title,
                 // text: "You won't be able to revert this!",
                 showCancelButton: true,
                 confirmButtonText: '삭제하기',

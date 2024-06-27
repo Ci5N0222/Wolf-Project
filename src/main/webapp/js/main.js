@@ -130,7 +130,6 @@ const homeCardSetting = (res) => {
 }
 
 /** index mobile binding **/
-
 const homeMobileSetting = (res, i) => {
 	let item = "";
 	if (i === 0) {
@@ -159,6 +158,30 @@ const serviceFormMove = (url) => {
 			else alert("로그인이 필요한 서비스 입니다.");
 		});
 }
+
+const qnaEditForm = () => {
+	$("#qna_title").removeAttr("readonly");
+	
+	$(".service-contents-form").hide();
+	$(".service-contents-edit").show();
+	
+	$("#qna_list").hide();
+	$("#qna_edit").hide();
+	$("#qna_delete").hide();
+	$("#qna_ok").show();
+	$("#qna_cancel").show();
+}
+
+const qnaUpdate = () => {
+	
+}
+
+const qnaDelete = (seq) => {
+	
+}
+
+
+
 
 function resize() {
 	const currentHeight = $("body").height() + 5;
