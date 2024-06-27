@@ -90,6 +90,10 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	
+	/* 폰트 */
+    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Luckiest Guy', cursive;
 }
 
 .datail>div {
@@ -229,6 +233,10 @@ canvas {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	
+	/* 폰트 */
+    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Luckiest Guy', cursive;
 }
 
 .gameview-container .ranking div:first-child {
