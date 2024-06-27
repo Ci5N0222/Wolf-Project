@@ -1,38 +1,61 @@
-
 .M_main {
 	display: none;
 }
+body {
+	overflow-y: auto;
+	/* 익스플로러 스크롤바 옵션 */
+  	-ms-overflow-style: none;
+ 	/* 파이어폭스 스크롤바 옵션 */
+  	scrollbar-width: none;
+}
 
+body::-webkit-scrollbar-thumb {
+	background-color: rgb(107, 2, 90);
+	border-radius: 100px;
+}
+.sun {
+	display: none;
+}
+/* 별 숨기기 */
+.bgs {
+	display: none;
+}
+a{text-decoration: none;}
 #serivce-title {
 	color: var(--color-white);
 	letter-spacing: 3px;
-	font-size: 2.5rem;
-	height: 100px;
+	font-size: 2rem;
+	height: 5%;
 	padding: 50px 0;
 	z-index: 1;
+	/* 폰트 */
+    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Luckiest Guy', cursive;
 }
 
 .service-main {
-	max-width: 1000px;
 	width: 100%;
+	height: 85%;
+	max-width: 1200px;
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	align-items: center;
 	z-index: 2;
-	margin: 0 auto;
+	margin: 5px auto;
 }
 
 .service-navi {
 	min-width: 300px;
 	width: 100%;
-	height: 100px;
+	height: 10%;
 	border-radius: 10px;
 	height: 70px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-
 }
+
 .service-navi>p {
 	width: 50%;
 	height: 100%;
@@ -52,24 +75,286 @@
 	justify-content: center;
 	align-items: center;
 }
-.service-navi>p:first-child{border-right: 0; border-radius:10px  0 0 10px;}
-.service-navi>p:last-child{border-left: 0;border-radius: 0 10px 10px 0;}
-.service-navi{border-right: 0;}
-.service-navi{border-left: 0;}
+
+.service-navi>p:first-child {
+	border-right: 0;
+	border-radius: 10px 0 0 10px;
+}
+
+.service-navi>p:last-child {
+	border-left: 0;
+	border-radius: 0 10px 10px 0;
+}
+
+.service-navi {
+	border-right: 0;
+}
+
+.service-navi {
+	border-left: 0;
+}
 
 .service-navi>p:hover {
 	color: var(--color-nav-bg);
-
 }
 
+.service-contents {
+	width: 100%;
+	max-width: 1200px;
+	height: 100%;
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+	border-radius: 10px;
+}
 
-.servie-content-box {
+.service-contents-title {
+	width: 95%;
+	height: 60px;
+	margin: 12px 2px;
+	padding: 2px;
+	border-bottom: 1px solid black;
+}
+
+.service-contents-title>input {
 	width: 100%;
 	height: 100%;
+	padding: 10px;
+	border: none;
+	font-size: 24px;
+	font-weight: 700;
+}
+
+.service-contents-board {
+	width: 98%;
+	height: 100%;
+	border: 1px solid gray;
+	border-radius: 10px;
+}
+
+.service-contents-info-box {
+	height: 40px;
+	border-bottom: 1px solid gray;
+	display: flex;
+}
+
+.service-contents-info-box-col-2 {
+	flex: 2;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	padding-left: 10px;
+}
+
+.service-contents-info-box-col-1 {
+	flex: 1;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	border-left: 1px solid gray;
+	border-right: 1px solid gray;
+	padding-left: 10px;
+}
+
+.service-contents-form {
+	min-height: 600px;
+	padding: 20px;
+	border-bottom: 1px solid gray;
+	display: flex;
+	justify-content: start;
+}
+
+.service-contents-files {
+	flex: 1;
+	height: 100%;
+	overflow: auto;
+}
+
+.service-contents-edit {
+	display: none;
+	min-height: 600px;
+	padding: 10px;
+	border-bottom: 1px solid gray;
+}
+
+.service-contents-under-box {
+	display: flex;
+}
+
+.service-contents-board-btn {
+	flex: 2;
+	height: 80px;
+	display: flex;
+	justify-content: end;
+	align-items: center;
+}
+
+.service-contents-board-btn>button {
+	width: 90px;
+	height: 40px;
+	border: none;
+	border-radius: 10px;
+	margin: 5px;
+	transition: all 0.5s ease;
+}
+
+.service-contents-board-btn > #qna_ok, #qna_cancel {
+	display:none;
+}
+
+.service-contents-board-btn>button:hover {
+	background-color: orange;
+	color: white;
+}
+
+.service-reply {
+	width: 100%;
+	max-width: 1200px;
+	height: 100%;
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+	border-radius: 10px;
+}
+
+.service-reply-title {
+	width: 95%;
+	font-size: 28px;
+	font-weight: 800;
+	text-align: left;
+	padding-bottom: 10px;
+	margin-bottom: 20px;
+	border-bottom: 1px solid gray;
+}
+
+.service-reply-info {
+	width: 98%;
+	height: 50px;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	padding: 5px;
+}
+
+.service-reply-writer-avater {
+	width: 50px;
+	height: 50px;
+	margin: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.service-reply-writer {
+	font-size: 18px;
+	font-weight: 700;
+	margin: 10px;
+}
+
+.service-reply-write-date {
+	font-size: 16px;
+	margin: 10px;
+}
+
+.service-reply-info-btn {
+	font-size: 12px;
+	color: gray;
+	margin: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.service-reply-info-btn>button {
+	border: none;
+	background-color: white; padding : 0;
+	margin: 0 10px;
+	padding: 0;
+}
+
+.service-reply-info-btn>button:hover {
+	color: orange;
+}
+
+.service-reply-contents {
+	width: 98%;
+}
+
+.service-reply-contents-board {
+	height: 100px;
+	padding: 10px;
+	margin: 5px;
+	display: flex;
+	justify-content: start;
+	padding: 20px;
+	border: 1px solid lightgray;
+	border-radius: 10px;
+	overflow-y: auto;
+}
+
+.service-reply-list-contents {
+	height: 100px;
+	padding: 10px;
+	margin: 5px;
+	display: flex;
+	justify-content: start;
+	padding: 20px;
+	border: 1px solid lightgray;
+	border-radius: 10px;
+}
+
+.service-reply-contents-btn {
+	width: 99%;
+	height: 50px;
+	display: flex;
+	justify-content: end;
+	align-items: center;
+}
+
+.service-reply-contents-btn>button {
+	width: 90px;
+	height: 40px;
+	border: none;
+	border-radius: 10px;
+	margin: 5px;
+	transition: all 0.5s ease;
+}
+
+.service-reply-contents-btn>button:hover {
+	background-color: orange;
+	color: white;
+}
+
+.service-reply-list {
+	width: 100%;
+	max-width: 1200px;
+	height: 100%;
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+}
+
+/* My "Q&A" List */
+.servie-content-box {
+	width: 100%;
+	height: 75%;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
 	align-items: center;
+}
+.content-box {
+	height: 10%;
+	margin: 5px 0;
 }
 
 .service-main-row {
@@ -122,13 +407,13 @@
 	transition: all 0.2s;
 }
 
-.service-main-col>button:hover,
-.service-main-row .service-main-row button:hover {
+.service-main-col>button:hover, .service-main-row .service-main-row button:hover
+	{
 	opacity: 0.9;
 }
 
-.service-main-col>button:active,
-.service-main-row .service-main-row button:active {
+.service-main-col>button:active, .service-main-row .service-main-row button:active
+	{
 	transform: translateY(2px);
 	border-bottom: 2px solid black;
 }
@@ -165,7 +450,15 @@
 	align-items: center;
 	padding: 0;
 }
-.service-qna-res-seelct button {background-color: var(--bg-dark); color: white; height: 100%; width: 20%;border-radius: 10px;border: 5px solid var(--color-white);}
+
+.service-qna-res-seelct button {
+	background-color: var(--bg-dark);
+	color: white;
+	height: 100%;
+	width: 20%;
+	border-radius: 10px;
+	border: 5px solid var(--color-white);
+}
 
 #qna-res-seelct {
 	padding: 10px;
@@ -177,38 +470,32 @@
 
 .service-qna-list {
 	width: 100%;
+	height: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
-	padding: 20px;
 	border-radius: 10px;
 	background-color: #eeeeee;
-	padding: 3%;
 	border: 5px solid var(--bg-dark);
-	margin-bottom: 5%;
-}
-body {
-	overflow-y: auto;
-}
-body::-webkit-scrollbar {
-
-	width: 1vw;
+	padding-bottom: 10px;
 }
 
-body::-webkit-scrollbar-thumb {
-
-	background-color: hsla(0, 0%, 42%, 0.49);
-	border-radius: 100px
-}
 table {
 	width: 100%;
-	height: 500px;
 	border-collapse: collapse;
 }
-tr:first-child {background-color: var(--bg-dark);color: var(--color-white);}
 
-tr {height: 50px; min-height: 50px;}
+tr:first-child {
+	background-color: var(--bg-dark);
+	color: var(--color-white);
+}
+
+tr {
+	height: 50px;
+	min-height: 50px;
+}
+
 th {
 	padding: 10px 18px;
 	margin: 0 10px;
@@ -223,25 +510,24 @@ td {
 	border-bottom: 1px solid black;
 }
 
-
 .page-navigation {
 	margin-top: 20px;
 }
 
-.page-navigation > a {
+.page-navigation>a {
 	font-size: 22px;
 	padding: 2px;
 	text-decoration: none;
 }
 
 .service-qna-insert {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    padding: 20px;
-    border-radius: 10px;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	padding: 20px;
+	border-radius: 10px;
 }
 
 .qna-insert-title {
@@ -252,7 +538,7 @@ td {
 	margin: 10px 0;
 }
 
-.qna-insert-title > input {
+.qna-insert-title>input {
 	border: none;
 	width: 100%;
 	border-bottom: 2px solid black;
@@ -269,7 +555,7 @@ td {
 	width: 300px;
 }
 
-.qna-insert-btn > button {
+.qna-insert-btn>button {
 	width: 120px;
 	height: 50px;
 	margin-top: 20px;
@@ -280,6 +566,7 @@ td {
 	font-weight: 800;
 	background-color: white;
 }
-.qna-insert-btn > button:hover {
+
+.qna-insert-btn>button:hover {
 	background-color: orange;
 }

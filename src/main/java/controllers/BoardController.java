@@ -81,7 +81,7 @@ public class BoardController extends HttpServlet {
 				int cpage=Integer.parseInt(pcpage);
 				
 				
-
+				System.out.println(board_code);
 		
 				if(target==null||keyword.equals("")||target.equals("")) {
 					boardList = boardDAO.selectAll( PageConfig.recordCountPerPage, cpage,board_code);
@@ -241,12 +241,10 @@ public class BoardController extends HttpServlet {
 		        imagesDAO.deleteImageFile(DBConfig.realPath+"upload_images", fileList);
 		        response.sendRedirect("/detail.board?seq="+seq+"&board_code="+board_code);
 				
-			} else if(cmd.equals("/1.board")) {
-				
 			}
 			
 		} catch (Exception e) {
-		
+			e.printStackTrace();
 		}
 		
 	}

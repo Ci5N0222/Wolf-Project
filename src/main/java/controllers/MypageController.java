@@ -228,7 +228,7 @@ public class MypageController extends HttpServlet {
 				else {
 					response.getWriter().append("fail");
 				}
-			}
+			} 
 			
 			
 		} catch(Exception e) {

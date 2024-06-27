@@ -6,7 +6,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
   <head>
     <meta charset="UTF-8" />
     <title>Wolf</title>
-	<link rel="icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png" />
 
     <!-- 부트스트랩 -->
     <link
@@ -31,8 +31,8 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-	<link rel="stylesheet" href="/css/style.css">
-	<link rel="stylesheet" href="/css/mypage.css">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/mypage.css" />
     <script src="/js/main.js"></script>
   </head>
 
@@ -316,10 +316,11 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         $("#edit, #home").hide();
         $("#complete, #cancel").show();
 
-        name.attr("contenteditable", true);
-        nickname.attr("contenteditable", true);
-        phone.attr("contenteditable", true);
-        email.attr("contenteditable", true);
+        $("#nickname, #phone, #email").attr("contenteditable", true);
+        $("#nickname, #phone, #email").css({
+          border: "1px solid black",
+          "border-radius": "5px",
+        });
 
         name.on("keyup", function () {
           let result = regexName.test(name.html());
@@ -398,7 +399,6 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       });
 
       // 기본 이미지로 변경
-
       $("#defaultImgBtn").click(function () {
         if ($(this).prop("disabled")) {
           return; // 버튼이 비활성화 상태라면 아무 작업도 하지 않음

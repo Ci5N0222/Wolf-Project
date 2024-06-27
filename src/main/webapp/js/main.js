@@ -14,13 +14,10 @@ function toggleMode() {
 	// 색상 변경
 	let navColor = body.classList.contains("light") ? "var(--lightNav)" : "var(--darkNav)";
 	let sunColor = body.classList.contains("light") ? "var(--lightMode)" : "var(--darkMode)";
-	let boxShadow = body.classList.contains("light") ? "0px 5px 20px #999" : "0px 5px 20px #444";
 
 	document.querySelector(".navi").style.backgroundColor = navColor;
 	document.querySelector(".m_navi").style.backgroundColor = navColor;
-	let sun = document.querySelector(".sun");
-	sun.style.background = sunColor;
-	sun.style.boxShadow = boxShadow;
+	document.querySelector(".sun").style.background = sunColor;
 }
 
 // 페이지 로드 시 모드 상태 복원
@@ -130,7 +127,6 @@ const homeCardSetting = (res) => {
 }
 
 /** index mobile binding **/
-
 const homeMobileSetting = (res, i) => {
 	let item = "";
 	if (i === 0) {
@@ -159,6 +155,50 @@ const serviceFormMove = (url) => {
 			else alert("로그인이 필요한 서비스 입니다.");
 		});
 }
+
+const qnaEditForm = () => {
+	$("#qna_title").removeAttr("readonly");
+	
+	$(".service-contents-form").hide();
+	$(".service-contents-edit").show();
+	
+	$("#qna_list").hide();
+	$("#qna_edit").hide();
+	$("#qna_delete").hide();
+	$("#qna_ok").show();
+	$("#qna_cancel").show();
+	
+	tinymceEdit();
+	
+}
+
+const qnaUpdate = () => {
+	
+}
+
+const qnaDelete = (board_seq) => {
+	// 게시글 삭제에 필요한 시퀀스
+	$.ajax({
+		url: "/qna_delete.service",
+		method: "post",
+		data: {
+			board_seq
+		}
+	})
+	.done((res) => {
+		console.log("res === ", res);
+		if(res === "ok") location.href = "";
+		else alert("오류 발생!");
+	});
+}
+
+const qnaReplySubmit = () => {
+	// 댓글 내용
+	const contents = $(".service-reply-contents-board").html().trim();
+}
+
+
+
 
 function resize() {
 	const currentHeight = $("body").height() + 5;

@@ -67,7 +67,7 @@
 					<p onclick="location.href='/faq_list.service'">F A Q</p>
 					<p onclick="location.reload()">Q & A</p>
 				</nav>
-				<section class="servie-content-box">
+				<section class="servie-content-box content-box">
 					<div class="service-qna-res-seelct">
 						<select id="qna-res-seelct">
 							<option value="0">전체 문의</option>
@@ -91,6 +91,7 @@
 				 			<c:forEach var="qnaList" items="${qnaList}">
 					 			<tr>
 					 				<td>${qnaList.seq}</td>
+					 				
 					 				<td><a href="/detail.board?seq=${qnaList.seq}&target=&keyword=&board_code=3">${qnaList.title}</a></td>
 					 				<td>${qnaList.nickname}</td>
 					 				<td><fmt:formatDate value="${qnaList.write_date}" pattern="yyyy.MM.dd"/></td>

@@ -63,8 +63,8 @@
 			<!-- main -->
 			<main class="service-main">
 				<nav class="service-navi">
-					<p onclick="location.href='/faq_list.service'">F A Q</p>
-					<p onclick="location.reload()">Q & A</p>
+					<p onclick="location.reload()">F A Q</p>
+					<p onclick="serviceFormMove('/qna_list.service')">Q & A</p>
 				</nav>
 
 				<div class="service-qna-list">

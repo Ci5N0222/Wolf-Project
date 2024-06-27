@@ -10,7 +10,7 @@
 <!--  MDN에 나와있는 모바일 최적화된 사이트들이 포함하고 있다는 코드 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Wolf</title>
-<link rel="icon" href="/images/favicon.png">e>
+<link rel="icon" href="/images/favicon.png">
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <!-- 부트스트랩 -->
 <link
@@ -29,6 +29,12 @@
 <!-- Project local -->
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/game.css">
+<style>
+.row {
+    margin-right: 0;
+    margin-left: 0;
+}
+</style>
 </head>
 <body>
 	<!-- container -->
@@ -51,25 +57,27 @@
 				<section class="row list-container">
 					<c:forEach var='l' items='${list}'>
 						<div class="col-lg-4 col-md-6 mb-4">
-							<div class="card" style="width: 18rem;">
-								<div>
-									<c:choose>
-										<c:when test="${l.thumbnail != null}">
-											<img class="card-img-top" src="/${l.thumbnail}"
-												alt="게임 섬네일 이미지">
-										</c:when>
-										<c:otherwise>
-											<img class="card-img-top" src="/images/default-game.png"
-												alt="게임 섬네일 이미지">
-										</c:otherwise>
-									</c:choose>
+							<form action='/detail.game' method='get'>
+								<div class="card" style="width: 18rem;" onclick="this.parentNode.submit()";>
+									<div>
+										<c:choose>
+											<c:when test="${l.thumbnail != null}">
+												<img class="card-img-top" src="/${l.thumbnail}"
+													alt="게임 섬네일 이미지">
+											</c:when>
+											<c:otherwise>
+												<img class="card-img-top" src="/images/default-game.png"
+													alt="게임 섬네일 이미지">
+											</c:otherwise>
+										</c:choose>
+									</div>
+									<div>
+										<input type="hidden" name="seq" value="${l.seq}">
+										<button type='button'>${l.title}</button>
+										<div class="discription">${l.discription}</div>
+									</div>
 								</div>
-								<form action='/detail.game' method='get'>
-									<input type="hidden" name="seq" value="${l.seq}">
-									<button>${l.title}</button>
-									<div class="discription">${l.discription}</div>
-								</form>
-							</div>
+							</form>
 						</div>
 					</c:forEach>
 				</section>
@@ -84,17 +92,23 @@
 	</div>
 	<script src="js/main.js"></script>
 	<script>
-	 document.addEventListener('DOMContentLoaded', function() {
-		    const divs = document.querySelectorAll('.discription');
-		  
-		    divs.forEach(div => {
-		      const text = div.innerText;
-		      
-		      if (text.length > 10) {
-		        div.innerText = text.substring(0, 10) + ' ...';
-		      }
-		    });
-	});
+		 document.addEventListener('DOMContentLoaded', function() {
+			 	/* detail.game */
+			    function submitForm(form) {
+			        form.submit();
+			    }
+			    
+			    const divs = document.querySelectorAll('.discription');
+			  
+			    divs.forEach(div => {
+			      const text = div.innerText;
+			      
+			      if (text.length > 10) {
+			        div.innerText = text.substring(0, 10) + ' ...';
+			      }
+			    });
+			    
+		});
 	</script>
 </body>
 </html>

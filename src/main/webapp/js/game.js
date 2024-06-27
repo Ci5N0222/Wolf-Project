@@ -98,12 +98,12 @@ const gameScoreSave = (newScore) => {
 			data: data
 		})
 		.done((res) => {
-			console.log(res);
-			if(res !== "fail"){
+			if(res > 0){
 				$("#myGameScore").html(res);
+			} else {
+				console.log("No 'data' property found in response.");
 			}
 		});
 	}
-	
 }
 

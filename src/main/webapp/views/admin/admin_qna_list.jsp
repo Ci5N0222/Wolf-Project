@@ -53,7 +53,7 @@
 			 			<c:forEach var="boardList" items="${boardList}">
 				 			<tr>
 				 				<td>${boardList.seq}</td>
-				 				<td><a href="/detail.board?seq=${boardList.seq}&target=&keyword=&board_code=2">${boardList.title}</a></td>
+				 				<td><a href="/detail.board?seq=${boardList.seq}&target=&keyword=&board_code=3">${boardList.title}</a></td>
 				 				<td>${boardList.nickname}</td>
 				 				<td><fmt:formatDate value="${boardList.write_date}" pattern="yyyy-MM-dd" /></td>
 				 				<c:choose>
