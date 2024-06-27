@@ -8,9 +8,7 @@
 	font-family: 'Noto Sans KR', sans-serif;
 	font-family: 'Luckiest Guy', cursive;
 }
-.img_bg{
-	width: 100% !important;
-}
+
 /* gameList */
 .list-container {
 	width: 100%;
@@ -26,15 +24,21 @@
 }
 
 .list-container .card {
-	overflow:hidden;
+
+	overflow: hidden;
+	cursor: pointer;
 	height: 300px;
-	border: 5px solid rgba(255, 255, 255, 0.41);
+	border: 8px solid rgba(255, 255, 255, 0.41);
+	transition: border-color 0.1s ease, color 0.4s ease-in-out;
+}
+.list-container .card:hover{
+	border: 8px solid  var(--lightNav);
 }
 
 /* 이미지가 카드를 넘어가면 잘림 */
 .list-container .card>div {
 	height: 200px;
-	border: 1px solid #ccc;
+	border: 1px solid rgba(255, 255, 255, 0.41);;
 }
 
 .list-container .card:hover {
@@ -42,12 +46,12 @@
 }
 
 /* 이미지가 가로로 꽉 차게 설정 */
-.list-container .card>div img {
+.list-container .card>div:first-child img {
 	height: 100%;
 	object-fit: cover;
 }
 
-.list-container .card>form {
+.list-container .card>div:last-child {
 	height: 100px;
 	background-color: #f9a620;
 	height: 100px;
@@ -56,7 +60,7 @@
 /* .card>form button {
 	height: 50px;
 } */
-.list-container .card>form button {
+.list-container .card>div:last-child button {
 	height: 50px;
 	width: 100%;
 	font-size: 1rem;
@@ -68,17 +72,10 @@
 	text-decoration: none;
 	display: inline-block;
 	letter-spacing: 1.5px;
-	transition: border-color 0.4s ease-in-out, color 0.4s ease-in-out;
-}
-
-.list-container .card>form button:hover {
-	border-color: #f9a620;
-	color: var(--color-white);
-
 }
 
 
-.list-container .card>form div {
+.list-container .card>div:last-child div {
 	height: 50px;
 	line-height: 50px;
 }
@@ -127,7 +124,9 @@
 
 .datail>div:first-child>form>button {
 	height: 50px;
+	width: 50%;
 	font-size: 1rem;
+	letter-spacing: 1px;
 	border-radius: 10px;
 	background-color: var(--color-nav-bg);
 	border: 5px solid transparent;
@@ -136,6 +135,9 @@
 	text-decoration: none;
 	display: inline-block;
 	transition: border-color 0.2s ease, color 0.4s ease-in-out;
+	
+	/* 폰트 */
+	font-family: 'Luckiest Guy', cursive;
 }
 
 .datail>div:first-child>form>button:hover {
@@ -144,27 +146,24 @@
 }
 
 .datail>div:last-child {
-	font-family: 'Noto Sans KR', sans-serif;
+	margin: 5%;
 	height: 600px;
 	background-color: #eeeeee80;
 	color: black;
 	font-weight: 500;
 	letter-spacing: 1px;
 	text-align: left;
-
+	padding: 10px;
+	display: flex;flex-direction: column;
+	overflow: hidden;
+	
+	/* 폰트 */
+	font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'Luckiest Guy', cursive;
 }
 
-.datail>div:last-child div {
-	padding: 20px;
-}
-
-.datail>div:last-child div div:last-child {
-	padding-bottom: 0;
-}
-
-.datail>div:last-child div div:first-child {
-	padding-top: 0;
-}
+.datail>div:last-child .title{flex: 2;display: flex;justify-content: center;align-items: center; background-color: var(--darkNav);font-size: 2rem;color: white;}
+.datail>div:last-child .contents{flex: 8;display: flex;flex-direction: column;background-color: white; padding: 5%;}
 
 /* gameDetail */
 

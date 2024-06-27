@@ -202,10 +202,10 @@ public class ServiceCenterController extends HttpServlet {
 			        ArrayList<String> fileList= imagesDAO.delete(board_seq, board_code, sysnames);
 			        imagesDAO.deleteImageFile(DBConfig.realPath+"upload_images", fileList);
 			        
-					response.sendRedirect("/list.board?board_code="+board_code);
-					
+					response.sendRedirect("/qna_list.service");
 				}
 			}
+			
 			
 			/** FAQ 목록 **/
 			else if(cmd.equals("/faq_list.service")) {
