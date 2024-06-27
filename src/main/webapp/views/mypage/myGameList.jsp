@@ -58,11 +58,6 @@
 
 					<section class="mypage-myGame-form">
 						<div class="mypage-myGameList">
-							<!-- <c:if test="${result == null}">
-			                  <div style="border: 1px solid aqua">
-			                    플레이 한 게임이 없습니다.
-			                  </div>
-			                </c:if> -->
 							<c:if test="${result != null}">
 								<c:forEach var="i" items="${result}">
 									<div class="mypage-myGameList-info">
