@@ -74,7 +74,7 @@ public class ScoreController extends HttpServlet {
         		if(result > 0) {
         			response.getWriter().append(request.getParameter("score"));
         		} else {
-        			response.getWriter().append("fail");
+        			response.getWriter().append("0");
         		}
            }
             

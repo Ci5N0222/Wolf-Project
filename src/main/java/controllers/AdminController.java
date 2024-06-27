@@ -186,7 +186,6 @@ public class AdminController extends HttpServlet {
 					// 선택된 회원의 DTO 가져와서 수정할 수 있어야 됨
 					String id = request.getParameter("id");
 					String grade = request.getParameter("grade");
-					
 					int result = dao.memberGradeUpdate(id, Integer.parseInt(grade));
 					
 					if(result > 0) response.getWriter().append("ok");

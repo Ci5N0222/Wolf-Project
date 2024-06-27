@@ -4,6 +4,9 @@
 #### 게임 플랫폼 개발
 - 게임 플레이 및 커뮤니티 플랫 폼 개발
 
+### 호스팅
+- 도메인
+
 ## Member & work
 - 게시판 담당 개발
     - 양하람 (leader)
@@ -61,7 +64,6 @@ context.xml
     	driverClassName="oracle.jdbc.driver.OracleDriver"
     />
     - user_id, user_pw, db_ip → dev private account 문서 확인
-
 ```
 
 ## 산출물
