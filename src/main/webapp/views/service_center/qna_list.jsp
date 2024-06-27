@@ -67,7 +67,7 @@
 					<p onclick="location.href='/faq_list.service'">F A Q</p>
 					<p onclick="location.reload()">Q & A</p>
 				</nav>
-				<section class="servie-content-box">
+				<section class="servie-content-box content-box">
 					<div class="service-qna-res-seelct">
 						<select id="qna-res-seelct">
 							<option value="0">전체 문의</option>
