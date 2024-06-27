@@ -64,11 +64,12 @@
 						</div>
 						<form action='/gameview.game' method='post'>
 								<input type='hidden' name='seq' value="${dto.seq}" />
-								<button>게임 시작</button>
+								<button>game start!</button>
 						</form>
 					</div>
 					<div>
-						<div>${dto.contents}</div>
+						<div class="title">${dto.title}</div>
+						<div class="contents">${dto.contents}</div>
 					</div>
 				</div>
 			</main>
