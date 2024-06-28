@@ -59,14 +59,7 @@ body {
  	/* 파이어폭스 스크롤바 옵션 */
   	scrollbar-width: none;
   	}
-  	body::-webkit-scrollbar {
-	width: 1vw;
-}
-
-body::-webkit-scrollbar-thumb {
-	background-color: hsla(0, 0%, 42%, 0.49);
-	border-radius: 100px;
-}
+  	
 
 </style>
 </head>
@@ -154,7 +147,11 @@ function loadRank(gameSeq) {
         for (let i = 0; i < 3; i++) {
             if (i < response.length) {
                 let rankDTO = response[i];
-                let boxHtml = '<div class="box-title"> ' + rankDTO.nickname + '</div>' +
+                let avatar = rankDTO.avatar ? rankDTO.avatar : '/images/default-avatar.jpg';
+                let boxHtml = 
+                	'<div class="lownum">' + rankDTO.rank + '위</div>' +
+                	 '<div class="box-avatar"><img src="' + avatar + '" alt="아바타" class="avatar-img"></div>' +
+                	'<div class="box-title"> ' + rankDTO.nickname + '</div>' +
                     '<div class="box-score"> ' + rankDTO.score + '</div>';
                 if (i === 1) {
                     topRankHtml += '<div class="secondbox">' + boxHtml + '</div>';
@@ -182,7 +179,7 @@ function loadRank(gameSeq) {
                 let rankDTO = response[i];
                 let avatar = rankDTO.avatar ? rankDTO.avatar : '/images/default-avatar.jpg';
                 let rankItemHtml = '<div class="ranklist">' +
-                    '<div class="lownum">' + rankDTO.rank + '</div>' +
+                    '<div class="lownum">' + rankDTO.rank + '위</div>' +
                     '<div class="lowimg"><img src="' + avatar + '" alt="아바타"></div>' +
                     '<div class="lowname">' + rankDTO.nickname + '</div>' +
                     '<div class="lowscore">' + rankDTO.score + '</div>' +
@@ -190,7 +187,7 @@ function loadRank(gameSeq) {
                 lowRankHtml += rankItemHtml;
             } else {
                 let emptyRankItemHtml = '<div class="ranklist">' +
-                    '<div class="lownum">'+ (i + 1) +'</div>' +
+                    '<div class="lownum">'+ (i + 1) +'위</div>' +
                     '<div class="lowimg"><img src="/images/default-avatar.jpg" alt="아바타"></div>' +
                     '<div class="lowname">기록 없음</div>' +
                     '<div class="lowscore">0</div>' +
