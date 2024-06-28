@@ -134,17 +134,15 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                       <div class="content" id="email" name="email">${member.email}
                       
                       </div>
-                      <button type="button" id="CertificationCodeSend">인증하기</button>
-                    <div class="form-group" id="certificationCodeGroup"style="display: none;">
+                      <button type="button" id="CertificationCodeSend">전송하기</button>
+                    </div>
+                    <div class="form-group" id="certificationCodeGroup" style="display: none;">
+						<div class="txt">Certification</div>
 						<input type="text" id="CertificationCode" name="CertificationCode"
 							placeholder="인증번호를 입력해주세요">
-						<button id="CertificationCodeBtn" type="button">인증번호 확인</button>
+						<button id="CertificationCodeBtn" type="button">인증확인</button>
 					</div>  
-                    </div>
-                    <div class="correct">
-                      <div class="correct_left"></div>
-                      <div class="correct_right correct_email"></div>
-                    </div>
+                  
 
                     <div class="row">
                       <div class="txt">Gender</div>
