@@ -57,7 +57,7 @@
 	height: 50px;
 } */
 .list-container .card>div:last-child button {
-	font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'Luckiest Guy', cursive;
 	height: 50px;
 	width: 100%;
 	font-size: 1rem;
@@ -73,6 +73,7 @@
 
 
 .list-container .card>div:last-child div {
+	font-family: 'Noto Sans KR', sans-serif;
 	height: 50px;
 	line-height: 50px;
 }

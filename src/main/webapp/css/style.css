@@ -359,6 +359,8 @@ body.light {
 .item>.card:hover {
    animation: vibration 0.1s infinite;
 }
+.item>.card .card-body p:first-child{font-family: 'Luckiest Guy', cursive;}
+.item>.card .card-body p:last-child{font-family: 'Noto Sans KR', sans-serif;}
 
 @keyframes vibration {
    from {
