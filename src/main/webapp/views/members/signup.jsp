@@ -271,7 +271,7 @@ button {
 					<label for="phone" id="phone1">전화번호</label>
 					<div class="form-group">
 						<input type="text" class="form-control" id="phone" name="phone"
-							placeholder="전화번호">
+							placeholder="01012341234 혹은 010-1234-1234 형식">
 					</div>
 
 					<label for="email" id="email1">이메일</label>
@@ -545,7 +545,25 @@ button {
 																return false;
 															}
 														}
-
+														let phone = $("#phone").val();
+														let regexPhone =  /^(01(?:0|1|[6-9])[- ]?\d{3,4})[- ]?\d{4}$/;
+														let resultPhone = regexPhone.test(phone);
+														if(!resultPhone){
+															alert("전화번호의 형식이 올바르지 않습니다.");
+															return false;
+														}
+														let birth = $("#birth").val();
+														let regexbirth = /^(19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])$/;
+														let resultBirth = regexbirth.test(birth);
+														if(!resultBirth){
+															alert("생년월일의 형식이 맞지 않습니다.");
+															return false;
+														}
+														
+														
+														
+														
+														
 														if ($("#nickname")
 																.val() == "") {
 															alert("닉네임을 입력 해주세요.");
@@ -563,6 +581,7 @@ button {
 															return false;
 
 														}
+														
 	
 												
 														
