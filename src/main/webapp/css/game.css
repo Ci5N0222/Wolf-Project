@@ -3,10 +3,6 @@
 
 	height: 90%; width: 100%;
 	z-index: 1;
-
-	/* 폰트 */
-	font-family: 'Noto Sans KR', sans-serif;
-	font-family: 'Luckiest Guy', cursive;
 }
 
 /* gameList */
@@ -61,6 +57,7 @@
 	height: 50px;
 } */
 .list-container .card>div:last-child button {
+	font-family: 'Noto Sans KR', sans-serif;
 	height: 50px;
 	width: 100%;
 	font-size: 1rem;
@@ -90,10 +87,6 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	
-	/* 폰트 */
-    font-family: 'Noto Sans KR', sans-serif;
-    font-family: 'Luckiest Guy', cursive;
 }
 
 .datail>div {
@@ -129,10 +122,11 @@
 }
 
 .datail>div:first-child>form>button {
+	font-family: 'Luckiest Guy', cursive;
 	height: 50px;
 	width: 50%;
 	font-size: 1rem;
-	letter-spacing: 1px;
+	letter-spacing: 2px;
 	border-radius: 10px;
 	background-color: var(--color-nav-bg);
 	border: 5px solid transparent;
@@ -141,9 +135,6 @@
 	text-decoration: none;
 	display: inline-block;
 	transition: border-color 0.2s ease, color 0.4s ease-in-out;
-	
-	/* 폰트 */
-	font-family: 'Luckiest Guy', cursive;
 }
 
 .datail>div:first-child>form>button:hover {
@@ -162,13 +153,10 @@
 	padding: 10px;
 	display: flex;flex-direction: column;
 	overflow: hidden;
-	
-	/* 폰트 */
-	font-family: 'Noto Sans KR', sans-serif;
-	font-family: 'Luckiest Guy', cursive;
 }
 
 .datail>div:last-child .title {
+	font-family: 'Luckiest Guy', cursive;
 	flex: 2;
 	display: flex;
 	justify-content: center;
@@ -179,6 +167,8 @@
 }
 
 .datail>div:last-child .contents {
+	/* 폰트 */
+	font-family: 'Noto Sans KR', sans-serif;
 	flex: 8;
 	display: flex;
 	flex-direction: column;
@@ -263,6 +253,7 @@ canvas {
 }
 
 .gameview-container .ranking div:last-child>div>div {
+	font-family: 'Noto Sans KR', sans-serif;
 	height: 150px;
 	width: 100%;
 	text-align: center;
