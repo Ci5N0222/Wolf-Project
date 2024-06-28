@@ -30,6 +30,7 @@ import files.dao.FilesDAO;
 import files.dto.FilesDTO;
 import images.dao.ImagesDAO;
 import images.dto.ImagesDTO;
+import members.dao.MembersDAO;
 import reply.dao.ReplyDAO;
 import reply_child.dao.Reply_childDAO;
 
@@ -49,6 +50,7 @@ public class BoardController extends HttpServlet {
 		ReplyDAO replyDAO= ReplyDAO.getInstance();
 		Reply_childDAO reply_childDAO= Reply_childDAO.getInstance();
 		ImagesDAO imagesDAO = ImagesDAO.getInstance();
+		MembersDAO membersDAO = MembersDAO.getinstance() ;
 		
 		
 		try {
@@ -110,13 +112,13 @@ public class BoardController extends HttpServlet {
 				String keyword=request.getParameter("keyword");
 				int board_code=Integer.parseInt(request.getParameter("board_code"));
 				boardDAO.countUp(seq);
-				Object boardList[] =boardDAO.selectBoard(seq,board_code);
+				Object boardList[] =boardDAO.selectBoard(seq);
 				Object replyList[] =replyDAO.select(seq);
 				Object reply_childList[]=reply_childDAO.selectAll();
 				List<FilesDTO> fileList=filesDAO.select(seq);
 				String login_id= (String)session.getAttribute("WolfID");
 				
-				boolean checkGrade=boardDAO.checkGrade(login_id);
+				boolean checkGrade=membersDAO.checkGrade(login_id);
 				
 				request.setAttribute("checkGrade",checkGrade);
 				request.setAttribute("target",target);
@@ -170,7 +172,7 @@ public class BoardController extends HttpServlet {
 			               }
 			        }
 			        imagesDAO.updateTemp(board_seq);
-			        String new_contents=boardDAO.board_contents(board_seq,board_code);
+			        String new_contents=boardDAO.board_contents(board_seq);
 			        System.out.println(new_contents);
 			        String[] sysnames=boardDAO.findDeletedTags(new_contents);
 			        ArrayList<String> fileList= imagesDAO.delete(board_seq, board_code, sysnames);
@@ -234,7 +236,7 @@ public class BoardController extends HttpServlet {
 		            	   filesDAO.insert(new FilesDTO(0, oriname, sysname, seq));
 		               }
 		        }
-		        String new_contents=boardDAO.board_contents(seq,board_code);
+		        String new_contents=boardDAO.board_contents(seq);
 		        System.out.println(new_contents);
 		        String[] sysnames=boardDAO.findDeletedTags(new_contents);
 		        ArrayList<String> fileList= imagesDAO.delete(seq, PageConfig.board, sysnames);

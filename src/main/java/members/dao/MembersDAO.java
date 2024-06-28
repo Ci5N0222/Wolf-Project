@@ -340,6 +340,21 @@ public class MembersDAO {
 		}
 	}
 	
+	public boolean checkGrade(String id)throws Exception {
+		String sql="select grade from members where grade in(98,99) and id=?";
+		boolean check=false;
+		try (Connection con=DBConfig.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)){
+			pstat.setString(1, id);
+			
+			try (ResultSet rs=pstat.executeQuery()){
+				check=rs.next();
+				
+			} 
+			
+		} 
+		return check;
+	}
 	
 	
 
