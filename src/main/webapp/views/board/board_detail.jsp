@@ -2,7 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
+<%
+    // URL 파라미터로 전달된 값을 가져오기
+    String boardCode = request.getParameter("board_code");
+%>
 <!DOCTYPE html>
 <html>
 
@@ -928,7 +931,7 @@
                             $("body").find(".tox-textfield").eq(3).val(resp.height);
                             $("body").find(".tox-button").eq(4).on("click",function(){
                                 $.ajax({
-                                    url:"/upload.images?board_seq=${board_dto.seq}&check=true",
+                                    url:"/upload.images?board_seq=${board_dto.seq}&check=true&board_code=<%= boardCode %>",
                                     type:"post",
                                      dataType:"json",
                                     processData: false,
