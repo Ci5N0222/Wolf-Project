@@ -629,10 +629,6 @@ li {
   align-items: center;
 }
 
-.select-board {
-  width: 100%;
-  min-width: 950px;
-}
 
 .select-board .select-board-list {
   width: 100%;
@@ -706,7 +702,7 @@ li {
 }
 
 .select-board .select-board-list .row .txt {
-  flex: 2;
+  flex: 3;
   display: flex;
   align-items: center;
   font-weight: bold;
@@ -715,13 +711,63 @@ li {
 }
 
 .select-board .select-board-list .row .content {
-  flex: 5;
+  flex: 7;
   display: flex;
   align-items: center;
   padding-left: 5px;
   margin-left: 10px;
   font-size: x-large;
 }
+
+.select-board .select-board-list .row:nth-child(6) .txt, .select-board .select-board-list .row:nth-child(10) .txt{
+	flex:3;
+}
+.select-board .select-board-list .row:nth-child(6) .content, .select-board .select-board-list .row:nth-child(10) .content{
+	flex:6;
+}
+
+.select-board .select-board-list .row:nth-child(6) #nicknameCheck, .select-board .select-board-list .row:nth-child(6) #CertificationCodeSend, .select-board .select-board-list .row:nth-child(10) #nicknameCheck, .select-board .select-board-list .row:nth-child(10) #CertificationCodeSend{
+	flex: 1; 
+	border-radius: 5px; background-color: var(--darkMod); 
+}
+
+/* 인증번호 입력 폼 */
+.form-group {
+	display: flex;flex-direction: row;
+	margin: 5px 0;
+}
+.form-group input {
+	flex: 6;
+	display: flex;
+	align-items: center;
+	padding-left: 5px;
+	margin-left: 10px;
+	font-size: 16px;
+
+}
+
+.form-group button {
+	flex: 1;
+	font-size: 16px;
+	border-radius: 5px; background-color: var(--darkMod); 
+}
+
+.form-group .txt {
+	flex: 3;
+	display: flex;
+	align-items: center;
+	font-weight: bold;
+	font-size: x-large;
+	justify-content: center;
+	font-size: 24px;
+}
+
+
+.select-board {
+  width: 100%;
+  min-width: 950px;
+}
+
 
 .correct {
   display: flex;
@@ -760,6 +806,7 @@ li {
   color: black;
   border: none;
 }
+
 
 /* 사이드바 반응형 */
 @media (max-width: 1400px) {
