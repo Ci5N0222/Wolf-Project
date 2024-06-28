@@ -295,6 +295,7 @@ body.light {
 }
 
 .item {
+   cursor: pointer;
    position: relative;
    font-family: 'Luckiest Guy', cursive;
 }
