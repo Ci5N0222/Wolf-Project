@@ -299,6 +299,9 @@ body.light {
    font-family: 'Luckiest Guy', cursive;
 }
 
+.card-body {
+	font-family: 'Noto Sans KR', sans-serif;
+}
 .item>.card {
    min-width: 230px;
    position: absolute;
