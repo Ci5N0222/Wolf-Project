@@ -13,7 +13,7 @@
 <title>Wolf</title>
 <link rel="icon" href="/images/favicon.png">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.tiny.cloud/1/9bewfouem96jjnfvuu236yinb3kp53xruh2gkkz3pkfnkw6c/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdn.tiny.cloud/1/r2rzvjel9syljhm3rt83aafhrjazwe85b2hv02ods9k46db0/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
  
 <!-- 부트스트랩 -->
 <link
@@ -224,7 +224,7 @@
                         let formData = new FormData();
                         formData.append('image', file);
                         $.ajax({
-                            url:"/upload.images?board_seq=999999",
+                            url:"/upload.images?board_seq=-1",
                             type:"post",
                             dataType:"json",
                             processData: false,
@@ -242,7 +242,7 @@
                             $("body").find(".tox-textfield").eq(3).val(resp.height);
                             $("body").find(".tox-button").eq(4).on("click",function(){
                                 $.ajax({
-                                    url:"/upload.images?board_seq=999999&check=true",
+                                    url:"/upload.images?board_seq=-1&check=true&board_code=<%= boardCode %>",
                                     type:"post",
                                      dataType:"json",
                                     processData: false,

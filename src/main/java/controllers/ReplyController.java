@@ -29,8 +29,6 @@ public class ReplyController extends HttpServlet {
 		HttpSession session= request.getSession();
 		String cmd = request.getRequestURI();
 		
-		BoardDAO boardDAO= BoardDAO.getInstance();
-		FilesDAO filesDAO= FilesDAO.getInstance();
 		ReplyDAO replyDAO= ReplyDAO.getInstance();
 		ServiceCenterDAO scDAO = ServiceCenterDAO.getInstance();
 		List<ReplyDTO> list = new ArrayList<>();
@@ -59,11 +57,7 @@ public class ReplyController extends HttpServlet {
 				replyDAO.update(new ReplyDTO(seq,null,contents,0,null));
 
 				
-			} else if(cmd.equals("/3.reply")) {
-				
-			} else if(cmd.equals("/4.reply")) {
-				
-			}
+			} 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

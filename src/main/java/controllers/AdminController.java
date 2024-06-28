@@ -442,7 +442,7 @@ public class AdminController extends HttpServlet {
 			               }
 			        }
 			        imagesDAO.updateTemp(board_seq);
-			        String new_contents = boardDAO.board_contents(board_seq,Integer.parseInt(boardCode) );
+			        String new_contents = boardDAO.board_contents(board_seq );
 			        System.out.println(new_contents);
 			        String[] sysnames = boardDAO.findDeletedTags(new_contents);
 			        ArrayList<String> fileList = imagesDAO.delete(board_seq, Integer.parseInt(boardCode), sysnames);
