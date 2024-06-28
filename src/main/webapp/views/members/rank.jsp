@@ -36,23 +36,36 @@
 
 <style>
 html, body {
-   height: 100%;
-   margin: 0;
-   background-color: var(- -bg-dark);
-   color: var(- -bg-black);
-   color: var(- -color-black);
-   overflow: hidden;
-   /* 폰트 */
-   font-family: "Noto Sans KR", sans-serif;
-   font-family: "Luckiest Guy", cursive;
+	height: 100%;
+	margin: 0;
+	background-color: var(- -bg-dark);
+	color: var(- -bg-black);
+	color: var(- -color-black);
+	/* 폰트 */
+	font-family: "Noto Sans KR", sans-serif;
+	font-family: "Luckiest Guy", cursive;
 }
 
 body {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   height: 100vh;
-   margin: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+	
+	overflow-y: scroll;
+	/* 익스플로러 스크롤바 옵션 */
+  	-ms-overflow-style: none;
+ 	/* 파이어폭스 스크롤바 옵션 */
+  	scrollbar-width: none;
+  	}
+  	body::-webkit-scrollbar {
+	width: 1vw;
+}
+
+body::-webkit-scrollbar-thumb {
+	background-color: hsla(0, 0%, 42%, 0.49);
+	border-radius: 100px;
 }
 
 </style>
@@ -177,8 +190,8 @@ function loadRank(gameSeq) {
                 lowRankHtml += rankItemHtml;
             } else {
                 let emptyRankItemHtml = '<div class="ranklist">' +
-                    '<div class="lownum"></div>' +
-                    '<div class="lowimg"></div>' +
+                    '<div class="lownum">'+ (i + 1) +'</div>' +
+                    '<div class="lowimg"><img src="/images/default-avatar.jpg" alt="아바타"></div>' +
                     '<div class="lowname">기록 없음</div>' +
                     '<div class="lowscore">0</div>' +
                     '</div>';

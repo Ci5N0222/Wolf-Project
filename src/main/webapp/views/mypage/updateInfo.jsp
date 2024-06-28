@@ -272,6 +272,10 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     	});
       $("#CertificationCodeSend").on("click", function() {
     	    let email = $("#email").text().trim();
+    	  	if(!regexEmail.test(email)){
+    	  	  alert("이메일을 올바르게 입력해주세요.");
+	          return false;
+    	  	}
     	    $.ajax({
     	        url: "/emailSend.members",
     	        data: {
@@ -429,10 +433,7 @@ prefix="c" %> <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         } else if (!regexPhone.test(phone.html())) {
           alert("전화번호를 올바르게 입력해주세요.");
           return false;
-        } else if (!regexEmail.test(email.html())) {
-          alert("이메일을 올바르게 입력해주세요.");
-          return false;
-        }
+        } 
 
         // 아바타 사진을 선택하지 않은 경우 기존 사진 유지
         if (!avatarOK) {
