@@ -130,7 +130,7 @@ public class ImagesController extends HttpServlet {
 			else if(cmd.equals("/detail_cancel.images")) {
 				int board_code=Integer.parseInt(request.getParameter("board_code"));
 				int board_seq=Integer.parseInt(request.getParameter("board_seq"));
-				String new_contents=boardDAO.board_contents(board_seq,board_code);
+				String new_contents=boardDAO.board_contents(board_seq);
 		        System.out.println(new_contents);
 		        String[] sysnames=boardDAO.findDeletedTags(new_contents);
 		        ArrayList<String> fileList= imagesDAO.delete(board_seq, board_code, sysnames);
