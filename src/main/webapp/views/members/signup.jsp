@@ -42,7 +42,6 @@ html, body {
 	background-color: var(- -bg-dark);
 	color: var(- -bg-black);
 	color: var(- -color-black);
-	overflow: hidden;
 	/* 폰트 */
 	font-family: "Noto Sans KR", sans-serif;
 	font-family: "Luckiest Guy", cursive;
@@ -54,6 +53,20 @@ body {
 	align-items: center;
 	height: 100vh;
 	margin: 0;
+	
+	overflow-y: scroll;
+	/* 익스플로러 스크롤바 옵션 */
+  	-ms-overflow-style: none;
+ 	/* 파이어폭스 스크롤바 옵션 */
+  	scrollbar-width: none;
+}
+body::-webkit-scrollbar {
+	width: 1vw;
+}
+
+body::-webkit-scrollbar-thumb {
+	background-color: hsla(0, 0%, 42%, 0.49);
+	border-radius: 100px;
 }
 
 #signupcontainer {
@@ -70,9 +83,8 @@ body {
 	position: relative;
 	z-index: 1;
 	box-sizing: border-box;
-	height:90%;
-	margin-bottom:20px;
-	margin-top:20px;
+	margin-top:5%;
+	height : 2000px;
 }
 
 #membership {
@@ -200,6 +212,9 @@ button {
 
 .form-check-label {
 	margin-right: 30px; /* 라벨의 왼쪽 여백 제거 */
+}
+#joinform {
+	margin-bottom:10%;
 }
 </style>
 </head>
