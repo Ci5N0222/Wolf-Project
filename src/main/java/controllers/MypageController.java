@@ -211,6 +211,7 @@ public class MypageController extends HttpServlet {
 
 				request.getRequestDispatcher("/views/mypage/myList.jsp").forward(request, response);
 				
+				
 				/** 회원 탈퇴 **/
 			} else if(cmd.equals("/delete.mypage")) {
 				
