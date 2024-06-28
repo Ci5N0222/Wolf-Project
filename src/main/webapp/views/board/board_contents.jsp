@@ -224,7 +224,7 @@
                         let formData = new FormData();
                         formData.append('image', file);
                         $.ajax({
-                            url:"/upload.images?board_seq=999999",
+                            url:"/upload.images?board_seq=-1",
                             type:"post",
                             dataType:"json",
                             processData: false,
@@ -242,7 +242,7 @@
                             $("body").find(".tox-textfield").eq(3).val(resp.height);
                             $("body").find(".tox-button").eq(4).on("click",function(){
                                 $.ajax({
-                                    url:"/upload.images?board_seq=999999&check=true",
+                                    url:"/upload.images?board_seq=-1&check=true&board_code=<%= boardCode %>",
                                     type:"post",
                                      dataType:"json",
                                     processData: false,

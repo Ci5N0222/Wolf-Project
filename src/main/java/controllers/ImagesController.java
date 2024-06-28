@@ -99,7 +99,8 @@ public class ImagesController extends HttpServlet {
 					
 					   String check=multi.getParameter("check");
 					  if(oriname != null && check!=null) {
-		            	   imagesDAO.insert(new ImagesDTO(0,oriname,sysname,PageConfig.board,parent_seq,member_id));
+						  int board_code=Integer.parseInt(multi.getParameter("board_code"));
+		            	   imagesDAO.insert(new ImagesDTO(0,oriname,sysname,board_code,parent_seq,member_id));
 		               }
 					  else {
 						  // 파일 삭제

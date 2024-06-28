@@ -20,7 +20,7 @@ public class Reply_childDAO {
 	
 	private Reply_childDAO() {}
 	
-	public Object[] insert(Reply_childDTO dto) {
+	public Object[] insert(Reply_childDTO dto) throws Exception{
 		String sql="insert into reply_child values(reply_child_seq.nextval,?,?,?,sysdate)";
 		Object[] result=new Object[2];
 		try (Connection con=DBConfig.getConnection();
@@ -35,53 +35,15 @@ public class Reply_childDAO {
 				result[0]=rs.getInt(1);
 				result[1]=rs.getTimestamp(2);
 				
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
+			} 
 			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		} 
 		return result;
 	}
 	
-	public Object[] selectReply(int reply_seq) {
-		String sql="select c.*, m.nickname from reply_child c join members m on c.member_id=m.id where reply_seq =? order by seq desc";
-		Object[] result=new Object[2];
-		List<Reply_childDTO> list =new ArrayList<>();
-		ArrayList<String> nickname= new ArrayList<>();
-		try (Connection con=DBConfig.getConnection();
-				PreparedStatement pstat=con.prepareStatement(sql)){
-			
-			pstat.setInt(1, reply_seq);
-
-			
-			try (ResultSet rs=pstat.executeQuery()){
-				while(rs.next()) {
-					int seq=rs.getInt(1);
-					String member_id=rs.getString(2);
-					String contents=rs.getString(3);
-					Timestamp write_date=rs.getTimestamp(5);
-					nickname.add(rs.getString(6));
-					list.add(new Reply_childDTO(seq,member_id,contents,reply_seq,write_date));
-				}
-				
-				
-				
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		result[0]=list;
-		result[1]=nickname;
-		
-		return result;
-	}
 	
-	public Object[] selectAll() {
+	
+	public Object[] selectAll()throws Exception {
 		String sql="select c.*, m.nickname from reply_child c join members m on c.member_id=m.id order by seq desc";
 		Object[] result=new Object[2];
 		List<Reply_childDTO> list =new ArrayList<>();
@@ -101,43 +63,35 @@ public class Reply_childDAO {
 				
 				
 				
-			} catch (Exception e) {
-				// TODO: handle exception
 			}
 			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		} 
 		result[0]=list;
 		result[1]=nickname;
 		
 		return result;
 	}
 	
-	public void delete(int seq) {
+	public void delete(int seq)throws Exception {
 		String sql="delete from reply_child where seq=?";
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
 			pstat.setInt(1, seq);
 			pstat.executeUpdate();
 			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		} 
 	}
-	public void deleteBoard_seq(int Board_seq) {
+	public void deleteBoard_seq(int Board_seq)throws Exception {
 		String sql="delete from (select r_c.*,r.board_seq from reply_child r_c join reply r on r_c.reply_seq=r.seq) where board_seq=?";
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
 			pstat.setInt(1, Board_seq);
 			pstat.executeUpdate();
 			
-		} catch (Exception e) {
-			// TODO: handle exception
 		}
 	}
 	
-	public String cancel(int seq) {
+	public String cancel(int seq) throws Exception{
 		String sql="select contents from reply_child where seq=?";
 		String contents="";
 		try (Connection con=DBConfig.getConnection();
@@ -146,17 +100,13 @@ public class Reply_childDAO {
 			try(ResultSet rs=pstat.executeQuery()) {
 				rs.next();
 				contents=rs.getString(1);
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
+			} 
 			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		} 
 		return contents;
 	}
 	
-	public boolean update(int seq,String contents) {
+	public boolean update(int seq,String contents)throws Exception {
 		String sql="update reply_child set contents=? , write_date= sysdate  where seq=?";
 		
 		try (Connection con=DBConfig.getConnection();
@@ -166,9 +116,7 @@ public class Reply_childDAO {
 			if(pstat.executeUpdate()>0)return true;
 			
 			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		} 
 		return false;
 	}
 	
