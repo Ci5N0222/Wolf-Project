@@ -52,33 +52,6 @@ private static BoardDAO instance;
 	}
 	
 	
-	public Object[] selectAll(int board_code) throws Exception {
-		List<BoardDTO> list = new ArrayList<>();
-		String sql="select b.*, m.nickname from board b join members m on m.id =b.member_id";
-		Object [] boardList=new Object[2];
-		ArrayList<String> nickname=new ArrayList<>();
-		
-		try (Connection con=DBConfig.getConnection();
-				PreparedStatement pstat= con.prepareStatement(sql);
-				ResultSet rs=pstat.executeQuery()){
-			
-			while(rs.next()) {
-				int seq=rs.getInt(1);
-				String title=rs.getString(2);
-				String contents=rs.getString(3);
-				int count =rs.getInt(4);
-				String member_id=rs.getString(5);
-				Timestamp write_date=rs.getTimestamp(6);
-				nickname.add(rs.getString(8));
-				//list.add(new BoardDTO(seq,title,contents,count,member_id,board_code,write_date));			
-			}		
-		}
-		
-		boardList[0]= list;
-		boardList[1]= nickname;
-		return boardList;
-		
-	}
 	public Object[] selectAll (int recordCountPerPage,int cpage,int board_code)throws Exception{
 		String sql="SELECT a.*,m.nickname FROM (SELECT  board.*, ROW_NUMBER() OVER (ORDER BY seq DESC) AS rown FROM board where board_code=?)a join members m on m.id=a.member_id WHERE rown between ? and ?";
 		List<BoardDTO> list=new ArrayList<>();
@@ -212,21 +185,22 @@ private static BoardDAO instance;
 	}
 	
 	
-	public Object[] selectBoard (int seq,int board_code) throws Exception{
+	public Object[] selectBoard (int seq) throws Exception{
 		BoardDTO dto= new BoardDTO();
-		String sql="select b.*, m.nickname from board b join members m on m.id =b.member_id where b.seq=? and b.board_code=?";
+		String sql="select b.*, m.nickname from board b join members m on m.id =b.member_id where b.seq=?";
 		Object [] boardList=new Object[2];
 		String nickname="";
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat= con.prepareStatement(sql);){
 			pstat.setInt(1, seq);
-			pstat.setInt(2, board_code);
+			
 			try(ResultSet rs=pstat.executeQuery()) {
 				rs.next();
 					String title=rs.getString(2);
 					String contents=rs.getString(3);
 					int count =rs.getInt(4);
 					String member_id=rs.getString(5);
+					int board_code=rs.getInt(6);
 					Timestamp write_date=rs.getTimestamp(7);
 					String secret=rs.getString(8);
 					nickname=rs.getString(9);
@@ -378,13 +352,12 @@ private static BoardDAO instance;
 	}
 	
 	
-	public String board_contents(int seq,int board_code) throws Exception{
-		String sql="select contents from board where seq=? and board_code=?";
+	public String board_contents(int seq) throws Exception{
+		String sql="select contents from board where seq=?";
 		String contents="";
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
 			pstat.setInt(1, seq);
-			pstat.setInt(2, board_code);
 			try (ResultSet rs=pstat.executeQuery()){
 				rs.next(); 
 				contents=rs.getString(1);
@@ -395,21 +368,7 @@ private static BoardDAO instance;
 		return contents;
 	}
 	
-	public boolean checkGrade(String id)throws Exception {
-		String sql="select grade from members where grade in(98,99) and id=?";
-		boolean check=false;
-		try (Connection con=DBConfig.getConnection();
-				PreparedStatement pstat=con.prepareStatement(sql)){
-			pstat.setString(1, id);
-			
-			try (ResultSet rs=pstat.executeQuery()){
-				check=rs.next();
-				
-			} 
-			
-		} 
-		return check;
-	}
+	
 	
 	
 	public void dumidata() throws Exception{
