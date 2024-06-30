@@ -599,34 +599,43 @@
             
 
             reply_child_insert.on("click",function(){
-                let btn=$(this);
-                let div=btn.parents(".reply_child_div");
-                let input=div.find(".reply_child_input");
-                let reply_seq=div.parent().parent().find(".reply_seq");
-                div.find(".reply_child_label").remove();
-                $.ajax({
-                    url:"/insert.reply_child",
-                    type:"post",
-                    dataType:"json",
-                    data:{
-                        contents:input.html(),
-                        reply_seq:reply_seq.val()
-                    }
-                }).done(function(resp){
+                
+                if("${WolfID}"!=""){
+                    let btn=$(this);
+                    let div=btn.parents(".reply_child_div");
+                    let input=div.find(".reply_child_input");
+                    let reply_seq=div.parent().parent().find(".reply_seq");
+                    div.find(".reply_child_label").remove();
+                    $.ajax({
+                        url:"/insert.reply_child",
+                        type:"post",
+                        dataType:"json",
+                        data:{
+                            contents:input.html(),
+                            reply_seq:reply_seq.val()
+                        }
+                    }).done(function(resp){
                     
-                    let clone=$(".reply_child_list").eq(0).clone(true);
-                    clone.css("display","flex");
-                    clone.find(".reply_child_list_title").html("${WolfNickname} ${WolfID}");
-                    clone.find(".reply_child_list_contents").html(input.html());
+                        let clone=$(".reply_child_list").eq(0).clone(true);
+                        clone.css("display","flex");
+                        clone.find(".reply_child_list_title").html("${WolfNickname} ${WolfID}");
+                        clone.find(".reply_child_list_contents").html(input.html());
                   //  let date = new Date(resp[1]);
                     // 연도, 월, 일, 시간, 분을 추출합니다.
-                    clone.find(".reply_child_list_write_date").html(resp[1]);
-                    clone.find(".reply_child_seq").val(resp[0]);
-                    let main=div.parent();
-                    main.prepend(clone);
-                    input.html("");
+                        clone.find(".reply_child_list_write_date").html(resp[1]);
+                        clone.find(".reply_child_seq").val(resp[0]);
+                        let main=div.parent();
+                        main.prepend(clone);
+                        input.html("");
 
-                })
+                    }) 
+                }
+           
+                else{
+                    alert("로그인 해주세요");
+                    e.preventDefault();
+                }
+                
 
             })
 
@@ -668,6 +677,7 @@
             }
 
             function reply_child_cancel(e){
+        
                 let parent=$(e).parent().parent();
                 let seq= parent.find(".reply_child_seq").val();
                 let contents=parent.find(".reply_child_list_contents");
@@ -881,11 +891,12 @@
     
 
 
-        $("#replyform").on("submit",function(){
+        $("#replyform").on("submit",function(e){
             if("${WolfID}"!="")
             $("#reply_insert_contents").val($("#reply_insert_div").html().trim());
             else{
                 alert("로그인 해주세요");
+                e.preventDefault();
             }
         })
 

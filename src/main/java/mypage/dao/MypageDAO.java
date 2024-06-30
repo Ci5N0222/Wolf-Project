@@ -97,7 +97,7 @@ public class MypageDAO {
 	 * @throws Exception
 	 */
 	public List<MypageDTO.BoardListDTO> myBoardList(String id, int start, int end) throws Exception {
-		String sql = "select a.*,m.nickname nickname from (select board.*, row_number() over(order by seq) rown from board where board_code = 1 AND member_id = ?) a join members m on m.id=a.member_id where rown between ? and ?";
+		String sql = "select a.*,m.nickname nickname from (select board.*, row_number() over(order by seq desc) rown from board where board_code = 1 AND member_id = ?) a join members m on m.id=a.member_id where rown between ? and ?";
 		
 		
 		try(Connection con = DBConfig.getConnection();

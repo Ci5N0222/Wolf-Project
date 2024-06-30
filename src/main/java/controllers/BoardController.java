@@ -57,7 +57,7 @@ public class BoardController extends HttpServlet {
 			if(cmd.equals("/list.board")) {
 				String login_id= (String)session.getAttribute("WolfID");
 				//boardDAO.dumidata();
-				if(request.getSession().getAttribute("WolfAdmin")==null) {
+				/*if(request.getSession().getAttribute("WolfAdmin")==null) {
 					if(login_id==null) {
 						request.setAttribute("WolfCheckLogin",true);
 						request.getRequestDispatcher("/index.jsp").forward(request, response);
@@ -68,7 +68,7 @@ public class BoardController extends HttpServlet {
 						request.setAttribute("WolfCheckLogin",true);
 						request.getRequestDispatcher("/index.jsp").forward(request, response);
 					}
-				}
+				}*/
 				
 				int board_code=0;
 				if(request.getParameter("board_code")==null) board_code=PageConfig.board;
