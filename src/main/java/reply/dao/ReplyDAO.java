@@ -96,4 +96,18 @@ public class ReplyDAO {
 		return replyList;
 		
 	}
+	public String cancel(int seq) throws Exception{
+		String sql="select contents from reply where seq=?";
+		String contents="";
+		try (Connection con=DBConfig.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)){
+			pstat.setInt(1, seq);
+			try(ResultSet rs=pstat.executeQuery()) {
+				rs.next();
+				contents=rs.getString(1);
+			} 
+			
+		} 
+		return contents;
+	}
 }

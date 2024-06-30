@@ -353,7 +353,7 @@
                 <input type="hidden" name="member_id" value="${WolfID}"class="notuse">
                 <input type="hidden" name="board_seq" value="${board_dto.seq}" class="notuse">
             </div>
-            <div style="flex: 1;">
+            <div style="flex: 1;" >
                 <div style=" margin-left: 15px; flex:1; color: grey; justify-content: flex-start; align-items: center;"><span>현재 입력한 글자수 :&nbsp</span><span class="reply_child_count">0</span>/<span>전체 입력 가능한 글자수 :&nbsp</span><span class="reply_child_count_max">300</span></div>
                 <div style=" flex: 1; justify-content: flex-end; align-items: center;">
                     <button id="reply_btn" style="width: 80px !important; height: 35px !important; background-color: #fabf61  !important; color: white !important;" class="no-hover button_css">등록</button>&nbsp&nbsp&nbsp&nbsp
@@ -372,7 +372,8 @@
                 <div class="reply_contents">
                         <div style="flex: 6; word-break: break-all; white-space: pre-wrap; flex-direction: column; margin-left:15px ;overflow: auto;">
                             <div style="margin-bottom:8px;">${reply_nickname_list[status.index]}(${reply_dto.member_id.substring(0, 4)}****) </div>
-                            <div class="reply_div" style="flex-direction: column; margin-bottom: 8px; overflow: auto; max-height: 100px;">${reply_dto.contents}</div>
+                            <div class="reply_div reply_limit" style="flex-direction: column; margin-bottom: 8px; overflow: auto; max-height: 100px;">${reply_dto.contents}</div>
+                            <div style="flex:0.5; color: grey; display: none;" class="reply_update_count"><span>현재 입력한 글자수 :&nbsp</span><span class="reply_child_count">0</span>/<span>전체 입력 가능한 글자수 :&nbsp</span><span class="reply_child_count_max">300</span></div> 
                             <div><p style="color: gray;"><fmt:formatDate value="${reply_dto.write_date}" pattern="yyyy.MM.dd HH:mm" /></p></div>
                         </div>
                         <div style="flex: 1; font-size: x-small; justify-content: flex-end; align-items: flex-end;">
@@ -418,9 +419,10 @@
                                         <div style="flex: 1; font-family: 'Courier New', Courier, monospace; font-size:small; font-size: 13px;" class="reply_child_list_title">
                                             ${reply_child_nickname[status.index]}(${reply_child_dto.member_id.substring(0, 4)}****)     
                                         </div>
-                                        <div style="flex: 4; flex-direction: column;" class="reply_child_list_contents">
+                                        <div style="flex: 4; flex-direction: column; overflow: auto; max-height: 100px;" class="reply_child_list_contents reply_limit">
                                            ${reply_child_dto.contents}
                                         </div>
+                                        <div style="flex:0.5; color: grey; display: none;" class="update_count"><span>현재 입력한 글자수 :&nbsp</span><span class="reply_child_count">0</span>/<span>전체 입력 가능한 글자수 :&nbsp</span><span class="reply_child_count_max">300</span></div>
                                         <div style="flex: 1; color: gray;" class="reply_child_list_write_date">
                                             <fmt:formatDate value="${reply_child_dto.write_date}" pattern="yyyy.MM.dd HH:mm" />
                                         </div>
@@ -438,14 +440,16 @@
                                 </c:if>
                                 </div>
                             </c:if>
+
                         </c:forEach> 
                         <!---->
                         <div style="width:100% ; border-bottom: 1px solid gray; flex-direction: column; display: none; margin-left: 15px; margin-top: 10px;" class="reply_child_list">
                             <div style="flex-direction: column;">
                                 <div style="flex: 1; font-family: 'Courier New', Courier, monospace; font-size:small; font-size: 13px;" class="reply_child_list_title">  
                                 </div>
-                                <div style="flex: 4; flex-direction: column;" class="reply_child_list_contents">
+                                <div style="flex: 4; flex-direction: column; overflow: auto; max-height: 100px;" class="reply_child_list_contents reply_limit">
                                 </div>
+                                <div style="flex:0.5; color: grey; display: none;" class="update_count"><span>현재 입력한 글자수 :&nbsp</span><span class="reply_child_count">0</span>/<span>전체 입력 가능한 글자수 :&nbsp</span><span class="reply_child_count_max">300</span></div>
                                 <div style="flex: 1; color: gray;" class="reply_child_list_write_date">
                                 </div>
                             </div>
@@ -534,10 +538,12 @@
                 const scrollHeight = $(this).prop('scrollHeight');
                 
                     if(!(event.code === 'Space' || event.key === ' ' || event.key === 'Spacebar')){
-                    let input=$(this).html().trim().replace(/(&nbsp;|<br>|<span>|<\/\s*span\s*>)/g, '');
+                    let input=$(this).html().trim().replace(/(&nbsp;|<br>|<div>|<\/\s*div\s*>|<span>|<\/\s*span\s*>)/g, '');
                     let length=input.length;
                     console.log(input);
                     let count=$(this).parent().parent().find(".reply_child_count"); 
+                    var reply_count=count.parent();
+                    reply_count.css("display","flex");
                     if(length>300){
                         $(this).html(div_input_temp);
                         count.text(300);
@@ -548,15 +554,46 @@
                    
                     }
                     
-                    if(scrollHeight<220){
-
-                    }
-                    else{
-                        $(this).html(div_input_temp);
-                        alert("댓글 범위를 넘었습니다.");
-                    }
                     div_input_temp=$(this).html();
                  
+            })
+
+            $(".reply_limit").keyup(function count(event){
+                
+                    if(!(event.code === 'Space' || event.key === ' ' || event.key === 'Spacebar')){
+                    let input=$(this).html().trim().replace(/(&nbsp;|<br>|<div>|<\/\s*div\s*>|<span>|<\/\s*span\s*>)/g, '');
+                    let length=input.length;
+                    console.log(input);
+                    let count=$(this).parent().parent().find(".reply_child_count").eq(0); 
+                    var reply_count=count.parent();
+                    reply_count.css("display","flex");
+                    if(length>300){
+                        $(this).html(div_input_temp);
+                        count.text(300);
+                        alert("300자까지 입력할 수 있습니다")
+                    }else{
+                        count.text(length);
+                    }
+                   
+                    }
+                    
+                    div_input_temp=$(this).html();
+                 
+            })
+            $(".reply_limit").each(function(index,e){
+                let input=$(e).html().trim().replace(/(&nbsp;|<br>|<div>|<\/\s*div\s*>|<span>|<\/\s*span\s*>)/g, '');
+                    let length=input.length;
+                    console.log(input);
+                    let count=$(this).parent().parent().find(".reply_child_count").eq(0); 
+                    if(length>300){
+                        count.text(300);
+                        alert("300자까지 입력할 수 있습니다")
+                    }else{
+                        count.text(length);
+                    }
+                   
+                    
+                    
             })
 
             
@@ -602,6 +639,8 @@
                 contents.attr("contenteditable",true);
                 div1.css("display","none");
                 div2.css("display","flex");
+                parent.find(".update_count").css("display","flex");
+                
                 
             }
 
@@ -625,6 +664,7 @@
                         div2.css("display","none");
                     }
                 })
+                parent.find(".update_count").css("display","none");
             }
 
             function reply_child_cancel(e){
@@ -637,7 +677,7 @@
                 contents.attr("contenteditable",false);
                 div1.css("display","flex");
                 div2.css("display","none");
-
+                parent.find(".update_count").css("display","none");
                 $.ajax({
                     url:"/cancel.reply_child",
                     type:"post",
@@ -677,9 +717,7 @@
                         // scrollHeight는 div 요소의 스크롤이 포함된 전체 높이를 나타냅니다.
                         const scrollHeight = $(a).prop('scrollHeight');
                         console.log(scrollHeight);
-                        if( scrollHeight < 210){
-                        
-                            let span=$("<span>\u200B</span>");
+                        let span=$("<span>\u200B</span>");
                             $(a).append(span);
 
                             // 커서를 새로 삽입된 br 바로 뒤로 이동
@@ -689,12 +727,7 @@
                             range.collapse(true);
                             let sel = window.getSelection();
                             sel.removeAllRanges();
-                            sel.addRange(range);   
-
-                        }
-                        else{
-                            alert("더 이상 엔터키를 칠 수 없습니다")
-                        }
+                            sel.addRange(range);  
                       
                     }       
                 }
@@ -763,7 +796,9 @@
                     display: "flex"
                 })
                 reply_div.eq(index).attr("contenteditable", "true");
+                $(".reply_update_count").eq(index).css("display","flex");
             })
+
         })
         reply_cancel.each(function (index, e) {
             $(e).on("click", function () {
@@ -776,7 +811,17 @@
 
                 })
                 reply_div.eq(index).attr("contenteditable", "false");
-                reply_div.eq(index).html(reply_contents[index]);
+               
+                $(".reply_update_count").eq(index).css("display","none");
+                $.ajax({
+                    url:"/cancel.reply",
+                    type:"post",
+                    data:{
+                        seq: reply_seq.eq(index).val()
+                    }
+                }).done(function(resp){
+                    reply_div.eq(index).html(resp);
+                })
 
             })
         })
@@ -808,6 +853,7 @@
             let reply_update_div2=btn.parents(".reply_contents").find(".reply_div2");
             let reply_update_seq=btn.parent().find(".reply_seq").val();
             let reply_update_contents=reply_update_div.html().trim();
+            btn.parents(".reply_contents").find(".reply_update_count").css("display","none");
             $.ajax({
                 url:"/update.reply",
                 type:"post",
