@@ -1,1009 +1,1007 @@
 * {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html {
-	overflow: hidden;
+  overflow: hidden;
 }
 
 body {
-	overflow-y: auto;
-	overflow-x: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .mypage-container {
-	display: flex;
-	flex-direction: column;
-	height: 100vh;
-	width: 100%;
-	z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  z-index: 1;
 }
 
 .mypage-main-title {
-	margin: 50px 0;
-	font-size: 50px;
-	font-weight: 700;
-	color: white;
-	height: 10%;
-	width: 100%;
-	text-shadow: 5px 5px 5px #14213d;
+  margin: 50px 0;
+  font-size: 50px;
+  font-weight: 700;
+  color: white;
+  height: 10%;
+  width: 100%;
+  text-shadow: 5px 5px 5px #14213d;
 }
 
 .aside-section-form {
-	display: flex;
+  display: flex;
 }
 
 .mypage-side-menu {
-	flex: 2;
-	min-width: 200px;
-	height: 600px;
-	background-color: #f0f0f0;
-	margin-left: 30px;
-	margin-top: 0;
-	border-radius: 10px;
-	display: flex;
-	flex-direction: column;
-	padding: 15px;
-	width: 30%;
+  flex: 2;
+  min-width: 200px;
+  height: 600px;
+  background-color: #f0f0f0;
+  margin-left: 30px;
+  margin-top: 0;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  width: 30%;
 }
 
-.mypage-side-menu>p:hover {
-	cursor: pointer;
-	background-color: #e0e0e0;
+.mypage-side-menu > p:hover {
+  cursor: pointer;
+  background-color: #e0e0e0;
 }
 
-.mypage-side-menu>p {
-	margin-top: 10px;
-	margin-bottom: 0;
-	padding: 10px;
-	font-size: 20px;
-	font-weight: 800;
-	display: flex;
-	flex: 1;
-	justify-content: center;
-	align-items: center;
+.mypage-side-menu > p {
+  margin-top: 10px;
+  margin-bottom: 0;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 800;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
 }
 
 .mypage-main-form {
-	flex: 13;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+  flex: 13;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .mypage-dashboard {
-	display: flex;
-	width: 100%;
-	max-width: 950px;
-	min-height: 600px;
+  display: flex;
+  width: 100%;
+  max-width: 950px;
+  min-height: 600px;
 }
 
 .mypage-dashboard div {
-	border-radius: 10px;
+  border-radius: 10px;
 }
 
-.mypage-dashboard>div:first-child {
-	flex: 8;
-	display: flex;
-	flex-direction: column;
+.mypage-dashboard > div:first-child {
+  flex: 8;
+  display: flex;
+  flex-direction: column;
 }
 
-.mypage-dashboard>div:first-child>div:first-child {
-	flex: 1;
-	margin-top: 0px;
-	margin-bottom: 10px;
-	background-color: white;
-	border: 1px solid #ccc;
-	display: flex;
-	flex-direction: column;
+.mypage-dashboard > div:first-child > div:first-child {
+  flex: 1;
+  margin-top: 0px;
+  margin-bottom: 10px;
+  background-color: white;
+  border: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
 }
 
 .dashboard-inner_box {
-	width: 100%;
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	padding: 15px;
-	background-color: #f0efeb;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  background-color: #f0efeb;
 }
 
-.dashboard-inner_box>div:first-child {
-	flex: 4;
-	background-color: white;
-	border-radius: 0px;
-	display: flex;
-	justify-content: center;
+.dashboard-inner_box > div:first-child {
+  flex: 4;
+  background-color: white;
+  border-radius: 0px;
+  display: flex;
+  justify-content: center;
 }
 
 /* 카테고리 박스 안 글씨 */
-.dashboard-inner_box>div:first-child>p {
-	line-height: 150px;
-	font-size: x-large;
-	margin: 0px;
+.dashboard-inner_box > div:first-child > p {
+  line-height: 150px;
+  font-size: x-large;
+  margin: 0px;
 }
 
 /* 내정보 아바타 출력칸 */
-.dashboard-inner_box>div:first-child>div:first-child {
-	flex: 1;
-	width: 100%;
-	height: 200px;
-	border-radius: 50%;
-	padding: 10px;
+.dashboard-inner_box > div:first-child > div:first-child {
+  flex: 1;
+  width: 100%;
+  height: 200px;
+  border-radius: 50%;
+  padding: 10px;
 }
 
-.dashboard-inner_box>div:first-child>div:first-child img {
-	width: 100%;
-	height: 100%;
-	border-radius: 50%;
-	border: 2px solid #14213d;
+.dashboard-inner_box > div:first-child > div:first-child img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid #14213d;
 }
 
 /* 내정보 닉네임 출력칸 */
-.dashboard-inner_box>div:first-child>div:last-child {
-	flex: 2;
-	background-color: white;
-	border-radius: 0px;
+.dashboard-inner_box > div:first-child > div:last-child {
+  flex: 2;
+  background-color: white;
+  border-radius: 0px;
 }
 
-.dashboard-inner_box>div:first-child>div:last-child>p {
-	font-size: x-large;
-	line-height: 150px;
-	display: flex;
-	margin-left: 50px;
+.dashboard-inner_box > div:first-child > div:last-child > p {
+  font-size: x-large;
+  line-height: 150px;
+  display: flex;
+  margin-left: 50px;
 }
 
 /* 카테고리 박스 안 버튼 */
-.dashboard-inner_box>div:last-child {
-	flex: 2;
-	background-color: white;
-	border-radius: 0px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+.dashboard-inner_box > div:last-child {
+  flex: 2;
+  background-color: white;
+  border-radius: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* 내정보 카테고리 버튼 */
 .dashboard-inner_box .mypage_btn {
-	margin-left: 380px;
-	width: 100px;
-	height: 45px;
-	border-radius: 8px;
-	/* background-color: #374c80; */
-	background-color: #fcac2d;
-	color: white;
-	border: none;
+  margin-left: 380px;
+  width: 100px;
+  height: 45px;
+  border-radius: 8px;
+  /* background-color: #374c80; */
+  background-color: #fcac2d;
+  color: white;
+  border: none;
 }
 
 /* 나머지 카테고리 버튼 */
-.dashboard-inner_box>div:last-child>button {
-	width: 100px;
-	height: 45px;
-	border-radius: 8px;
-	/* background-color: #374c80; */
-	background-color: #fcac2d;
-	color: white;
-	border: none;
+.dashboard-inner_box > div:last-child > button {
+  width: 100px;
+  height: 45px;
+  border-radius: 8px;
+  /* background-color: #374c80; */
+  background-color: #fcac2d;
+  color: white;
+  border: none;
 }
 
-.mypage-dashboard>div:first-child>div:last-child {
-	flex: 1;
-	display: flex;
+.mypage-dashboard > div:first-child > div:last-child {
+  flex: 1;
+  display: flex;
 }
 
 /* 게임플레이 정보 */
-.mypage-dashboard>div:first-child>div:last-child>div:first-child {
-	flex: 1;
-	background-color: white;
+.mypage-dashboard > div:first-child > div:last-child > div:first-child {
+  flex: 1;
+  background-color: white;
 }
 
 /* 문의내역 */
-.mypage-dashboard>div:first-child>div:last-child>div:last-child {
-	flex: 1;
-	margin-left: 12px;
-	background-color: white;
+.mypage-dashboard > div:first-child > div:last-child > div:last-child {
+  flex: 1;
+  margin-left: 12px;
+  background-color: white;
 }
 
-.mypage-dashboard>div:last-child {
-	flex: 4;
-	display: flex;
-	flex-direction: column;
+.mypage-dashboard > div:last-child {
+  flex: 4;
+  display: flex;
+  flex-direction: column;
 }
 
 /* 비밀번호변경 */
-.mypage-dashboard>div:last-child>div:first-child {
-	flex: 1;
-	margin-top: 0px;
-	margin-left: 12px;
-	background-color: white;
+.mypage-dashboard > div:last-child > div:first-child {
+  flex: 1;
+  margin-top: 0px;
+  margin-left: 12px;
+  background-color: white;
 }
 
 /* 회원탈퇴 */
-.mypage-dashboard>div:last-child>div:last-child {
-	flex: 1;
-	margin-top: 10px;
-	margin-left: 12px;
-	background-color: white;
+.mypage-dashboard > div:last-child > div:last-child {
+  flex: 1;
+  margin-top: 10px;
+  margin-left: 12px;
+  background-color: white;
 }
 
 .mypage-updatePW-container {
-	display: flex;
-	flex-direction: column;
-	height: 100vh;
-	width: 100%;
-	z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  z-index: 1;
 }
 
 .mypage-updatePW-title {
-	margin: 50px 0;
-	font-size: 50px;
-	font-weight: 700;
-	color: white;
-	height: 10%;
-	width: 100%;
-	text-shadow: 5px 5px 5px #14213d;
+  margin: 50px 0;
+  font-size: 50px;
+  font-weight: 700;
+  color: white;
+  height: 10%;
+  width: 100%;
+  text-shadow: 5px 5px 5px #14213d;
 }
 
 .mypage-updatePW-form {
-	flex: 13;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
+  flex: 13;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .updatePW-warning-text {
-	font-size: large;
-	padding-bottom: 30px;
-	color: #ffd449;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	margin-left: 150px;
+  font-size: large;
+  padding-bottom: 30px;
+  color: #ffd449;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 150px;
 }
 
 .updatePW-board {
-	width: 100%;
-	max-width: 950px;
-	padding: 0 140px;
+  width: 100%;
+  max-width: 950px;
+  padding: 0 140px;
 }
 
 .current_password,
 .new_password,
 .confirm_password {
-	padding: 10px;
+  padding: 10px;
 }
 
 .current_password {
-	padding-bottom: 60px;
+  padding-bottom: 60px;
 }
 
 .updatePW-board label {
-	display: flex;
-	margin-bottom: 10px;
-	font-weight: bold;
-	font-size: large;
-	color: black;
+  display: flex;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: large;
+  color: black;
 }
 
 .updatePW-board input[type="password"],
 .updatePW-board input[type="text"] {
-	width: 100%;
-	padding: 10px;
-	margin-bottom: 10px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .confirm-buttons {
-	margin-top: 20px;
+  margin-top: 20px;
 }
 
 .confirm-buttons button {
-	margin: 5px;
-	border-radius: 8px;
-	width: 60px;
-	height: 40px;
+  margin: 5px;
+  border-radius: 8px;
+  width: 60px;
+  height: 40px;
 }
 
 .confirm-buttons #confirm,
 #update_confirm {
-	background-color: #fab74b;
-	color: white;
-	border: none;
+  background-color: #fab74b;
+  color: white;
+  border: none;
 }
 
 .confirm-buttons #cancel {
-	background-color: #f0f0f0;
-	color: black;
-	border: none;
+  background-color: #f0f0f0;
+  color: black;
+  border: none;
 }
 
 .mypage-delete-container {
-	display: flex;
-	flex-direction: column;
-	height: 100vh;
-	width: 100%;
-	z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  z-index: 1;
 }
 
 .mypage-delete-title {
-	margin: 50px 0;
-	font-size: 50px;
-	font-weight: 700;
-	color: white;
-	height: 10%;
-	width: 100%;
-	text-shadow: 5px 5px 5px #14213d;
+  margin: 50px 0;
+  font-size: 50px;
+  font-weight: 700;
+  color: white;
+  height: 10%;
+  width: 100%;
+  text-shadow: 5px 5px 5px #14213d;
 }
 
 .mypage-delete-form {
-	flex: 13;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+  flex: 13;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .delete-warning-text {
-	font-size: large;
-	padding-bottom: 30px;
-	color: #ffd449;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	width: 100%;
+  font-size: large;
+  padding-bottom: 30px;
+  color: #ffd449;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
 }
 
 .mypage-delete-innerBoard {
-	width: 100%;
-	max-width: 950px;
-	height: 250px;
-	position: relative;
-	z-index: 5;
-	display: flex;
-	flex-direction: column;
-	margin-left: 70px;
+  width: 100%;
+  max-width: 950px;
+  height: 250px;
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  margin-left: 70px;
 }
 
-.mypage-delete-innerBoard>.id-txt,
+.mypage-delete-innerBoard > .id-txt,
 .pw-txt {
-	color: white;
-	font-weight: bold;
-	font-size: large;
-	display: flex;
-	margin-bottom: 10px;
+  color: white;
+  font-weight: bold;
+  font-size: large;
+  display: flex;
+  margin-bottom: 10px;
 }
 
-.mypage-delete-innerBoard>input[type="text"],
+.mypage-delete-innerBoard > input[type="text"],
 input[type="password"] {
-	width: 400px;
-	height: 40px;
-	padding-left: 10px;
-	margin-bottom: 30px;
+  width: 400px;
+  height: 40px;
+  padding-left: 10px;
+  margin-bottom: 30px;
 }
 
 .btn-box {
-	display: flex;
-	justify-content: flex-start;
-	margin-bottom: 50px;
-	margin-left: 170px;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 50px;
+  margin-left: 170px;
 }
 
 .btn-box button {
-	cursor: pointer;
-	border-radius: 8px;
-	margin: 10px;
-	width: 80px;
-	height: 35px;
-	border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  margin: 10px;
+  width: 80px;
+  height: 35px;
+  border: none;
 }
 
 .btn-box .deleteBtn {
-	background-color: #fab74b;
-	color: white;
+  background-color: #fab74b;
+  color: white;
 }
 
 .mypage-delete-notice {
-	text-align: left;
-	width: 70%;
+  text-align: left;
+  width: 70%;
 }
 
 .mypage-delete-notice p,
 li {
-	color: white;
-	margin-top: 3px;
+  color: white;
+  margin-top: 3px;
 }
 
 .mypage-myList-container {
-	display: flex;
-	flex-direction: column;
-	height: 100vh;
-	width: 100%;
-	z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  z-index: 1;
 }
 
 .mypage-myList-title {
-	margin: 50px 0;
-	font-size: 50px;
-	font-weight: 700;
-	color: white;
-	height: 10%;
-	width: 100%;
-	text-shadow: 5px 5px 5px #14213d;
+  margin: 50px 0;
+  font-size: 50px;
+  font-weight: 700;
+  color: white;
+  height: 10%;
+  width: 100%;
+  text-shadow: 5px 5px 5px #14213d;
 }
 
 .mypage-myList-form {
-	flex: 13;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding: 30px;
-	padding-top: 0;
+  flex: 13;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  padding-top: 0;
 }
 
 .mypage-myList {
-	background-color: white;
-	display: flex;
-	width: 100%;
-	max-width: 950px;
-	height: auto;
-	min-height: 800px;
-	border-radius: 30px;
-	display: flex;
-	flex-direction: column;
-	padding: 20px;
+  background-color: white;
+  display: flex;
+  width: 100%;
+  max-width: 950px;
+  height: auto;
+  min-height: 800px;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
 }
 
 .mypage-myList .mypage-myList-dropdown {
-	flex: 1;
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
-	padding-left: 10px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 10px;
 }
 
 .mypage-myList .mypage-myList-header {
-	flex: 1.5;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-top: 20px;
-	margin-bottom: 60px;
+  flex: 1.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 60px;
 }
 
-.mypage-myList .mypage-myList-header>p {
-	margin: 0;
-	font-size: xx-large;
-	font-weight: 700;
+.mypage-myList .mypage-myList-header > p {
+  margin: 0;
+  font-size: xx-large;
+  font-weight: 700;
 }
 
 .mypage-myList .mypage-myList-navi {
-	flex: 1;
-	display: flex;
-	margin-bottom: 10px;
+  flex: 1;
+  display: flex;
+  margin-bottom: 10px;
 }
 
-.mypage-myList .mypage-myList-navi>div {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+.mypage-myList .mypage-myList-navi > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.mypage-myList .mypage-myList-navi>div>p {
-	margin: 0;
-	font-weight: 600;
-	font-size: larger;
+.mypage-myList .mypage-myList-navi > div > p {
+  margin: 0;
+  font-weight: 600;
+  font-size: larger;
 }
 
 .mypage-myList .mypage-myList-contents {
-	flex: 15;
+  flex: 15;
 }
 
-.mypage-myList .mypage-myList-contents>div {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+.mypage-myList .mypage-myList-contents > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .mypage-myList .mypage-myList-contents .center .title a {
-	text-decoration-line: none;
+  text-decoration-line: none;
 }
 
 .mypage-myList .mypage-myList-contents .center .title a:link {
-	color: black;
+  color: black;
 }
 
 .mypage-myList .mypage-myList-contents .center .title a:visited {
-	color: purple;
+  color: purple;
 }
 
 .mypage-myList .mypage-myList-contents .center .title a:hover {
-	color: red;
+  color: red;
 }
 
 .mypage-myList .page-navigation {
-	flex: 1.3;
+  flex: 1.3;
 }
 
-.mypage-myList .page-navigation>a {
-	text-decoration-line: none;
-	margin-left: 5px;
-	color: black;
+.mypage-myList .page-navigation > a {
+  text-decoration-line: none;
+  margin-left: 5px;
+  color: black;
 }
 
-.mypage-myList .page-navigation>a:hover {
-	color: red;
+.mypage-myList .page-navigation > a:hover {
+  color: red;
 }
 
 .mypage-myGame-container {
-	display: flex;
-	flex-direction: column;
-	height: 100vh;
-	width: 100%;
-	z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  z-index: 1;
 }
 
 .mypage-myGame-title {
-	margin: 50px 0;
-	font-size: 50px;
-	font-weight: 700;
-	color: white;
-	height: 10%;
-	width: 100%;
-	text-shadow: 5px 5px 5px #14213d;
+  margin: 50px 0;
+  font-size: 50px;
+  font-weight: 700;
+  color: white;
+  height: 10%;
+  width: 100%;
+  text-shadow: 5px 5px 5px #14213d;
 }
 
 .mypage-myGame-form {
-	/* background-color: #bab58b; */
-	flex: 13;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding: 0 30px;
-	overflow: auto;
+  /* background-color: #bab58b; */
+  flex: 13;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 30px;
+  overflow: auto;
 }
 
 .mypage-myGameList {
-	background-color: rgb(247, 247, 247);
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: flex-start;
-	width: 100%;
-	max-width: 950px;
-	border-radius: 30px;
-	padding: 50px 100px;
+  background-color: rgb(247, 247, 247);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 950px;
+  border-radius: 30px;
+  padding: 50px 100px;
 }
 
 .mypage-myGameList .mypage-myGameList-info {
-	width: 100%;
-	height: 200px;
-	display: flex;
-	border-radius: 30px;
-	box-shadow: 0 0 10px #ccc;
-	margin-bottom: 30px;
-	padding: 10px;
+  width: 100%;
+  height: 200px;
+  display: flex;
+  border-radius: 30px;
+  box-shadow: 0 0 10px #ccc;
+  margin-bottom: 30px;
+  padding: 10px;
 }
 
 .mypage-myGameList .mypage-myGameList-img {
-	flex: 2;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: #ffe8c1;
-	border-radius: 30px;
-	border: 2px solid #14213d;
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffe8c1;
+  border-radius: 30px;
+  border: 2px solid #14213d;
 }
 
-.mypage-myGameList .mypage-myGameList-info>div:last-child {
-	flex: 3;
-	display: flex;
-	flex-direction: column;
-	margin-left: 40px;
+.mypage-myGameList .mypage-myGameList-info > div:last-child {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  margin-left: 40px;
 }
 
 .mypage-myGameList .mypage-myGameList-info .mypage-myGameList-title {
-	flex: 1;
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-	font-size: x-large;
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: x-large;
 }
 
 .mypage-myGameList .mypage-myGameList-info .mypage-myGameList-score {
-	flex: 1;
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-	font-size: x-large;
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: x-large;
 }
 
 .mypage-select-container {
-	display: flex;
-	flex-direction: column;
-	min-height: 100vh;
-	height: 100%;
-	width: 100%;
-	z-index: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
 }
 
 .mypage-select-title {
-	margin: 50px 0;
-	font-size: 50px;
-	font-weight: 700;
-	color: white;
-	height: 10%;
-	width: 100%;
-	text-shadow: 5px 5px 5px #14213d;
+  margin: 50px 0;
+  font-size: 50px;
+  font-weight: 700;
+  color: white;
+  height: 10%;
+  width: 100%;
+  text-shadow: 5px 5px 5px #14213d;
 }
 
 .mypage-select-form {
-	flex: 13;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+  flex: 13;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-
 .select-board .select-board-list {
-	width: 100%;
-	/* height: 90%; */
-	min-height: 800px;
-	display: flex;
-	flex-direction: column;
-	padding: 20px;
-	border-radius: 10px;
-	background-color: white;
-	box-shadow: 0 0 10px #ccc;
+  width: 100%;
+  /* height: 90%; */
+  min-height: 800px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 0 10px #ccc;
 }
 
 .select-board .select-board-list .avatar-img-area {
-	height: 300px;
-	display: flex;
-	margin-bottom: 10px;
-	margin-top: 30px;
+  height: 300px;
+  display: flex;
+  margin-bottom: 10px;
+  margin-top: 30px;
 }
 
-.select-board .select-board-list .avatar-img-area>div {
-	flex: 1;
-	position: relative;
+.select-board .select-board-list .avatar-img-area > div {
+  flex: 1;
+  position: relative;
 }
 
-.avatar-img-area>div:nth-child(2) {
-	background-color: lightgray;
-	border-radius: 100%;
-	overflow: hidden;
-	width: 100%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border: 3px solid #14213d;
+.avatar-img-area > div:nth-child(2) {
+  background-color: lightgray;
+  border-radius: 100%;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid #14213d;
 }
 
 .pointer {
-	cursor: pointer;
+  cursor: pointer;
 }
 
-.avatar-img-area>div:nth-child(2) img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	object-position: center;
+.avatar-img-area > div:nth-child(2) img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .select-board .select-board-list .avatar-defaultImg-btn {
-	height: 50px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-bottom: 20px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-.select-board .select-board-list .avatar-defaultImg-btn>button {
-	background-color: #fab74b;
-	color: white;
-	border-radius: 8px;
-	border: none;
-	width: 150px;
-	height: 40px;
-	font-weight: 500;
+.select-board .select-board-list .avatar-defaultImg-btn > button {
+  background-color: #fab74b;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  width: 150px;
+  height: 40px;
+  font-weight: 500;
 }
 
 .select-board .select-board-list .row {
-	flex: 1;
-	display: flex;
-	margin: 30px 0;
+  flex: 1;
+  display: flex;
+  margin: 30px 0;
 }
 
 .select-board .select-board-list .row .txt {
-	flex: 3;
-	display: flex;
-	align-items: center;
-	font-weight: bold;
-	font-size: x-large;
-	justify-content: center;
+  flex: 3;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: x-large;
+  justify-content: center;
 }
 
 .select-board .select-board-list .row .content {
-	flex: 7;
-	display: flex;
-	align-items: center;
-	padding-left: 5px;
-	margin-left: 10px;
-	font-size: x-large;
+  flex: 7;
+  display: flex;
+  align-items: center;
+  padding-left: 5px;
+  margin-left: 10px;
+  font-size: x-large;
 }
 
 .select-board .select-board-list .row:nth-child(6) .txt,
 .select-board .select-board-list .row:nth-child(10) .txt {
-	flex: 3;
+  flex: 3;
 }
 
 .select-board .select-board-list .row:nth-child(6) .content,
 .select-board .select-board-list .row:nth-child(10) .content {
-	flex: 6;
+  flex: 6;
 }
 
 .select-board .select-board-list .row:nth-child(6) #nicknameCheck,
 .select-board .select-board-list .row:nth-child(6) #CertificationCodeSend,
 .select-board .select-board-list .row:nth-child(10) #nicknameCheck,
 .select-board .select-board-list .row:nth-child(10) #CertificationCodeSend {
-	flex: 1;
-	border-radius: 5px;
-	background-color: var(--darkMod);
+  flex: 1;
+  border-radius: 5px;
+  background-color: var(--darkMod);
+  background-color: #fab74b;
+  color: white;
+  border: none;
+  margin-left: 5px;
 }
 
 /* 인증번호 입력 폼 */
 .form-group {
-	display: flex;
-	flex-direction: row;
-	margin: 5px 0;
+  display: flex;
+  flex-direction: row;
+  margin: 5px 0;
 }
 
 .form-group input {
-	flex: 6;
-	display: flex;
-	align-items: center;
-	padding-left: 5px;
+  flex: 6;
+  display: flex;
+  align-items: center;
+  padding-left: 5px;
 
-	margin-left: 10px;
-	font-size: 16px;
-
+  margin-left: 10px;
+  font-size: 16px;
 }
 
 .form-group button {
-	flex: 1;
-	font-size: 16px;
-	border-radius: 5px;
-	background-color: var(--darkMod);
+  flex: 1;
+  font-size: 16px;
+  border-radius: 5px;
+  background-color: var(--darkMod);
 }
 
 .form-group .txt {
-	flex: 3;
-	display: flex;
-	align-items: center;
-	font-weight: bold;
-	font-size: x-large;
-	justify-content: center;
-	font-size: 24px;
+  flex: 3;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: x-large;
+  justify-content: center;
+  font-size: 24px;
 }
-
 
 .select-board {
-	width: 100%;
-	min-width: 950px;
+  width: 100%;
+  min-width: 950px;
 }
 
-
 .correct {
-	display: flex;
+  display: flex;
 }
 
 .correct_left {
-	flex: 2;
+  flex: 2;
 }
 
 .correct_right {
-	flex: 5;
-	display: flex;
-	margin-left: 20px;
+  flex: 5;
+  display: flex;
+  margin-left: 20px;
 }
 
 .container .footer {
-	flex: 0.8;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  flex: 0.8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container .footer button {
-	margin: 30px;
-	border-radius: 8px;
-	cursor: pointer;
-	width: 100px;
-	height: 50px;
-	background-color: #fab74b;
-	color: white;
-	font-size: larger;
-	border: none;
+  margin: 30px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100px;
+  height: 50px;
+  background-color: #fab74b;
+  color: white;
+  font-size: larger;
+  border: none;
 }
 
 .container .footer #cancel {
-	background-color: #f0f0f0;
-	color: black;
-	border: none;
+  background-color: #f0f0f0;
+  color: black;
+  border: none;
 }
-
 
 /* 사이드바 반응형 */
 @media (max-width: 1400px) {
-	.mypage-side-menu {
-		margin-left: 0px;
-	}
+  .mypage-side-menu {
+    margin-left: 0px;
+  }
 
-	.mypage-main-form {
-		margin-left: 20px;
-	}
+  .mypage-main-form {
+    margin-left: 20px;
+  }
 
-	.mypage-delete-innerBoard {
-		margin-left: 0;
-	}
+  .mypage-delete-innerBoard {
+    margin-left: 0;
+  }
 
-	.btn-box {
-		margin-left: 100px;
-	}
+  .btn-box {
+    margin-left: 100px;
+  }
 }
 
 @media (max-width: 1200px) {
-	.mypage-side-menu {
-		display: none;
-	}
+  .mypage-side-menu {
+    display: none;
+  }
 
-	.mypage-main-form {
-		margin: 0px;
-	}
+  .mypage-main-form {
+    margin: 0px;
+  }
 }
 
 @media (max-width: 1100px) {
-	.mypage-side-menu {
-		display: none;
-	}
+  .mypage-side-menu {
+    display: none;
+  }
 
-	.delete-warning-text {
-		margin-left: 50px;
-	}
+  .delete-warning-text {
+    margin-left: 50px;
+  }
 
-	.mypage-delete-innerBoard {
-		margin-left: 130px;
-	}
+  .mypage-delete-innerBoard {
+    margin-left: 130px;
+  }
 
-	.btn-box {
-		margin-left: 230px;
-	}
+  .btn-box {
+    margin-left: 230px;
+  }
 
-	.mypage-delete-notice {
-		margin-left: 180px;
-	}
+  .mypage-delete-notice {
+    margin-left: 180px;
+  }
 }
 
 /* 메인 반응형 */
 @media (max-width: 990px) {
-	.mypage-main-form {
-		margin: 0px;
-	}
+  .mypage-main-form {
+    margin: 0px;
+  }
 
-	.mypage-dashboard {
-		display: flex;
-		flex-direction: column;
-		gap: 20px 0;
-		margin: 0px;
-		padding: 0 20px;
-	}
+  .mypage-dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 20px 0;
+    margin: 0px;
+    padding: 0 20px;
+  }
 
-	body {
-		overflow-y: auto;
-	}
+  body {
+    overflow-y: auto;
+  }
 
-	/* 내 정보 */
-	.mypage-dashboard>div:first-child {
-		gap: 20px 0;
-	}
+  /* 내 정보 */
+  .mypage-dashboard > div:first-child {
+    gap: 20px 0;
+  }
 
-	/* 게임플레이 정보, 문의내역 */
-	.mypage-dashboard>div:first-child>div:last-child {
-		display: flex;
-		flex-direction: column;
-		gap: 20px 0;
-		margin: 0px;
-	}
+  /* 게임플레이 정보, 문의내역 */
+  .mypage-dashboard > div:first-child > div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 20px 0;
+    margin: 0px;
+  }
 
-	.mypage-dashboard>div:first-child>div:first-child {
-		margin: 0px;
-	}
+  .mypage-dashboard > div:first-child > div:first-child {
+    margin: 0px;
+  }
 
-	.mypage-dashboard>div:first-child>div:last-child>div:last-child {
-		margin: 0px;
-	}
+  .mypage-dashboard > div:first-child > div:last-child > div:last-child {
+    margin: 0px;
+  }
 
-	/* 비밀번호 변경, 회원탈퇴 */
-	.mypage-dashboard>div:last-child {
-		gap: 20px 0;
-	}
+  /* 비밀번호 변경, 회원탈퇴 */
+  .mypage-dashboard > div:last-child {
+    gap: 20px 0;
+  }
 
-	.mypage-dashboard>div:last-child>div:first-child {
-		margin: 0px;
-	}
+  .mypage-dashboard > div:last-child > div:first-child {
+    margin: 0px;
+  }
 
-	.mypage-dashboard>div:last-child>div:last-child {
-		margin: 0px;
-		/* gap: 20px 0; */
-	}
+  .mypage-dashboard > div:last-child > div:last-child {
+    margin: 0px;
+    /* gap: 20px 0; */
+  }
 
-	.mypage-side-menu {
-		display: none;
-	}
+  .mypage-side-menu {
+    display: none;
+  }
 
-	.delete-warning-text {
-		margin-left: 0;
-	}
+  .delete-warning-text {
+    margin-left: 0;
+  }
 
-	.mypage-delete-innerBoard {
-		margin-left: 30px;
-	}
+  .mypage-delete-innerBoard {
+    margin-left: 30px;
+  }
 
-	.btn-box {
-		margin-left: 130px;
-	}
+  .btn-box {
+    margin-left: 130px;
+  }
 
-	.mypage-delete-notice {
-		margin-left: 0;
-	}
+  .mypage-delete-notice {
+    margin-left: 0;
+  }
 
-	.mypage-myList-form {
-		padding: 0;
-	}
+  .mypage-myList-form {
+    padding: 0;
+  }
 
-	.mypage-myGameList {
-		padding: 50px 30px;
-	}
+  .mypage-myGameList {
+    padding: 50px 30px;
+  }
 }
 
 @media (max-width: 768px) {
+  .container,
+  .mypage-dashboard {
+    padding: 0;
+  }
 
-	.container,
-	.mypage-dashboard {
-		padding: 0;
-	}
+  .updatePW-warning-text {
+    margin-left: 80px;
+  }
 
-	.updatePW-warning-text {
-		margin-left: 80px;
-	}
+  .updatePW-board {
+    padding: 0 40px;
+  }
 
-	.updatePW-board {
-		padding: 0 40px;
-	}
+  .updatePW-board label {
+    color: white;
+  }
 
-	.updatePW-board label {
-		color: white;
-	}
+  .mypage-side-menu {
+    display: none;
+  }
 
-	.mypage-side-menu {
-		display: none;
-	}
+  .delete-warning-text {
+    margin-left: 0;
+  }
 
-	.delete-warning-text {
-		margin-left: 0;
-	}
+  .mypage-delete-innerBoard {
+    margin-left: 0;
+  }
 
-	.mypage-delete-innerBoard {
-		margin-left: 0;
-	}
+  .btn-box {
+    margin-left: 90px;
+  }
 
-	.btn-box {
-		margin-left: 90px;
-	}
-
-	.mypage-delete-notice {
-		margin-left: 0;
-	}
+  .mypage-delete-notice {
+    margin-left: 0;
+  }
 }
