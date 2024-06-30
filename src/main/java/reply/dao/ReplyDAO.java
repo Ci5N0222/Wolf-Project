@@ -24,7 +24,7 @@ public class ReplyDAO {
 	
 	private ReplyDAO() {}
 	
-	public void insert(ReplyDTO dto) {
+	public void insert(ReplyDTO dto) throws Exception {
 		String sql="insert into reply values(reply_seq.nextval,?,?,?,sysdate)";
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
@@ -33,38 +33,31 @@ public class ReplyDAO {
 			pstat.setInt(3, dto.getBoard_seq());
 			pstat.executeUpdate();
 			
-		} catch (Exception e) {
-			// TODO: handle exception
 		}
 		
 	}
 	
-	public void delete(int seq) {
+	public void delete(int seq) throws Exception{
 		String sql="delete from reply where seq=?";
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat= con.prepareStatement(sql)){
 			pstat.setInt(1, seq);
 			pstat.executeUpdate();
 			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
+		} 
 	}
 	
-	public void deleteBoard_seq(int board_seq) {
+	public void deleteBoard_seq(int board_seq) throws Exception{
 		String sql="delete from reply where board_seq=?";
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat= con.prepareStatement(sql)){
 			pstat.setInt(1, board_seq);
 			pstat.executeUpdate();
 			
-		} catch (Exception e) {
-			// TODO: handle exception
 		}
 	}
 	
-	public void update(ReplyDTO dto) {
+	public void update(ReplyDTO dto) throws Exception{
 		String sql="update reply set contents=?, write_date=sysdate where seq=?";
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
@@ -72,12 +65,10 @@ public class ReplyDAO {
 			pstat.setInt(2, dto.getSeq());
 			pstat.executeUpdate();
 			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		} 
 	}
 	
-	public Object[] select(int board_seq) {
+	public Object[] select(int board_seq) throws Exception{
 		Object [] replyList=new Object[2];
 		String sql="select r.*, m.nickname from reply r join members m on r.member_id = m.id where r.board_seq=? order by seq desc";
 		List<ReplyDTO> list =new ArrayList<>();
@@ -95,12 +86,8 @@ public class ReplyDAO {
 					 nickname.add(rs.getString(6));
 					list.add(new ReplyDTO(seq,member_id,contents,board_seq,write_date));
 				}
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+			} 
+		} 
 		
 		replyList[0]=list;
 		replyList[1]=nickname;
@@ -108,5 +95,19 @@ public class ReplyDAO {
 		
 		return replyList;
 		
+	}
+	public String cancel(int seq) throws Exception{
+		String sql="select contents from reply where seq=?";
+		String contents="";
+		try (Connection con=DBConfig.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)){
+			pstat.setInt(1, seq);
+			try(ResultSet rs=pstat.executeQuery()) {
+				rs.next();
+				contents=rs.getString(1);
+			} 
+			
+		} 
+		return contents;
 	}
 }
