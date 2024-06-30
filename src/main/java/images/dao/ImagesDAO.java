@@ -37,7 +37,7 @@ public class ImagesDAO {
 	}
 	
 	public ArrayList<String> delete(int image_code) {
-		String sql_select="select sysname from images where parent_seq=999999 and image_code=?";
+		String sql_select="select sysname from images where parent_seq=-1 and image_code=?";
 		ArrayList<String> list= new ArrayList<>();
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql_select)){
@@ -55,7 +55,7 @@ public class ImagesDAO {
 			// TODO: handle exception
 		}
 		
-		String sql="delete from images where parent_seq=999999 and image_code=?";
+		String sql="delete from images where parent_seq=-1 and image_code=?";
 		
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
@@ -71,70 +71,8 @@ public class ImagesDAO {
 		}
 		return list;
 	}
-	
-	/**
-	 * 마이페이지 아바타 사진 업데이트
-	 * @param oriname
-	 * @param sysname
-	 * @param member_id
-	 * @return
-	 */
-	public boolean updateMypage(String oriname, String sysname, String member_id) {
-		String sql="update images set oriname=?,sysname=? where image_code=2 and member_id=?";
-		boolean result=false;
-		try (Connection con=DBConfig.getConnection();
-				PreparedStatement pstat=con.prepareStatement(sql)){
-			pstat.setString(1, oriname);
-			pstat.setString(2, sysname);
-			pstat.setString(3, member_id);
-			if(pstat.executeUpdate()>0)result=true;
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		return result;
-	}
-	
-	
-	public boolean deleteMypageAvatar(String member_id) {
-		
-		
-		String sql="delete from images where member_id=?";
-		boolean result=false;
-		try (Connection con=DBConfig.getConnection();
-				PreparedStatement pstat=con.prepareStatement(sql)){
-			pstat.setString(1, member_id);
-			if(pstat.executeUpdate()>0)result=true;
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		return result;
-	}
-	
-	public String selectMypageAvatar(String member_id) {
-		String sql="select sysname from images where member_id =? and image_code =2";
-		String result="";
-		try (Connection con=DBConfig.getConnection();
-				PreparedStatement pstat=con.prepareStatement(sql)){
-			
-			pstat.setString(1, member_id);
-			try (ResultSet rs=pstat.executeQuery()){
-				rs.next();
-				result=rs.getString(1);
-			} catch (Exception e) {
-			}
-			
-		} catch (Exception e) {	
-		}
-		return result;
-	}
-	
-	
 	public ArrayList<String> delete(int parent_seq,int image_code ,String[] sysnames) {
-	
+		
 		ArrayList<String> sysnameList= new ArrayList<>();
 		String selectsql="select sysname from images where sysname not in (";
 		  for (int i = 0; i < sysnames.length; i++) {
@@ -206,7 +144,7 @@ public class ImagesDAO {
 	
 
 	public void updateTemp(int board_seq) {
-		String sql="update images set parent_seq=? where parent_seq=999999";
+		String sql="update images set parent_seq=? where parent_seq=-1";
 		try (Connection con=DBConfig.getConnection();
 				PreparedStatement pstat=con.prepareStatement(sql)){
 			pstat.setInt(1, board_seq);
@@ -217,6 +155,69 @@ public class ImagesDAO {
 		}
 		
 	}
+	
+	
+	/**
+	 * 마이페이지 아바타 사진 업데이트
+	 * @param oriname
+	 * @param sysname
+	 * @param member_id
+	 * @return
+	 */
+	public boolean updateMypage(String oriname, String sysname, String member_id) {
+		String sql="update images set oriname=?,sysname=? where image_code=2 and member_id=?";
+		boolean result=false;
+		try (Connection con=DBConfig.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)){
+			pstat.setString(1, oriname);
+			pstat.setString(2, sysname);
+			pstat.setString(3, member_id);
+			if(pstat.executeUpdate()>0)result=true;
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return result;
+	}
+	
+	
+	public boolean deleteMypageAvatar(String member_id) {
+		
+		
+		String sql="delete from images where member_id=?";
+		boolean result=false;
+		try (Connection con=DBConfig.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)){
+			pstat.setString(1, member_id);
+			if(pstat.executeUpdate()>0)result=true;
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return result;
+	}
+	
+	public String selectMypageAvatar(String member_id) {
+		String sql="select sysname from images where member_id =? and image_code =2";
+		String result="";
+		try (Connection con=DBConfig.getConnection();
+				PreparedStatement pstat=con.prepareStatement(sql)){
+			
+			pstat.setString(1, member_id);
+			try (ResultSet rs=pstat.executeQuery()){
+				rs.next();
+				result=rs.getString(1);
+			} catch (Exception e) {
+			}
+			
+		} catch (Exception e) {	
+		}
+		return result;
+	}
+	
+	
 	
 	
 	/**

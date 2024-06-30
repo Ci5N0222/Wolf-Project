@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,11 +27,10 @@ public class ReplyController extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("UTF-8");
 		HttpSession session= request.getSession();
 		String cmd = request.getRequestURI();
-		
-		BoardDAO boardDAO= BoardDAO.getInstance();
-		FilesDAO filesDAO= FilesDAO.getInstance();
+		PrintWriter pw= response.getWriter();
 		ReplyDAO replyDAO= ReplyDAO.getInstance();
 		ServiceCenterDAO scDAO = ServiceCenterDAO.getInstance();
 		List<ReplyDTO> list = new ArrayList<>();
@@ -59,9 +59,11 @@ public class ReplyController extends HttpServlet {
 				replyDAO.update(new ReplyDTO(seq,null,contents,0,null));
 
 				
-			} else if(cmd.equals("/3.reply")) {
-				
-			} else if(cmd.equals("/4.reply")) {
+			} else if(cmd.equals("/cancel.reply")) {
+				int seq=Integer.parseInt(request.getParameter("seq"));
+				String contents= replyDAO.cancel(seq);
+				System.out.println(contents);
+				pw.append(contents);
 				
 			}
 		} catch (Exception e) {
