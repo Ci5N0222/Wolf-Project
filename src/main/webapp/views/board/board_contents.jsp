@@ -146,10 +146,15 @@
 		})
         
         $("#fileform").on("submit",function(event){
-            if($("#insert_title").val()=="" ||$("#contents").html().trim()==""){
-                console.log($("#contents").html().trim());
+            if(($("#insert_title").val()=="") ||(tinymce.get('contents').getContent()=="")){
+                //console.log(tinymce.get('contents').getContent());
+                //console.log($("#insert_title").val().length);
+                alert("제목 혹은 내용을 채워주세요");
                 event.preventDefault();
-            alert("제목 혹은 내용을 채워주세요");
+            }
+            else if($("#insert_title").val().length>28){
+                alert("제목이 너무 깁니다");
+                event.preventDefault();
             }
         })
 </script>
