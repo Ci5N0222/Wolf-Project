@@ -718,6 +718,7 @@
 
              function handleKeyPress(a,event) {
                 // 엔터 키 코드는 13입니다.
+                /*
                 if (event.keyCode === 13) {
                     for(let i=0;i<1;i++){
                         event.preventDefault(); // 기본 동작 막기
@@ -740,7 +741,7 @@
                             sel.addRange(range);  
                       
                     }       
-                }
+                }*/
             }
         </script>
     </div>
