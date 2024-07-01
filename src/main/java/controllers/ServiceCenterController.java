@@ -44,7 +44,7 @@ public class ServiceCenterController extends HttpServlet {
 			
 			/** login check **/
 			if(cmd.equals("/check.service")) {
-				if((String)request.getSession().getAttribute("WolfID") == "") response.getWriter().append("fail");
+				if((String)request.getSession().getAttribute("WolfID") == "" || request.getSession().getAttribute("WolfID") == null) response.getWriter().append("fail");
 				else response.getWriter().append("ok");
 			}
 			
