@@ -5,7 +5,7 @@
 - 게임 플레이 및 커뮤니티 플랫 폼 개발
 
 ### 호스팅
-- 도메인
+- 43.202.9.51:5050
 
 ## Member & work
 - 게시판 담당 개발
@@ -36,10 +36,10 @@
 ### Jar
 - OJDBC ( Oracle DB 라이브러리 )
 - JSTL ( JSP 라이브러리 )
-- COS
+- COS ( 파일 업로드 )
 - GSON ( 직렬화 라이브러리 )
-- JSoup
-- Jakarta
+- JSoup ( HTML 파싱 )
+- Jakarta ( 이메일 인증 )
 
 ### CDN
 - jQuery
@@ -47,6 +47,7 @@
 - tinymce ( 게시판 에디터 라이브러리 )
 - sweetalert2 ( 알림 창 라이브러리 )
 - chart.js ( 차트 관련 라이브러리 )
+- bootstrap5 ( html )
 
 
 ## Start setting
@@ -71,6 +72,7 @@ context.xml
 #### 요구사항 정의서 및 명세서
 #### 화면 설계 ( 와이어 프레임 )
 #### 데이터베이스 설계 및 ERD
+#### sql 문서
 
 ## 참고자료
 #### https://pixabay.com/ko/ ( 무료이미지 )
