@@ -414,7 +414,7 @@
                     <div class="reply_child_div_main" style="flex-direction: column; display: none; border: 1px solid gray; margin: 15px; align-items: center; justify-content: center;">
                         <c:forEach var="reply_child_dto" items="${reply_child_list}" varStatus="status">
                             <c:if test="${reply_child_dto.reply_seq==reply_dto.seq}">
-                                <div style="width:100% ;border-bottom: 1.5px solid gray; flex-direction: column; margin-left: 15px; margin-top: 10px;" class="reply_child_list">
+                                <div style="width:100% ; flex-direction: column; margin-left: 15px; margin-top: 10px;" class="reply_child_list">
                                     <div style="flex-direction: column;">
                                         <div style="flex: 1; font-family: 'Courier New', Courier, monospace; font-size:small; font-size: 13px;" class="reply_child_list_title">
                                             ${reply_child_nickname[status.index]}(${reply_child_dto.member_id.substring(0, 4)}****)     
@@ -443,7 +443,7 @@
 
                         </c:forEach> 
                         <!---->
-                        <div style="width:100% ; border-bottom: 1px solid gray; flex-direction: column; display: none; margin-left: 15px; margin-top: 10px;" class="reply_child_list">
+                        <div style="width:100% ; flex-direction: column; display: none; margin-left: 15px; margin-top: 10px;" class="reply_child_list">
                             <div style="flex-direction: column;">
                                 <div style="flex: 1; font-family: 'Courier New', Courier, monospace; font-size:small; font-size: 13px;" class="reply_child_list_title">  
                                 </div>
@@ -464,7 +464,7 @@
                             </div>
                         </div>
                         <!---->
-                            <div class="reply_child_div"  style="width: 90%; height: 300px; flex-direction: column; margin-bottom: 10px;">
+                            <div class="reply_child_div"  style="width: 90%; height: 300px; margin-top:10px; flex-direction: column; margin-bottom: 10px;">
                                 <div class="reply_child_contents" style="flex-direction: column; flex: 6.5;">
                                     <div style="flex: 1;" class="center">
                                         <p style="font-family: 'Courier New', Courier, monospace; font-size:small;">${WolfNickname}(${WolfID.substring(0, 4)}****) </p>
